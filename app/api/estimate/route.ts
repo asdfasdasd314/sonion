@@ -5,6 +5,11 @@ import {
   getGemmaModel,
   getGemmaSystemInstruction,
 } from "@/lib/gemma";
+import {
+  getSupabaseUser,
+  SupabaseAuthError,
+  SupabaseConfigurationError,
+} from "@/lib/supabase-auth";
 
 const MAX_PROMPT_LENGTH = 2_000;
 
@@ -21,6 +26,30 @@ function errorResponse(message: string, status: number) {
 }
 
 export async function POST(request: Request) {
+  const authorization = request.headers.get("authorization");
+  const accessToken = authorization?.match(/^Bearer\s+(.+)$/i)?.[1]?.trim();
+
+  if (!accessToken) {
+    return errorResponse("Sign in before interpreting a meal.", 401);
+  }
+
+  try {
+    await getSupabaseUser(accessToken);
+  } catch (error) {
+    if (error instanceof SupabaseConfigurationError) {
+      return errorResponse(
+        "Supabase is not configured yet. Add the public Supabase values to your local environment and restart the app.",
+        503,
+      );
+    }
+
+    if (error instanceof SupabaseAuthError && error.status < 500) {
+      return errorResponse("Your session is invalid or expired. Sign in again.", 401);
+    }
+
+    return errorResponse("Supabase could not verify your session. Try again shortly.", 503);
+  }
+
   let body: unknown;
 
   try {

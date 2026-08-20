@@ -1,0 +1,6 @@
+# Runtime behavior for Supabase email/password authentication.
+# Supabase project keys belong in .env.local and must not be added here.
+
+auth_method = "email-password"
+session_persistence = "browser-local-storage"
+session_refresh_leeway_seconds = 60

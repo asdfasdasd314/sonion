@@ -5,8 +5,8 @@
     "semantic_hash": ""
   },
   "app/page.tsx": {
-    "mtime": 1787247569.0779014,
-    "ast_hash": "6bf238efcf0345b462762bf0b3d81cd2",
+    "mtime": 1787251787.2278223,
+    "ast_hash": "0a437e731d5222dd330212b9ae494699",
     "semantic_hash": ""
   },
   "eslint.config.mjs": {
@@ -70,8 +70,8 @@
     "semantic_hash": "5c27369b226fcf2be8a6cfe52224e767"
   },
   "README.md": {
-    "mtime": 1787247964.7393227,
-    "ast_hash": "e5c034e02b3a5ba7416c491256f9c61e",
+    "mtime": 1787251787.22736,
+    "ast_hash": "c8c707b0d954bad5ee7fd066dda11785",
     "semantic_hash": ""
   },
   "public/file.svg": {
@@ -100,8 +100,8 @@
     "semantic_hash": "a2760511c65806022ad20adf74370ff3"
   },
   "app/api/estimate/route.ts": {
-    "mtime": 1787247964.739564,
-    "ast_hash": "adcb920724d8c1f3ef72218e9f44f723",
+    "mtime": 1787251787.2275507,
+    "ast_hash": "ebd70dc323fef6f2c211c2d04b3d8cbd",
     "semantic_hash": ""
   },
   "lib/gemma.ts": {
@@ -112,6 +112,21 @@
   "feature_files/gemini.md": {
     "mtime": 1787247964.7396846,
     "ast_hash": "86c9b7d76a95947a190637011c33fc09",
+    "semantic_hash": ""
+  },
+  "components/auth-panel.tsx": {
+    "mtime": 1787251787.2279923,
+    "ast_hash": "8d17186c3d823ac07b3663c2659fa618",
+    "semantic_hash": ""
+  },
+  "lib/supabase-auth.ts": {
+    "mtime": 1787251787.2282526,
+    "ast_hash": "3c729216b89f9ebd9b90fb44e7728de3",
+    "semantic_hash": ""
+  },
+  "feature_files/authentication.md": {
+    "mtime": 1787251787.2281137,
+    "ast_hash": "51ec38ab5eb6a0789094288197177285",
     "semantic_hash": ""
   }
 }

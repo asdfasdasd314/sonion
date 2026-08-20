@@ -10,16 +10,17 @@ Sonion is an AI-assisted nutrition tracker built for people who **don't prepare 
 
 ## Current prototype
 
-The first slice is a prompt form backed by a Next.js route handler. It sends a food description to the configured Gemma model through Google AI Studio and returns Gemma's raw interpretation. The default model is `gemma-4-31b-it`; set `GEMINI_MODEL` in `.env.local` to use another supported model. This slice intentionally does not calculate nutrition, perform USDA lookups, use custom tools, persist data, or provide authentication.
+The first slice is a prompt form backed by a Next.js route handler. It sends a food description to the configured Gemma model through Google AI Studio and returns Gemma's raw interpretation. The default model is `gemma-4-31b-it`; set `GEMINI_MODEL` in `.env.local` to use another supported model. This slice intentionally does not calculate nutrition, perform USDA lookups, use custom tools, or persist nutrition data. Email/password authentication is connected to Supabase so future records can be scoped to individual users.
 
 ### Local setup
 
 1. Install dependencies with `npm install`.
 2. Copy `.env.example` to `.env.local`.
-3. Add a Google AI Studio API key as `GEMINI_API_KEY` in `.env.local`.
-4. Start the app with `npm run dev` and open `http://localhost:3000`.
+3. In the Supabase dashboard, create a project and copy its Project URL to `NEXT_PUBLIC_SUPABASE_URL` and its public anon key to `NEXT_PUBLIC_SUPABASE_ANON_KEY`.
+4. Add a Google AI Studio API key as `GEMINI_API_KEY` in `.env.local`.
+5. Start the app with `npm run dev` and open `http://localhost:3000`.
 
-The key and model setting are read only by the backend route and must not be renamed to `NEXT_PUBLIC_*` variables. If the selected model is unavailable through Google AI Studio, the app reports provider incompatibility in the UI.
+The Supabase URL and anon key are public client configuration values. Do not put a Supabase service-role key in `.env.local` or expose one to the browser. The app uses Supabase email/password auth, persists the session in the browser, and validates the bearer token on the estimate route. If email confirmation is enabled in Supabase, new users must confirm their email before signing in. The Gemini key and model setting are read only by the backend route and must not be renamed to `NEXT_PUBLIC_*` variables. If the selected model is unavailable through Google AI Studio, the app reports provider incompatibility in the UI.
 
 Traditional nutrition apps assume users know things like:
 
@@ -420,15 +421,7 @@ Protein
 
 ## Local Storage
 
-For MVP:
-
-Everything lives locally.
-
-No authentication.
-
-No database.
-
-No accounts.
+The browser stores only the Supabase authentication session for this prototype. Nutrition records are not persisted yet; the next data slice should add Supabase tables and row-level security policies keyed to the authenticated user.
 
 ---
 
