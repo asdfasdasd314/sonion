@@ -242,10 +242,21 @@
       "norm_label": "creategemmaclient()"
     },
     {
-      "label": "getGemmaSystemInstruction()",
+      "label": "getGemmaModel()",
       "file_type": "code",
       "source_file": "lib/gemma.ts",
       "source_location": "L15",
+      "_origin": "ast",
+      "id": "lib_gemma_getgemmamodel",
+      "community": 17,
+      "community_name": "route.ts",
+      "norm_label": "getgemmamodel()"
+    },
+    {
+      "label": "getGemmaSystemInstruction()",
+      "file_type": "code",
+      "source_file": "lib/gemma.ts",
+      "source_location": "L19",
       "_origin": "ast",
       "id": "lib_gemma_getgemmasysteminstruction",
       "community": 17,
@@ -1001,6 +1012,83 @@
       "norm_label": "node_modules"
     },
     {
+      "label": "gemini.md",
+      "file_type": "document",
+      "source_file": "feature_files/gemini.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "feature_files_gemini",
+      "community": 19,
+      "community_name": "Gemini model selection",
+      "norm_label": "gemini.md"
+    },
+    {
+      "label": "Gemini model selection",
+      "file_type": "document",
+      "source_file": "feature_files/gemini.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "feature_files_gemini_gemini_model_selection",
+      "community": 19,
+      "community_name": "Gemini model selection",
+      "norm_label": "gemini model selection"
+    },
+    {
+      "label": "Summary",
+      "file_type": "document",
+      "source_file": "feature_files/gemini.md",
+      "source_location": "L3",
+      "_origin": "ast",
+      "id": "feature_files_gemini_summary",
+      "community": 19,
+      "community_name": "Gemini model selection",
+      "norm_label": "summary"
+    },
+    {
+      "label": "Key Points",
+      "file_type": "document",
+      "source_file": "feature_files/gemini.md",
+      "source_location": "L7",
+      "_origin": "ast",
+      "id": "feature_files_gemini_key_points",
+      "community": 19,
+      "community_name": "Gemini model selection",
+      "norm_label": "key points"
+    },
+    {
+      "label": "Relevant Files",
+      "file_type": "document",
+      "source_file": "feature_files/gemini.md",
+      "source_location": "L14",
+      "_origin": "ast",
+      "id": "feature_files_gemini_relevant_files",
+      "community": 19,
+      "community_name": "Gemini model selection",
+      "norm_label": "relevant files"
+    },
+    {
+      "label": "Dev Mode",
+      "file_type": "document",
+      "source_file": "feature_files/gemini.md",
+      "source_location": "L22",
+      "_origin": "ast",
+      "id": "feature_files_gemini_dev_mode",
+      "community": 19,
+      "community_name": "Gemini model selection",
+      "norm_label": "dev mode"
+    },
+    {
+      "label": "State Log",
+      "file_type": "document",
+      "source_file": "feature_files/gemini.md",
+      "source_location": "L26",
+      "_origin": "ast",
+      "id": "feature_files_gemini_state_log",
+      "community": 19,
+      "community_name": "Gemini model selection",
+      "norm_label": "state log"
+    },
+    {
       "label": "Architecture Agent Profile",
       "file_type": "document",
       "source_file": ".agents/profiles/architecture.md",
@@ -1011,8 +1099,8 @@
       "contributor": null,
       "community": 5,
       "norm_label": "architecture agent profile",
-      "id": "_agents_profiles_architecture",
-      "community_name": "Architecture Profiles"
+      "community_name": "Architecture Profiles",
+      "id": "_agents_profiles_architecture"
     },
     {
       "label": "Bridge Agent Profile",
@@ -1025,8 +1113,8 @@
       "contributor": null,
       "community": 9,
       "norm_label": "bridge agent profile",
-      "id": "_agents_profiles_bridge",
-      "community_name": "Bridge Profile"
+      "community_name": "Bridge Profile",
+      "id": "_agents_profiles_bridge"
     },
     {
       "label": "Coding Agent Profile",
@@ -1039,8 +1127,8 @@
       "contributor": null,
       "community": 3,
       "norm_label": "coding agent profile",
-      "id": "_agents_profiles_coding",
-      "community_name": "Project Agent Rules"
+      "community_name": "Project Agent Rules",
+      "id": "_agents_profiles_coding"
     },
     {
       "label": "Integrating Agent Profile",
@@ -1053,8 +1141,8 @@
       "contributor": null,
       "community": 3,
       "norm_label": "integrating agent profile",
-      "id": "_agents_profiles_integrating",
-      "community_name": "Project Agent Rules"
+      "community_name": "Project Agent Rules",
+      "id": "_agents_profiles_integrating"
     },
     {
       "label": "Planning Agent Profile",
@@ -1067,8 +1155,8 @@
       "contributor": null,
       "community": 5,
       "norm_label": "planning agent profile",
-      "id": "_agents_profiles_planning",
-      "community_name": "Architecture Profiles"
+      "community_name": "Architecture Profiles",
+      "id": "_agents_profiles_planning"
     },
     {
       "label": "AGENTS Instructions",
@@ -1081,8 +1169,8 @@
       "contributor": null,
       "community": 3,
       "norm_label": "agents instructions",
-      "id": "agents",
-      "community_name": "Project Agent Rules"
+      "community_name": "Project Agent Rules",
+      "id": "agents"
     },
     {
       "label": "CLAUDE Instructions",
@@ -1093,10 +1181,10 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 5,
+      "community": 18,
       "norm_label": "claude instructions",
-      "id": "claude",
-      "community_name": "Architecture Profiles"
+      "community_name": "CLAUDE Instructions",
+      "id": "claude"
     },
     {
       "label": "Project README",
@@ -1109,8 +1197,8 @@
       "contributor": null,
       "community": 6,
       "norm_label": "project readme",
-      "id": "readme",
-      "community_name": "Starter App Documentation"
+      "community_name": "Starter App Documentation",
+      "id": "readme"
     },
     {
       "label": "File Icon SVG",
@@ -1123,8 +1211,8 @@
       "contributor": null,
       "community": 14,
       "norm_label": "file icon svg",
-      "id": "public_file",
-      "community_name": "File Icon Asset"
+      "community_name": "File Icon Asset",
+      "id": "public_file"
     },
     {
       "label": "Globe Icon SVG",
@@ -1137,8 +1225,8 @@
       "contributor": null,
       "community": 15,
       "norm_label": "globe icon svg",
-      "id": "public_globe",
-      "community_name": "Globe Icon Asset"
+      "community_name": "Globe Icon Asset",
+      "id": "public_globe"
     },
     {
       "label": "Next.js Wordmark SVG",
@@ -1151,8 +1239,8 @@
       "contributor": null,
       "community": 6,
       "norm_label": "next.js wordmark svg",
-      "id": "public_next",
-      "community_name": "Starter App Documentation"
+      "community_name": "Starter App Documentation",
+      "id": "public_next"
     },
     {
       "label": "Vercel Triangle SVG",
@@ -1165,8 +1253,8 @@
       "contributor": null,
       "community": 6,
       "norm_label": "vercel triangle svg",
-      "id": "public_vercel",
-      "community_name": "Starter App Documentation"
+      "community_name": "Starter App Documentation",
+      "id": "public_vercel"
     },
     {
       "label": "Window Icon SVG",
@@ -1179,8 +1267,8 @@
       "contributor": null,
       "community": 16,
       "norm_label": "window icon svg",
-      "id": "public_window",
-      "community_name": "Window Icon Asset"
+      "community_name": "Window Icon Asset",
+      "id": "public_window"
     },
     {
       "label": "Graphify",
@@ -1193,8 +1281,8 @@
       "contributor": null,
       "community": 5,
       "norm_label": "graphify",
-      "id": "agents_profiles_architecture_graphify",
-      "community_name": "Architecture Profiles"
+      "community_name": "Architecture Profiles",
+      "id": "agents_profiles_architecture_graphify"
     },
     {
       "label": "Feature Files",
@@ -1207,8 +1295,8 @@
       "contributor": null,
       "community": 5,
       "norm_label": "feature files",
-      "id": "agents_profiles_architecture_feature_files",
-      "community_name": "Architecture Profiles"
+      "community_name": "Architecture Profiles",
+      "id": "agents_profiles_architecture_feature_files"
     },
     {
       "label": "Parameter Files",
@@ -1221,8 +1309,8 @@
       "contributor": null,
       "community": 5,
       "norm_label": "parameter files",
-      "id": "agents_profiles_architecture_parameter_files",
-      "community_name": "Architecture Profiles"
+      "community_name": "Architecture Profiles",
+      "id": "agents_profiles_architecture_parameter_files"
     },
     {
       "label": "Standalone TUI Boundary",
@@ -1235,8 +1323,8 @@
       "contributor": null,
       "community": 5,
       "norm_label": "standalone tui boundary",
-      "id": "agents_profiles_architecture_standalone_tui",
-      "community_name": "Architecture Profiles"
+      "community_name": "Architecture Profiles",
+      "id": "agents_profiles_architecture_standalone_tui"
     },
     {
       "label": "Four Stage Development Lifecycle",
@@ -1249,8 +1337,8 @@
       "contributor": null,
       "community": 5,
       "norm_label": "four stage development lifecycle",
-      "id": "agents_profiles_architecture_development_lifecycle",
-      "community_name": "Architecture Profiles"
+      "community_name": "Architecture Profiles",
+      "id": "agents_profiles_architecture_development_lifecycle"
     },
     {
       "label": "Answer Oriented Programming",
@@ -1263,8 +1351,8 @@
       "contributor": null,
       "community": 9,
       "norm_label": "answer oriented programming",
-      "id": "agents_profiles_bridge_aop",
-      "community_name": "Bridge Profile"
+      "community_name": "Bridge Profile",
+      "id": "agents_profiles_bridge_aop"
     },
     {
       "label": "Centralized Project Document cp_doc",
@@ -1277,8 +1365,8 @@
       "contributor": null,
       "community": 9,
       "norm_label": "centralized project document cp_doc",
-      "id": "agents_profiles_bridge_cp_doc",
-      "community_name": "Bridge Profile"
+      "community_name": "Bridge Profile",
+      "id": "agents_profiles_bridge_cp_doc"
     },
     {
       "label": "Coding Readiness",
@@ -1291,8 +1379,8 @@
       "contributor": null,
       "community": 9,
       "norm_label": "coding readiness",
-      "id": "agents_profiles_bridge_coding_readiness",
-      "community_name": "Bridge Profile"
+      "community_name": "Bridge Profile",
+      "id": "agents_profiles_bridge_coding_readiness"
     },
     {
       "label": "Feature Files",
@@ -1305,8 +1393,8 @@
       "contributor": null,
       "community": 3,
       "norm_label": "feature files",
-      "id": "agents_profiles_coding_feature_files",
-      "community_name": "Project Agent Rules"
+      "community_name": "Project Agent Rules",
+      "id": "agents_profiles_coding_feature_files"
     },
     {
       "label": "Parameter Files",
@@ -1319,8 +1407,8 @@
       "contributor": null,
       "community": 3,
       "norm_label": "parameter files",
-      "id": "agents_profiles_coding_parameter_files",
-      "community_name": "Project Agent Rules"
+      "community_name": "Project Agent Rules",
+      "id": "agents_profiles_coding_parameter_files"
     },
     {
       "label": "Debugging Evidence",
@@ -1333,8 +1421,8 @@
       "contributor": null,
       "community": 3,
       "norm_label": "debugging evidence",
-      "id": "agents_profiles_coding_debugging",
-      "community_name": "Project Agent Rules"
+      "community_name": "Project Agent Rules",
+      "id": "agents_profiles_coding_debugging"
     },
     {
       "label": "Integration Conflict Resolution",
@@ -1347,8 +1435,8 @@
       "contributor": null,
       "community": 3,
       "norm_label": "integration conflict resolution",
-      "id": "agents_profiles_integrating_conflict_resolution",
-      "community_name": "Project Agent Rules"
+      "community_name": "Project Agent Rules",
+      "id": "agents_profiles_integrating_conflict_resolution"
     },
     {
       "label": "Graphify Planning Evidence",
@@ -1359,10 +1447,10 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 5,
+      "community": 18,
       "norm_label": "graphify planning evidence",
-      "id": "agents_profiles_planning_graphify",
-      "community_name": "Architecture Profiles"
+      "community_name": "CLAUDE Instructions",
+      "id": "agents_profiles_planning_graphify"
     },
     {
       "label": "Feature Files",
@@ -1375,8 +1463,8 @@
       "contributor": null,
       "community": 5,
       "norm_label": "feature files",
-      "id": "agents_profiles_planning_feature_files",
-      "community_name": "Architecture Profiles"
+      "community_name": "Architecture Profiles",
+      "id": "agents_profiles_planning_feature_files"
     },
     {
       "label": "Next.js",
@@ -1387,10 +1475,10 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 5,
+      "community": 18,
       "norm_label": "next.js",
-      "id": "agents_nextjs",
-      "community_name": "Architecture Profiles"
+      "community_name": "CLAUDE Instructions",
+      "id": "agents_nextjs"
     },
     {
       "label": "Task Modes",
@@ -1403,8 +1491,8 @@
       "contributor": null,
       "community": 3,
       "norm_label": "task modes",
-      "id": "agents_task_modes",
-      "community_name": "Project Agent Rules"
+      "community_name": "Project Agent Rules",
+      "id": "agents_task_modes"
     },
     {
       "label": "Graphify",
@@ -1417,8 +1505,8 @@
       "contributor": null,
       "community": 5,
       "norm_label": "graphify",
-      "id": "agents_graphify",
-      "community_name": "Architecture Profiles"
+      "community_name": "Architecture Profiles",
+      "id": "agents_graphify"
     },
     {
       "label": "Standalone TUI Project Boundary",
@@ -1431,8 +1519,8 @@
       "contributor": null,
       "community": 3,
       "norm_label": "standalone tui project boundary",
-      "id": "agents_tui_boundary",
-      "community_name": "Project Agent Rules"
+      "community_name": "Project Agent Rules",
+      "id": "agents_tui_boundary"
     },
     {
       "label": "Feature Files",
@@ -1445,8 +1533,8 @@
       "contributor": null,
       "community": 3,
       "norm_label": "feature files",
-      "id": "agents_feature_files",
-      "community_name": "Project Agent Rules"
+      "community_name": "Project Agent Rules",
+      "id": "agents_feature_files"
     },
     {
       "label": "Parameter Files",
@@ -1459,8 +1547,8 @@
       "contributor": null,
       "community": 3,
       "norm_label": "parameter files",
-      "id": "agents_parameter_files",
-      "community_name": "Project Agent Rules"
+      "community_name": "Project Agent Rules",
+      "id": "agents_parameter_files"
     },
     {
       "label": "Next.js",
@@ -1471,10 +1559,10 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 5,
+      "community": 18,
       "norm_label": "next.js",
-      "id": "claude_nextjs",
-      "community_name": "Architecture Profiles"
+      "community_name": "CLAUDE Instructions",
+      "id": "claude_nextjs"
     },
     {
       "label": "Task Modes",
@@ -1485,10 +1573,10 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 5,
+      "community": 18,
       "norm_label": "task modes",
-      "id": "claude_task_modes",
-      "community_name": "Architecture Profiles"
+      "community_name": "CLAUDE Instructions",
+      "id": "claude_task_modes"
     },
     {
       "label": "Graphify",
@@ -1499,10 +1587,10 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 5,
+      "community": 18,
       "norm_label": "graphify",
-      "id": "claude_graphify",
-      "community_name": "Architecture Profiles"
+      "community_name": "CLAUDE Instructions",
+      "id": "claude_graphify"
     },
     {
       "label": "Standalone TUI Project Boundary",
@@ -1513,10 +1601,10 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 5,
+      "community": 18,
       "norm_label": "standalone tui project boundary",
-      "id": "claude_tui_boundary",
-      "community_name": "Architecture Profiles"
+      "community_name": "CLAUDE Instructions",
+      "id": "claude_tui_boundary"
     },
     {
       "label": "Feature Files",
@@ -1527,10 +1615,10 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 5,
+      "community": 18,
       "norm_label": "feature files",
-      "id": "claude_feature_files",
-      "community_name": "Architecture Profiles"
+      "community_name": "CLAUDE Instructions",
+      "id": "claude_feature_files"
     },
     {
       "label": "Parameter Files",
@@ -1541,10 +1629,10 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 5,
+      "community": 18,
       "norm_label": "parameter files",
-      "id": "claude_parameter_files",
-      "community_name": "Architecture Profiles"
+      "community_name": "CLAUDE Instructions",
+      "id": "claude_parameter_files"
     },
     {
       "label": "Next.js",
@@ -1557,8 +1645,8 @@
       "contributor": null,
       "community": 6,
       "norm_label": "next.js",
-      "id": "readme_nextjs",
-      "community_name": "Starter App Documentation"
+      "community_name": "Starter App Documentation",
+      "id": "readme_nextjs"
     },
     {
       "label": "create-next-app",
@@ -1571,8 +1659,8 @@
       "contributor": null,
       "community": 6,
       "norm_label": "create-next-app",
-      "id": "readme_create_next_app",
-      "community_name": "Starter App Documentation"
+      "community_name": "Starter App Documentation",
+      "id": "readme_create_next_app"
     },
     {
       "label": "app/page.tsx",
@@ -1585,8 +1673,8 @@
       "contributor": null,
       "community": 6,
       "norm_label": "app/page.tsx",
-      "id": "readme_app_page_tsx",
-      "community_name": "Starter App Documentation"
+      "community_name": "Starter App Documentation",
+      "id": "readme_app_page_tsx"
     },
     {
       "label": "next/font",
@@ -1599,8 +1687,8 @@
       "contributor": null,
       "community": 6,
       "norm_label": "next/font",
-      "id": "readme_next_font",
-      "community_name": "Starter App Documentation"
+      "community_name": "Starter App Documentation",
+      "id": "readme_next_font"
     },
     {
       "label": "Geist Font",
@@ -1613,8 +1701,8 @@
       "contributor": null,
       "community": 6,
       "norm_label": "geist font",
-      "id": "readme_geist_font",
-      "community_name": "Starter App Documentation"
+      "community_name": "Starter App Documentation",
+      "id": "readme_geist_font"
     },
     {
       "label": "Vercel Platform",
@@ -1627,8 +1715,8 @@
       "contributor": null,
       "community": 6,
       "norm_label": "vercel platform",
-      "id": "readme_vercel_platform",
-      "community_name": "Starter App Documentation"
+      "community_name": "Starter App Documentation",
+      "id": "readme_vercel_platform"
     }
   ],
   "links": [
@@ -1709,6 +1797,18 @@
       "weight": 1.0,
       "_origin": "ast",
       "source": "app_api_estimate_route",
+      "target": "lib_gemma_getgemmamodel",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/estimate/route.ts",
+      "source_location": "L3",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "app_api_estimate_route",
       "target": "lib_gemma_getgemmasysteminstruction",
       "confidence_score": 1.0
     },
@@ -1742,7 +1842,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/api/estimate/route.ts",
-      "source_location": "L59",
+      "source_location": "L60",
       "weight": 1.0,
       "_origin": "ast",
       "source": "app_api_estimate_route_post",
@@ -1754,7 +1854,19 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/api/estimate/route.ts",
-      "source_location": "L64",
+      "source_location": "L59",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "app_api_estimate_route_post",
+      "target": "lib_gemma_getgemmamodel"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/api/estimate/route.ts",
+      "source_location": "L65",
       "weight": 1.0,
       "_origin": "ast",
       "source": "app_api_estimate_route_post",
@@ -1853,6 +1965,17 @@
       "confidence": "EXTRACTED",
       "source_file": "lib/gemma.ts",
       "source_location": "L15",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "lib_gemma",
+      "target": "lib_gemma_getgemmamodel",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/gemma.ts",
+      "source_location": "L19",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_gemma",
@@ -2586,6 +2709,72 @@
       "confidence_score": 1.0
     },
     {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "feature_files/gemini.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "feature_files_gemini",
+      "target": "feature_files_gemini_gemini_model_selection",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "feature_files/gemini.md",
+      "source_location": "L22",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "feature_files_gemini_gemini_model_selection",
+      "target": "feature_files_gemini_dev_mode",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "feature_files/gemini.md",
+      "source_location": "L7",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "feature_files_gemini_gemini_model_selection",
+      "target": "feature_files_gemini_key_points",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "feature_files/gemini.md",
+      "source_location": "L14",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "feature_files_gemini_gemini_model_selection",
+      "target": "feature_files_gemini_relevant_files",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "feature_files/gemini.md",
+      "source_location": "L26",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "feature_files_gemini_gemini_model_selection",
+      "target": "feature_files_gemini_state_log",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "feature_files/gemini.md",
+      "source_location": "L3",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "feature_files_gemini_gemini_model_selection",
+      "target": "feature_files_gemini_summary",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "semantically_similar_to",
       "confidence": "INFERRED",
       "confidence_score": 0.85,
@@ -3086,5 +3275,5 @@
       "source_file": "README.md"
     }
   ],
-  "built_at_commit": "a224589cac7497b415bea513aa0ad82edd453ff3"
+  "built_at_commit": "962aeb6d5db0e9e0953389951349219f4dfeed37"
 }
