@@ -322,6 +322,23 @@ Amount:
 
 The application then retrieves nutrition data and calculates totals.
 
+## USDA food-data tools
+
+The server-side food-data layer uses two gitignored local inputs:
+
+- `food-data/FoodData_Central_foundation_food_json_2026-04-30.json`
+- `food-data/surveyDownload.json`
+
+Generate the compact normalized runtime index with:
+
+```text
+npm run food-data:index
+```
+
+The generated `food-data/food-index.json` is kept outside `public/`. Application code should use `searchFoods({ query, limit?, dataset? })` and `getFood({ fdcId })` from `lib/food-data`; raw USDA records, file paths, SQL, URLs, and shell commands are not tool inputs. Search defaults to five results and allows at most ten. Missing nutrient values remain absent, invalid portions are omitted, and unknown IDs return `{ error: "FOOD_NOT_FOUND" }`.
+
+Foundation calorie selection prefers nutrient 2048, then 2047. FNDDS uses nutrient 1008. Calorie entries are never summed.
+
 ---
 
 # MVP Features
