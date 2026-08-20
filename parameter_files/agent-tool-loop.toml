@@ -1,0 +1,10 @@
+# Server-only limits for the food interpretation agent.
+# These values are intentionally not accepted from the browser or model.
+
+max_rounds = 8
+max_tool_calls = 16
+max_calls_per_turn = 4
+max_model_output_chars = 24000
+max_tool_result_chars = 12000
+max_final_content_chars = 8000
+deadline_ms = 20000

@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "food-data:index": "tsx scripts/build-food-index.ts",
-    "test": "tsx --test test/food-data.test.ts"
+    "test": "tsx --test test/*.test.ts"
   },
   "dependencies": {
     "@google/genai": "^2.18.0",

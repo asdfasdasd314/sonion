@@ -7,15 +7,27 @@ import type {
   NormalizedFood,
 } from "./types";
 
-const SearchFoodsSchema = z.object({
+export const SearchFoodsSchema = z.object({
   query: z.string().trim().min(1).max(200),
   limit: z.number().int().min(1).max(10).optional().default(5),
   dataset: z.enum(["all", "fndds", "foundation"]).optional().default("all"),
-});
+}).strict();
 
-const GetFoodSchema = z.object({
+export const GetFoodSchema = z.object({
   fdcId: z.number().int().positive(),
-});
+}).strict();
+
+export type FoodToolName = "searchFoods" | "getFood";
+
+export type FoodToolDefinition = {
+  name: FoodToolName;
+  description: string;
+  argumentsSchema: z.ZodTypeAny;
+  expectedFields: readonly string[];
+  execute(input: unknown): unknown | Promise<unknown>;
+};
+
+export type FoodToolRegistry = Readonly<Record<FoodToolName, FoodToolDefinition>>;
 
 export type SearchFoodsResponse = { results: FoodSearchResult[] };
 export type GetFoodResponse = NormalizedFood | { error: "FOOD_NOT_FOUND" };
@@ -106,22 +118,50 @@ function searchFoodsInIndex(
 }
 
 export function createFoodTools(index: readonly NormalizedFood[]): FoodToolset {
-  const foodsById = new Map(index.map((food) => [food.fdcId, food]));
+  const registry = createFoodToolRegistry(index);
+
   return {
-    searchFoods: (input) => searchFoodsInIndex(input, index),
-    getFood: (input) => {
-      const parsed = GetFoodSchema.safeParse(input);
-      if (!parsed.success) return invalidArguments();
-      return foodsById.get(parsed.data.fdcId) ?? { error: "FOOD_NOT_FOUND" };
+    searchFoods: (input) => registry.searchFoods.execute(input) as SearchFoodsResponse | FoodToolError,
+    getFood: (input) => registry.getFood.execute(input) as GetFoodResponse | FoodToolError,
+  };
+}
+
+export function createFoodToolRegistry(index: readonly NormalizedFood[]): FoodToolRegistry {
+  const foodsById = new Map(index.map((food) => [food.fdcId, food]));
+
+  return {
+    searchFoods: {
+      name: "searchFoods",
+      description: "Search the normalized local USDA food index by description.",
+      argumentsSchema: SearchFoodsSchema,
+      expectedFields: ["query", "limit", "dataset"],
+      execute: (input) => searchFoodsInIndex(input, index),
+    },
+    getFood: {
+      name: "getFood",
+      description: "Look up one normalized local USDA food record by FDC ID.",
+      argumentsSchema: GetFoodSchema,
+      expectedFields: ["fdcId"],
+      execute: (input) => {
+        const parsed = GetFoodSchema.safeParse(input);
+        if (!parsed.success) return invalidArguments();
+        return foodsById.get(parsed.data.fdcId) ?? { error: "FOOD_NOT_FOUND" };
+      },
     },
   };
 }
 
 let defaultTools: FoodToolset | undefined;
+let defaultRegistry: FoodToolRegistry | undefined;
 
 function getDefaultTools(): FoodToolset {
   if (!defaultTools) defaultTools = createFoodTools(loadFoodIndex());
   return defaultTools;
+}
+
+export function getDefaultFoodToolRegistry(): FoodToolRegistry {
+  if (!defaultRegistry) defaultRegistry = createFoodToolRegistry(loadFoodIndex());
+  return defaultRegistry;
 }
 
 export function searchFoods(input: unknown): SearchFoodsResponse | FoodToolError {

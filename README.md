@@ -10,7 +10,7 @@ Sonion is an AI-assisted nutrition tracker built for people who **don't prepare 
 
 ## Current prototype
 
-The first slice is a prompt form backed by a Next.js route handler. It sends a food description to the configured Gemma model through Google AI Studio and returns Gemma's raw interpretation. The default model is `gemma-4-31b-it`; set `GEMINI_MODEL` in `.env.local` to use another supported model. This slice intentionally does not calculate nutrition, perform USDA lookups, use custom tools, or persist nutrition data. Email/password authentication is connected to Supabase so future records can be scoped to individual users.
+The current slice is a prompt form backed by a Next.js route handler. It sends a food description to the configured Gemma model through a bounded server-side agent loop. The model can request read-only searches and lookups against the normalized local USDA index, but it cannot execute code or access arbitrary files, networks, or persistence. The browser receives only the validated content from the final result envelope. The default model is `gemma-4-31b-it`; set `GEMINI_MODEL` in `.env.local` to use another supported model. This slice does not calculate nutrition totals or persist nutrition data. Email/password authentication is connected to Supabase so future records can be scoped to individual users.
 
 ### Local setup
 
@@ -339,6 +339,12 @@ npm run food-data:index
 The generated `food-data/food-index.json` is kept outside `public/`. Application code should use `searchFoods({ query, limit?, dataset? })` and `getFood({ fdcId })` from `lib/food-data`; raw USDA records, file paths, SQL, URLs, and shell commands are not tool inputs. Search defaults to five results and allows at most ten. Missing nutrient values remain absent, invalid portions are omitted, and unknown IDs return `{ error: "FOOD_NOT_FOUND" }`.
 
 Foundation calorie selection prefers nutrient 2048, then 2047. FNDDS uses nutrient 1008. Calorie entries are never summed.
+
+## Agent tool loop
+
+Meal interpretation is a server-only loop. The model receives the food-tools skill from lib/agent/food-tools-skill.ts and may emit one or more strict JSON tool blocks. lib/agent/protocol.ts rejects malformed fences, arbitrary prose, unknown envelope fields, unknown tools, invalid JSON, mixed tool/result responses, and oversized payloads. lib/agent/runner.ts validates arguments against the strict registry, executes only searchFoods and getFood, sends serialized results back for the next model turn, and enforces fixed round, call, size, and deadline limits from parameter_files/agent-tool-loop.toml.
+
+The final model response must be one result block containing a string content field. Only that field is returned by app/api/estimate/route.ts; protocol diagnostics, tool traces, and raw model output stay server-side.
 
 ---
 

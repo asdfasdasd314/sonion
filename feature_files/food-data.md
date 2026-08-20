@@ -10,7 +10,8 @@ The food-data feature turns the local USDA Foundation Foods and FNDDS / Survey F
 - `normalizeFoundationFood` and `normalizeFnddsFood` hide USDA-specific nesting and preserve only application nutrition, category, portion, food-code, and simple ingredient fields.
 - Foundation calories select nutrient 2048 first, then 2047; FNDDS calories use nutrient 1008. Energy entries are never summed.
 - Missing nutrients remain omitted, invalid portions are omitted, and a food with no usable portions has `portions: []`.
-- `searchFoods` and `getFood` validate inputs with Zod. They do not accept paths, SQL, URLs, shell commands, or raw USDA records.
+- `searchFoods` and `getFood` validate inputs with strict Zod schemas. They reject unknown parameters and do not accept paths, SQL, URLs, shell commands, or raw USDA records.
+- `createFoodToolRegistry` exposes the only two agent capabilities and executes against the normalized in-memory index only.
 - `food-data/food-index.json` is generated locally and remains outside `public/`.
 
 ## Relevant Files
@@ -21,6 +22,7 @@ The food-data feature turns the local USDA Foundation Foods and FNDDS / Survey F
 - `lib/food-data/index-builder.ts` reads the two hardcoded local inputs and writes the compact runtime index.
 - `lib/food-data/loader.ts` caches the generated index and FDC-ID map.
 - `lib/food-data/tools.ts` owns the validated search and lookup tools.
+- `lib/agent/runner.ts` consumes the allowlisted registry without exposing the loader or raw index to the model.
 - `scripts/build-food-index.ts` is the index-generation entry point.
 - `test/food-data.test.ts` covers adapters, tools, and real-record integration searches when the gitignored data is present.
 

@@ -3,8 +3,9 @@ import { NextResponse } from "next/server";
 import {
   createGemmaClient,
   getGemmaModel,
-  getGemmaSystemInstruction,
 } from "@/lib/gemma";
+import { runMealAgent, AgentRunnerError } from "@/lib/agent/runner";
+import { getDefaultFoodToolRegistry } from "@/lib/food-data/tools";
 import {
   getSupabaseUser,
   SupabaseAuthError,
@@ -84,28 +85,26 @@ export async function POST(request: Request) {
     );
   }
 
+  const model = getGemmaModel();
+
   try {
-    const model = getGemmaModel();
     const client = createGemmaClient(apiKey);
-    const result = await client.models.generateContent({
-      model,
-      contents: prompt,
-      config: {
-        systemInstruction: getGemmaSystemInstruction(),
+    const response = await runMealAgent({
+      mealPrompt: prompt,
+      tools: getDefaultFoodToolRegistry(),
+      generate: async ({ systemInstruction, contents }) => {
+        const result = await client.models.generateContent({
+          model,
+          contents,
+          config: { systemInstruction },
+        });
+        return result.text ?? "";
       },
     });
-    const response = result.text?.trim();
-
-    if (!response) {
-      return errorResponse(
-        "Google AI returned an empty response. Try the prompt again.",
-        502,
-      );
-    }
-
     return NextResponse.json({ response });
-  } catch {
-    const model = getGemmaModel();
+  } catch (error) {
+    const errorCode = error instanceof AgentRunnerError ? error.code : "MODEL_FAILURE";
+    console.error("Meal agent request failed.", { code: errorCode });
     return errorResponse(
       `Google AI could not process this request. The configured model (${model}) may be unavailable through Google AI Studio.`,
       502,
