@@ -5,8 +5,8 @@
     "semantic_hash": ""
   },
   "app/page.tsx": {
-    "mtime": 1787251787.2278223,
-    "ast_hash": "0a437e731d5222dd330212b9ae494699",
+    "mtime": 1787257458.7029529,
+    "ast_hash": "7de2c2c5cf73b755d791c45650377274",
     "semantic_hash": ""
   },
   "eslint.config.mjs": {
@@ -125,8 +125,8 @@
     "semantic_hash": ""
   },
   "feature_files/authentication.md": {
-    "mtime": 1787251787.2281137,
-    "ast_hash": "51ec38ab5eb6a0789094288197177285",
+    "mtime": 1787257458.7045674,
+    "ast_hash": "cef3788846fda570f1964bc7043c7744",
     "semantic_hash": ""
   },
   "lib/food-data/index-builder.ts": {
@@ -207,6 +207,46 @@
   "feature_files/agent-tool-loop.md": {
     "mtime": 1787255707.37842,
     "ast_hash": "5760e13a8cb12933bf2ea835feb85413",
+    "semantic_hash": ""
+  },
+  "components/meal-history.tsx": {
+    "mtime": 1787257458.7032535,
+    "ast_hash": "e51c831e217bd2bc28d6ea651440c278",
+    "semantic_hash": ""
+  },
+  "components/meal-interpreter.tsx": {
+    "mtime": 1787257458.7034554,
+    "ast_hash": "58a49caa9245369cd6b5315ba4e727e8",
+    "semantic_hash": ""
+  },
+  "components/nutrition-targets.tsx": {
+    "mtime": 1787257458.704188,
+    "ast_hash": "08e090ce2182b6fdf94ce0a32331cd45",
+    "semantic_hash": ""
+  },
+  "lib/nutrition/meals.ts": {
+    "mtime": 1787257458.7048864,
+    "ast_hash": "245c5cb7a7e575a882d1f29facc4ee6c",
+    "semantic_hash": ""
+  },
+  "lib/nutrition/targets.ts": {
+    "mtime": 1787257458.7050288,
+    "ast_hash": "daa3150429b3e5cc25fd7776589c0e9e",
+    "semantic_hash": ""
+  },
+  "lib/nutrition/types.ts": {
+    "mtime": 1787257458.705159,
+    "ast_hash": "b2c29260fe35e4f59ce849db4fcb357d",
+    "semantic_hash": ""
+  },
+  "test/nutrition.test.ts": {
+    "mtime": 1787257458.7055473,
+    "ast_hash": "d4c727d3e95b5e3839769dd990b4b74d",
+    "semantic_hash": ""
+  },
+  "feature_files/nutrition-dashboard.md": {
+    "mtime": 1787257458.70469,
+    "ast_hash": "4327d56a237bdbfb5f50f1c969521c67",
     "semantic_hash": ""
   }
 }
