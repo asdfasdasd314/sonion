@@ -9,7 +9,7 @@ Sonion's authenticated home page is a simple three-column personal dashboard: se
 - Meal history is seeded in `lib/nutrition/meals.ts`, grouped by date, and aggregated into calories, protein, fat, and carbohydrates for each date header.
 - Date rows are keyboard-operable expand/collapse buttons. Expanded rows show meal-level and food-level macro detail.
 - The interpreter continues to POST the signed-in user's prompt to `/api/estimate`; authentication and the server route contract are unchanged.
-- The target calculator uses the supplied Mifflin–St Jeor equation, activity range midpoints, maintain/cut/bulk adjustments, 2.0 g/kg protein, 0.8 g/kg fat, and remaining calories for carbohydrates.
+- The target calculator accepts weight in pounds and height in inches, converts them to kilograms and centimeters for the supplied Mifflin–St Jeor equation, then applies activity range midpoints, maintain/cut/bulk adjustments, 2.0 g/kg protein, 0.8 g/kg fat, and remaining calories for carbohydrates.
 - Internal target calculations keep decimal precision while rendered values are rounded to whole numbers. Negative remaining calories are surfaced as a warning and carbohydrates display as zero.
 - No database tables, persistence, target APIs, or AI-to-history connection are part of this feature.
 
@@ -33,3 +33,5 @@ HACKING
 
 - Added the responsive three-column dashboard, seeded/reset meal history, authenticated interpreter card, and client-only target calculator with focused unit coverage.
 - Corrected the nutrition calculation fixture to match the approved Mifflin–St Jeor equation for the test input.
+- Changed nutrition target inputs and validation to pounds and inches while preserving metric-based calculation precision through explicit unit conversion.
+- Corrected the insufficient-calorie test fixture so its low-weight input actually exercises the negative remaining-calorie branch.

@@ -29,14 +29,14 @@ test("uses activity range midpoints and goal adjustments", () => {
   });
   assert.deepEqual(GOAL_ADJUSTMENTS, { maintain: 0, cut: -0.15, bulk: 0.1 });
 
-  const result = calculateNutritionTargets({ weightKg: 80, heightCm: 180, age: 30, activityLevel: "moderately-active", goal: "cut" });
+  const result = calculateNutritionTargets({ weightLb: 176.368, heightIn: 70.866, age: 30, activityLevel: "moderately-active", goal: "cut" });
   assert.equal(result.ok, true);
   if (!result.ok) return;
-  assert.equal(result.targets.bmr, 1780);
-  assert.equal(result.targets.tdee, 2803.5);
-  assert.equal(result.targets.targetCalories, 2382.975);
-  assert.equal(result.targets.proteinGrams, 160);
-  assert.equal(result.targets.fatGrams, 64);
+  assert.ok(Math.abs(result.targets.bmr - 1780) < 0.01);
+  assert.ok(Math.abs(result.targets.tdee - 2803.5) < 0.01);
+  assert.ok(Math.abs(result.targets.targetCalories - 2382.975) < 0.01);
+  assert.ok(Math.abs(result.targets.proteinGrams - 160) < 0.01);
+  assert.ok(Math.abs(result.targets.fatGrams - 64) < 0.01);
 });
 
 test("rounds displayed values without changing calculation precision", () => {
@@ -45,16 +45,16 @@ test("rounds displayed values without changing calculation precision", () => {
 });
 
 test("reports required, non-positive, and impossible inputs", () => {
-  const errors = validateNutritionTargetInput({ weightKg: 0, heightCm: 300, age: 8, activityLevel: "", goal: "" });
-  assert.equal(errors.weightKg, "Use a body weight between 1 and 500 kg.");
-  assert.equal(errors.heightCm, "Use a height between 50 and 250 cm.");
+  const errors = validateNutritionTargetInput({ weightLb: 0, heightIn: 118, age: 8, activityLevel: "", goal: "" });
+  assert.equal(errors.weightLb, "Use a body weight between 1 and 1,102 lb.");
+  assert.equal(errors.heightIn, "Use a height between 19.7 and 98.4 inches.");
   assert.equal(errors.age, "Use an age between 13 and 120 years.");
   assert.equal(errors.activityLevel, "Choose an activity level.");
   assert.equal(errors.goal, "Choose a goal.");
 });
 
 test("flags insufficient remaining calories for carbohydrates", () => {
-  const result = calculateNutritionTargets({ weightKg: 500, heightCm: 50, age: 120, activityLevel: "sedentary", goal: "cut" });
+  const result = calculateNutritionTargets({ weightLb: 2.2, heightIn: 19.7, age: 120, activityLevel: "sedentary", goal: "cut" });
   assert.equal(result.ok, true);
   if (!result.ok) return;
   assert.equal(result.targets.hasInsufficientCalories, true);

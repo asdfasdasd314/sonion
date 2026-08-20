@@ -13,9 +13,15 @@ export const GOAL_ADJUSTMENTS: Record<Goal, number> = {
   bulk: 0.1,
 };
 
+const POUNDS_TO_KILOGRAMS = 0.45359237;
+const INCHES_TO_CENTIMETERS = 2.54;
+const MAX_WEIGHT_POUNDS = 500 / POUNDS_TO_KILOGRAMS;
+const MIN_HEIGHT_INCHES = 50 / INCHES_TO_CENTIMETERS;
+const MAX_HEIGHT_INCHES = 250 / INCHES_TO_CENTIMETERS;
+
 export type NutritionTargetInput = {
-  weightKg: number;
-  heightCm: number;
+  weightLb: number;
+  heightIn: number;
   age: number;
   activityLevel: ActivityLevel;
   goal: Goal;
@@ -43,16 +49,16 @@ export type NutritionTargetResult =
 export function validateNutritionTargetInput(input: Partial<NutritionTargetInput>): NutritionTargetErrors {
   const errors: NutritionTargetErrors = {};
 
-  if (typeof input.weightKg !== "number" || !Number.isFinite(input.weightKg)) {
-    errors.weightKg = "Enter your body weight in kilograms.";
-  } else if (input.weightKg <= 0 || input.weightKg > 500) {
-    errors.weightKg = "Use a body weight between 1 and 500 kg.";
+  if (typeof input.weightLb !== "number" || !Number.isFinite(input.weightLb)) {
+    errors.weightLb = "Enter your body weight in pounds.";
+  } else if (input.weightLb <= 0 || input.weightLb > MAX_WEIGHT_POUNDS) {
+    errors.weightLb = "Use a body weight between 1 and 1,102 lb.";
   }
 
-  if (typeof input.heightCm !== "number" || !Number.isFinite(input.heightCm)) {
-    errors.heightCm = "Enter your height in centimeters.";
-  } else if (input.heightCm < 50 || input.heightCm > 250) {
-    errors.heightCm = "Use a height between 50 and 250 cm.";
+  if (typeof input.heightIn !== "number" || !Number.isFinite(input.heightIn)) {
+    errors.heightIn = "Enter your height in inches.";
+  } else if (input.heightIn < MIN_HEIGHT_INCHES || input.heightIn > MAX_HEIGHT_INCHES) {
+    errors.heightIn = "Use a height between 19.7 and 98.4 inches.";
   }
 
   if (typeof input.age !== "number" || !Number.isFinite(input.age)) {
@@ -77,11 +83,13 @@ export function calculateNutritionTargets(input: NutritionTargetInput): Nutritio
     return { ok: false, errors };
   }
 
-  const bmr = 10 * input.weightKg + 6.25 * input.heightCm - 5 * input.age + 5;
+  const weightKg = input.weightLb * POUNDS_TO_KILOGRAMS;
+  const heightCm = input.heightIn * INCHES_TO_CENTIMETERS;
+  const bmr = 10 * weightKg + 6.25 * heightCm - 5 * input.age + 5;
   const tdee = bmr * ACTIVITY_MULTIPLIERS[input.activityLevel];
   const targetCalories = tdee * (1 + GOAL_ADJUSTMENTS[input.goal]);
-  const proteinGrams = input.weightKg * 2;
-  const fatGrams = input.weightKg * 0.8;
+  const proteinGrams = weightKg * 2;
+  const fatGrams = weightKg * 0.8;
   const proteinCalories = proteinGrams * 4;
   const fatCalories = fatGrams * 9;
   const remainingCalories = targetCalories - proteinCalories - fatCalories;

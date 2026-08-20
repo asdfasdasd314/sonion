@@ -12,16 +12,16 @@ import {
 import type { ActivityLevel, Goal } from "@/lib/nutrition/types";
 
 type FormValues = {
-  weightKg: string;
-  heightCm: string;
+  weightLb: string;
+  heightIn: string;
   age: string;
   activityLevel: ActivityLevel | "";
   goal: Goal | "";
 };
 
 const INITIAL_VALUES: FormValues = {
-  weightKg: "",
-  heightCm: "",
+  weightLb: "",
+  heightIn: "",
   age: "",
   activityLevel: "",
   goal: "maintain",
@@ -58,8 +58,8 @@ export default function NutritionTargets() {
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const input: Partial<NutritionTargetInput> = {
-      weightKg: values.weightKg ? Number(values.weightKg) : Number.NaN,
-      heightCm: values.heightCm ? Number(values.heightCm) : Number.NaN,
+      weightLb: values.weightLb ? Number(values.weightLb) : Number.NaN,
+      heightIn: values.heightIn ? Number(values.heightIn) : Number.NaN,
       age: values.age ? Number(values.age) : Number.NaN,
       activityLevel: values.activityLevel as ActivityLevel,
       goal: values.goal as Goal,
@@ -92,14 +92,14 @@ export default function NutritionTargets() {
       <form className="target-form" onSubmit={handleSubmit} noValidate>
         <div className="form-grid two-up">
           <div className="field-group">
-            <label htmlFor="weight-kg">Weight <span>(kg)</span></label>
-            <input aria-describedby="weight-error" aria-invalid={Boolean(errors.weightKg)} id="weight-kg" inputMode="decimal" min="1" onChange={(event) => updateValue("weightKg", event.target.value)} placeholder="70" step="0.1" type="number" value={values.weightKg} />
-            <FieldError id="weight-error" message={errors.weightKg} />
+            <label htmlFor="weight-lb">Weight <span>(lb)</span></label>
+            <input aria-describedby="weight-error" aria-invalid={Boolean(errors.weightLb)} id="weight-lb" inputMode="decimal" min="1" onChange={(event) => updateValue("weightLb", event.target.value)} placeholder="154" step="0.1" type="number" value={values.weightLb} />
+            <FieldError id="weight-error" message={errors.weightLb} />
           </div>
           <div className="field-group">
-            <label htmlFor="height-cm">Height <span>(cm)</span></label>
-            <input aria-describedby="height-error" aria-invalid={Boolean(errors.heightCm)} id="height-cm" inputMode="decimal" min="50" onChange={(event) => updateValue("heightCm", event.target.value)} placeholder="175" step="0.1" type="number" value={values.heightCm} />
-            <FieldError id="height-error" message={errors.heightCm} />
+            <label htmlFor="height-in">Height <span>(in)</span></label>
+            <input aria-describedby="height-error" aria-invalid={Boolean(errors.heightIn)} id="height-in" inputMode="decimal" min="19.7" onChange={(event) => updateValue("heightIn", event.target.value)} placeholder="69" step="0.1" type="number" value={values.heightIn} />
+            <FieldError id="height-error" message={errors.heightIn} />
           </div>
         </div>
 
