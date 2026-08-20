@@ -29,7 +29,7 @@ test("uses activity range midpoints and goal adjustments", () => {
   });
   assert.deepEqual(GOAL_ADJUSTMENTS, { maintain: 0, cut: -0.15, bulk: 0.1 });
 
-  const result = calculateNutritionTargets({ weightLb: 176.368, heightIn: 70.866, age: 30, activityLevel: "moderately-active", goal: "cut" });
+  const result = calculateNutritionTargets({ weightLb: 176.36981, heightIn: 70.86614, age: 30, activityLevel: "moderately-active", goal: "cut" });
   assert.equal(result.ok, true);
   if (!result.ok) return;
   assert.ok(Math.abs(result.targets.bmr - 1780) < 0.01);

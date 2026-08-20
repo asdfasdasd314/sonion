@@ -35,3 +35,4 @@ HACKING
 - Corrected the nutrition calculation fixture to match the approved Mifflin–St Jeor equation for the test input.
 - Changed nutrition target inputs and validation to pounds and inches while preserving metric-based calculation precision through explicit unit conversion.
 - Corrected the insufficient-calorie test fixture so its low-weight input actually exercises the negative remaining-calorie branch.
+- Updated the imperial calculation fixture to retain enough conversion precision for the existing BMR tolerance.
