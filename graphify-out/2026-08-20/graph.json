@@ -55,6 +55,61 @@
   },
   "nodes": [
     {
+      "label": "route.ts",
+      "file_type": "code",
+      "source_file": "app/api/estimate/route.ts",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "app_api_estimate_route",
+      "community": 17,
+      "community_name": "route.ts",
+      "norm_label": "route.ts"
+    },
+    {
+      "label": "PromptBody",
+      "file_type": "code",
+      "source_file": "app/api/estimate/route.ts",
+      "source_location": "L11",
+      "_origin": "ast",
+      "id": "app_api_estimate_route_promptbody",
+      "community": 17,
+      "community_name": "route.ts",
+      "norm_label": "promptbody"
+    },
+    {
+      "label": "isPromptBody()",
+      "file_type": "code",
+      "source_file": "app/api/estimate/route.ts",
+      "source_location": "L15",
+      "_origin": "ast",
+      "id": "app_api_estimate_route_ispromptbody",
+      "community": 17,
+      "community_name": "route.ts",
+      "norm_label": "ispromptbody()"
+    },
+    {
+      "label": "errorResponse()",
+      "file_type": "code",
+      "source_file": "app/api/estimate/route.ts",
+      "source_location": "L19",
+      "_origin": "ast",
+      "id": "app_api_estimate_route_errorresponse",
+      "community": 17,
+      "community_name": "route.ts",
+      "norm_label": "errorresponse()"
+    },
+    {
+      "label": "POST()",
+      "file_type": "code",
+      "source_file": "app/api/estimate/route.ts",
+      "source_location": "L23",
+      "_origin": "ast",
+      "id": "app_api_estimate_route_post",
+      "community": 17,
+      "community_name": "route.ts",
+      "norm_label": "post()"
+    },
+    {
       "label": "layout.tsx",
       "file_type": "code",
       "source_file": "app/layout.tsx",
@@ -62,6 +117,7 @@
       "_origin": "ast",
       "id": "app_layout",
       "community": 8,
+      "community_name": "App Layout",
       "norm_label": "layout.tsx"
     },
     {
@@ -72,6 +128,7 @@
       "_origin": "ast",
       "id": "app_layout_geistsans",
       "community": 8,
+      "community_name": "App Layout",
       "norm_label": "geistsans"
     },
     {
@@ -82,6 +139,7 @@
       "_origin": "ast",
       "id": "app_layout_geistmono",
       "community": 8,
+      "community_name": "App Layout",
       "norm_label": "geistmono"
     },
     {
@@ -92,6 +150,7 @@
       "_origin": "ast",
       "id": "app_layout_metadata",
       "community": 8,
+      "community_name": "App Layout",
       "norm_label": "metadata"
     },
     {
@@ -102,6 +161,7 @@
       "_origin": "ast",
       "id": "app_layout_rootlayout",
       "community": 8,
+      "community_name": "App Layout",
       "norm_label": "rootlayout()"
     },
     {
@@ -112,16 +172,29 @@
       "_origin": "ast",
       "id": "app_page",
       "community": 10,
+      "community_name": "Home Page",
       "norm_label": "page.tsx"
+    },
+    {
+      "label": "ApiPayload",
+      "file_type": "code",
+      "source_file": "app/page.tsx",
+      "source_location": "L8",
+      "_origin": "ast",
+      "id": "app_page_apipayload",
+      "community": 10,
+      "community_name": "Home Page",
+      "norm_label": "apipayload"
     },
     {
       "label": "Home()",
       "file_type": "code",
       "source_file": "app/page.tsx",
-      "source_location": "L3",
+      "source_location": "L13",
       "_origin": "ast",
       "id": "app_page_home",
       "community": 10,
+      "community_name": "Home Page",
       "norm_label": "home()"
     },
     {
@@ -132,6 +205,7 @@
       "_origin": "ast",
       "id": "eslint_config",
       "community": 11,
+      "community_name": "ESLint Configuration",
       "norm_label": "eslint.config.mjs"
     },
     {
@@ -142,7 +216,41 @@
       "_origin": "ast",
       "id": "eslint_config_eslintconfig",
       "community": 11,
+      "community_name": "ESLint Configuration",
       "norm_label": "eslintconfig"
+    },
+    {
+      "label": "gemma.ts",
+      "file_type": "code",
+      "source_file": "lib/gemma.ts",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "lib_gemma",
+      "community": 17,
+      "community_name": "route.ts",
+      "norm_label": "gemma.ts"
+    },
+    {
+      "label": "createGemmaClient()",
+      "file_type": "code",
+      "source_file": "lib/gemma.ts",
+      "source_location": "L11",
+      "_origin": "ast",
+      "id": "lib_gemma_creategemmaclient",
+      "community": 17,
+      "community_name": "route.ts",
+      "norm_label": "creategemmaclient()"
+    },
+    {
+      "label": "getGemmaSystemInstruction()",
+      "file_type": "code",
+      "source_file": "lib/gemma.ts",
+      "source_location": "L15",
+      "_origin": "ast",
+      "id": "lib_gemma_getgemmasysteminstruction",
+      "community": 17,
+      "community_name": "route.ts",
+      "norm_label": "getgemmasysteminstruction()"
     },
     {
       "label": "next.config.ts",
@@ -152,6 +260,7 @@
       "_origin": "ast",
       "id": "next_config",
       "community": 12,
+      "community_name": "Next Configuration",
       "norm_label": "next.config.ts"
     },
     {
@@ -162,6 +271,7 @@
       "_origin": "ast",
       "id": "next_config_nextconfig",
       "community": 12,
+      "community_name": "Next Configuration",
       "norm_label": "nextconfig"
     },
     {
@@ -172,6 +282,7 @@
       "_origin": "ast",
       "id": "package",
       "community": 2,
+      "community_name": "Next.js Dependencies",
       "norm_label": "package.json"
     },
     {
@@ -182,6 +293,7 @@
       "_origin": "ast",
       "id": "package_name",
       "community": 2,
+      "community_name": "Next.js Dependencies",
       "norm_label": "name"
     },
     {
@@ -192,6 +304,7 @@
       "_origin": "ast",
       "id": "package_version",
       "community": 2,
+      "community_name": "Next.js Dependencies",
       "norm_label": "version"
     },
     {
@@ -202,6 +315,7 @@
       "_origin": "ast",
       "id": "package_private",
       "community": 2,
+      "community_name": "Next.js Dependencies",
       "norm_label": "private"
     },
     {
@@ -212,6 +326,7 @@
       "_origin": "ast",
       "id": "package_scripts",
       "community": 2,
+      "community_name": "Next.js Dependencies",
       "norm_label": "scripts"
     },
     {
@@ -222,6 +337,7 @@
       "_origin": "ast",
       "id": "package_scripts_dev",
       "community": 2,
+      "community_name": "Next.js Dependencies",
       "norm_label": "dev"
     },
     {
@@ -232,6 +348,7 @@
       "_origin": "ast",
       "id": "package_scripts_build",
       "community": 2,
+      "community_name": "Next.js Dependencies",
       "norm_label": "build"
     },
     {
@@ -242,6 +359,7 @@
       "_origin": "ast",
       "id": "package_scripts_start",
       "community": 2,
+      "community_name": "Next.js Dependencies",
       "norm_label": "start"
     },
     {
@@ -252,6 +370,7 @@
       "_origin": "ast",
       "id": "package_scripts_lint",
       "community": 2,
+      "community_name": "Next.js Dependencies",
       "norm_label": "lint"
     },
     {
@@ -261,237 +380,283 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "package_dependencies",
-      "community": 2,
+      "community": 7,
+      "community_name": "Repository Instructions",
       "norm_label": "dependencies"
+    },
+    {
+      "label": "@google/genai",
+      "file_type": "code",
+      "source_file": "package.json",
+      "source_location": "L12",
+      "_origin": "ast",
+      "id": "package_dependencies_google_genai",
+      "community": 7,
+      "community_name": "Repository Instructions",
+      "norm_label": "@google/genai"
+    },
+    {
+      "label": "@google/genai",
+      "file_type": "concept",
+      "source_file": "package.json",
+      "source_location": "L12",
+      "_origin": "ast",
+      "id": "google_genai",
+      "community": 7,
+      "community_name": "Repository Instructions",
+      "norm_label": "@google/genai"
     },
     {
       "label": "next",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L12",
+      "source_location": "L13",
       "_origin": "ast",
       "id": "package_dependencies_next",
-      "community": 2,
+      "community": 7,
+      "community_name": "Repository Instructions",
       "norm_label": "next"
     },
     {
       "label": "next",
       "file_type": "concept",
       "source_file": "package.json",
-      "source_location": "L12",
+      "source_location": "L13",
       "_origin": "ast",
       "id": "next",
-      "community": 2,
+      "community": 7,
+      "community_name": "Repository Instructions",
       "norm_label": "next"
     },
     {
       "label": "react",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L13",
+      "source_location": "L14",
       "_origin": "ast",
       "id": "package_dependencies_react",
-      "community": 2,
+      "community": 7,
+      "community_name": "Repository Instructions",
       "norm_label": "react"
     },
     {
       "label": "react",
       "file_type": "concept",
       "source_file": "package.json",
-      "source_location": "L13",
+      "source_location": "L14",
       "_origin": "ast",
       "id": "react",
-      "community": 2,
+      "community": 7,
+      "community_name": "Repository Instructions",
       "norm_label": "react"
     },
     {
       "label": "react-dom",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L14",
+      "source_location": "L15",
       "_origin": "ast",
       "id": "package_dependencies_react_dom",
-      "community": 2,
+      "community": 7,
+      "community_name": "Repository Instructions",
       "norm_label": "react-dom"
     },
     {
       "label": "react-dom",
       "file_type": "concept",
       "source_file": "package.json",
-      "source_location": "L14",
+      "source_location": "L15",
       "_origin": "ast",
       "id": "react_dom",
-      "community": 2,
+      "community": 7,
+      "community_name": "Repository Instructions",
       "norm_label": "react-dom"
     },
     {
       "label": "devDependencies",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L16",
+      "source_location": "L17",
       "_origin": "ast",
       "id": "package_devdependencies",
       "community": 1,
+      "community_name": "Linting and Styling",
       "norm_label": "devdependencies"
     },
     {
       "label": "@tailwindcss/postcss",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L17",
+      "source_location": "L18",
       "_origin": "ast",
       "id": "package_devdependencies_tailwindcss_postcss",
       "community": 1,
+      "community_name": "Linting and Styling",
       "norm_label": "@tailwindcss/postcss"
     },
     {
       "label": "@tailwindcss/postcss",
       "file_type": "concept",
       "source_file": "package.json",
-      "source_location": "L17",
+      "source_location": "L18",
       "_origin": "ast",
       "id": "tailwindcss_postcss",
       "community": 1,
+      "community_name": "Linting and Styling",
       "norm_label": "@tailwindcss/postcss"
     },
     {
       "label": "@types/node",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L18",
+      "source_location": "L19",
       "_origin": "ast",
       "id": "package_devdependencies_types_node",
       "community": 1,
+      "community_name": "Linting and Styling",
       "norm_label": "@types/node"
     },
     {
       "label": "@types/node",
       "file_type": "concept",
       "source_file": "package.json",
-      "source_location": "L18",
+      "source_location": "L19",
       "_origin": "ast",
       "id": "types_node",
       "community": 1,
+      "community_name": "Linting and Styling",
       "norm_label": "@types/node"
     },
     {
       "label": "@types/react",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L19",
+      "source_location": "L20",
       "_origin": "ast",
       "id": "package_devdependencies_types_react",
       "community": 1,
+      "community_name": "Linting and Styling",
       "norm_label": "@types/react"
     },
     {
       "label": "@types/react",
       "file_type": "concept",
       "source_file": "package.json",
-      "source_location": "L19",
+      "source_location": "L20",
       "_origin": "ast",
       "id": "types_react",
       "community": 1,
+      "community_name": "Linting and Styling",
       "norm_label": "@types/react"
     },
     {
       "label": "@types/react-dom",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L20",
+      "source_location": "L21",
       "_origin": "ast",
       "id": "package_devdependencies_types_react_dom",
       "community": 1,
+      "community_name": "Linting and Styling",
       "norm_label": "@types/react-dom"
     },
     {
       "label": "@types/react-dom",
       "file_type": "concept",
       "source_file": "package.json",
-      "source_location": "L20",
+      "source_location": "L21",
       "_origin": "ast",
       "id": "types_react_dom",
       "community": 1,
+      "community_name": "Linting and Styling",
       "norm_label": "@types/react-dom"
     },
     {
       "label": "eslint",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L21",
+      "source_location": "L22",
       "_origin": "ast",
       "id": "package_devdependencies_eslint",
       "community": 1,
+      "community_name": "Linting and Styling",
       "norm_label": "eslint"
     },
     {
       "label": "eslint",
       "file_type": "concept",
       "source_file": "package.json",
-      "source_location": "L21",
+      "source_location": "L22",
       "_origin": "ast",
       "id": "eslint",
       "community": 1,
+      "community_name": "Linting and Styling",
       "norm_label": "eslint"
     },
     {
       "label": "eslint-config-next",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L22",
+      "source_location": "L23",
       "_origin": "ast",
       "id": "package_devdependencies_eslint_config_next",
       "community": 1,
+      "community_name": "Linting and Styling",
       "norm_label": "eslint-config-next"
     },
     {
       "label": "eslint-config-next",
       "file_type": "concept",
       "source_file": "package.json",
-      "source_location": "L22",
+      "source_location": "L23",
       "_origin": "ast",
       "id": "eslint_config_next",
       "community": 1,
+      "community_name": "Linting and Styling",
       "norm_label": "eslint-config-next"
     },
     {
       "label": "tailwindcss",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L23",
+      "source_location": "L24",
       "_origin": "ast",
       "id": "package_devdependencies_tailwindcss",
       "community": 1,
+      "community_name": "Linting and Styling",
       "norm_label": "tailwindcss"
     },
     {
       "label": "tailwindcss",
       "file_type": "concept",
       "source_file": "package.json",
-      "source_location": "L23",
+      "source_location": "L24",
       "_origin": "ast",
       "id": "tailwindcss",
       "community": 1,
+      "community_name": "Linting and Styling",
       "norm_label": "tailwindcss"
     },
     {
       "label": "typescript",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L24",
+      "source_location": "L25",
       "_origin": "ast",
       "id": "package_devdependencies_typescript",
       "community": 1,
+      "community_name": "Linting and Styling",
       "norm_label": "typescript"
     },
     {
       "label": "typescript",
       "file_type": "concept",
       "source_file": "package.json",
-      "source_location": "L24",
+      "source_location": "L25",
       "_origin": "ast",
       "id": "typescript",
       "community": 1,
+      "community_name": "Linting and Styling",
       "norm_label": "typescript"
     },
     {
@@ -502,6 +667,7 @@
       "_origin": "ast",
       "id": "postcss_config",
       "community": 13,
+      "community_name": "PostCSS Configuration",
       "norm_label": "postcss.config.mjs"
     },
     {
@@ -512,6 +678,7 @@
       "_origin": "ast",
       "id": "postcss_config_config",
       "community": 13,
+      "community_name": "PostCSS Configuration",
       "norm_label": "config"
     },
     {
@@ -522,6 +689,7 @@
       "_origin": "ast",
       "id": "tsconfig",
       "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "tsconfig.json"
     },
     {
@@ -532,6 +700,7 @@
       "_origin": "ast",
       "id": "tsconfig_compileroptions",
       "community": 0,
+      "community_name": "TypeScript Compiler Options",
       "norm_label": "compileroptions"
     },
     {
@@ -542,6 +711,7 @@
       "_origin": "ast",
       "id": "tsconfig_compileroptions_target",
       "community": 0,
+      "community_name": "TypeScript Compiler Options",
       "norm_label": "target"
     },
     {
@@ -552,6 +722,7 @@
       "_origin": "ast",
       "id": "tsconfig_compileroptions_lib",
       "community": 0,
+      "community_name": "TypeScript Compiler Options",
       "norm_label": "lib"
     },
     {
@@ -562,6 +733,7 @@
       "_origin": "ast",
       "id": "ref_dom",
       "community": 0,
+      "community_name": "TypeScript Compiler Options",
       "norm_label": "dom"
     },
     {
@@ -572,6 +744,7 @@
       "_origin": "ast",
       "id": "ref_dom_iterable",
       "community": 0,
+      "community_name": "TypeScript Compiler Options",
       "norm_label": "dom.iterable"
     },
     {
@@ -582,6 +755,7 @@
       "_origin": "ast",
       "id": "ref_esnext",
       "community": 0,
+      "community_name": "TypeScript Compiler Options",
       "norm_label": "esnext"
     },
     {
@@ -592,6 +766,7 @@
       "_origin": "ast",
       "id": "tsconfig_compileroptions_allowjs",
       "community": 0,
+      "community_name": "TypeScript Compiler Options",
       "norm_label": "allowjs"
     },
     {
@@ -602,6 +777,7 @@
       "_origin": "ast",
       "id": "tsconfig_compileroptions_skiplibcheck",
       "community": 0,
+      "community_name": "TypeScript Compiler Options",
       "norm_label": "skiplibcheck"
     },
     {
@@ -612,6 +788,7 @@
       "_origin": "ast",
       "id": "tsconfig_compileroptions_strict",
       "community": 0,
+      "community_name": "TypeScript Compiler Options",
       "norm_label": "strict"
     },
     {
@@ -622,6 +799,7 @@
       "_origin": "ast",
       "id": "tsconfig_compileroptions_noemit",
       "community": 0,
+      "community_name": "TypeScript Compiler Options",
       "norm_label": "noemit"
     },
     {
@@ -632,6 +810,7 @@
       "_origin": "ast",
       "id": "tsconfig_compileroptions_esmoduleinterop",
       "community": 0,
+      "community_name": "TypeScript Compiler Options",
       "norm_label": "esmoduleinterop"
     },
     {
@@ -642,6 +821,7 @@
       "_origin": "ast",
       "id": "tsconfig_compileroptions_module",
       "community": 0,
+      "community_name": "TypeScript Compiler Options",
       "norm_label": "module"
     },
     {
@@ -652,6 +832,7 @@
       "_origin": "ast",
       "id": "tsconfig_compileroptions_moduleresolution",
       "community": 0,
+      "community_name": "TypeScript Compiler Options",
       "norm_label": "moduleresolution"
     },
     {
@@ -662,6 +843,7 @@
       "_origin": "ast",
       "id": "tsconfig_compileroptions_resolvejsonmodule",
       "community": 0,
+      "community_name": "TypeScript Compiler Options",
       "norm_label": "resolvejsonmodule"
     },
     {
@@ -672,6 +854,7 @@
       "_origin": "ast",
       "id": "tsconfig_compileroptions_isolatedmodules",
       "community": 0,
+      "community_name": "TypeScript Compiler Options",
       "norm_label": "isolatedmodules"
     },
     {
@@ -682,6 +865,7 @@
       "_origin": "ast",
       "id": "tsconfig_compileroptions_jsx",
       "community": 0,
+      "community_name": "TypeScript Compiler Options",
       "norm_label": "jsx"
     },
     {
@@ -692,6 +876,7 @@
       "_origin": "ast",
       "id": "tsconfig_compileroptions_incremental",
       "community": 0,
+      "community_name": "TypeScript Compiler Options",
       "norm_label": "incremental"
     },
     {
@@ -702,6 +887,7 @@
       "_origin": "ast",
       "id": "tsconfig_compileroptions_plugins",
       "community": 0,
+      "community_name": "TypeScript Compiler Options",
       "norm_label": "plugins"
     },
     {
@@ -712,6 +898,7 @@
       "_origin": "ast",
       "id": "tsconfig_compileroptions_paths",
       "community": 0,
+      "community_name": "TypeScript Compiler Options",
       "norm_label": "paths"
     },
     {
@@ -722,6 +909,7 @@
       "_origin": "ast",
       "id": "tsconfig_include",
       "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "include"
     },
     {
@@ -732,6 +920,7 @@
       "_origin": "ast",
       "id": "ref_next_env_d_ts",
       "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "next-env.d.ts"
     },
     {
@@ -742,6 +931,7 @@
       "_origin": "ast",
       "id": "ref_ts",
       "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "**/*.ts"
     },
     {
@@ -752,6 +942,7 @@
       "_origin": "ast",
       "id": "ref_tsx",
       "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "**/*.tsx"
     },
     {
@@ -762,6 +953,7 @@
       "_origin": "ast",
       "id": "ref_next_types_ts",
       "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": ".next/types/**/*.ts"
     },
     {
@@ -772,6 +964,7 @@
       "_origin": "ast",
       "id": "ref_next_dev_types_ts",
       "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": ".next/dev/types/**/*.ts"
     },
     {
@@ -782,6 +975,7 @@
       "_origin": "ast",
       "id": "ref_mts",
       "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "**/*.mts"
     },
     {
@@ -792,6 +986,7 @@
       "_origin": "ast",
       "id": "tsconfig_exclude",
       "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "exclude"
     },
     {
@@ -802,6 +997,7 @@
       "_origin": "ast",
       "id": "ref_node_modules",
       "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "node_modules"
     },
     {
@@ -813,9 +1009,10 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "_agents_profiles_architecture",
       "community": 5,
-      "norm_label": "architecture agent profile"
+      "norm_label": "architecture agent profile",
+      "id": "_agents_profiles_architecture",
+      "community_name": "Architecture Profiles"
     },
     {
       "label": "Bridge Agent Profile",
@@ -826,9 +1023,10 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "_agents_profiles_bridge",
       "community": 9,
-      "norm_label": "bridge agent profile"
+      "norm_label": "bridge agent profile",
+      "id": "_agents_profiles_bridge",
+      "community_name": "Bridge Profile"
     },
     {
       "label": "Coding Agent Profile",
@@ -839,9 +1037,10 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "_agents_profiles_coding",
       "community": 3,
-      "norm_label": "coding agent profile"
+      "norm_label": "coding agent profile",
+      "id": "_agents_profiles_coding",
+      "community_name": "Project Agent Rules"
     },
     {
       "label": "Integrating Agent Profile",
@@ -852,9 +1051,10 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "_agents_profiles_integrating",
       "community": 3,
-      "norm_label": "integrating agent profile"
+      "norm_label": "integrating agent profile",
+      "id": "_agents_profiles_integrating",
+      "community_name": "Project Agent Rules"
     },
     {
       "label": "Planning Agent Profile",
@@ -865,9 +1065,10 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "_agents_profiles_planning",
       "community": 5,
-      "norm_label": "planning agent profile"
+      "norm_label": "planning agent profile",
+      "id": "_agents_profiles_planning",
+      "community_name": "Architecture Profiles"
     },
     {
       "label": "AGENTS Instructions",
@@ -878,9 +1079,10 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "agents",
       "community": 3,
-      "norm_label": "agents instructions"
+      "norm_label": "agents instructions",
+      "id": "agents",
+      "community_name": "Project Agent Rules"
     },
     {
       "label": "CLAUDE Instructions",
@@ -891,9 +1093,10 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
+      "community": 5,
+      "norm_label": "claude instructions",
       "id": "claude",
-      "community": 7,
-      "norm_label": "claude instructions"
+      "community_name": "Architecture Profiles"
     },
     {
       "label": "Project README",
@@ -904,9 +1107,10 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "readme",
       "community": 6,
-      "norm_label": "project readme"
+      "norm_label": "project readme",
+      "id": "readme",
+      "community_name": "Starter App Documentation"
     },
     {
       "label": "File Icon SVG",
@@ -917,9 +1121,10 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "public_file",
       "community": 14,
-      "norm_label": "file icon svg"
+      "norm_label": "file icon svg",
+      "id": "public_file",
+      "community_name": "File Icon Asset"
     },
     {
       "label": "Globe Icon SVG",
@@ -930,9 +1135,10 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "public_globe",
       "community": 15,
-      "norm_label": "globe icon svg"
+      "norm_label": "globe icon svg",
+      "id": "public_globe",
+      "community_name": "Globe Icon Asset"
     },
     {
       "label": "Next.js Wordmark SVG",
@@ -943,9 +1149,10 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "public_next",
       "community": 6,
-      "norm_label": "next.js wordmark svg"
+      "norm_label": "next.js wordmark svg",
+      "id": "public_next",
+      "community_name": "Starter App Documentation"
     },
     {
       "label": "Vercel Triangle SVG",
@@ -956,9 +1163,10 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "public_vercel",
       "community": 6,
-      "norm_label": "vercel triangle svg"
+      "norm_label": "vercel triangle svg",
+      "id": "public_vercel",
+      "community_name": "Starter App Documentation"
     },
     {
       "label": "Window Icon SVG",
@@ -969,9 +1177,10 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "public_window",
       "community": 16,
-      "norm_label": "window icon svg"
+      "norm_label": "window icon svg",
+      "id": "public_window",
+      "community_name": "Window Icon Asset"
     },
     {
       "label": "Graphify",
@@ -982,9 +1191,10 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
+      "community": 5,
+      "norm_label": "graphify",
       "id": "agents_profiles_architecture_graphify",
-      "community": 3,
-      "norm_label": "graphify"
+      "community_name": "Architecture Profiles"
     },
     {
       "label": "Feature Files",
@@ -995,9 +1205,10 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "agents_profiles_architecture_feature_files",
       "community": 5,
-      "norm_label": "feature files"
+      "norm_label": "feature files",
+      "id": "agents_profiles_architecture_feature_files",
+      "community_name": "Architecture Profiles"
     },
     {
       "label": "Parameter Files",
@@ -1008,9 +1219,10 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "agents_profiles_architecture_parameter_files",
       "community": 5,
-      "norm_label": "parameter files"
+      "norm_label": "parameter files",
+      "id": "agents_profiles_architecture_parameter_files",
+      "community_name": "Architecture Profiles"
     },
     {
       "label": "Standalone TUI Boundary",
@@ -1021,9 +1233,10 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "agents_profiles_architecture_standalone_tui",
       "community": 5,
-      "norm_label": "standalone tui boundary"
+      "norm_label": "standalone tui boundary",
+      "id": "agents_profiles_architecture_standalone_tui",
+      "community_name": "Architecture Profiles"
     },
     {
       "label": "Four Stage Development Lifecycle",
@@ -1034,9 +1247,10 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "agents_profiles_architecture_development_lifecycle",
       "community": 5,
-      "norm_label": "four stage development lifecycle"
+      "norm_label": "four stage development lifecycle",
+      "id": "agents_profiles_architecture_development_lifecycle",
+      "community_name": "Architecture Profiles"
     },
     {
       "label": "Answer Oriented Programming",
@@ -1047,9 +1261,10 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "agents_profiles_bridge_aop",
       "community": 9,
-      "norm_label": "answer oriented programming"
+      "norm_label": "answer oriented programming",
+      "id": "agents_profiles_bridge_aop",
+      "community_name": "Bridge Profile"
     },
     {
       "label": "Centralized Project Document cp_doc",
@@ -1060,9 +1275,10 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "agents_profiles_bridge_cp_doc",
       "community": 9,
-      "norm_label": "centralized project document cp_doc"
+      "norm_label": "centralized project document cp_doc",
+      "id": "agents_profiles_bridge_cp_doc",
+      "community_name": "Bridge Profile"
     },
     {
       "label": "Coding Readiness",
@@ -1073,9 +1289,10 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "agents_profiles_bridge_coding_readiness",
       "community": 9,
-      "norm_label": "coding readiness"
+      "norm_label": "coding readiness",
+      "id": "agents_profiles_bridge_coding_readiness",
+      "community_name": "Bridge Profile"
     },
     {
       "label": "Feature Files",
@@ -1086,9 +1303,10 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "agents_profiles_coding_feature_files",
       "community": 3,
-      "norm_label": "feature files"
+      "norm_label": "feature files",
+      "id": "agents_profiles_coding_feature_files",
+      "community_name": "Project Agent Rules"
     },
     {
       "label": "Parameter Files",
@@ -1099,9 +1317,10 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "agents_profiles_coding_parameter_files",
       "community": 3,
-      "norm_label": "parameter files"
+      "norm_label": "parameter files",
+      "id": "agents_profiles_coding_parameter_files",
+      "community_name": "Project Agent Rules"
     },
     {
       "label": "Debugging Evidence",
@@ -1112,9 +1331,10 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "agents_profiles_coding_debugging",
       "community": 3,
-      "norm_label": "debugging evidence"
+      "norm_label": "debugging evidence",
+      "id": "agents_profiles_coding_debugging",
+      "community_name": "Project Agent Rules"
     },
     {
       "label": "Integration Conflict Resolution",
@@ -1125,9 +1345,10 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "agents_profiles_integrating_conflict_resolution",
       "community": 3,
-      "norm_label": "integration conflict resolution"
+      "norm_label": "integration conflict resolution",
+      "id": "agents_profiles_integrating_conflict_resolution",
+      "community_name": "Project Agent Rules"
     },
     {
       "label": "Graphify Planning Evidence",
@@ -1138,9 +1359,10 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "agents_profiles_planning_graphify",
       "community": 5,
-      "norm_label": "graphify planning evidence"
+      "norm_label": "graphify planning evidence",
+      "id": "agents_profiles_planning_graphify",
+      "community_name": "Architecture Profiles"
     },
     {
       "label": "Feature Files",
@@ -1151,9 +1373,10 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
+      "community": 5,
+      "norm_label": "feature files",
       "id": "agents_profiles_planning_feature_files",
-      "community": 5,
-      "norm_label": "feature files"
+      "community_name": "Architecture Profiles"
     },
     {
       "label": "Next.js",
@@ -1164,9 +1387,10 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
+      "community": 5,
+      "norm_label": "next.js",
       "id": "agents_nextjs",
-      "community": 7,
-      "norm_label": "next.js"
+      "community_name": "Architecture Profiles"
     },
     {
       "label": "Task Modes",
@@ -1177,9 +1401,10 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "agents_task_modes",
       "community": 3,
-      "norm_label": "task modes"
+      "norm_label": "task modes",
+      "id": "agents_task_modes",
+      "community_name": "Project Agent Rules"
     },
     {
       "label": "Graphify",
@@ -1190,9 +1415,10 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
+      "community": 5,
+      "norm_label": "graphify",
       "id": "agents_graphify",
-      "community": 3,
-      "norm_label": "graphify"
+      "community_name": "Architecture Profiles"
     },
     {
       "label": "Standalone TUI Project Boundary",
@@ -1203,9 +1429,10 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "agents_tui_boundary",
       "community": 3,
-      "norm_label": "standalone tui project boundary"
+      "norm_label": "standalone tui project boundary",
+      "id": "agents_tui_boundary",
+      "community_name": "Project Agent Rules"
     },
     {
       "label": "Feature Files",
@@ -1216,9 +1443,10 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "agents_feature_files",
       "community": 3,
-      "norm_label": "feature files"
+      "norm_label": "feature files",
+      "id": "agents_feature_files",
+      "community_name": "Project Agent Rules"
     },
     {
       "label": "Parameter Files",
@@ -1229,9 +1457,10 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "agents_parameter_files",
       "community": 3,
-      "norm_label": "parameter files"
+      "norm_label": "parameter files",
+      "id": "agents_parameter_files",
+      "community_name": "Project Agent Rules"
     },
     {
       "label": "Next.js",
@@ -1242,9 +1471,10 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
+      "community": 5,
+      "norm_label": "next.js",
       "id": "claude_nextjs",
-      "community": 7,
-      "norm_label": "next.js"
+      "community_name": "Architecture Profiles"
     },
     {
       "label": "Task Modes",
@@ -1255,9 +1485,10 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
+      "community": 5,
+      "norm_label": "task modes",
       "id": "claude_task_modes",
-      "community": 7,
-      "norm_label": "task modes"
+      "community_name": "Architecture Profiles"
     },
     {
       "label": "Graphify",
@@ -1268,9 +1499,10 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "claude_graphify",
       "community": 5,
-      "norm_label": "graphify"
+      "norm_label": "graphify",
+      "id": "claude_graphify",
+      "community_name": "Architecture Profiles"
     },
     {
       "label": "Standalone TUI Project Boundary",
@@ -1281,9 +1513,10 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
+      "community": 5,
+      "norm_label": "standalone tui project boundary",
       "id": "claude_tui_boundary",
-      "community": 7,
-      "norm_label": "standalone tui project boundary"
+      "community_name": "Architecture Profiles"
     },
     {
       "label": "Feature Files",
@@ -1294,9 +1527,10 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
+      "community": 5,
+      "norm_label": "feature files",
       "id": "claude_feature_files",
-      "community": 7,
-      "norm_label": "feature files"
+      "community_name": "Architecture Profiles"
     },
     {
       "label": "Parameter Files",
@@ -1307,9 +1541,10 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
+      "community": 5,
+      "norm_label": "parameter files",
       "id": "claude_parameter_files",
-      "community": 7,
-      "norm_label": "parameter files"
+      "community_name": "Architecture Profiles"
     },
     {
       "label": "Next.js",
@@ -1320,9 +1555,10 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "readme_nextjs",
       "community": 6,
-      "norm_label": "next.js"
+      "norm_label": "next.js",
+      "id": "readme_nextjs",
+      "community_name": "Starter App Documentation"
     },
     {
       "label": "create-next-app",
@@ -1333,9 +1569,10 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "readme_create_next_app",
       "community": 6,
-      "norm_label": "create-next-app"
+      "norm_label": "create-next-app",
+      "id": "readme_create_next_app",
+      "community_name": "Starter App Documentation"
     },
     {
       "label": "app/page.tsx",
@@ -1346,9 +1583,10 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "readme_app_page_tsx",
       "community": 6,
-      "norm_label": "app/page.tsx"
+      "norm_label": "app/page.tsx",
+      "id": "readme_app_page_tsx",
+      "community_name": "Starter App Documentation"
     },
     {
       "label": "next/font",
@@ -1359,9 +1597,10 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "readme_next_font",
       "community": 6,
-      "norm_label": "next/font"
+      "norm_label": "next/font",
+      "id": "readme_next_font",
+      "community_name": "Starter App Documentation"
     },
     {
       "label": "Geist Font",
@@ -1372,9 +1611,10 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "readme_geist_font",
       "community": 6,
-      "norm_label": "geist font"
+      "norm_label": "geist font",
+      "id": "readme_geist_font",
+      "community_name": "Starter App Documentation"
     },
     {
       "label": "Vercel Platform",
@@ -1385,12 +1625,141 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "readme_vercel_platform",
       "community": 6,
-      "norm_label": "vercel platform"
+      "norm_label": "vercel platform",
+      "id": "readme_vercel_platform",
+      "community_name": "Starter App Documentation"
     }
   ],
   "links": [
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/estimate/route.ts",
+      "source_location": "L19",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "app_api_estimate_route",
+      "target": "app_api_estimate_route_errorresponse",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/estimate/route.ts",
+      "source_location": "L15",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "app_api_estimate_route",
+      "target": "app_api_estimate_route_ispromptbody",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/estimate/route.ts",
+      "source_location": "L23",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "app_api_estimate_route",
+      "target": "app_api_estimate_route_post",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/estimate/route.ts",
+      "source_location": "L11",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "app_api_estimate_route",
+      "target": "app_api_estimate_route_promptbody",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/estimate/route.ts",
+      "source_location": "L3",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "app_api_estimate_route",
+      "target": "lib_gemma",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/estimate/route.ts",
+      "source_location": "L3",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "app_api_estimate_route",
+      "target": "lib_gemma_creategemmaclient",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/estimate/route.ts",
+      "source_location": "L3",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "app_api_estimate_route",
+      "target": "lib_gemma_getgemmasysteminstruction",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/estimate/route.ts",
+      "source_location": "L32",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "app_api_estimate_route_post",
+      "target": "app_api_estimate_route_ispromptbody",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/estimate/route.ts",
+      "source_location": "L29",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "app_api_estimate_route_post",
+      "target": "app_api_estimate_route_errorresponse",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/api/estimate/route.ts",
+      "source_location": "L59",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "app_api_estimate_route_post",
+      "target": "lib_gemma_creategemmaclient"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/api/estimate/route.ts",
+      "source_location": "L64",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "app_api_estimate_route_post",
+      "target": "lib_gemma_getgemmasysteminstruction"
+    },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
@@ -1439,7 +1808,18 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "app/page.tsx",
-      "source_location": "L3",
+      "source_location": "L8",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "app_page",
+      "target": "app_page_apipayload",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/page.tsx",
+      "source_location": "L13",
       "weight": 1.0,
       "_origin": "ast",
       "source": "app_page",
@@ -1455,6 +1835,28 @@
       "_origin": "ast",
       "source": "eslint_config",
       "target": "eslint_config_eslintconfig",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/gemma.ts",
+      "source_location": "L11",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "lib_gemma",
+      "target": "lib_gemma_creategemmaclient",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/gemma.ts",
+      "source_location": "L15",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "lib_gemma",
+      "target": "lib_gemma_getgemmasysteminstruction",
       "confidence_score": 1.0
     },
     {
@@ -1483,7 +1885,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "package.json",
-      "source_location": "L16",
+      "source_location": "L17",
       "weight": 1.0,
       "_origin": "ast",
       "source": "package",
@@ -1586,7 +1988,7 @@
       "weight": 1.0,
       "_origin": "ast",
       "source": "package_dependencies",
-      "target": "package_dependencies_next",
+      "target": "package_dependencies_google_genai",
       "confidence_score": 1.0
     },
     {
@@ -1597,7 +1999,7 @@
       "weight": 1.0,
       "_origin": "ast",
       "source": "package_dependencies",
-      "target": "package_dependencies_react",
+      "target": "package_dependencies_next",
       "confidence_score": 1.0
     },
     {
@@ -1605,6 +2007,17 @@
       "confidence": "EXTRACTED",
       "source_file": "package.json",
       "source_location": "L14",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "package_dependencies",
+      "target": "package_dependencies_react",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "package.json",
+      "source_location": "L15",
       "weight": 1.0,
       "_origin": "ast",
       "source": "package_dependencies",
@@ -1619,6 +2032,18 @@
       "weight": 1.0,
       "context": "import",
       "_origin": "ast",
+      "source": "package_dependencies_google_genai",
+      "target": "google_genai",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "package.json",
+      "source_location": "L13",
+      "weight": 1.0,
+      "context": "import",
+      "_origin": "ast",
       "source": "package_dependencies_next",
       "target": "next",
       "confidence_score": 1.0
@@ -1627,7 +2052,7 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "package.json",
-      "source_location": "L13",
+      "source_location": "L14",
       "weight": 1.0,
       "context": "import",
       "_origin": "ast",
@@ -1639,7 +2064,7 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "package.json",
-      "source_location": "L14",
+      "source_location": "L15",
       "weight": 1.0,
       "context": "import",
       "_origin": "ast",
@@ -1651,7 +2076,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "package.json",
-      "source_location": "L21",
+      "source_location": "L22",
       "weight": 1.0,
       "_origin": "ast",
       "source": "package_devdependencies",
@@ -1662,7 +2087,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "package.json",
-      "source_location": "L22",
+      "source_location": "L23",
       "weight": 1.0,
       "_origin": "ast",
       "source": "package_devdependencies",
@@ -1673,7 +2098,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "package.json",
-      "source_location": "L23",
+      "source_location": "L24",
       "weight": 1.0,
       "_origin": "ast",
       "source": "package_devdependencies",
@@ -1684,7 +2109,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "package.json",
-      "source_location": "L17",
+      "source_location": "L18",
       "weight": 1.0,
       "_origin": "ast",
       "source": "package_devdependencies",
@@ -1695,7 +2120,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "package.json",
-      "source_location": "L18",
+      "source_location": "L19",
       "weight": 1.0,
       "_origin": "ast",
       "source": "package_devdependencies",
@@ -1706,7 +2131,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "package.json",
-      "source_location": "L19",
+      "source_location": "L20",
       "weight": 1.0,
       "_origin": "ast",
       "source": "package_devdependencies",
@@ -1717,7 +2142,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "package.json",
-      "source_location": "L20",
+      "source_location": "L21",
       "weight": 1.0,
       "_origin": "ast",
       "source": "package_devdependencies",
@@ -1728,7 +2153,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "package.json",
-      "source_location": "L24",
+      "source_location": "L25",
       "weight": 1.0,
       "_origin": "ast",
       "source": "package_devdependencies",
@@ -1739,7 +2164,7 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "package.json",
-      "source_location": "L17",
+      "source_location": "L18",
       "weight": 1.0,
       "context": "import",
       "_origin": "ast",
@@ -1751,7 +2176,7 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "package.json",
-      "source_location": "L18",
+      "source_location": "L19",
       "weight": 1.0,
       "context": "import",
       "_origin": "ast",
@@ -1763,7 +2188,7 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "package.json",
-      "source_location": "L19",
+      "source_location": "L20",
       "weight": 1.0,
       "context": "import",
       "_origin": "ast",
@@ -1775,7 +2200,7 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "package.json",
-      "source_location": "L20",
+      "source_location": "L21",
       "weight": 1.0,
       "context": "import",
       "_origin": "ast",
@@ -1787,7 +2212,7 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "package.json",
-      "source_location": "L21",
+      "source_location": "L22",
       "weight": 1.0,
       "context": "import",
       "_origin": "ast",
@@ -1799,7 +2224,7 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "package.json",
-      "source_location": "L22",
+      "source_location": "L23",
       "weight": 1.0,
       "context": "import",
       "_origin": "ast",
@@ -1811,7 +2236,7 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "package.json",
-      "source_location": "L23",
+      "source_location": "L24",
       "weight": 1.0,
       "context": "import",
       "_origin": "ast",
@@ -1823,7 +2248,7 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "package.json",
-      "source_location": "L24",
+      "source_location": "L25",
       "weight": 1.0,
       "context": "import",
       "_origin": "ast",
@@ -2661,5 +3086,5 @@
       "source_file": "README.md"
     }
   ],
-  "built_at_commit": "58ef1ad8792af14e846e0de13efb48fe675f7624"
+  "built_at_commit": "a224589cac7497b415bea513aa0ad82edd453ff3"
 }
