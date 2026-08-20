@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import { aggregateDailyMacros, aggregateMealMacros } from "../lib/nutrition/meals";
-import { ACTIVITY_MULTIPLIERS, GOAL_ADJUSTMENTS, calculateNutritionTargets, roundNutritionValue, validateNutritionTargetInput } from "../lib/nutrition/targets";
+import { ACTIVITY_MULTIPLIERS, calculateNutritionTargets, roundNutritionValue, validateNutritionTargetInput } from "../lib/nutrition/targets";
 import type { Meal } from "../lib/nutrition/types";
 
 const sampleMeal: Meal = {
@@ -20,23 +20,41 @@ test("aggregates food and daily macro totals", () => {
   assert.deepEqual(aggregateDailyMacros([sampleMeal, sampleMeal]), { calories: 700, protein: 60, fat: 20, carbohydrates: 84 });
 });
 
-test("uses activity range midpoints and goal adjustments", () => {
+test("uses activity range midpoints and weekly percentage changes", () => {
   assert.deepEqual(ACTIVITY_MULTIPLIERS, {
     sedentary: 1.2,
     "lightly-active": 1.4,
     "moderately-active": 1.575,
     "very-active": 1.8,
   });
-  assert.deepEqual(GOAL_ADJUSTMENTS, { maintain: 0, cut: -0.15, bulk: 0.1 });
 
-  const result = calculateNutritionTargets({ weightLb: 176.36981, heightIn: 70.86614, age: 30, activityLevel: "moderately-active", goal: "cut" });
+  const result = calculateNutritionTargets({ weightLb: 176.36981, heightIn: 70.86614, age: 30, activityLevel: "moderately-active", goal: "cut", weeklyChange: 1, weeklyChangeUnit: "percent" });
   assert.equal(result.ok, true);
   if (!result.ok) return;
   assert.ok(Math.abs(result.targets.bmr - 1780) < 0.01);
   assert.ok(Math.abs(result.targets.tdee - 2803.5) < 0.01);
-  assert.ok(Math.abs(result.targets.targetCalories - 2382.975) < 0.01);
+  assert.ok(Math.abs(result.targets.weeklyChangePounds + 1.7636981) < 0.01);
+  assert.ok(Math.abs(result.targets.dailyCalorieAdjustment + 881.84905) < 0.01);
+  assert.ok(Math.abs(result.targets.targetCalories - 1921.65095) < 0.01);
   assert.ok(Math.abs(result.targets.proteinGrams - 160) < 0.01);
   assert.ok(Math.abs(result.targets.fatGrams - 64) < 0.01);
+});
+
+test("uses pounds per week for a bulk", () => {
+  const result = calculateNutritionTargets({ weightLb: 176, heightIn: 71, age: 30, activityLevel: "sedentary", goal: "bulk", weeklyChange: 0.5, weeklyChangeUnit: "pounds" });
+  assert.equal(result.ok, true);
+  if (!result.ok) return;
+  assert.equal(result.targets.weeklyChangePounds, 0.5);
+  assert.equal(result.targets.dailyCalorieAdjustment, 250);
+});
+
+test("uses maintenance calories directly for maintain", () => {
+  const result = calculateNutritionTargets({ weightLb: 176, heightIn: 71, age: 30, activityLevel: "sedentary", goal: "maintain" });
+  assert.equal(result.ok, true);
+  if (!result.ok) return;
+  assert.equal(result.targets.targetCalories, result.targets.tdee);
+  assert.equal(result.targets.weeklyChangePounds, 0);
+  assert.equal(result.targets.dailyCalorieAdjustment, 0);
 });
 
 test("rounds displayed values without changing calculation precision", () => {
@@ -51,10 +69,13 @@ test("reports required, non-positive, and impossible inputs", () => {
   assert.equal(errors.age, "Use an age between 13 and 120 years.");
   assert.equal(errors.activityLevel, "Choose an activity level.");
   assert.equal(errors.goal, "Choose a goal.");
+
+  const changeErrors = validateNutritionTargetInput({ weightLb: 180, heightIn: 70, age: 30, activityLevel: "sedentary", goal: "cut" });
+  assert.equal(changeErrors.weeklyChange, "Enter a weekly body weight change greater than 0.");
 });
 
 test("flags insufficient remaining calories for carbohydrates", () => {
-  const result = calculateNutritionTargets({ weightLb: 2.2, heightIn: 19.7, age: 120, activityLevel: "sedentary", goal: "cut" });
+  const result = calculateNutritionTargets({ weightLb: 2.2, heightIn: 19.7, age: 120, activityLevel: "sedentary", goal: "cut", weeklyChange: 100, weeklyChangeUnit: "percent" });
   assert.equal(result.ok, true);
   if (!result.ok) return;
   assert.equal(result.targets.hasInsufficientCalories, true);

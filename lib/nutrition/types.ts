@@ -31,3 +31,5 @@ export type ActivityLevel =
   | "very-active";
 
 export type Goal = "maintain" | "cut" | "bulk";
+
+export type WeightChangeUnit = "percent" | "pounds";

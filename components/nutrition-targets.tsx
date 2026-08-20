@@ -9,7 +9,7 @@ import {
   type NutritionTargetInput,
   type NutritionTargetErrors,
 } from "@/lib/nutrition/targets";
-import type { ActivityLevel, Goal } from "@/lib/nutrition/types";
+import type { ActivityLevel, Goal, WeightChangeUnit } from "@/lib/nutrition/types";
 
 type FormValues = {
   weightLb: string;
@@ -17,6 +17,8 @@ type FormValues = {
   age: string;
   activityLevel: ActivityLevel | "";
   goal: Goal | "";
+  weeklyChange: string;
+  weeklyChangeUnit: WeightChangeUnit;
 };
 
 const INITIAL_VALUES: FormValues = {
@@ -25,6 +27,8 @@ const INITIAL_VALUES: FormValues = {
   age: "",
   activityLevel: "",
   goal: "maintain",
+  weeklyChange: "",
+  weeklyChangeUnit: "percent",
 };
 
 const ACTIVITY_OPTIONS: { value: ActivityLevel; label: string; detail: string }[] = [
@@ -36,8 +40,8 @@ const ACTIVITY_OPTIONS: { value: ActivityLevel; label: string; detail: string }[
 
 const GOAL_OPTIONS: { value: Goal; label: string; detail: string }[] = [
   { value: "maintain", label: "Maintain", detail: "no calorie adjustment" },
-  { value: "cut", label: "Cut", detail: "15% calorie reduction" },
-  { value: "bulk", label: "Bulk", detail: "10% calorie increase" },
+  { value: "cut", label: "Cut", detail: "choose a weekly loss" },
+  { value: "bulk", label: "Bulk", detail: "choose a weekly gain" },
 ];
 
 function FieldError({ id, message }: { id: string; message?: string }) {
@@ -63,6 +67,8 @@ export default function NutritionTargets() {
       age: values.age ? Number(values.age) : Number.NaN,
       activityLevel: values.activityLevel as ActivityLevel,
       goal: values.goal as Goal,
+      weeklyChange: values.weeklyChange ? Number(values.weeklyChange) : Number.NaN,
+      weeklyChangeUnit: values.weeklyChangeUnit,
     };
     const calculation = calculateNutritionTargets(input as NutritionTargetInput);
 
@@ -131,6 +137,22 @@ export default function NutritionTargets() {
           <FieldError id="goal-error" message={errors.goal} />
         </fieldset>
 
+        {values.goal === "cut" || values.goal === "bulk" ? (
+          <div className="field-group weekly-change-group">
+            <label htmlFor="weekly-change">{values.goal === "cut" ? "Lose" : "Gain"} <span>per week</span></label>
+            <div className="weekly-change-controls">
+              <input aria-describedby="weekly-change-error" aria-invalid={Boolean(errors.weeklyChange)} id="weekly-change" inputMode="decimal" min="0.1" onChange={(event) => updateValue("weeklyChange", event.target.value)} placeholder="1" step="0.1" type="number" value={values.weeklyChange} />
+              <select aria-label="Weekly change unit" aria-describedby="weekly-change-unit-error" aria-invalid={Boolean(errors.weeklyChangeUnit)} id="weekly-change-unit" onChange={(event) => updateValue("weeklyChangeUnit", event.target.value as WeightChangeUnit)} value={values.weeklyChangeUnit}>
+                <option value="percent">% of body weight</option>
+                <option value="pounds">lb of body weight</option>
+              </select>
+            </div>
+            <p className="field-help">Set the amount of body weight you want to {values.goal === "cut" ? "lose" : "gain"} each week.</p>
+            <FieldError id="weekly-change-error" message={errors.weeklyChange} />
+            <FieldError id="weekly-change-unit-error" message={errors.weeklyChangeUnit} />
+          </div>
+        ) : null}
+
         <button className="secondary-button" type="submit">Calculate targets</button>
       </form>
 
@@ -145,7 +167,7 @@ export default function NutritionTargets() {
             <div><strong>{roundNutritionValue(targets.fatGrams)}g</strong><span>fat</span></div>
             <div><strong>{roundNutritionValue(targets.carbohydratesGrams)}g</strong><span>carbs</span></div>
           </div>
-          <p className="calculation-note">BMR {roundNutritionValue(targets.bmr).toLocaleString()} · estimated maintenance {roundNutritionValue(targets.tdee).toLocaleString()} cal</p>
+          <p className="calculation-note">BMR {roundNutritionValue(targets.bmr).toLocaleString()} · estimated maintenance {roundNutritionValue(targets.tdee).toLocaleString()} cal · {targets.weeklyChangePounds === 0 ? "maintaining" : `${targets.weeklyChangePounds < 0 ? "losing" : "gaining"} ${Math.abs(targets.weeklyChangePounds).toFixed(2)} lb/week`}</p>
           {targets.hasInsufficientCalories ? (
             <p className="warning-message">Protein and fat already exceed this calorie target, so there are no calories left to allocate to carbohydrates.</p>
           ) : null}

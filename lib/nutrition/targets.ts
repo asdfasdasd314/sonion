@@ -1,4 +1,4 @@
-import type { ActivityLevel, Goal } from "@/lib/nutrition/types";
+import type { ActivityLevel, Goal, WeightChangeUnit } from "@/lib/nutrition/types";
 
 export const ACTIVITY_MULTIPLIERS: Record<ActivityLevel, number> = {
   sedentary: 1.2,
@@ -7,14 +7,15 @@ export const ACTIVITY_MULTIPLIERS: Record<ActivityLevel, number> = {
   "very-active": 1.8,
 };
 
-export const GOAL_ADJUSTMENTS: Record<Goal, number> = {
-  maintain: 0,
-  cut: -0.15,
-  bulk: 0.1,
+export const WEIGHT_CHANGE_UNITS: Record<WeightChangeUnit, string> = {
+  percent: "% of body weight",
+  pounds: "lb of body weight",
 };
 
 const POUNDS_TO_KILOGRAMS = 0.45359237;
 const INCHES_TO_CENTIMETERS = 2.54;
+const CALORIES_PER_POUND = 3500;
+const DAYS_PER_WEEK = 7;
 const MAX_WEIGHT_POUNDS = 500 / POUNDS_TO_KILOGRAMS;
 const MIN_HEIGHT_INCHES = 50 / INCHES_TO_CENTIMETERS;
 const MAX_HEIGHT_INCHES = 250 / INCHES_TO_CENTIMETERS;
@@ -25,6 +26,8 @@ export type NutritionTargetInput = {
   age: number;
   activityLevel: ActivityLevel;
   goal: Goal;
+  weeklyChange?: number;
+  weeklyChangeUnit?: WeightChangeUnit;
 };
 
 export type NutritionTargetErrors = Partial<Record<keyof NutritionTargetInput, string>>;
@@ -33,6 +36,8 @@ export type NutritionTargets = {
   bmr: number;
   tdee: number;
   targetCalories: number;
+  weeklyChangePounds: number;
+  dailyCalorieAdjustment: number;
   proteinGrams: number;
   fatGrams: number;
   carbohydratesGrams: number;
@@ -71,8 +76,22 @@ export function validateNutritionTargetInput(input: Partial<NutritionTargetInput
     errors.activityLevel = "Choose an activity level.";
   }
 
-  if (!input.goal || !(input.goal in GOAL_ADJUSTMENTS)) {
+  if (!input.goal || !(input.goal in { maintain: true, cut: true, bulk: true })) {
     errors.goal = "Choose a goal.";
+  }
+
+  if (input.goal === "cut" || input.goal === "bulk") {
+    if (typeof input.weeklyChange !== "number" || !Number.isFinite(input.weeklyChange) || input.weeklyChange <= 0) {
+      errors.weeklyChange = "Enter a weekly body weight change greater than 0.";
+    } else if (input.weeklyChangeUnit === "percent" && input.weeklyChange > 100) {
+      errors.weeklyChange = "Use a percentage between 0 and 100.";
+    } else if (input.weeklyChangeUnit === "pounds" && input.weeklyChange > (input.weightLb ?? 0)) {
+      errors.weeklyChange = "Use a weekly change no greater than your body weight.";
+    }
+
+    if (!input.weeklyChangeUnit || !(input.weeklyChangeUnit in WEIGHT_CHANGE_UNITS)) {
+      errors.weeklyChangeUnit = "Choose percent or pounds for the weekly change.";
+    }
   }
 
   return errors;
@@ -87,7 +106,14 @@ export function calculateNutritionTargets(input: NutritionTargetInput): Nutritio
   const heightCm = input.heightIn * INCHES_TO_CENTIMETERS;
   const bmr = 10 * weightKg + 6.25 * heightCm - 5 * input.age + 5;
   const tdee = bmr * ACTIVITY_MULTIPLIERS[input.activityLevel];
-  const targetCalories = tdee * (1 + GOAL_ADJUSTMENTS[input.goal]);
+  const weeklyChangePounds = input.goal === "maintain"
+    ? 0
+    : input.weeklyChangeUnit === "percent"
+      ? input.weightLb * ((input.weeklyChange ?? 0) / 100)
+      : input.weeklyChange ?? 0;
+  const signedWeeklyChangePounds = input.goal === "cut" ? -weeklyChangePounds : weeklyChangePounds;
+  const dailyCalorieAdjustment = signedWeeklyChangePounds * CALORIES_PER_POUND / DAYS_PER_WEEK;
+  const targetCalories = tdee + dailyCalorieAdjustment;
   const proteinGrams = weightKg * 2;
   const fatGrams = weightKg * 0.8;
   const proteinCalories = proteinGrams * 4;
@@ -100,6 +126,8 @@ export function calculateNutritionTargets(input: NutritionTargetInput): Nutritio
       bmr,
       tdee,
       targetCalories,
+      weeklyChangePounds: signedWeeklyChangePounds,
+      dailyCalorieAdjustment,
       proteinGrams,
       fatGrams,
       carbohydratesGrams: Math.max(0, remainingCalories / 4),

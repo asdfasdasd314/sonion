@@ -119,6 +119,10 @@ textarea::placeholder, input::placeholder { color: #a0aca5; }
 .goal-option strong, .goal-option small { display: block; }
 .goal-option strong { font-size: 10px; }
 .goal-option small { color: var(--ink-muted); font-size: 8px; line-height: 1.25; margin-top: 3px; }
+.weekly-change-controls { align-items: start; display: grid; gap: 7px; grid-template-columns: minmax(0, 1fr) auto; margin-top: 7px; }
+.weekly-change-controls input, .weekly-change-controls select { margin-top: 0; }
+.weekly-change-controls select { min-width: 145px; }
+.weekly-change-group .field-help { margin-bottom: 0; }
 .secondary-button { background: #edf2ed; color: var(--green-dark); justify-self: start; margin-top: 2px; }
 .secondary-button:hover { background: #dfeae2; }
 .target-results { border-top: 1px solid var(--line); margin-top: 23px; padding-top: 18px; }
