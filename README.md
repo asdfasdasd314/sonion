@@ -8,6 +8,19 @@
 
 Sonion is an AI-assisted nutrition tracker built for people who **don't prepare or measure their own meals**.
 
+## Current prototype
+
+The first slice is a prompt form backed by a Next.js route handler. It sends a food description to the pinned `gemma-3-1b-it` model through Google AI Studio and returns Gemma's raw interpretation. This slice intentionally does not calculate nutrition, perform USDA lookups, use custom tools, persist data, or provide authentication.
+
+### Local setup
+
+1. Install dependencies with `npm install`.
+2. Copy `.env.example` to `.env.local`.
+3. Add a Google AI Studio API key as `GEMINI_API_KEY` in `.env.local`.
+4. Start the app with `npm run dev` and open `http://localhost:3000`.
+
+The key is read only by the backend route and must not be renamed to a `NEXT_PUBLIC_*` variable. Google AI Studio's current model catalog may not expose `gemma-3-1b-it`; the app keeps that identifier without a fallback and reports provider incompatibility in the UI if the request is rejected.
+
 Traditional nutrition apps assume users know things like:
 
 - grams
