@@ -1,0 +1,3 @@
+[worktree]
+install_command = ["npm", "ci"]
+readonly_paths = ["food-data"]
