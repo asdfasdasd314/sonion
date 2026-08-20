@@ -37,3 +37,4 @@ HACKING
 - Corrected the insufficient-calorie test fixture so its low-weight input actually exercises the negative remaining-calorie branch.
 - Updated the imperial calculation fixture to retain enough conversion precision for the existing BMR tolerance.
 - Replaced fixed cut/bulk calorie percentages with validated weekly body-weight change inputs and transparent calorie adjustments.
+- Prevented the conditional weekly-change input from receiving an undefined value so it remains controlled when the cut/bulk fields mount.

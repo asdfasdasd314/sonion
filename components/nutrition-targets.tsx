@@ -141,7 +141,7 @@ export default function NutritionTargets() {
           <div className="field-group weekly-change-group">
             <label htmlFor="weekly-change">{values.goal === "cut" ? "Lose" : "Gain"} <span>per week</span></label>
             <div className="weekly-change-controls">
-              <input aria-describedby="weekly-change-error" aria-invalid={Boolean(errors.weeklyChange)} id="weekly-change" inputMode="decimal" min="0.1" onChange={(event) => updateValue("weeklyChange", event.target.value)} placeholder="1" step="0.1" type="number" value={values.weeklyChange} />
+              <input aria-describedby="weekly-change-error" aria-invalid={Boolean(errors.weeklyChange)} id="weekly-change" inputMode="decimal" min="0.1" onChange={(event) => updateValue("weeklyChange", event.target.value)} placeholder="1" step="0.1" type="number" value={values.weeklyChange ?? ""} />
               <select aria-label="Weekly change unit" aria-describedby="weekly-change-unit-error" aria-invalid={Boolean(errors.weeklyChangeUnit)} id="weekly-change-unit" onChange={(event) => updateValue("weeklyChangeUnit", event.target.value as WeightChangeUnit)} value={values.weeklyChangeUnit}>
                 <option value="percent">% of body weight</option>
                 <option value="pounds">lb of body weight</option>
