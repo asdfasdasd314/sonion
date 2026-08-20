@@ -194,8 +194,8 @@ if (localInputsAvailable) {
   const cases = [
     ["skim milk", (food: NormalizedFood) => /milk/i.test(food.description) && /skim|fat free/i.test(food.description)],
     ["macaroni and cheese", (food: NormalizedFood) => /macaroni|mac/i.test(food.description) && /cheese/i.test(food.description)],
-    ["chicken", (food: NormalizedFood) => /chicken/i.test(food.description)],
-    ["broccoli", (food: NormalizedFood) => /broccoli/i.test(food.description)],
+    ["chicken", (food: NormalizedFood) => /^chicken\b/i.test(food.description)],
+    ["broccoli", (food: NormalizedFood) => /^broccoli\b/i.test(food.description)],
   ] as const;
 
   for (const [query, matcher] of cases) {

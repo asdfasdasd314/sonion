@@ -34,3 +34,4 @@ TESTING
 - Repaired the package lock so the declared `tsx` test runner and its runtime dependencies are installed by clean dependency setup.
 - Moved `tsx` and its `esbuild` runtime chain to production dependencies so `npm test` resolves after production-only dependency installation.
 - Scoped the root USDA-data ignore rule so the tracked server-side `lib/food-data` implementation is included in handoffs.
+- Repaired real-record search expectations so chicken and broccoli integration cases select descriptions that match the documented starts-with ranking tier rather than arbitrary lexical token-overlap matches.
