@@ -52,7 +52,7 @@ test("reports unknown tools, unsupported fields, and exact paths", () => {
     assert.equal(parsed.diagnostics[0]?.fieldPath, "name");
     assert.deepEqual(parsed.diagnostics[0]?.availableTools, toolNames);
     assert.equal(parsed.diagnostics[1]?.code, "UNKNOWN_ENVELOPE_FIELD");
-    assert.equal(parsed.diagnostics[1]?.fieldPath, "arguments");
+    assert.equal(parsed.diagnostics[1]?.fieldPath, "extra");
   }
 });
 

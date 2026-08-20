@@ -30,3 +30,4 @@ TESTING
 ## State Log
 
 - Added the strict text protocol, fixed food-tool skill, application capability sandbox, bounded model loop, and internal correction transcripts.
+- Ordered unknown-tool diagnostics before envelope-field diagnostics and corrected the protocol test to identify the actual unsupported field.

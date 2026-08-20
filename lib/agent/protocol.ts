@@ -317,7 +317,6 @@ export function parseToolResponse(
     if (!envelopeResult.value) return;
 
     const envelope = envelopeResult.value;
-    diagnostics.push(...checkEnvelopeKeys(envelope, ["name", "arguments"], blockIndex));
     const name = envelope.name;
     const args = envelope.arguments;
     if (typeof name !== "string") {
@@ -340,6 +339,7 @@ export function parseToolResponse(
         }),
       );
     }
+    diagnostics.push(...checkEnvelopeKeys(envelope, ["name", "arguments"], blockIndex));
     if (typeof args !== "object" || args === null || Array.isArray(args)) {
       diagnostics.push(
         fieldDiagnostic("INVALID_ENVELOPE_FIELD", "Tool arguments must be a JSON object.", args, {
