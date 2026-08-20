@@ -1,16 +1,16 @@
 # Graph Report - sonion  (2026-08-20)
 
 ## Corpus Check
-- 31 files · ~9,370 words
+- 37 files · ~13,519 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 259 nodes · 386 edges · 21 communities (15 shown, 6 thin omitted)
-- Extraction: 96% EXTRACTED · 4% INFERRED · 0% AMBIGUOUS · INFERRED: 17 edges (avg confidence: 0.87)
+- 320 nodes · 519 edges · 21 communities (15 shown, 6 thin omitted)
+- Extraction: 97% EXTRACTED · 3% INFERRED · 0% AMBIGUOUS · INFERRED: 17 edges (avg confidence: 0.87)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `2aa264ea`
+- Built from commit: `5fa1373e`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -40,14 +40,14 @@
 ## God Nodes (most connected - your core abstractions)
 1. `compilerOptions` - 16 edges
 2. `buildFoodIndex()` - 10 edges
-3. `normalizeFood()` - 9 edges
-4. `POST()` - 7 edges
-5. `createFoodTools()` - 7 edges
-6. `NormalizedFood` - 7 edges
-7. `scripts` - 7 edges
-8. `include` - 7 edges
-9. `finiteNumber()` - 6 edges
-10. `normalizePortion()` - 6 edges
+3. `runLoop()` - 9 edges
+4. `normalizeFood()` - 9 edges
+5. `POST()` - 8 edges
+6. `diagnostic()` - 8 edges
+7. `parseToolResponse()` - 8 edges
+8. `parseResultResponse()` - 8 edges
+9. `createFoodToolRegistry()` - 8 edges
+10. `NormalizedFood` - 8 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `Next.js` --semantically_similar_to--> `Next.js Wordmark SVG`  [INFERRED] [semantically similar]
@@ -84,20 +84,20 @@ Cohesion: 0.08
 Nodes (23): @google/genai, next, dependencies, @google/genai, next, react, react-dom, tsx (+15 more)
 
 ### Community 3 - "Project Agent Rules"
-Cohesion: 0.12
-Nodes (18): Architecture Agent Profile, Coding Agent Profile, Integrating Agent Profile, AGENTS Instructions, Feature Files, Graphify, Parameter Files, Four Stage Development Lifecycle (+10 more)
+Cohesion: 0.10
+Nodes (41): checkEnvelopeKeys(), DEFAULT_PROTOCOL_LIMITS, diagnostic(), duplicateTopLevelKeys(), fieldDiagnostic(), formatProtocolErrors(), formatResult(), formatToolCall() (+33 more)
 
 ### Community 4 - "TypeScript References"
-Cohesion: 0.14
-Nodes (25): asRecord(), buildAndWriteFoodIndex(), buildFoodIndex(), compareText(), extractRecords(), FNDDS_DATA_PATH, FOOD_DATA_DIR, FOUNDATION_DATA_PATH (+17 more)
+Cohesion: 0.09
+Nodes (45): asRecord(), buildAndWriteFoodIndex(), buildFoodIndex(), compareText(), extractRecords(), FNDDS_DATA_PATH, FOOD_DATA_DIR, FOUNDATION_DATA_PATH (+37 more)
 
 ### Community 5 - "Architecture Profiles"
-Cohesion: 0.12
-Nodes (20): Planning Agent Profile, Next.js, Feature Files, Graphify Planning Evidence, CLAUDE Instructions, Feature Files, Graphify, Next.js (+12 more)
+Cohesion: 0.06
+Nodes (38): Architecture Agent Profile, Coding Agent Profile, Integrating Agent Profile, Planning Agent Profile, AGENTS Instructions, Feature Files, Graphify, Next.js (+30 more)
 
 ### Community 6 - "Starter App Documentation"
-Cohesion: 0.20
-Nodes (20): finiteNumber(), ingredientDescription(), normalizeFood(), normalizeIngredients(), normalizePortion(), normalizePortions(), NUTRIENT_IDS, nutrientAmount() (+12 more)
+Cohesion: 0.29
+Nodes (6): Dev Mode, Key Points, Relevant Files, Server-side agent tool loop, State Log, Summary
 
 ### Community 7 - "Repository Instructions"
 Cohesion: 0.29
@@ -116,12 +116,12 @@ Cohesion: 0.15
 Nodes (22): ApiPayload, Home(), AuthMode, AuthPanel(), AuthPanelProps, AuthErrorResponse, authRequest(), AuthResponse (+14 more)
 
 ### Community 17 - "route.ts"
-Cohesion: 0.24
-Nodes (10): errorResponse(), isPromptBody(), POST(), PromptBody, createGemmaClient(), getGemmaModel(), getGemmaSystemInstruction(), getSupabaseUser() (+2 more)
+Cohesion: 0.16
+Nodes (13): errorResponse(), isPromptBody(), POST(), PromptBody, getFoodToolsSkill(), AgentRunnerError, getDefaultFoodToolRegistry(), createGemmaClient() (+5 more)
 
 ### Community 18 - "tools.ts"
-Cohesion: 0.19
-Nodes (19): RUNTIME_INDEX_PATH, getLoadedFoodById(), isNormalizedFood(), loadFoodIndex(), compareText(), createFoodTools(), FoodToolset, getDefaultTools() (+11 more)
+Cohesion: 0.15
+Nodes (23): RUNTIME_INDEX_PATH, getLoadedFoodById(), isNormalizedFood(), loadFoodIndex(), compareText(), createFoodToolRegistry(), createFoodTools(), FoodToolDefinition (+15 more)
 
 ### Community 19 - "Gemini model selection"
 Cohesion: 0.29
@@ -132,24 +132,24 @@ Cohesion: 0.29
 Nodes (6): Dev Mode, Key Points, Relevant Files, State Log, Summary, USDA food-data tools
 
 ## Knowledge Gaps
-- **101 isolated node(s):** `PromptBody`, `geistSans`, `geistMono`, `metadata`, `ApiPayload` (+96 more)
+- **119 isolated node(s):** `PromptBody`, `geistSans`, `geistMono`, `metadata`, `ApiPayload` (+114 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **6 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
+- **Why does `NormalizedFood` connect `TypeScript References` to `tools.ts`, `Project Agent Rules`?**
+  _High betweenness centrality (0.023) - this node is a cross-community bridge._
+- **Why does `getDefaultFoodToolRegistry()` connect `route.ts` to `tools.ts`, `TypeScript References`?**
+  _High betweenness centrality (0.014) - this node is a cross-community bridge._
 - **Why does `devDependencies` connect `Linting and Styling` to `Next.js Dependencies`?**
-  _High betweenness centrality (0.015) - this node is a cross-community bridge._
-- **Why does `AGENTS Instructions` connect `Project Agent Rules` to `Architecture Profiles`?**
-  _High betweenness centrality (0.012) - this node is a cross-community bridge._
+  _High betweenness centrality (0.010) - this node is a cross-community bridge._
 - **Are the 2 inferred relationships involving `buildFoodIndex()` (e.g. with `normalizeFnddsFood()` and `normalizeFoundationFood()`) actually correct?**
   _`buildFoodIndex()` has 2 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `PromptBody`, `geistSans`, `geistMono` to the rest of the system?**
-  _101 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _119 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `TypeScript Compiler Options` be split into smaller, more focused modules?**
   _Cohesion score 0.06896551724137931 - nodes in this community are weakly interconnected._
 - **Should `Linting and Styling` be split into smaller, more focused modules?**
   _Cohesion score 0.11764705882352941 - nodes in this community are weakly interconnected._
-- **Should `Next.js Dependencies` be split into smaller, more focused modules?**
-  _Cohesion score 0.08333333333333333 - nodes in this community are weakly interconnected._

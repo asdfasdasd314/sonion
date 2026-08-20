@@ -20,8 +20,8 @@
     "semantic_hash": "9b77af189a21a7a64e4bd7a426f64176"
   },
   "package.json": {
-    "mtime": 1787253904.9659915,
-    "ast_hash": "29af44ed5bded11d75d978536d5d7b8b",
+    "mtime": 1787255707.3821037,
+    "ast_hash": "c6fa7cb2cc4d30e5d6d90fc5ece7f11f",
     "semantic_hash": ""
   },
   "postcss.config.mjs": {
@@ -70,8 +70,8 @@
     "semantic_hash": "5c27369b226fcf2be8a6cfe52224e767"
   },
   "README.md": {
-    "mtime": 1787253904.962842,
-    "ast_hash": "9ccb2abede9a98256a0bc0e6e85aab97",
+    "mtime": 1787255707.3778307,
+    "ast_hash": "2761dedd4f614f38ef0d542febe88df1",
     "semantic_hash": ""
   },
   "public/file.svg": {
@@ -100,18 +100,18 @@
     "semantic_hash": "a2760511c65806022ad20adf74370ff3"
   },
   "app/api/estimate/route.ts": {
-    "mtime": 1787251787.2275507,
-    "ast_hash": "ebd70dc323fef6f2c211c2d04b3d8cbd",
+    "mtime": 1787255707.3782876,
+    "ast_hash": "abeca345a4dfb3207bf94e3bb794fe7a",
     "semantic_hash": ""
   },
   "lib/gemma.ts": {
-    "mtime": 1787247964.7398407,
-    "ast_hash": "24c805a7263fcb68b1541f35a4a9079a",
+    "mtime": 1787255707.38176,
+    "ast_hash": "97d025501aa8e9d4633ecf5bdaa0f2ef",
     "semantic_hash": ""
   },
   "feature_files/gemini.md": {
-    "mtime": 1787247964.7396846,
-    "ast_hash": "86c9b7d76a95947a190637011c33fc09",
+    "mtime": 1787255707.379364,
+    "ast_hash": "8652e49775629034ee4ab8ef7adeb078",
     "semantic_hash": ""
   },
   "components/auth-panel.tsx": {
@@ -135,8 +135,8 @@
     "semantic_hash": ""
   },
   "lib/food-data/index.ts": {
-    "mtime": 1787253904.9634018,
-    "ast_hash": "37bb977cbf961fd789f775f2fce64da6",
+    "mtime": 1787255707.3811188,
+    "ast_hash": "fdb7642a588856fb4574a0b8c16ac554",
     "semantic_hash": ""
   },
   "lib/food-data/loader.ts": {
@@ -155,8 +155,8 @@
     "semantic_hash": ""
   },
   "lib/food-data/tools.ts": {
-    "mtime": 1787253904.9645271,
-    "ast_hash": "58d60236180b7bf5dfb04b5f19748daa",
+    "mtime": 1787255707.381438,
+    "ast_hash": "762ad6ddaa260e5a13d162e54e94e5d5",
     "semantic_hash": ""
   },
   "lib/food-data/types.ts": {
@@ -175,8 +175,38 @@
     "semantic_hash": ""
   },
   "feature_files/food-data.md": {
-    "mtime": 1787253904.9629598,
-    "ast_hash": "0feb53030aacd711edc82d0c6fadfa66",
+    "mtime": 1787255707.3786788,
+    "ast_hash": "921af0087100e46334a2e410f4b33115",
+    "semantic_hash": ""
+  },
+  "lib/agent/food-tools-skill.ts": {
+    "mtime": 1787255707.379817,
+    "ast_hash": "18b8bb6d1e4d60c499eab58281cb6f72",
+    "semantic_hash": ""
+  },
+  "lib/agent/protocol.ts": {
+    "mtime": 1787255707.3799706,
+    "ast_hash": "91aa2d0d5573938e8e4327ddf700b22f",
+    "semantic_hash": ""
+  },
+  "lib/agent/runner.ts": {
+    "mtime": 1787255707.3802302,
+    "ast_hash": "a895cf7487206c42666da8024449513d",
+    "semantic_hash": ""
+  },
+  "test/agent-protocol.test.ts": {
+    "mtime": 1787255707.382429,
+    "ast_hash": "a56c4be89627a6f3531877f32e041126",
+    "semantic_hash": ""
+  },
+  "test/agent-runner.test.ts": {
+    "mtime": 1787255707.3826582,
+    "ast_hash": "862bc0a26b80c80a5d5b507b892c39bd",
+    "semantic_hash": ""
+  },
+  "feature_files/agent-tool-loop.md": {
+    "mtime": 1787255707.37842,
+    "ast_hash": "5760e13a8cb12933bf2ea835feb85413",
     "semantic_hash": ""
   }
 }
