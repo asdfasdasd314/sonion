@@ -32,3 +32,4 @@ TESTING
 
 - Added normalized USDA adapters, deterministic cached tools, local index generation, and coverage for real Foundation/FNDDS records.
 - Repaired the package lock so the declared `tsx` test runner and its runtime dependencies are installed by clean dependency setup.
+- Moved `tsx` and its `esbuild` runtime chain to production dependencies so `npm test` resolves after production-only dependency installation.
