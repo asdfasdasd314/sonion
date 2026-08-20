@@ -32,9 +32,9 @@ test("uses activity range midpoints and goal adjustments", () => {
   const result = calculateNutritionTargets({ weightKg: 80, heightCm: 180, age: 30, activityLevel: "moderately-active", goal: "cut" });
   assert.equal(result.ok, true);
   if (!result.ok) return;
-  assert.equal(result.targets.bmr, 1805);
-  assert.equal(result.targets.tdee, 2842.875);
-  assert.equal(result.targets.targetCalories, 2416.44375);
+  assert.equal(result.targets.bmr, 1780);
+  assert.equal(result.targets.tdee, 2803.5);
+  assert.equal(result.targets.targetCalories, 2382.975);
   assert.equal(result.targets.proteinGrams, 160);
   assert.equal(result.targets.fatGrams, 64);
 });

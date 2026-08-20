@@ -32,3 +32,4 @@ HACKING
 ## State Log
 
 - Added the responsive three-column dashboard, seeded/reset meal history, authenticated interpreter card, and client-only target calculator with focused unit coverage.
+- Corrected the nutrition calculation fixture to match the approved Mifflin–St Jeor equation for the test input.
