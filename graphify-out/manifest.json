@@ -220,8 +220,8 @@
     "semantic_hash": ""
   },
   "components/nutrition-targets.tsx": {
-    "mtime": 1787258973.1269803,
-    "ast_hash": "ddf8cdbbbf8b7c6f46201120cb378c54",
+    "mtime": 1787260862.3348167,
+    "ast_hash": "ce45a1f0db4182712d2211dddce43a66",
     "semantic_hash": ""
   },
   "lib/nutrition/meals.ts": {
@@ -245,8 +245,8 @@
     "semantic_hash": ""
   },
   "feature_files/nutrition-dashboard.md": {
-    "mtime": 1787258973.1272461,
-    "ast_hash": "f7d50ed6022bf3f40e96262557d86167",
+    "mtime": 1787260862.3350108,
+    "ast_hash": "85d2e11694479e99aca6a6e3f31033ca",
     "semantic_hash": ""
   }
 }
