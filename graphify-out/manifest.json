@@ -20,8 +20,8 @@
     "semantic_hash": "9b77af189a21a7a64e4bd7a426f64176"
   },
   "package.json": {
-    "mtime": 1787247569.079558,
-    "ast_hash": "dcf5742d0b9e01ebccbd9eb595623a1f",
+    "mtime": 1787253904.9659915,
+    "ast_hash": "29af44ed5bded11d75d978536d5d7b8b",
     "semantic_hash": ""
   },
   "postcss.config.mjs": {
@@ -70,8 +70,8 @@
     "semantic_hash": "5c27369b226fcf2be8a6cfe52224e767"
   },
   "README.md": {
-    "mtime": 1787251787.22736,
-    "ast_hash": "c8c707b0d954bad5ee7fd066dda11785",
+    "mtime": 1787253904.962842,
+    "ast_hash": "9ccb2abede9a98256a0bc0e6e85aab97",
     "semantic_hash": ""
   },
   "public/file.svg": {
@@ -127,6 +127,56 @@
   "feature_files/authentication.md": {
     "mtime": 1787251787.2281137,
     "ast_hash": "51ec38ab5eb6a0789094288197177285",
+    "semantic_hash": ""
+  },
+  "lib/food-data/index-builder.ts": {
+    "mtime": 1787253904.9631963,
+    "ast_hash": "49619517feed1da9eb2c1c032877de33",
+    "semantic_hash": ""
+  },
+  "lib/food-data/index.ts": {
+    "mtime": 1787253904.9634018,
+    "ast_hash": "37bb977cbf961fd789f775f2fce64da6",
+    "semantic_hash": ""
+  },
+  "lib/food-data/loader.ts": {
+    "mtime": 1787253904.9640763,
+    "ast_hash": "9ed933faa0d414cfea376a1a1668c15f",
+    "semantic_hash": ""
+  },
+  "lib/food-data/normalize.ts": {
+    "mtime": 1787253904.9642425,
+    "ast_hash": "d83f431afe89bc23069ec8e20f4f9b32",
+    "semantic_hash": ""
+  },
+  "lib/food-data/raw.ts": {
+    "mtime": 1787253904.9643824,
+    "ast_hash": "8692430c6a31f9ee091034c78310867f",
+    "semantic_hash": ""
+  },
+  "lib/food-data/tools.ts": {
+    "mtime": 1787253904.9645271,
+    "ast_hash": "58d60236180b7bf5dfb04b5f19748daa",
+    "semantic_hash": ""
+  },
+  "lib/food-data/types.ts": {
+    "mtime": 1787253904.9646611,
+    "ast_hash": "4c6f2a02e44d1f27deb0634108636c4f",
+    "semantic_hash": ""
+  },
+  "scripts/build-food-index.ts": {
+    "mtime": 1787253904.9665194,
+    "ast_hash": "ad22dad0abfeab0b0a6efe210c52025c",
+    "semantic_hash": ""
+  },
+  "test/food-data.test.ts": {
+    "mtime": 1787253904.9666915,
+    "ast_hash": "c88d43ddfee9aece22100e1a118e6e53",
+    "semantic_hash": ""
+  },
+  "feature_files/food-data.md": {
+    "mtime": 1787253904.9629598,
+    "ast_hash": "0feb53030aacd711edc82d0c6fadfa66",
     "semantic_hash": ""
   }
 }
