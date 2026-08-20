@@ -1,13 +1,13 @@
 {
   "app/layout.tsx": {
-    "mtime": 1787247569.0776834,
-    "ast_hash": "f9d16a140296277286ed36908833394f",
-    "semantic_hash": ""
+    "mtime": 1787190044.200186,
+    "ast_hash": "70f839ece80281c576701dc08f055685",
+    "semantic_hash": "70f839ece80281c576701dc08f055685"
   },
   "app/page.tsx": {
-    "mtime": 1787247569.0779014,
-    "ast_hash": "6bf238efcf0345b462762bf0b3d81cd2",
-    "semantic_hash": ""
+    "mtime": 1787190044.2001,
+    "ast_hash": "7960d56e7fc48ecd789e2fd32155fa90",
+    "semantic_hash": "7960d56e7fc48ecd789e2fd32155fa90"
   },
   "eslint.config.mjs": {
     "mtime": 1787190044.1992457,
@@ -20,9 +20,9 @@
     "semantic_hash": "9b77af189a21a7a64e4bd7a426f64176"
   },
   "package.json": {
-    "mtime": 1787247569.079558,
-    "ast_hash": "dcf5742d0b9e01ebccbd9eb595623a1f",
-    "semantic_hash": ""
+    "mtime": 1787190044.202634,
+    "ast_hash": "0d012d363311e4663e13cf603dc6920d",
+    "semantic_hash": "0d012d363311e4663e13cf603dc6920d"
   },
   "postcss.config.mjs": {
     "mtime": 1787190044.200086,
@@ -70,9 +70,9 @@
     "semantic_hash": "5c27369b226fcf2be8a6cfe52224e767"
   },
   "README.md": {
-    "mtime": 1787247569.077128,
-    "ast_hash": "7e1f9e174b4363333cb83db59febd034",
-    "semantic_hash": ""
+    "mtime": 1787190044.199157,
+    "ast_hash": "f15aaa42d5d299d091b1171097ea56ad",
+    "semantic_hash": "f15aaa42d5d299d091b1171097ea56ad"
   },
   "public/file.svg": {
     "mtime": 1787190044.199153,
@@ -98,15 +98,5 @@
     "mtime": 1787190044.2005768,
     "ast_hash": "a2760511c65806022ad20adf74370ff3",
     "semantic_hash": "a2760511c65806022ad20adf74370ff3"
-  },
-  "app/api/estimate/route.ts": {
-    "mtime": 1787247569.077361,
-    "ast_hash": "666657708535831db077255e7fa54892",
-    "semantic_hash": ""
-  },
-  "lib/gemma.ts": {
-    "mtime": 1787247569.078076,
-    "ast_hash": "0d5b86a9092ae445657b1ea8af79049f",
-    "semantic_hash": ""
   }
 }
