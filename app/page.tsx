@@ -1,9 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import type { FormEvent } from "react";
 
 import AuthPanel from "@/components/auth-panel";
+import MealHistory from "@/components/meal-history";
+import MealInterpreter from "@/components/meal-interpreter";
+import NutritionTargets from "@/components/nutrition-targets";
 import {
   clearStoredSession,
   loadStoredSession,
@@ -13,18 +15,7 @@ import {
   type SupabaseSession,
 } from "@/lib/supabase-auth";
 
-const MAX_PROMPT_LENGTH = 2_000;
-
-type ApiPayload = {
-  response?: string;
-  error?: string;
-};
-
 export default function Home() {
-  const [prompt, setPrompt] = useState("");
-  const [response, setResponse] = useState("");
-  const [error, setError] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [session, setSession] = useState<SupabaseSession | null>(null);
   const [isAuthReady, setIsAuthReady] = useState(false);
   const [isSigningOut, setIsSigningOut] = useState(false);
@@ -35,9 +26,7 @@ export default function Home() {
 
     async function restoreSession() {
       if (!storedSession) {
-        if (isCurrent) {
-          setIsAuthReady(true);
-        }
+        if (isCurrent) setIsAuthReady(true);
         return;
       }
 
@@ -61,25 +50,16 @@ export default function Home() {
         setSession(storedSession);
       }
 
-      if (isCurrent) {
-        setIsAuthReady(true);
-      }
+      if (isCurrent) setIsAuthReady(true);
     }
 
     void restoreSession();
-
-    return () => {
-      isCurrent = false;
-    };
+    return () => { isCurrent = false; };
   }, []);
 
   async function handleSignOut() {
-    if (!session || isSigningOut) {
-      return;
-    }
-
+    if (!session || isSigningOut) return;
     setIsSigningOut(true);
-
     try {
       await signOut(session.access_token);
     } catch {
@@ -91,157 +71,41 @@ export default function Home() {
     }
   }
 
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-
-    if (isSubmitting) {
-      return;
-    }
-
-    const trimmedPrompt = prompt.trim();
-    setResponse("");
-    setError("");
-
-    if (!trimmedPrompt) {
-      setError("Enter a food description before submitting.");
-      return;
-    }
-
-    if (trimmedPrompt.length > MAX_PROMPT_LENGTH) {
-      setError(`Keep the prompt under ${MAX_PROMPT_LENGTH.toLocaleString()} characters.`);
-      return;
-    }
-
-    setIsSubmitting(true);
-
-    try {
-      const result = await fetch("/api/estimate", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${session?.access_token ?? ""}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ prompt: trimmedPrompt }),
-      });
-      const payload = (await result.json().catch(() => ({}))) as ApiPayload;
-
-      if (!result.ok) {
-        setError(payload.error ?? "Sonion could not interpret that prompt.");
-        return;
-      }
-
-      setResponse(payload.response ?? "Sonion returned no interpretation.");
-    } catch {
-      setError("Sonion could not reach the backend. Check that the app is running and try again.");
-    } finally {
-      setIsSubmitting(false);
-    }
-  }
-
   return (
-    <main className="mx-auto flex w-full max-w-5xl flex-1 flex-col px-6 py-8 sm:px-10 sm:py-12">
-      <header className="flex items-center justify-between gap-4">
-        <div className="flex items-center gap-3">
-          <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-emerald-900 text-lg text-emerald-50 shadow-sm">
-            S
-          </span>
-          <span className="text-lg font-semibold tracking-tight text-slate-900">Sonion</span>
+    <main className="app-shell">
+      <header className="app-header">
+        <div className="brand-lockup">
+          <span className="brand-mark" aria-hidden="true">S</span>
+          <div><span className="brand-name">Sonion</span><span className="brand-tagline">personal nutrition, simplified</span></div>
         </div>
         {session ? (
-          <div className="flex items-center gap-3">
-            <span className="hidden text-sm text-slate-500 sm:inline">{session.user.email}</span>
-            <button
-              className="rounded-full border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-950 focus:outline-none focus:ring-4 focus:ring-emerald-100 disabled:opacity-60"
-              disabled={isSigningOut}
-              onClick={() => void handleSignOut()}
-              type="button"
-            >
-              {isSigningOut ? "Signing out..." : "Sign out"}
-            </button>
+          <div className="account-controls">
+            <span className="account-email">{session.user.email}</span>
+            <button className="sign-out-button" disabled={isSigningOut} onClick={() => void handleSignOut()} type="button">{isSigningOut ? "Signing out..." : "Sign out"}</button>
           </div>
-        ) : (
-          <span className="rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-medium text-emerald-800">
-            Private by default
-          </span>
-        )}
+        ) : <span className="private-badge">Private by default</span>}
       </header>
 
-      <section className="grid flex-1 items-center gap-12 py-16 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
-        <div>
-          <p className="mb-5 text-sm font-semibold uppercase tracking-[0.2em] text-emerald-700">
-            Describe, don&apos;t measure
-          </p>
-          <h1 className="max-w-xl text-5xl font-semibold leading-[1.04] tracking-[-0.04em] text-slate-950 sm:text-6xl">
-            Tell us what you ate.
-          </h1>
-          <p className="mt-6 max-w-lg text-lg leading-8 text-slate-600">
-            {session
-              ? "Sonion uses Gemma to turn everyday food descriptions into a clear interpretation. Your signed-in session is ready for personal tracking."
-              : "Create an account or sign in first. Your session gives Sonion a private home for the nutrition data we add next."}
-          </p>
+      {!isAuthReady ? (
+        <div className="auth-loading">Restoring your secure session...</div>
+      ) : session ? (
+        <div className="dashboard-grid">
+          <MealHistory />
+          <MealInterpreter accessToken={session.access_token} />
+          <NutritionTargets />
         </div>
-
-        {!isAuthReady ? (
-          <div className="rounded-[2rem] border border-slate-200 bg-white p-8 text-sm text-slate-500 shadow-[0_24px_80px_-32px_rgba(15,23,42,0.35)]">
-            Restoring your secure session...
+      ) : (
+        <section className="auth-layout">
+          <div className="auth-copy">
+            <p className="eyebrow">A quieter way to track</p>
+            <h1>Your food, in focus.</h1>
+            <p>Sign in to explore the private meal dashboard. Your current history is only a seeded preview while the format and AI output are being tested.</p>
           </div>
-        ) : session ? (
-          <div className="rounded-[2rem] border border-slate-200 bg-white p-5 shadow-[0_24px_80px_-32px_rgba(15,23,42,0.35)] sm:p-8">
-            <form onSubmit={handleSubmit}>
-              <label className="block text-sm font-semibold text-slate-900" htmlFor="food-prompt">
-                What did you eat?
-              </label>
-              <p className="mt-2 text-sm leading-6 text-slate-500" id="food-prompt-help">
-                Try: &quot;two scoops of rice, grilled chicken, and a little broccoli&quot;
-              </p>
-              <textarea
-                aria-describedby="food-prompt-help"
-                className="mt-5 min-h-40 w-full resize-y rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-base leading-7 text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-emerald-700 focus:bg-white focus:ring-4 focus:ring-emerald-100"
-                id="food-prompt"
-                maxLength={MAX_PROMPT_LENGTH}
-                onChange={(event) => setPrompt(event.target.value)}
-                placeholder="Describe your meal in your own words..."
-                required
-                value={prompt}
-              />
-              <div className="mt-3 flex items-center justify-between gap-4">
-                <span className="text-xs text-slate-400">{prompt.length.toLocaleString()} / {MAX_PROMPT_LENGTH.toLocaleString()}</span>
-                <button
-                  aria-busy={isSubmitting}
-                  className="rounded-full bg-emerald-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-emerald-800 focus:outline-none focus:ring-4 focus:ring-emerald-200 disabled:cursor-not-allowed disabled:opacity-60"
-                  disabled={isSubmitting}
-                  type="submit"
-                >
-                  {isSubmitting ? "Interpreting..." : "Interpret meal"}
-                </button>
-              </div>
-            </form>
+          <AuthPanel onAuthenticated={(nextSession) => setSession(nextSession)} />
+        </section>
+      )}
 
-            <div aria-live="assertive" className="mt-5 min-h-6" role="alert">
-              {error ? <p className="rounded-xl bg-red-50 px-4 py-3 text-sm leading-6 text-red-800">{error}</p> : null}
-            </div>
-
-            <section aria-live="polite" className="mt-1" aria-label="Sonion response">
-              {response ? (
-                <div className="rounded-2xl bg-emerald-50 px-5 py-4 text-sm leading-7 text-emerald-950">
-                  <p className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-emerald-700">Interpretation</p>
-                  <p className="whitespace-pre-wrap">{response}</p>
-                </div>
-              ) : null}
-            </section>
-          </div>
-        ) : (
-          <AuthPanel
-            onAuthenticated={(nextSession) => {
-              setSession(nextSession);
-            }}
-          />
-        )}
-      </section>
-
-      <footer className="border-t border-slate-200 pt-5 text-xs leading-5 text-slate-500">
-        Early prototype: responses interpret food descriptions only. Nutrition totals, calculations, database lookups, and persistence are not connected yet. Authentication is now connected to Supabase so future records can be scoped to your account.
-      </footer>
+      <footer className="app-footer">Early prototype · meals and targets live in browser memory only · AI interpretation uses your authenticated session</footer>
     </main>
   );
 }

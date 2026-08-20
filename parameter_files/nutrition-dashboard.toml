@@ -1,0 +1,18 @@
+# Client-only nutrition dashboard assumptions.
+data_persistence = "none"
+seed_reset_behavior = "seeded-data-resets-on-refresh"
+ai_history_integration = "disabled"
+weight_unit = "kg"
+height_unit = "cm"
+activity_multiplier_sedentary = 1.20
+activity_multiplier_lightly_active = 1.40
+activity_multiplier_moderately_active = 1.575
+activity_multiplier_very_active = 1.80
+goal_adjustment_maintain = 0.0
+goal_adjustment_cut = -0.15
+goal_adjustment_bulk = 0.10
+protein_grams_per_kg = 2.0
+fat_grams_per_kg = 0.8
+protein_kcal_per_gram = 4
+carbohydrate_kcal_per_gram = 4
+fat_kcal_per_gram = 9

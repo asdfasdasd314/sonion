@@ -16,7 +16,7 @@ Sonion requires a Supabase email/password session before a user can access the m
 
 - `lib/supabase-auth.ts` owns Supabase Auth requests, session validation, and browser session storage.
 - `components/auth-panel.tsx` provides the email/password sign-in and account creation UI.
-- `app/page.tsx` restores the session, gates the estimator, and sends the access token with requests.
+- `app/page.tsx` restores the session, gates the dashboard, and passes the access token to the interpreter component.
 - `app/api/estimate/route.ts` verifies the access token before calling Gemma.
 - `.env.example` documents the required public Supabase environment values.
 - `parameter_files/authentication.toml` records the authentication behavior for this feature.
