@@ -220,8 +220,8 @@
     "semantic_hash": ""
   },
   "components/nutrition-targets.tsx": {
-    "mtime": 1787257458.704188,
-    "ast_hash": "08e090ce2182b6fdf94ce0a32331cd45",
+    "mtime": 1787258257.85374,
+    "ast_hash": "89e21d0068faa470cf4a0b826bdc2822",
     "semantic_hash": ""
   },
   "lib/nutrition/meals.ts": {
@@ -230,8 +230,8 @@
     "semantic_hash": ""
   },
   "lib/nutrition/targets.ts": {
-    "mtime": 1787257458.7050288,
-    "ast_hash": "daa3150429b3e5cc25fd7776589c0e9e",
+    "mtime": 1787258257.8544598,
+    "ast_hash": "9b7c4562a9501d3051bd8f6d1dd936ba",
     "semantic_hash": ""
   },
   "lib/nutrition/types.ts": {
@@ -240,13 +240,13 @@
     "semantic_hash": ""
   },
   "test/nutrition.test.ts": {
-    "mtime": 1787257458.7055473,
-    "ast_hash": "d4c727d3e95b5e3839769dd990b4b74d",
+    "mtime": 1787258257.855407,
+    "ast_hash": "c951eb46bc90c59dc70ab60d43be87ca",
     "semantic_hash": ""
   },
   "feature_files/nutrition-dashboard.md": {
-    "mtime": 1787257458.70469,
-    "ast_hash": "4327d56a237bdbfb5f50f1c969521c67",
+    "mtime": 1787258257.8541677,
+    "ast_hash": "5351b4e97f65c81bb3d8310fb3ae9170",
     "semantic_hash": ""
   }
 }
