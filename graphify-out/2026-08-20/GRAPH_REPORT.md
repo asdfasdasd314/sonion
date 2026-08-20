@@ -1,16 +1,16 @@
 # Graph Report - sonion  (2026-08-20)
 
 ## Corpus Check
-- 21 files · ~6,111 words
+- 31 files · ~9,370 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 173 nodes · 197 edges · 19 communities (13 shown, 6 thin omitted)
-- Extraction: 93% EXTRACTED · 7% INFERRED · 0% AMBIGUOUS · INFERRED: 13 edges (avg confidence: 0.92)
+- 259 nodes · 386 edges · 21 communities (15 shown, 6 thin omitted)
+- Extraction: 96% EXTRACTED · 4% INFERRED · 0% AMBIGUOUS · INFERRED: 17 edges (avg confidence: 0.87)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `f2d6794c`
+- Built from commit: `2aa264ea`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -33,30 +33,32 @@
 - Globe Icon Asset
 - Window Icon Asset
 - route.ts
+- tools.ts
 - Gemini model selection
+- USDA food-data tools
 
 ## God Nodes (most connected - your core abstractions)
 1. `compilerOptions` - 16 edges
-2. `POST()` - 7 edges
-3. `include` - 7 edges
-4. `Supabase email/password authentication` - 6 edges
-5. `Gemini model selection` - 6 edges
-6. `Architecture Agent Profile` - 6 edges
-7. `AGENTS Instructions` - 6 edges
-8. `CLAUDE Instructions` - 6 edges
-9. `Project README` - 6 edges
-10. `authRequest()` - 5 edges
+2. `buildFoodIndex()` - 10 edges
+3. `normalizeFood()` - 9 edges
+4. `POST()` - 7 edges
+5. `createFoodTools()` - 7 edges
+6. `NormalizedFood` - 7 edges
+7. `scripts` - 7 edges
+8. `include` - 7 edges
+9. `finiteNumber()` - 6 edges
+10. `normalizePortion()` - 6 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `Next.js` --semantically_similar_to--> `Next.js Wordmark SVG`  [INFERRED] [semantically similar]
   README.md → public/next.svg
 - `Vercel Platform` --semantically_similar_to--> `Vercel Triangle SVG`  [INFERRED] [semantically similar]
   README.md → public/vercel.svg
-- `Next.js` --semantically_similar_to--> `Next.js`  [INFERRED] [semantically similar]
-  AGENTS.md → README.md
 - `Graphify` --semantically_similar_to--> `Graphify`  [INFERRED] [semantically similar]
   AGENTS.md → .agents/profiles/architecture.md
 - `Feature Files` --semantically_similar_to--> `Feature Files`  [INFERRED] [semantically similar]
+  AGENTS.md → .agents/profiles/coding.md
+- `Parameter Files` --semantically_similar_to--> `Parameter Files`  [INFERRED] [semantically similar]
   AGENTS.md → .agents/profiles/coding.md
 
 ## Import Cycles
@@ -67,35 +69,35 @@
 - **Feature and Parameter File Workflow** — _agents_profiles_architecture, _agents_profiles_coding, _agents_profiles_integrating, _agents_profiles_planning, agents, claude [EXTRACTED 1.00]
 - **Next.js Starter Project Assets** — readme, public_next, public_vercel, public_file, public_globe, public_window [INFERRED 0.85]
 
-## Communities (19 total, 6 thin omitted)
+## Communities (21 total, 6 thin omitted)
 
 ### Community 0 - "TypeScript Compiler Options"
-Cohesion: 0.11
-Nodes (19): dom, dom.iterable, esnext, compilerOptions, allowJs, esModuleInterop, incremental, isolatedModules (+11 more)
+Cohesion: 0.07
+Nodes (28): dom, dom.iterable, esnext, **/*.mts, .next/dev/types/**/*.ts, next-env.d.ts, .next/types/**/*.ts, node_modules (+20 more)
 
 ### Community 1 - "Linting and Styling"
 Cohesion: 0.12
 Nodes (17): eslint, eslint-config-next, devDependencies, eslint, eslint-config-next, tailwindcss, @tailwindcss/postcss, @types/node (+9 more)
 
 ### Community 2 - "Next.js Dependencies"
-Cohesion: 0.11
-Nodes (17): @google/genai, next, dependencies, @google/genai, next, react, react-dom, name (+9 more)
+Cohesion: 0.08
+Nodes (23): @google/genai, next, dependencies, @google/genai, next, react, react-dom, tsx (+15 more)
 
 ### Community 3 - "Project Agent Rules"
-Cohesion: 0.20
-Nodes (11): Coding Agent Profile, Integrating Agent Profile, AGENTS Instructions, Feature Files, Parameter Files, Debugging Evidence, Feature Files, Parameter Files (+3 more)
+Cohesion: 0.12
+Nodes (18): Architecture Agent Profile, Coding Agent Profile, Integrating Agent Profile, AGENTS Instructions, Feature Files, Graphify, Parameter Files, Four Stage Development Lifecycle (+10 more)
 
 ### Community 4 - "TypeScript References"
-Cohesion: 0.20
-Nodes (9): **/*.mts, .next/dev/types/**/*.ts, next-env.d.ts, .next/types/**/*.ts, node_modules, **/*.ts, **/*.tsx, exclude (+1 more)
+Cohesion: 0.14
+Nodes (25): asRecord(), buildAndWriteFoodIndex(), buildFoodIndex(), compareText(), extractRecords(), FNDDS_DATA_PATH, FOOD_DATA_DIR, FOUNDATION_DATA_PATH (+17 more)
 
 ### Community 5 - "Architecture Profiles"
-Cohesion: 0.11
-Nodes (18): Architecture Agent Profile, Planning Agent Profile, Graphify, Next.js, Four Stage Development Lifecycle, Feature Files, Graphify, Parameter Files (+10 more)
+Cohesion: 0.12
+Nodes (20): Planning Agent Profile, Next.js, Feature Files, Graphify Planning Evidence, CLAUDE Instructions, Feature Files, Graphify, Next.js (+12 more)
 
 ### Community 6 - "Starter App Documentation"
-Cohesion: 0.31
-Nodes (9): Next.js Wordmark SVG, Vercel Triangle SVG, Project README, app/page.tsx, create-next-app, Geist Font, next/font, Next.js (+1 more)
+Cohesion: 0.20
+Nodes (20): finiteNumber(), ingredientDescription(), normalizeFood(), normalizeIngredients(), normalizePortion(), normalizePortions(), NUTRIENT_IDS, nutrientAmount() (+12 more)
 
 ### Community 7 - "Repository Instructions"
 Cohesion: 0.29
@@ -117,12 +119,20 @@ Nodes (22): ApiPayload, Home(), AuthMode, AuthPanel(), AuthPanelProps, AuthError
 Cohesion: 0.24
 Nodes (10): errorResponse(), isPromptBody(), POST(), PromptBody, createGemmaClient(), getGemmaModel(), getGemmaSystemInstruction(), getSupabaseUser() (+2 more)
 
+### Community 18 - "tools.ts"
+Cohesion: 0.19
+Nodes (19): RUNTIME_INDEX_PATH, getLoadedFoodById(), isNormalizedFood(), loadFoodIndex(), compareText(), createFoodTools(), FoodToolset, getDefaultTools() (+11 more)
+
 ### Community 19 - "Gemini model selection"
 Cohesion: 0.29
 Nodes (6): Dev Mode, Gemini model selection, Key Points, Relevant Files, State Log, Summary
 
+### Community 20 - "USDA food-data tools"
+Cohesion: 0.29
+Nodes (6): Dev Mode, Key Points, Relevant Files, State Log, Summary, USDA food-data tools
+
 ## Knowledge Gaps
-- **82 isolated node(s):** `PromptBody`, `geistSans`, `geistMono`, `metadata`, `ApiPayload` (+77 more)
+- **101 isolated node(s):** `PromptBody`, `geistSans`, `geistMono`, `metadata`, `ApiPayload` (+96 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **6 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
@@ -130,16 +140,16 @@ Nodes (6): Dev Mode, Gemini model selection, Key Points, Relevant Files, State L
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `devDependencies` connect `Linting and Styling` to `Next.js Dependencies`?**
-  _High betweenness centrality (0.027) - this node is a cross-community bridge._
+  _High betweenness centrality (0.015) - this node is a cross-community bridge._
 - **Why does `AGENTS Instructions` connect `Project Agent Rules` to `Architecture Profiles`?**
-  _High betweenness centrality (0.026) - this node is a cross-community bridge._
-- **Why does `Next.js` connect `Architecture Profiles` to `Project Agent Rules`, `Starter App Documentation`?**
-  _High betweenness centrality (0.024) - this node is a cross-community bridge._
+  _High betweenness centrality (0.012) - this node is a cross-community bridge._
+- **Are the 2 inferred relationships involving `buildFoodIndex()` (e.g. with `normalizeFnddsFood()` and `normalizeFoundationFood()`) actually correct?**
+  _`buildFoodIndex()` has 2 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `PromptBody`, `geistSans`, `geistMono` to the rest of the system?**
-  _82 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _101 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `TypeScript Compiler Options` be split into smaller, more focused modules?**
-  _Cohesion score 0.10526315789473684 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.06896551724137931 - nodes in this community are weakly interconnected._
 - **Should `Linting and Styling` be split into smaller, more focused modules?**
   _Cohesion score 0.11764705882352941 - nodes in this community are weakly interconnected._
 - **Should `Next.js Dependencies` be split into smaller, more focused modules?**
-  _Cohesion score 0.1111111111111111 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.08333333333333333 - nodes in this community are weakly interconnected._
