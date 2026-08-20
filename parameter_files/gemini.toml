@@ -1,0 +1,5 @@
+# Runtime configuration for the Gemini food-description interpreter.
+# API keys belong in the environment and must not be added here.
+
+model = "gemma-4-31b-it"
+model_environment_variable = "GEMINI_MODEL"

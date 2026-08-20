@@ -1,6 +1,6 @@
 import { GoogleGenAI } from "@google/genai";
 
-export const GEMMA_MODEL = "gemma-3-1b-it";
+export const DEFAULT_GEMMA_MODEL = "gemma-4-31b-it";
 
 const GEMMA_SYSTEM_INSTRUCTION = `You are Sonion's food-description interpreter.
 
@@ -10,6 +10,10 @@ Do not provide authoritative nutrition totals, calculate calories or macronutrie
 
 export function createGemmaClient(apiKey: string) {
   return new GoogleGenAI({ apiKey });
+}
+
+export function getGemmaModel() {
+  return process.env.GEMINI_MODEL?.trim() || DEFAULT_GEMMA_MODEL;
 }
 
 export function getGemmaSystemInstruction() {

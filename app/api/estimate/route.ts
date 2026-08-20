@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 
 import {
   createGemmaClient,
-  GEMMA_MODEL,
+  getGemmaModel,
   getGemmaSystemInstruction,
 } from "@/lib/gemma";
 
@@ -56,9 +56,10 @@ export async function POST(request: Request) {
   }
 
   try {
+    const model = getGemmaModel();
     const client = createGemmaClient(apiKey);
     const result = await client.models.generateContent({
-      model: GEMMA_MODEL,
+      model,
       contents: prompt,
       config: {
         systemInstruction: getGemmaSystemInstruction(),
@@ -75,8 +76,9 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ response });
   } catch {
+    const model = getGemmaModel();
     return errorResponse(
-      `Google AI could not process this request. The configured model (${GEMMA_MODEL}) may be unavailable through Google AI Studio. No fallback model is configured.`,
+      `Google AI could not process this request. The configured model (${model}) may be unavailable through Google AI Studio.`,
       502,
     );
   }
