@@ -100,8 +100,8 @@
     "semantic_hash": "a2760511c65806022ad20adf74370ff3"
   },
   "app/api/estimate/route.ts": {
-    "mtime": 1787272052.4800792,
-    "ast_hash": "3bf5eb46cbc800f44d70cd96fe6c8f50",
+    "mtime": 1787273053.8600512,
+    "ast_hash": "3a7493469eeb1cc9efa2ef91b11f5858",
     "semantic_hash": ""
   },
   "lib/gemma.ts": {
@@ -180,18 +180,18 @@
     "semantic_hash": ""
   },
   "lib/agent/food-tools-skill.ts": {
-    "mtime": 1787271628.0405278,
-    "ast_hash": "18b8bb6d1e4d60c499eab58281cb6f72",
+    "mtime": 1787273053.8607945,
+    "ast_hash": "1d267baa61698a2049f38c066ff6eb32",
     "semantic_hash": ""
   },
   "lib/agent/protocol.ts": {
-    "mtime": 1787255707.3799706,
-    "ast_hash": "91aa2d0d5573938e8e4327ddf700b22f",
+    "mtime": 1787273053.8611171,
+    "ast_hash": "ad8adc5627994e71e921c22318fdd8c1",
     "semantic_hash": ""
   },
   "lib/agent/runner.ts": {
-    "mtime": 1787272545.3095567,
-    "ast_hash": "0421fffa59f3a026ad14f76ebe17ed67",
+    "mtime": 1787273053.8615353,
+    "ast_hash": "6e90220c2d0acfb6b638fe16d0551f69",
     "semantic_hash": ""
   },
   "test/agent-protocol.test.ts": {
@@ -200,13 +200,13 @@
     "semantic_hash": ""
   },
   "test/agent-runner.test.ts": {
-    "mtime": 1787272545.3101757,
-    "ast_hash": "2e0f9e19df1c71f8965ccfbeee8d3ad4",
+    "mtime": 1787273053.8622277,
+    "ast_hash": "2c5dced9f6bb30a32253a5f3712630c9",
     "semantic_hash": ""
   },
   "feature_files/agent-tool-loop.md": {
-    "mtime": 1787272545.3089209,
-    "ast_hash": "85fb839a8b4cc5336ebee53a1eb50376",
+    "mtime": 1787273053.860422,
+    "ast_hash": "4806efb9c54642e94ff68410ca1960b3",
     "semantic_hash": ""
   },
   "components/meal-history.tsx": {

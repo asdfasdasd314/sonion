@@ -1,16 +1,16 @@
 # Graph Report - sonion  (2026-08-20)
 
 ## Corpus Check
-- 47 files · ~17,466 words
+- 47 files · ~17,468 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 380 nodes · 636 edges · 24 communities (18 shown, 6 thin omitted)
+- 380 nodes · 637 edges · 24 communities (18 shown, 6 thin omitted)
 - Extraction: 97% EXTRACTED · 3% INFERRED · 0% AMBIGUOUS · INFERRED: 19 edges (avg confidence: 0.83)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `728b5baa`
+- Built from commit: `d20211d7`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -44,13 +44,13 @@
 1. `compilerOptions` - 16 edges
 2. `scripts` - 11 edges
 3. `buildFoodIndex()` - 10 edges
-4. `runLoop()` - 9 edges
-5. `normalizeFood()` - 9 edges
-6. `POST()` - 8 edges
-7. `diagnostic()` - 8 edges
-8. `parseToolResponse()` - 8 edges
-9. `parseResultResponse()` - 8 edges
-10. `createFoodToolRegistry()` - 8 edges
+4. `parseAgentResponse()` - 9 edges
+5. `runLoop()` - 9 edges
+6. `normalizeFood()` - 9 edges
+7. `POST()` - 8 edges
+8. `fieldDiagnostic()` - 8 edges
+9. `createFoodToolRegistry()` - 8 edges
+10. `NormalizedFood` - 8 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `Next.js` --semantically_similar_to--> `Next.js Wordmark SVG`  [INFERRED] [semantically similar]
@@ -79,16 +79,16 @@ Cohesion: 0.07
 Nodes (28): dom, dom.iterable, esnext, **/*.mts, .next/dev/types/**/*.ts, next-env.d.ts, .next/types/**/*.ts, node_modules (+20 more)
 
 ### Community 1 - "Linting and Styling"
-Cohesion: 0.06
-Nodes (31): eslint, eslint-config-next, devDependencies, eslint, eslint-config-next, tailwindcss, @tailwindcss/postcss, @types/node (+23 more)
+Cohesion: 0.12
+Nodes (17): eslint, eslint-config-next, devDependencies, eslint, eslint-config-next, tailwindcss, @tailwindcss/postcss, @types/node (+9 more)
 
 ### Community 2 - "Next.js Dependencies"
-Cohesion: 0.15
-Nodes (13): @google/genai, next, dependencies, @google/genai, next, react, react-dom, tsx (+5 more)
+Cohesion: 0.07
+Nodes (27): @google/genai, next, dependencies, @google/genai, next, react, react-dom, tsx (+19 more)
 
 ### Community 3 - "Project Agent Rules"
-Cohesion: 0.09
-Nodes (42): checkEnvelopeKeys(), DEFAULT_PROTOCOL_LIMITS, diagnostic(), duplicateTopLevelKeys(), fieldDiagnostic(), formatProtocolErrors(), formatResult(), formatToolCall() (+34 more)
+Cohesion: 0.17
+Nodes (23): checkEnvelopeKeys(), DEFAULT_PROTOCOL_LIMITS, diagnostic(), duplicateTopLevelKeys(), fieldDiagnostic(), formatResult(), formatToolCall(), formatToolCalls() (+15 more)
 
 ### Community 4 - "TypeScript References"
 Cohesion: 0.11
@@ -116,11 +116,11 @@ Nodes (4): Bridge Agent Profile, Answer Oriented Programming, Coding Readiness, 
 
 ### Community 10 - "Home Page"
 Cohesion: 0.12
-Nodes (23): Home(), AuthMode, AuthPanel(), AuthPanelProps, ApiPayload, MealInterpreterProps, AuthErrorResponse, authRequest() (+15 more)
+Nodes (24): Home(), AuthMode, AuthPanel(), AuthPanelProps, ApiPayload, MealInterpreterProps, AuthErrorResponse, authRequest() (+16 more)
 
 ### Community 17 - "route.ts"
-Cohesion: 0.19
-Nodes (12): errorResponse(), isPromptBody(), POST(), PromptBody, getFoodToolsSkill(), getDefaultFoodToolRegistry(), createGemmaClient(), getGemmaModel() (+4 more)
+Cohesion: 0.10
+Nodes (30): errorResponse(), isPromptBody(), POST(), PromptBody, getFoodToolsSkill(), formatProtocolErrors(), formatToolResults(), ProtocolDiagnostic (+22 more)
 
 ### Community 18 - "tools.ts"
 Cohesion: 0.17
@@ -157,7 +157,9 @@ _Questions this graph is uniquely positioned to answer:_
 - **Why does `FoodDataSetupError` connect `TypeScript References` to `route.ts`?**
   _High betweenness centrality (0.015) - this node is a cross-community bridge._
 - **Why does `NormalizedFood` connect `TypeScript References` to `tools.ts`, `Project Agent Rules`, `normalize.ts`?**
-  _High betweenness centrality (0.012) - this node is a cross-community bridge._
+  _High betweenness centrality (0.011) - this node is a cross-community bridge._
+- **Why does `devDependencies` connect `Linting and Styling` to `Next.js Dependencies`?**
+  _High betweenness centrality (0.008) - this node is a cross-community bridge._
 - **Are the 2 inferred relationships involving `buildFoodIndex()` (e.g. with `normalizeFnddsFood()` and `normalizeFoundationFood()`) actually correct?**
   _`buildFoodIndex()` has 2 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `PromptBody`, `geistSans`, `geistMono` to the rest of the system?**
@@ -165,6 +167,4 @@ _Questions this graph is uniquely positioned to answer:_
 - **Should `TypeScript Compiler Options` be split into smaller, more focused modules?**
   _Cohesion score 0.06896551724137931 - nodes in this community are weakly interconnected._
 - **Should `Linting and Styling` be split into smaller, more focused modules?**
-  _Cohesion score 0.0625 - nodes in this community are weakly interconnected._
-- **Should `Project Agent Rules` be split into smaller, more focused modules?**
-  _Cohesion score 0.09158186864014801 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.11764705882352941 - nodes in this community are weakly interconnected._
