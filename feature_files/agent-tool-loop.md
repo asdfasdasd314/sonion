@@ -10,7 +10,7 @@ The estimate route runs a bounded, server-side text-protocol loop so the food in
 - Model tool calls use one or more anchored sonion-tool blocks with { "name", "arguments" } JSON envelopes. Final responses use exactly one result block with a string content field.
 - Protocol parsing rejects arbitrary text, malformed fences, invalid JSON, duplicate or unknown envelope fields, mixed tool/result output, unknown tools, and oversized payloads with structured diagnostics.
 - Zod schemas are strict: unknown arguments, missing arguments, invalid types, out-of-range values, and invalid enum values are rejected before execution.
-- The runner serializes tool results as data, catches tool failures, redacts exception details, limits rounds/calls/payloads/deadline, and never evaluates model output.
+- The runner logs each received tool-call attempt, serializes tool results as data, catches tool failures, redacts exception details, limits rounds/calls/payloads, and never evaluates model output.
 - Meal descriptions and tool results are explicitly delimited as untrusted data to reduce prompt-injection confusion.
 
 ## Relevant Files
@@ -33,3 +33,4 @@ TESTING
 - Added the strict text protocol, fixed food-tool skill, application capability sandbox, bounded model loop, and internal correction transcripts.
 - Ordered unknown-tool diagnostics before envelope-field diagnostics and corrected the protocol test to identify the actual unsupported field.
 - Classified food-data registry setup failures before the Gemma call so missing or invalid indexes return a clear 503 setup response while preserving the tool loop and system skill.
+- Removed the wall-clock response deadline and added server-console logging for every received tool-call attempt, including calls rejected by runner limits or argument validation.

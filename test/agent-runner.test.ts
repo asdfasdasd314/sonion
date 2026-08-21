@@ -32,7 +32,6 @@ test("runs search, lookup, and final result without exposing arbitrary capabilit
       requests.push(systemInstruction + "\n" + contents);
       return outputs.shift() ?? formatResult("missing mocked output");
     },
-    limits: { deadlineMs: 1_000 },
   });
 
   assert.equal(result, "Roasted chicken breast was described; the portion remains approximate.");
@@ -58,7 +57,6 @@ test("returns a bounded correction when arguments fail strict validation", async
         ? formatToolCall("searchFoods", { query: "chicken", unsupported: true })
         : formatResult("Chicken was identified; the exact portion is uncertain.");
     },
-    limits: { deadlineMs: 1_000 },
   });
 
   assert.equal(result, "Chicken was identified; the exact portion is uncertain.");

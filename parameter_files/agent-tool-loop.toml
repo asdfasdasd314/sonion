@@ -7,4 +7,3 @@ max_calls_per_turn = 4
 max_model_output_chars = 24000
 max_tool_result_chars = 12000
 max_final_content_chars = 8000
-deadline_ms = 20000

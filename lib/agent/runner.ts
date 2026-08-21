@@ -23,7 +23,6 @@ export type AgentLimits = ProtocolLimits & {
   maxToolCalls: number;
   maxCallsPerTurn: number;
   maxToolResultChars: number;
-  deadlineMs: number;
 };
 
 export const DEFAULT_AGENT_LIMITS: AgentLimits = {
@@ -33,7 +32,6 @@ export const DEFAULT_AGENT_LIMITS: AgentLimits = {
   maxModelOutputChars: 24_000,
   maxToolResultChars: 12_000,
   maxFinalContentChars: 8_000,
-  deadlineMs: 20_000,
 };
 
 export type RunMealAgentInput = {
@@ -45,7 +43,6 @@ export type RunMealAgentInput = {
 
 export class AgentRunnerError extends Error {
   readonly code:
-    | "DEADLINE_EXCEEDED"
     | "ROUND_LIMIT"
     | "TOOL_CALL_LIMIT"
     | "MODEL_OUTPUT_INVALID"
@@ -138,6 +135,14 @@ async function executeCalls(
 }> {
   const diagnostics: ProtocolDiagnostic[] = [];
   const results: { callIndex: number; name: string; result: unknown }[] = [];
+
+  for (const call of calls) {
+    console.log("Meal agent tool call.", {
+      callIndex: call.callIndex,
+      name: call.name,
+      arguments: call.arguments,
+    });
+  }
 
   if (calls.length > limits.maxCallsPerTurn) {
     diagnostics.push({
@@ -244,14 +249,5 @@ export async function runMealAgent(input: RunMealAgentInput): Promise<string> {
     throw new AgentRunnerError("MODEL_OUTPUT_INVALID", "The meal prompt must not be empty.");
   }
 
-  let timeout: ReturnType<typeof setTimeout> | undefined;
-  const deadline = new Promise<never>((_, reject) => {
-    timeout = setTimeout(() => reject(new AgentRunnerError("DEADLINE_EXCEEDED", "The agent deadline was exceeded.")), limits.deadlineMs);
-  });
-
-  try {
-    return await Promise.race([runLoop(input, limits), deadline]);
-  } finally {
-    if (timeout) clearTimeout(timeout);
-  }
+  return runLoop(input, limits);
 }

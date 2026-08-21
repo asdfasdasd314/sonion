@@ -344,7 +344,7 @@ Foundation calorie selection prefers nutrient 2048, then 2047. FNDDS uses nutrie
 
 ## Agent tool loop
 
-Meal interpretation is a server-only loop. The model receives the food-tools skill from lib/agent/food-tools-skill.ts and may emit one or more strict JSON tool blocks. lib/agent/protocol.ts rejects malformed fences, arbitrary prose, unknown envelope fields, unknown tools, invalid JSON, mixed tool/result responses, and oversized payloads. lib/agent/runner.ts validates arguments against the strict registry, executes only searchFoods and getFood, sends serialized results back for the next model turn, and enforces fixed round, call, size, and deadline limits from parameter_files/agent-tool-loop.toml.
+Meal interpretation is a server-only loop. The model receives the food-tools skill from lib/agent/food-tools-skill.ts and may emit one or more strict JSON tool blocks. lib/agent/protocol.ts rejects malformed fences, arbitrary prose, unknown envelope fields, unknown tools, invalid JSON, mixed tool/result responses, and oversized payloads. lib/agent/runner.ts logs each tool-call attempt, validates arguments against the strict registry, executes only searchFoods and getFood, sends serialized results back for the next model turn, and enforces fixed round, call, and size limits from parameter_files/agent-tool-loop.toml.
 
 The final model response must be one result block containing a string content field. Only that field is returned by app/api/estimate/route.ts; protocol diagnostics, tool traces, and raw model output stay server-side.
 
