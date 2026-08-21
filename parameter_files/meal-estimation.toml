@@ -1,5 +1,5 @@
 # Server-owned Portion Unit calibration and density fallbacks.
-solid_portion_unit_milliliters = 150
-liquid_portion_unit_milliliters = 250
+solid_portion_unit_milliliters = 180
+liquid_portion_unit_milliliters = 240
 solid_fallback_density_grams_per_milliliter = 0.75
 liquid_fallback_density_grams_per_milliliter = 1.00
