@@ -1,16 +1,16 @@
 # Graph Report - sonion  (2026-08-20)
 
 ## Corpus Check
-- 47 files · ~17,071 words
+- 47 files · ~17,466 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 380 nodes · 634 edges · 24 communities (18 shown, 6 thin omitted)
+- 380 nodes · 636 edges · 24 communities (18 shown, 6 thin omitted)
 - Extraction: 97% EXTRACTED · 3% INFERRED · 0% AMBIGUOUS · INFERRED: 19 edges (avg confidence: 0.83)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `2bb34bc0`
+- Built from commit: `728b5baa`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -87,8 +87,8 @@ Cohesion: 0.15
 Nodes (13): @google/genai, next, dependencies, @google/genai, next, react, react-dom, tsx (+5 more)
 
 ### Community 3 - "Project Agent Rules"
-Cohesion: 0.10
-Nodes (41): checkEnvelopeKeys(), DEFAULT_PROTOCOL_LIMITS, diagnostic(), duplicateTopLevelKeys(), fieldDiagnostic(), formatProtocolErrors(), formatResult(), formatToolCall() (+33 more)
+Cohesion: 0.09
+Nodes (42): checkEnvelopeKeys(), DEFAULT_PROTOCOL_LIMITS, diagnostic(), duplicateTopLevelKeys(), fieldDiagnostic(), formatProtocolErrors(), formatResult(), formatToolCall() (+34 more)
 
 ### Community 4 - "TypeScript References"
 Cohesion: 0.11
@@ -119,8 +119,8 @@ Cohesion: 0.12
 Nodes (23): Home(), AuthMode, AuthPanel(), AuthPanelProps, ApiPayload, MealInterpreterProps, AuthErrorResponse, authRequest() (+15 more)
 
 ### Community 17 - "route.ts"
-Cohesion: 0.16
-Nodes (13): errorResponse(), isPromptBody(), POST(), PromptBody, getFoodToolsSkill(), AgentRunnerError, getDefaultFoodToolRegistry(), createGemmaClient() (+5 more)
+Cohesion: 0.19
+Nodes (12): errorResponse(), isPromptBody(), POST(), PromptBody, getFoodToolsSkill(), getDefaultFoodToolRegistry(), createGemmaClient(), getGemmaModel() (+4 more)
 
 ### Community 18 - "tools.ts"
 Cohesion: 0.17
@@ -167,4 +167,4 @@ _Questions this graph is uniquely positioned to answer:_
 - **Should `Linting and Styling` be split into smaller, more focused modules?**
   _Cohesion score 0.0625 - nodes in this community are weakly interconnected._
 - **Should `Project Agent Rules` be split into smaller, more focused modules?**
-  _Cohesion score 0.09595959595959595 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.09158186864014801 - nodes in this community are weakly interconnected._
