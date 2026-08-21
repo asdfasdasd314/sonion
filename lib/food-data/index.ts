@@ -1,4 +1,9 @@
-export { normalizeFoundationFood, normalizeFnddsFood, selectCalorieValue } from "./normalize";
+export {
+  normalizeFoundationFood,
+  normalizeFnddsFood,
+  selectCalorieValue,
+  selectPreferredVolumePortion,
+} from "./normalize";
 export { buildAndWriteFoodIndex, buildFoodIndex, writeFoodIndex } from "./index-builder";
 export { FoodDataSetupError } from "./errors";
 export {
@@ -8,6 +13,11 @@ export {
   createFoodToolRegistry,
   getDefaultFoodToolRegistry,
 } from "./tools";
+export {
+  NormalizedFoodSchema,
+  NormalizedNutrientsSchema,
+  NormalizedPortionSchema,
+} from "./types";
 export type {
   FoodToolDefinition,
   FoodToolName,

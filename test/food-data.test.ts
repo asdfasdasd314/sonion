@@ -8,6 +8,7 @@ import {
   normalizeFnddsFood,
   normalizeFoundationFood,
   selectCalorieValue,
+  selectPreferredVolumePortion,
 } from "../lib/food-data";
 import { FOUNDATION_DATA_PATH, FNDDS_DATA_PATH } from "../lib/food-data/index-builder";
 import type { RawNutrient } from "../lib/food-data/raw";
@@ -88,11 +89,33 @@ test("normalizes FNDDS nutrients, category, food code, and human portion descrip
       fiberG: 0,
     },
     portions: [
-      { description: "1 cup", gramWeight: 244 },
-      { description: "1 fl oz", gramWeight: 30.5 },
+      { description: "1 cup", gramWeight: 244, volumeMl: 240, densityGPerMl: 244 / 240 },
+      { description: "1 fl oz", gramWeight: 30.5, volumeMl: 29.5735, densityGPerMl: 30.5 / 29.5735 },
       { description: "Quantity not specified", gramWeight: 1 },
     ],
   });
+});
+
+test("normalizes supported USDA volume units and chooses a deterministic volume portion", () => {
+  const food = normalizeFnddsFood({
+    fdcId: 20,
+    description: "Soup",
+    foodPortions: [
+      { amount: 100, gramWeight: 100, portionDescription: "100 milliliters" },
+      { amount: 1, gramWeight: 29, portionDescription: "1 fluid ounce" },
+      { amount: 2, gramWeight: 30, portionDescription: "2 tablespoons" },
+      { amount: 1, gramWeight: 240, portionDescription: "1 cup" },
+      { amount: 1, gramWeight: 5, portionDescription: "1 teaspoon" },
+    ],
+  });
+
+  assert.equal(food?.portions[0]?.volumeMl, 100);
+  assert.equal(food?.portions[1]?.volumeMl, 29.5735);
+  assert.equal(food?.portions[2]?.volumeMl, 29.5736);
+  assert.equal(food?.portions[3]?.volumeMl, 240);
+  assert.equal(food?.portions[4]?.volumeMl, 4.92892);
+  assert.equal(selectPreferredVolumePortion(food?.portions ?? [])?.description, "1 cup");
+  assert.equal(selectPreferredVolumePortion(food?.portions ?? [])?.densityGPerMl, 1);
 });
 
 test("uses the centralized calorie precedence rules", () => {

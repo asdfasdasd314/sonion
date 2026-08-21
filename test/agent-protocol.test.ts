@@ -9,8 +9,12 @@ import {
   parseResultResponse,
   parseToolResponse,
 } from "../lib/agent/protocol";
+import type { MealSelection } from "../lib/meal-estimation/types";
 
 const toolNames = ["searchFoods", "getFood"];
+const selection: MealSelection = {
+  items: [{ itemName: "chicken", fdcId: 12, portionUnits: 1.5, portionKind: "solid" }],
+};
 
 test("parses multiple tool calls and preserves call indexes", () => {
   const response = formatToolCalls([
@@ -29,11 +33,28 @@ test("parses multiple tool calls and preserves call indexes", () => {
 });
 
 test("extracts only validated result content", () => {
-  const parsed = parseResultResponse(formatResult("Chicken, prepared with an uncertain portion."));
+  const parsed = parseResultResponse(formatResult(selection));
   assert.deepEqual(parsed, {
     ok: true,
-    response: { kind: "result", content: "Chicken, prepared with an uncertain portion." },
+    response: { kind: "result", content: selection },
   });
+});
+
+test("rejects prose, empty selections, and nutrition fields in the result payload", () => {
+  const prose = parseResultResponse(JSON.stringify({ kind: "result", content: "chicken" }));
+  assert.equal(prose.ok, false);
+
+  const empty = parseResultResponse(JSON.stringify({ kind: "result", content: { items: [] } }));
+  assert.equal(empty.ok, false);
+
+  const nutrition = parseResultResponse(JSON.stringify({
+    kind: "result",
+    content: {
+      items: [{ itemName: "chicken", fdcId: 12, portionUnits: 1, portionKind: "solid", grams: 150 }],
+    },
+  }));
+  assert.equal(nutrition.ok, false);
+  if (!nutrition.ok) assert.ok(nutrition.diagnostics.some((item) => item.fieldPath?.includes("grams")));
 });
 
 test("reports unknown tools, unsupported fields, and exact paths", () => {
@@ -67,7 +88,7 @@ test("rejects malformed JSON, duplicate fields, mixed output, arbitrary prose, a
   assert.equal(duplicate.ok, false);
   if (!duplicate.ok) assert.equal(duplicate.diagnostics[0]?.code, "DUPLICATE_ENVELOPE_FIELD");
 
-  const mixed = parseAgentResponse(formatToolCall("getFood", { fdcId: 1 }) + "\n" + formatResult("no"));
+  const mixed = parseAgentResponse(formatToolCall("getFood", { fdcId: 1 }) + "\n" + formatResult(selection));
   assert.equal(mixed.ok, false);
   if (!mixed.ok) assert.equal(mixed.diagnostics[0]?.code, "INVALID_JSON");
 

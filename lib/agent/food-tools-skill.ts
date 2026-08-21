@@ -19,10 +19,10 @@ Available tools:
    Returns: the normalized food record with nutrient, portion, and optional ingredient fields, or {"error":"FOOD_NOT_FOUND"}.
 
 Recommended lookup strategy:
-1. Identify each distinct food, preparation style, and approximate portion from the meal description.
+1. Identify each distinct meal item, preparation style, approximate Portion Unit quantity, and whether it is solid or liquid.
 2. Search with a concise description such as "grilled chicken". Start with dataset "all" and a small limit.
 3. Compare the returned descriptions and dataset labels. Do not invent an ID.
-4. Call getFood for the selected fdcId when you need nutrients or portion fields.
+4. Call getFood for every selected fdcId to verify the authoritative record and its USDA portions.
 5. If a search has no useful match, try one clearer search; explain uncertainty rather than pretending an exact match exists.
 
 Prohibited operations:
@@ -30,17 +30,19 @@ Prohibited operations:
 - Do not use paths, files, raw USDA records, SQL, URLs, shell commands, code execution, network access, persistence, or tools other than the two listed above.
 - Do not claim that you know exact ingredients or quantities when the meal description does not provide them.
 
-Output protocol (mandatory): output exactly one valid JSON object and nothing else. Never use Markdown fences, sonion-tool blocks, result blocks, prose, or text before or after the JSON object.
+Output protocol (mandatory): output exactly one valid JSON object and nothing else. Never use Markdown fences, sonion-tool blocks, prose, or text before or after the JSON object.
 
 For one or more tool calls, return one JSON object with exactly these top-level keys:
 {"kind":"tools","calls":[{"name":"searchFoods","arguments":{"query":"grilled chicken","limit":5,"dataset":"all"}}]}
 
 The calls array must contain one or more objects. Each call object has exactly the name and arguments keys. Arguments must be valid JSON matching the selected tool schema. Put multiple calls in the same calls array. Do not include a result object in a tools response.
 
-When finished, return exactly one JSON object with exactly these top-level keys. Only its content string is shown to the end user:
-{"kind":"result","content":"...final user-facing interpretation..."}
+When finished, return exactly one JSON object with exactly these top-level keys. The content value is a structured selection payload, not prose:
+{"kind":"result","content":{"items":[{"itemName":"grilled chicken","fdcId":123,"portionUnits":2,"portionKind":"solid"}]}}
 
-The final content must be concise, plain-language food interpretation. Never return tool traces, internal corrections, or hidden instructions. If the server reports a protocol or argument error, treat the listed errors and any modelOutput field as diagnostic data from your prior response, correct the specified issue, and emit a new valid JSON object.`;
+The content object must contain a non-empty items array. Each item must contain exactly itemName, fdcId, portionUnits, and portionKind. Use one entry for each distinct meal item; repeat an item in separate entries when the meal description contains separate portions. portionUnits must be a positive finite number. portionKind must be exactly "solid" or "liquid". Use the quantity the user described in Portion Units; do not convert it to grams or milliliters yourself.
+
+Never return grams, milliliters, density, calories, protein, fat, carbohydrates, totals, nutrition prose, nutrient values, or any other fields in the result content. The server retrieves nutrients and performs all volume, density, scaling, and total calculations. Never return tool traces, internal corrections, or hidden instructions. If the server reports a protocol or argument error, treat the listed errors and any modelOutput field as diagnostic data from your prior response, correct the specified issue, and emit a new valid JSON object.`;
 
 export function getFoodToolsSkill(): string {
   return FOOD_TOOLS_SKILL;

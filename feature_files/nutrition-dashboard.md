@@ -8,7 +8,7 @@ Sonion's authenticated home page is a simple three-column personal dashboard: se
 
 - Meal history is seeded in `lib/nutrition/meals.ts`, grouped by date, and aggregated into calories, protein, fat, and carbohydrates for each date header.
 - Date rows are keyboard-operable expand/collapse buttons. Expanded rows show meal-level and food-level macro detail.
-- The interpreter continues to POST the signed-in user's prompt to `/api/estimate`; authentication and the server route contract are unchanged.
+- The interpreter POSTs the signed-in user's prompt to `/api/estimate`, validates the `{ items, totals }` response, and renders Portion Units, estimated volume/grams, macros, totals, and uncertainty notices without persisting history.
 - The target calculator accepts weight in pounds and height in inches, converts them to kilograms and centimeters for the supplied Mifflin–St Jeor equation, then applies activity range midpoints and a user-selected weekly cut/bulk change in either percentage of body weight or pounds, using 3,500 kcal per pound, before calculating macros.
 - Internal target calculations keep decimal precision while rendered values are rounded to whole numbers. Negative remaining calories are surfaced as a warning and carbohydrates display as zero.
 - No database tables, persistence, target APIs, or AI-to-history connection are part of this feature.
@@ -38,3 +38,4 @@ HACKING
 - Updated the imperial calculation fixture to retain enough conversion precision for the existing BMR tolerance.
 - Replaced fixed cut/bulk calorie percentages with validated weekly body-weight change inputs and transparent calorie adjustments.
 - Prevented the conditional weekly-change input from receiving an undefined value so it remains controlled when the cut/bulk fields mount.
+- Added responsive accessible meal-estimate rows with explicit fallback-density and missing-nutrient uncertainty messaging.

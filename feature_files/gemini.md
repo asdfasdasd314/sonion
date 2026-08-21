@@ -9,7 +9,7 @@ The Gemini integration sends Sonion food descriptions to a configurable Google A
 - `GEMINI_MODEL` controls the model identifier used by the server-side generation request.
 - The fallback model is `gemma-4-31b-it`.
 - The model is selected on the server and is never accepted from the browser request body.
-- The estimate route injects the food-tool skill, requests `application/json` responses, repeats model turns only for protocol tool calls, and returns only validated final content.
+- The estimate route injects the food-tool skill, requests `application/json` responses, repeats model turns only for protocol tool calls, and passes only the validated structured food selection to the server-owned estimator.
 - The model has no Google function-calling, code execution, arbitrary filesystem, network, or persistence capability.
 - API keys remain environment-only and are not stored in parameter files.
 

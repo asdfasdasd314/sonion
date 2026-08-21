@@ -1,4 +1,5 @@
 import type { FoodToolName } from "../food-data/tools";
+import { MealSelectionSchema, type MealSelection } from "../meal-estimation/types";
 
 const MAX_DIAGNOSTIC_VALUE_LENGTH = 120;
 
@@ -42,7 +43,7 @@ export type ToolResponse = {
 
 export type ResultResponse = {
   kind: "result";
-  content: string;
+  content: MealSelection;
 };
 
 export type ParsedAgentResponse =
@@ -383,33 +384,32 @@ export function parseResultResponse(
     );
   }
   const content = envelope.content;
-  if (typeof content !== "string") {
-    diagnostics.push(
-      fieldDiagnostic("INVALID_ENVELOPE_FIELD", "Result content must be a string.", content, {
-        fieldPath: "content",
-        expected: "string",
-      }),
-    );
-  } else if (!content.trim()) {
-    diagnostics.push(
-      diagnostic("EMPTY_RESULT", "Result content must not be empty.", {
-        fieldPath: "content",
-        receivedType: "string",
-        expected: "A non-empty user-facing interpretation.",
-      }),
-    );
-  } else if (content.length > limits.maxFinalContentChars) {
-    diagnostics.push(
-      diagnostic("PAYLOAD_TOO_LARGE", "Final result content exceeds the configured size limit.", {
-        fieldPath: "content",
-        receivedType: "string",
-        expected: "At most " + limits.maxFinalContentChars + " characters.",
-      }),
-    );
+  const parsedContent = MealSelectionSchema.safeParse(content);
+  if (!parsedContent.success) {
+    for (const issue of parsedContent.error.issues) {
+      diagnostics.push(
+        fieldDiagnostic("INVALID_ENVELOPE_FIELD", "Result content is not a valid meal selection.", content, {
+          fieldPath: ["content", ...issue.path.map(String)].join("."),
+          expected: issue.message,
+        }),
+      );
+    }
+    return { ok: false, diagnostics };
+  } else {
+    const serializedContent = JSON.stringify(parsedContent.data);
+    if (serializedContent.length > limits.maxFinalContentChars) {
+      diagnostics.push(
+        diagnostic("PAYLOAD_TOO_LARGE", "Final result content exceeds the configured size limit.", {
+          fieldPath: "content",
+          receivedType: "object",
+          expected: "At most " + limits.maxFinalContentChars + " characters.",
+        }),
+      );
+    }
   }
 
   if (diagnostics.length > 0) return { ok: false, diagnostics };
-  return { ok: true, response: { kind: "result", content: content.trim() } };
+  return { ok: true, response: { kind: "result", content: parsedContent.data } };
 }
 
 export function parseAgentResponse(
@@ -478,6 +478,6 @@ export function formatToolCalls(
   return JSON.stringify({ kind: "tools", calls });
 }
 
-export function formatResult(content: string): string {
+export function formatResult(content: MealSelection): string {
   return JSON.stringify({ kind: "result", content });
 }

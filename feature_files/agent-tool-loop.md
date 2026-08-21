@@ -2,13 +2,13 @@
 
 ## Summary
 
-The estimate route runs a bounded, server-side JSON protocol loop so the food interpreter can search and inspect the normalized local USDA index without receiving code execution, filesystem, network, or persistence capabilities. Only validated result.content is returned to the browser.
+The estimate route runs a bounded, server-side JSON protocol loop so the food interpreter can search and inspect the normalized local USDA index without receiving code execution, filesystem, network, or persistence capabilities. Only the validated structured selection in result.content is passed to the server-side estimator; the browser receives the validated `{ items, totals }` estimate.
 
 ## Key Points
 
 - FOOD_TOOLS_SKILL is injected into the model system instruction and documents the two allowed tools, their exact JSON argument shapes, lookup strategy, safety boundaries, and output protocol.
 - Correction transcripts identify the structured validation errors and may include a bounded copy of the prior model output as diagnostic data, which the skill instructs the model to use only for repairing its protocol response.
-- Model tool calls use one JSON object with `{ "kind": "tools", "calls": [{ "name", "arguments" }] }`; final responses use one `{ "kind": "result", "content" }` object.
+- Model tool calls use one JSON object with `{ "kind": "tools", "calls": [{ "name", "arguments" }] }`; final responses use one `{ "kind": "result", "content": { "items": [...] } }` object.
 - The Google AI request asks for `application/json`, and protocol parsing rejects Markdown fences, arbitrary text, invalid JSON, duplicate or unknown envelope fields, mixed tool/result payloads, unknown tools, and oversized responses with structured diagnostics.
 - Zod schemas are strict: unknown arguments, missing arguments, invalid types, out-of-range values, and invalid enum values are rejected before execution.
 - The runner logs each received tool-call attempt, serializes tool results as data, catches tool failures, redacts exception details, limits rounds/calls/payloads, and never evaluates model output.
@@ -21,7 +21,7 @@ The estimate route runs a bounded, server-side JSON protocol loop so the food in
 - lib/agent/protocol.ts parses and formats tool, result, and internal correction envelopes.
 - lib/agent/runner.ts owns the capability sandbox and bounded orchestration loop.
 - lib/food-data/tools.ts provides the strict allowlisted registry.
-- app/api/estimate/route.ts authenticates requests and returns only the validated final content.
+- app/api/estimate/route.ts authenticates requests, retrieves authoritative records, and returns only the validated meal estimate.
 - lib/food-data/errors.ts and app/api/estimate/route.ts keep food-data setup failures separate from Gemma/SDK failures.
 - parameter_files/agent-tool-loop.toml records server-only safety limits.
 - test/agent-protocol.test.ts and test/agent-runner.test.ts cover protocol and orchestration behavior.
@@ -39,3 +39,4 @@ TESTING
 - Added invalid-output and invalid-tool-argument diagnostics with raw-response logging, echoed a bounded raw response into correction feedback, and made oversized output retryable instead of failing before validation.
 - Replaced the fence-delimited model contract with a discriminator-based JSON-only contract and requested JSON MIME responses from Google AI after valid tool JSON was rejected because trailing Markdown fences were parsed as arbitrary text.
 - Aligned the unknown-tool protocol assertion with its nested `calls.0.name` diagnostic path so the verification suite matches the JSON envelope.
+- Replaced prose final content with a strict Portion Unit selection payload and handed calculations to the server-owned meal-estimation layer.

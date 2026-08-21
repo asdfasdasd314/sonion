@@ -10,7 +10,7 @@ Sonion is an AI-assisted nutrition tracker built for people who **don't prepare 
 
 ## Current prototype
 
-The current slice is a prompt form backed by a Next.js route handler. It sends a food description to the configured Gemma model through a bounded server-side agent loop. The model can request read-only searches and lookups against the normalized local USDA index, but it cannot execute code or access arbitrary files, networks, or persistence. The browser receives only the validated content from the final result envelope. The default model is `gemma-4-31b-it`; set `GEMINI_MODEL` in `.env.local` to use another supported model. This slice does not calculate nutrition totals or persist nutrition data. Email/password authentication is connected to Supabase so future records can be scoped to individual users.
+The current slice is a prompt form backed by a Next.js route handler. It sends a food description to the configured Gemma model through a bounded server-side agent loop. The model can request read-only searches and lookups against the normalized local USDA index, but it cannot execute code or access arbitrary files, networks, or persistence. The model returns only food identity, FDC ID, Portion Unit quantity, and solid/liquid kind; the server converts those selections into the validated `{ items, totals }` estimate that the browser renders. The default model is `gemma-4-31b-it`; set `GEMINI_MODEL` in `.env.local` to use another supported model. Estimates are not persisted. Email/password authentication is connected to Supabase so future records can be scoped to individual users.
 
 ### Local setup
 
@@ -167,7 +167,18 @@ rather than
 
 Users never need to know how many grams a PU represents.
 
-Internally the software estimates this.
+Internally the server converts this to a calibrated volume, estimates grams from USDA or fallback density, and scales the USDA nutrient values.
+
+The initial server-owned calibration is:
+
+```text
+solid PU = 150 mL
+liquid PU = 250 mL
+solid fallback density = 0.75 g/mL
+liquid fallback density = 1.00 g/mL
+```
+
+These values live in `parameter_files/meal-estimation.toml` and are not accepted from the browser or model.
 
 Examples:
 
@@ -344,9 +355,13 @@ Foundation calorie selection prefers nutrient 2048, then 2047. FNDDS uses nutrie
 
 ## Agent tool loop
 
-Meal interpretation is a server-only loop. The model receives the food-tools skill from lib/agent/food-tools-skill.ts and must emit exactly one JSON object per turn: a tools object containing a calls array or a result object containing content. The Google AI request also asks for an application/json response MIME type. lib/agent/protocol.ts rejects Markdown fences, arbitrary prose, unknown envelope fields, unknown tools, invalid JSON, mixed tool/result payloads, and oversized responses. lib/agent/runner.ts logs each tool-call attempt, validates arguments against the strict registry, executes only searchFoods and getFood, sends serialized results back for the next model turn, and enforces fixed round, call, and size limits from parameter_files/agent-tool-loop.toml.
+Meal interpretation is a server-only loop. The model receives the food-tools skill from `lib/agent/food-tools-skill.ts` and must emit exactly one JSON object per turn: a tools object containing a calls array or a result object whose content is a strict non-empty selection object. The Google AI request also asks for an application/json response MIME type. `lib/agent/protocol.ts` rejects Markdown fences, arbitrary prose, unknown envelope fields, unknown tools, invalid JSON, mixed tool/result payloads, malformed selections, and oversized responses. `lib/agent/runner.ts` logs each tool-call attempt, validates arguments against the strict registry, executes only `searchFoods` and `getFood`, sends serialized results back for the next model turn, and enforces fixed round, call, and size limits from `parameter_files/agent-tool-loop.toml`.
 
-The final model response must be one JSON result object containing a string content field. Only that field is returned by app/api/estimate/route.ts; protocol diagnostics, tool traces, and raw model output stay server-side.
+The final model response must be one JSON result object shaped like `{"kind":"result","content":{"items":[{"itemName":"rice","fdcId":123,"portionUnits":1,"portionKind":"solid"}]}}`. The server retrieves authoritative USDA records, calculates volume, density, grams, nutrients, and totals, then returns `{ items, totals }`. The browser validates that response before rendering it. Protocol diagnostics, tool traces, and raw model output stay server-side.
+
+## Meal estimation contract
+
+Each result item uses the USDA food name and contains its FDC ID, Portion Unit quantity, portion kind, estimated milliliters, estimated grams, density provenance, calories, protein, fat, and carbohydrates. Nutrient values are per meal item in the requested amount and are `null` when USDA data is missing. A total is `null` if any item is missing that nutrient. USDA volume portions are preferred for density; otherwise the response identifies the configured solid or liquid fallback density so the UI can show uncertainty.
 
 ---
 

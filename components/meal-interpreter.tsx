@@ -3,12 +3,9 @@
 import { useState } from "react";
 import type { FormEvent } from "react";
 
-const MAX_PROMPT_LENGTH = 2_000;
+import { parseMealEstimate, type MealEstimate } from "@/lib/meal-estimation/types";
 
-type ApiPayload = {
-  response?: string;
-  error?: string;
-};
+const MAX_PROMPT_LENGTH = 2_000;
 
 type MealInterpreterProps = {
   accessToken: string;
@@ -16,7 +13,7 @@ type MealInterpreterProps = {
 
 export default function MealInterpreter({ accessToken }: MealInterpreterProps) {
   const [prompt, setPrompt] = useState("");
-  const [response, setResponse] = useState("");
+  const [response, setResponse] = useState<MealEstimate | null>(null);
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -44,13 +41,21 @@ export default function MealInterpreter({ accessToken }: MealInterpreterProps) {
         headers: { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" },
         body: JSON.stringify({ prompt: trimmedPrompt }),
       });
-      const payload = (await result.json().catch(() => ({}))) as ApiPayload;
+      const payload = (await result.json().catch(() => ({}))) as unknown;
 
       if (!result.ok) {
-        setError(payload.error ?? "Sonion could not interpret that prompt.");
+        const errorMessage = typeof payload === "object" && payload !== null && "error" in payload && typeof payload.error === "string"
+          ? payload.error
+          : undefined;
+        setError(errorMessage ?? "Sonion could not interpret that prompt.");
         return;
       }
-      setResponse(payload.response ?? "Sonion returned no interpretation.");
+      const estimate = parseMealEstimate(payload);
+      if (!estimate) {
+        setError("Sonion returned an incomplete meal estimate. Try submitting the meal again.");
+        return;
+      }
+      setResponse(estimate);
     } catch {
       setError("Sonion could not reach the backend. Check that the app is running and try again.");
     } finally {
@@ -91,11 +96,63 @@ export default function MealInterpreter({ accessToken }: MealInterpreterProps) {
       <section aria-label="Sonion response" aria-live="polite" className="response-slot">
         {response ? (
           <div className="response-card">
-            <p className="response-label">Interpretation</p>
-            <p className="response-text">{response}</p>
+            <p className="response-label">Estimated meal</p>
+            <div className="estimate-table-wrap">
+              <table className="estimate-table">
+                <caption className="visually-hidden">Estimated foods, portions, volume, weight, and nutrients</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Food</th>
+                    <th scope="col">PU</th>
+                    <th scope="col">Volume</th>
+                    <th scope="col">Weight</th>
+                    <th scope="col">Calories</th>
+                    <th scope="col">Protein</th>
+                    <th scope="col">Fat</th>
+                    <th scope="col">Carbs</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {response.items.map((item, index) => (
+                    <tr key={`${item.fdcId}-${index}`}>
+                      <th data-label="Food" scope="row">{item.foodName}<small>{item.portionKind}</small></th>
+                      <td data-label="PU">{formatValue(item.portionUnits, 2)}</td>
+                      <td data-label="Volume">{formatValue(item.estimatedMilliliters)} ml</td>
+                      <td data-label="Weight">{formatValue(item.estimatedGrams)} g</td>
+                      <td data-label="Calories">{formatValue(item.calories)}</td>
+                      <td data-label="Protein">{formatValue(item.protein)} g</td>
+                      <td data-label="Fat">{formatValue(item.fat)} g</td>
+                      <td data-label="Carbs">{formatValue(item.carbohydrates)} g</td>
+                    </tr>
+                  ))}
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <th scope="row">Meal total</th>
+                    <td />
+                    <td />
+                    <td />
+                    <td>{formatValue(response.totals.calories)}</td>
+                    <td>{formatValue(response.totals.protein)} g</td>
+                    <td>{formatValue(response.totals.fat)} g</td>
+                    <td>{formatValue(response.totals.carbohydrates)} g</td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+            {response.items.some((item) => item.densitySource.type === "fallback") ? (
+              <p className="warning-message" role="status">Some weights use an estimated fallback density because USDA volume data was unavailable.</p>
+            ) : null}
+            {response.items.some((item) => [item.calories, item.protein, item.fat, item.carbohydrates].some((value) => value === null)) ? (
+              <p className="warning-message" role="status">Some nutrient values were missing from the USDA records, so the related meal totals are shown as —.</p>
+            ) : null}
           </div>
         ) : null}
       </section>
     </section>
   );
+}
+
+function formatValue(value: number | null, maximumFractionDigits = 1): string {
+  return value === null ? "—" : value.toLocaleString(undefined, { maximumFractionDigits });
 }

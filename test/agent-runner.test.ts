@@ -5,6 +5,7 @@ import { runMealAgent } from "../lib/agent/runner";
 import { formatResult, formatToolCall } from "../lib/agent/protocol";
 import { createFoodToolRegistry } from "../lib/food-data/tools";
 import type { NormalizedFood } from "../lib/food-data/types";
+import type { MealSelection } from "../lib/meal-estimation/types";
 
 const fixtureIndex: NormalizedFood[] = [
   {
@@ -16,12 +17,16 @@ const fixtureIndex: NormalizedFood[] = [
   },
 ];
 
+const selection: MealSelection = {
+  items: [{ itemName: "roasted chicken", fdcId: 10, portionUnits: 1, portionKind: "solid" }],
+};
+
 test("runs search, lookup, and final result without exposing arbitrary capabilities", async () => {
   const tools = createFoodToolRegistry(fixtureIndex);
   const outputs = [
     formatToolCall("searchFoods", { query: "chicken", limit: 1 }),
     formatToolCall("getFood", { fdcId: 10 }),
-    formatResult("Roasted chicken breast was described; the portion remains approximate."),
+    formatResult(selection),
   ];
   const requests: string[] = [];
 
@@ -30,11 +35,11 @@ test("runs search, lookup, and final result without exposing arbitrary capabilit
     tools,
     generate: async ({ systemInstruction, contents }) => {
       requests.push(systemInstruction + "\n" + contents);
-      return outputs.shift() ?? formatResult("missing mocked output");
+      return outputs.shift() ?? formatResult(selection);
     },
   });
 
-  assert.equal(result, "Roasted chicken breast was described; the portion remains approximate.");
+  assert.deepEqual(result, selection);
   assert.equal(requests.length, 3);
   assert.match(requests[0] ?? "", /<sonion-user-meal>/);
   assert.match(requests[1] ?? "", /<sonion-tool-results>/);
@@ -55,11 +60,11 @@ test("returns a bounded correction when arguments fail strict validation", async
       turn += 1;
       return turn === 1
         ? formatToolCall("searchFoods", { query: "chicken", unsupported: true })
-        : formatResult("Chicken was identified; the exact portion is uncertain.");
+        : formatResult(selection);
     },
   });
 
-  assert.equal(result, "Chicken was identified; the exact portion is uncertain.");
+  assert.deepEqual(result, selection);
   assert.match(requests[1] ?? "", /INVALID_TOOL_ARGUMENTS/);
   assert.match(requests[1] ?? "", /arguments\.unsupported/);
   assert.match(requests[1] ?? "", /"modelOutput"/);
@@ -77,11 +82,11 @@ test("feeds invalid protocol output and diagnostics into the next model turn", a
     generate: async ({ contents }) => {
       requests.push(contents);
       turn += 1;
-      return turn === 1 ? invalidOutput : formatResult("Chicken was identified.");
+      return turn === 1 ? invalidOutput : formatResult(selection);
     },
   });
 
-  assert.equal(result, "Chicken was identified.");
+  assert.deepEqual(result, selection);
   assert.match(requests[1] ?? "", /INVALID_JSON/);
   assert.match(requests[1] ?? "", /forgot the result envelope/);
 });

@@ -102,6 +102,61 @@ function portionDescription(
   );
 }
 
+type VolumeUnit = "milliliter" | "cup" | "fluid-ounce" | "tablespoon" | "teaspoon";
+
+const VOLUME_MILLILITERS: Record<VolumeUnit, number> = {
+  milliliter: 1,
+  cup: 240,
+  "fluid-ounce": 29.5735,
+  tablespoon: 14.7868,
+  teaspoon: 4.92892,
+};
+
+const VOLUME_UNIT_ALIASES: Record<string, VolumeUnit> = {
+  ml: "milliliter",
+  milliliter: "milliliter",
+  milliliters: "milliliter",
+  millilitre: "milliliter",
+  millilitres: "milliliter",
+  cup: "cup",
+  cups: "cup",
+  "fl oz": "fluid-ounce",
+  floz: "fluid-ounce",
+  "fluid oz": "fluid-ounce",
+  "fluid ounce": "fluid-ounce",
+  "fluid ounces": "fluid-ounce",
+  tbsp: "tablespoon",
+  tablespoon: "tablespoon",
+  tablespoons: "tablespoon",
+  tsp: "teaspoon",
+  teaspoon: "teaspoon",
+  teaspoons: "teaspoon",
+};
+
+function normalizedUnit(value: string | undefined): VolumeUnit | undefined {
+  if (!value) return undefined;
+  const key = value.trim().toLocaleLowerCase("en-US").replace(/\./g, "").replace(/\s+/g, " ");
+  return VOLUME_UNIT_ALIASES[key];
+}
+
+function volumeDetails(
+  portion: RawFoodPortion,
+  amount: number | undefined,
+  description: string,
+): { volumeMl: number; densityGPerMl: number } | undefined {
+  const describedAmount = description.match(/(?:^|\s)(\d+(?:\.\d+)?)\s*(?:ml|millilit(?:er|re)s?|cups?|fl\s*oz|fluid ounces?|tbsp|tablespoons?|tsp|teaspoons?)\b/i);
+  const unit = normalizedUnit(portion.measureUnit?.abbreviation) ?? normalizedUnit(portion.measureUnit?.name) ??
+    (describedAmount ? normalizedUnit(describedAmount[0].replace(describedAmount[1], "").trim()) : undefined);
+  if (!unit) return undefined;
+
+  const quantity = amount ?? (describedAmount ? finiteNumber(describedAmount[1]) : undefined);
+  if (quantity === undefined || quantity <= 0) return undefined;
+  const volumeMl = quantity * VOLUME_MILLILITERS[unit];
+  const gramWeight = positiveNumber(portion.gramWeight);
+  if (!Number.isFinite(volumeMl) || volumeMl <= 0 || gramWeight === undefined) return undefined;
+  return { volumeMl, densityGPerMl: gramWeight / volumeMl };
+}
+
 function normalizePortion(
   portion: RawFoodPortion,
   dataset: FoodDataset,
@@ -113,13 +168,39 @@ function normalizePortion(
   const unit = portionUnit(portion);
   const description = portionDescription(portion, dataset, unit, amount);
   if (!description) return undefined;
+  const volume = volumeDetails(portion, amount, description);
 
   return {
     description,
     gramWeight,
     ...(amount !== undefined ? { amount } : {}),
     ...(unit ? { unit } : {}),
+    ...(volume ?? {}),
   };
+}
+
+const VOLUME_PREFERENCE: Record<VolumeUnit, number> = {
+  cup: 0,
+  "fluid-ounce": 1,
+  milliliter: 2,
+  tablespoon: 3,
+  teaspoon: 4,
+};
+
+/** Returns one deterministic USDA volume portion for record-level density estimates. */
+export function selectPreferredVolumePortion(
+  portions: readonly NormalizedPortion[],
+): NormalizedPortion | undefined {
+  return [...portions]
+    .filter((portion) => portion.volumeMl !== undefined && portion.volumeMl > 0 && portion.gramWeight > 0)
+    .sort((left, right) => {
+      const leftMatch = left.description.match(/(?:^|\s)(?:ml|millilit(?:er|re)s?|cups?|fl\s*oz|fluid ounces?|tbsp|tablespoons?|tsp|teaspoons?)\b/i);
+      const rightMatch = right.description.match(/(?:^|\s)(?:ml|millilit(?:er|re)s?|cups?|fl\s*oz|fluid ounces?|tbsp|tablespoons?|tsp|teaspoons?)\b/i);
+      const leftUnit = normalizedUnit(left.unit) ?? normalizedUnit(leftMatch?.[0]?.trim());
+      const rightUnit = normalizedUnit(right.unit) ?? normalizedUnit(rightMatch?.[0]?.trim());
+      return (leftUnit ? VOLUME_PREFERENCE[leftUnit] : 99) - (rightUnit ? VOLUME_PREFERENCE[rightUnit] : 99) ||
+        (right.volumeMl ?? 0) - (left.volumeMl ?? 0) || left.description.localeCompare(right.description);
+    })[0];
 }
 
 export function normalizePortions(

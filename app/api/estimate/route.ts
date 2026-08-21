@@ -7,6 +7,8 @@ import {
 import { runMealAgent, AgentRunnerError } from "@/lib/agent/runner";
 import { FoodDataSetupError, type FoodToolRegistry } from "@/lib/food-data";
 import { getDefaultFoodToolRegistry } from "@/lib/food-data/tools";
+import { NormalizedFoodSchema, type NormalizedFood } from "@/lib/food-data/types";
+import { estimateMeal, MealEstimationError } from "@/lib/meal-estimation";
 import {
   getSupabaseUser,
   SupabaseAuthError,
@@ -106,7 +108,7 @@ export async function POST(request: Request) {
 
   try {
     const client = createGemmaClient(apiKey);
-    const response = await runMealAgent({
+    const selection = await runMealAgent({
       mealPrompt: prompt,
       tools,
       generate: async ({ systemInstruction, contents }) => {
@@ -121,8 +123,28 @@ export async function POST(request: Request) {
         return result.text ?? "";
       },
     });
-    return NextResponse.json({ response });
+
+    const authoritativeFoods: NormalizedFood[] = [];
+    for (const item of selection.items) {
+      const record = await tools.getFood.execute({ fdcId: item.fdcId });
+      if (!NormalizedFoodSchema.safeParse(record).success) {
+        throw new MealEstimationError(
+          "UNKNOWN_FDC_ID",
+          "The model selected an FDC ID that is not in the authoritative USDA index.",
+        );
+      }
+      authoritativeFoods.push(record as NormalizedFood);
+    }
+
+    return NextResponse.json(estimateMeal(selection, authoritativeFoods));
   } catch (error) {
+    if (error instanceof MealEstimationError) {
+      console.error("Meal agent returned an unusable food selection.", { code: error.code });
+      return errorResponse(
+        "Google AI returned a meal selection that could not be matched to the authoritative USDA index. Try describing the foods with a little more detail.",
+        502,
+      );
+    }
     const errorCode = error instanceof AgentRunnerError ? error.code : "MODEL_FAILURE";
     console.error("Meal agent request failed.", {
       code: errorCode,

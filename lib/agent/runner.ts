@@ -8,6 +8,7 @@ import {
 } from "./protocol";
 import { getFoodToolsSkill } from "./food-tools-skill";
 import type { FoodToolRegistry } from "../food-data/tools";
+import type { MealSelection } from "../meal-estimation/types";
 
 export type AgentGenerationRequest = {
   systemInstruction: string;
@@ -200,7 +201,7 @@ async function executeCalls(
   return { results, diagnostics };
 }
 
-async function runLoop(input: RunMealAgentInput, limits: AgentLimits): Promise<string> {
+async function runLoop(input: RunMealAgentInput, limits: AgentLimits): Promise<MealSelection> {
   let contents = mealContents(input.mealPrompt);
   let toolCallCount = 0;
 
@@ -278,7 +279,7 @@ async function runLoop(input: RunMealAgentInput, limits: AgentLimits): Promise<s
   throw new AgentRunnerError("ROUND_LIMIT", "The agent exceeded its round limit.");
 }
 
-export async function runMealAgent(input: RunMealAgentInput): Promise<string> {
+export async function runMealAgent(input: RunMealAgentInput): Promise<MealSelection> {
   const limits = mergedLimits(input.limits);
   if (!input.mealPrompt.trim()) {
     throw new AgentRunnerError("MODEL_OUTPUT_INVALID", "The meal prompt must not be empty.");

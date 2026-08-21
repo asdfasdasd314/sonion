@@ -7,7 +7,7 @@ The food-data feature turns the local USDA Foundation Foods and FNDDS / Survey F
 ## Key Points
 
 - The authoritative local inputs are `food-data/FoodData_Central_foundation_food_json_2026-04-30.json` and `food-data/surveyDownload.json`.
-- `normalizeFoundationFood` and `normalizeFnddsFood` hide USDA-specific nesting and preserve only application nutrition, category, portion, food-code, and simple ingredient fields.
+- `normalizeFoundationFood` and `normalizeFnddsFood` hide USDA-specific nesting and preserve only application nutrition, category, portion, food-code, and simple ingredient fields; recognized volume portions also retain normalized milliliters and derived density.
 - Foundation calories select nutrient 2048 first, then 2047; FNDDS calories use nutrient 1008. Energy entries are never summed.
 - Missing nutrients remain omitted, invalid portions are omitted, and a food with no usable portions has `portions: []`.
 - `searchFoods` and `getFood` validate inputs with strict Zod schemas. They reject unknown parameters and do not accept paths, SQL, URLs, shell commands, or raw USDA records.
@@ -40,3 +40,4 @@ TESTING
 - Scoped the root USDA-data ignore rule so the tracked server-side `lib/food-data` implementation is included in handoffs.
 - Repaired real-record search expectations so chicken and broccoli integration cases select descriptions that match the documented starts-with ranking tier rather than arbitrary lexical token-overlap matches.
 - Added typed setup errors, stricter generated-index validation, and automatic prepare hooks so missing or invalid local food data is reported before the agent loop starts.
+- Added USDA volume-unit normalization, deterministic preferred volume portions, and derived density provenance for meal estimation.
