@@ -138,7 +138,10 @@ test("keeps missing nutrients and portions missing", () => {
   const food = normalizeFnddsFood({
     fdcId: 1,
     description: "Food without measurements",
-    foodNutrients: [{ nutrientId: 1003, value: 2 }],
+    foodNutrients: [
+      { nutrientId: 1003, value: 2 },
+      { nutrientId: 1004, value: -1 },
+    ],
     foodPortions: [{ gramWeight: 0, portionDescription: "invalid" }, { gramWeight: 4 }],
   });
 

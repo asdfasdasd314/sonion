@@ -44,7 +44,8 @@ function nutrientId(nutrient: RawNutrient): number | undefined {
 }
 
 function nutrientAmount(nutrient: RawNutrient): number | undefined {
-  return finiteNumber(nutrient.amount ?? nutrient.value);
+  const amount = finiteNumber(nutrient.amount ?? nutrient.value);
+  return amount !== undefined && amount >= 0 ? amount : undefined;
 }
 
 function nutrientValues(nutrients: readonly RawNutrient[]) {

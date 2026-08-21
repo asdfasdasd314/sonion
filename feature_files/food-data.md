@@ -41,3 +41,4 @@ TESTING
 - Repaired real-record search expectations so chicken and broccoli integration cases select descriptions that match the documented starts-with ranking tier rather than arbitrary lexical token-overlap matches.
 - Added typed setup errors, stricter generated-index validation, and automatic prepare hooks so missing or invalid local food data is reported before the agent loop starts.
 - Added USDA volume-unit normalization, deterministic preferred volume portions, and derived density provenance for meal estimation.
+- Fixed index invalidation from negative USDA nutrient sentinels by omitting negative nutrient values during normalization.
