@@ -18,7 +18,7 @@ The Gemini integration sends Sonion food descriptions to a configurable Google A
 - `lib/gemma.ts` resolves the configured model and owns the Gemma client helpers.
 - `app/api/estimate/route.ts` passes the resolved model to Google AI.
 - `lib/agent/food-tools-skill.ts` defines the model-facing tool and output contract.
-- `lib/agent/runner.ts` bounds turns, calls, and payload sizes while logging each tool-call attempt.
+- `lib/agent/runner.ts` bounds turns, per-turn calls, and payload sizes while logging each tool-call attempt.
 - `parameter_files/gemini.toml` records the tunable model default and environment override.
 - `.env.example` shows the local configuration surface.
 - `README.md` documents setup and model overrides.

@@ -11,7 +11,7 @@ The estimate route runs a bounded, server-side JSON protocol loop so the food in
 - Model tool calls use one JSON object with `{ "kind": "tools", "calls": [{ "name", "arguments" }] }`; final responses use one `{ "kind": "result", "content": { "items": [...] } }` object.
 - The Google AI request asks for `application/json`, and protocol parsing rejects Markdown fences, arbitrary text, invalid JSON, duplicate or unknown envelope fields, mixed tool/result payloads, unknown tools, and oversized responses with structured diagnostics.
 - Zod schemas are strict: unknown arguments, missing arguments, invalid types, out-of-range values, and invalid enum values are rejected before execution.
-- The runner logs each received tool-call attempt, serializes tool results as data, catches tool failures, redacts exception details, limits rounds/calls/payloads, and never evaluates model output.
+- The runner logs each received tool-call attempt, serializes tool results as data, catches tool failures, redacts exception details, limits rounds/per-turn calls/payloads, and never evaluates model output.
 - Invalid model responses, including strict tool-argument failures such as unsupported or missing attributes, are logged with their complete returned text and structured diagnostics; those diagnostics plus a bounded raw-output preview are fed back to the model for correction, including oversized responses.
 - Meal descriptions and tool results are explicitly delimited as untrusted data to reduce prompt-injection confusion.
 
@@ -40,3 +40,4 @@ TESTING
 - Replaced the fence-delimited model contract with a discriminator-based JSON-only contract and requested JSON MIME responses from Google AI after valid tool JSON was rejected because trailing Markdown fences were parsed as arbitrary text.
 - Aligned the unknown-tool protocol assertion with its nested `calls.0.name` diagnostic path so the verification suite matches the JSON envelope.
 - Replaced prose final content with a strict Portion Unit selection payload and handed calculations to the server-owned meal-estimation layer.
+- Removed the aggregate tool-call limit so valid multi-step food lookups can continue across rounds; round and per-turn limits remain the bounded loop controls.

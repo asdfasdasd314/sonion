@@ -2,7 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 
 import { runMealAgent } from "../lib/agent/runner";
-import { formatResult, formatToolCall } from "../lib/agent/protocol";
+import { formatResult, formatToolCall, formatToolCalls } from "../lib/agent/protocol";
 import { createFoodToolRegistry } from "../lib/food-data/tools";
 import type { NormalizedFood } from "../lib/food-data/types";
 import type { MealSelection } from "../lib/meal-estimation/types";
@@ -45,6 +45,30 @@ test("runs search, lookup, and final result without exposing arbitrary capabilit
   assert.match(requests[1] ?? "", /<sonion-tool-results>/);
   assert.match(requests[2] ?? "", /fdcId/);
   assert.match(requests[0] ?? "", /Do not use paths, files/);
+});
+
+test("allows valid tool calls to continue across rounds without an aggregate call limit", async () => {
+  const tools = createFoodToolRegistry(fixtureIndex);
+  let turn = 0;
+
+  const result = await runMealAgent({
+    mealPrompt: "chicken",
+    tools,
+    generate: async () => {
+      turn += 1;
+      if (turn === 6) return formatResult(selection);
+
+      return formatToolCalls(
+        Array.from({ length: 4 }, () => ({
+          name: "searchFoods" as const,
+          arguments: { query: "chicken", limit: 1 },
+        })),
+      );
+    },
+  });
+
+  assert.deepEqual(result, selection);
+  assert.equal(turn, 6);
 });
 
 test("returns a bounded correction when arguments fail strict validation", async () => {

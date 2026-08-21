@@ -21,14 +21,12 @@ export type AgentGenerationAdapter = (
 
 export type AgentLimits = ProtocolLimits & {
   maxRounds: number;
-  maxToolCalls: number;
   maxCallsPerTurn: number;
   maxToolResultChars: number;
 };
 
 export const DEFAULT_AGENT_LIMITS: AgentLimits = {
   maxRounds: 8,
-  maxToolCalls: 16,
   maxCallsPerTurn: 4,
   maxModelOutputChars: 24_000,
   maxCorrectionOutputChars: 4_000,
@@ -46,7 +44,6 @@ export type RunMealAgentInput = {
 export class AgentRunnerError extends Error {
   readonly code:
     | "ROUND_LIMIT"
-    | "TOOL_CALL_LIMIT"
     | "MODEL_OUTPUT_INVALID"
     | "MODEL_FAILURE"
     | "FINAL_OUTPUT_INVALID";
@@ -139,7 +136,6 @@ async function executeCalls(
   calls: readonly ToolCall[],
   tools: FoodToolRegistry,
   limits: AgentLimits,
-  completedCallCount: number,
 ): Promise<{
   results: { callIndex: number; name: string; result: unknown }[];
   diagnostics: ProtocolDiagnostic[];
@@ -165,10 +161,6 @@ async function executeCalls(
     });
     return { results, diagnostics };
   }
-  if (completedCallCount + calls.length > limits.maxToolCalls) {
-    throw new AgentRunnerError("TOOL_CALL_LIMIT", "The agent exceeded the tool-call limit.");
-  }
-
   for (const call of calls) {
     const tool = tools[call.name];
     const argumentErrors = argumentDiagnostics(call, tool);
@@ -203,7 +195,6 @@ async function executeCalls(
 
 async function runLoop(input: RunMealAgentInput, limits: AgentLimits): Promise<MealSelection> {
   let contents = mealContents(input.mealPrompt);
-  let toolCallCount = 0;
 
   for (let round = 0; round < limits.maxRounds; round += 1) {
     let modelOutput: string;
@@ -248,9 +239,7 @@ async function runLoop(input: RunMealAgentInput, limits: AgentLimits): Promise<M
       parsed.response.calls,
       input.tools,
       limits,
-      toolCallCount,
     );
-    toolCallCount += parsed.response.calls.length;
 
     if (execution.results.length > 0) {
       contents += "\n\n" + formatToolResults(execution.results);

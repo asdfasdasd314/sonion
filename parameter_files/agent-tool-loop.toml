@@ -2,7 +2,6 @@
 # These values are intentionally not accepted from the browser or model.
 
 max_rounds = 8
-max_tool_calls = 16
 max_calls_per_turn = 4
 max_model_output_chars = 24000
 # Maximum raw invalid-output preview included in the next model correction turn.
