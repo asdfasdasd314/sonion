@@ -31,3 +31,4 @@ TESTING
 ## State Log
 
 - Added the strict Portion Unit selection contract, server-owned calibration, USDA density provenance, nutrient scaling, uncertainty-aware API response, and accessible UI rendering.
+- Mapped strict result-payload key errors to the offending content field so correction diagnostics identify prohibited nutrition fields precisely.

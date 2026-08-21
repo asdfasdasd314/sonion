@@ -387,12 +387,20 @@ export function parseResultResponse(
   const parsedContent = MealSelectionSchema.safeParse(content);
   if (!parsedContent.success) {
     for (const issue of parsedContent.error.issues) {
-      diagnostics.push(
-        fieldDiagnostic("INVALID_ENVELOPE_FIELD", "Result content is not a valid meal selection.", content, {
-          fieldPath: ["content", ...issue.path.map(String)].join("."),
-          expected: issue.message,
-        }),
-      );
+      const issueDetails = issue as typeof issue & { keys?: string[] };
+      const issuePaths =
+        issueDetails.code === "unrecognized_keys" && issueDetails.keys?.length
+          ? issueDetails.keys.map((key) => [...issue.path, key])
+          : [issue.path];
+
+      for (const issuePath of issuePaths) {
+        diagnostics.push(
+          fieldDiagnostic("INVALID_ENVELOPE_FIELD", "Result content is not a valid meal selection.", content, {
+            fieldPath: ["content", ...issuePath.map(String)].join("."),
+            expected: issue.message,
+          }),
+        );
+      }
     }
     return { ok: false, diagnostics };
   } else {
