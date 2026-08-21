@@ -1,7 +1,7 @@
 # Graph Report - sonion  (2026-08-20)
 
 ## Corpus Check
-- 47 files · ~17,069 words
+- 47 files · ~17,071 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
@@ -10,7 +10,7 @@
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `0f19f707`
+- Built from commit: `2bb34bc0`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
