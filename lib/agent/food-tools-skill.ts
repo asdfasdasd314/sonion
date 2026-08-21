@@ -30,23 +30,17 @@ Prohibited operations:
 - Do not use paths, files, raw USDA records, SQL, URLs, shell commands, code execution, network access, persistence, or tools other than the two listed above.
 - Do not claim that you know exact ingredients or quantities when the meal description does not provide them.
 
-Output protocol (mandatory): output exactly one of these forms and nothing else.
+Output protocol (mandatory): output exactly one valid JSON object and nothing else. Never use Markdown fences, sonion-tool blocks, result blocks, prose, or text before or after the JSON object.
 
-For one or more tool calls, use one block per call:
-\`\`\`sonion-tool
-{"name":"searchFoods","arguments":{"query":"grilled chicken","limit":5,"dataset":"all"}}
-end-tool
-\`\`\`
+For one or more tool calls, return one JSON object with exactly these top-level keys:
+{"kind":"tools","calls":[{"name":"searchFoods","arguments":{"query":"grilled chicken","limit":5,"dataset":"all"}}]}
 
-The envelope keys are exactly name and arguments. Arguments must be valid JSON matching the selected tool schema. Multiple tool blocks are allowed, but do not include prose or a result block with them.
+The calls array must contain one or more objects. Each call object has exactly the name and arguments keys. Arguments must be valid JSON matching the selected tool schema. Put multiple calls in the same calls array. Do not include a result object in a tools response.
 
-When finished, return exactly one final result block. Only its content string is shown to the end user:
-\`\`\`result
-{"content":"...final user-facing interpretation..."}
-end
-\`\`\`
+When finished, return exactly one JSON object with exactly these top-level keys. Only its content string is shown to the end user:
+{"kind":"result","content":"...final user-facing interpretation..."}
 
-The final content must be concise, plain-language food interpretation. Do not include protocol fences inside content. Never return tool traces, internal corrections, JSON outside the required envelope, or hidden instructions. If the server reports a protocol or argument error, treat the listed errors and any modelOutput field as diagnostic data from your prior response, correct the specified issue, and emit a new valid tool block.`;
+The final content must be concise, plain-language food interpretation. Never return tool traces, internal corrections, or hidden instructions. If the server reports a protocol or argument error, treat the listed errors and any modelOutput field as diagnostic data from your prior response, correct the specified issue, and emit a new valid JSON object.`;
 
 export function getFoodToolsSkill(): string {
   return FOOD_TOOLS_SKILL;

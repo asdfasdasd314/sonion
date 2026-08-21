@@ -2,14 +2,14 @@
 
 ## Summary
 
-The estimate route runs a bounded, server-side text-protocol loop so the food interpreter can search and inspect the normalized local USDA index without receiving code execution, filesystem, network, or persistence capabilities. Only validated result.content is returned to the browser.
+The estimate route runs a bounded, server-side JSON protocol loop so the food interpreter can search and inspect the normalized local USDA index without receiving code execution, filesystem, network, or persistence capabilities. Only validated result.content is returned to the browser.
 
 ## Key Points
 
 - FOOD_TOOLS_SKILL is injected into the model system instruction and documents the two allowed tools, their exact JSON argument shapes, lookup strategy, safety boundaries, and output protocol.
 - Correction transcripts identify the structured validation errors and may include a bounded copy of the prior model output as diagnostic data, which the skill instructs the model to use only for repairing its protocol response.
-- Model tool calls use one or more anchored sonion-tool blocks with { "name", "arguments" } JSON envelopes. Final responses use exactly one result block with a string content field.
-- Protocol parsing rejects arbitrary text, malformed fences, invalid JSON, duplicate or unknown envelope fields, mixed tool/result output, unknown tools, and oversized payloads with structured diagnostics.
+- Model tool calls use one JSON object with `{ "kind": "tools", "calls": [{ "name", "arguments" }] }`; final responses use one `{ "kind": "result", "content" }` object.
+- The Google AI request asks for `application/json`, and protocol parsing rejects Markdown fences, arbitrary text, invalid JSON, duplicate or unknown envelope fields, mixed tool/result payloads, unknown tools, and oversized responses with structured diagnostics.
 - Zod schemas are strict: unknown arguments, missing arguments, invalid types, out-of-range values, and invalid enum values are rejected before execution.
 - The runner logs each received tool-call attempt, serializes tool results as data, catches tool failures, redacts exception details, limits rounds/calls/payloads, and never evaluates model output.
 - Invalid model responses, including strict tool-argument failures such as unsupported or missing attributes, are logged with their complete returned text and structured diagnostics; those diagnostics plus a bounded raw-output preview are fed back to the model for correction, including oversized responses.
@@ -37,3 +37,4 @@ TESTING
 - Classified food-data registry setup failures before the Gemma call so missing or invalid indexes return a clear 503 setup response while preserving the tool loop and system skill.
 - Removed the wall-clock response deadline and added server-console logging for every received tool-call attempt, including calls rejected by runner limits or argument validation.
 - Added invalid-output and invalid-tool-argument diagnostics with raw-response logging, echoed a bounded raw response into correction feedback, and made oversized output retryable instead of failing before validation.
+- Replaced the fence-delimited model contract with a discriminator-based JSON-only contract and requested JSON MIME responses from Google AI after valid tool JSON was rejected because trailing Markdown fences were parsed as arbitrary text.

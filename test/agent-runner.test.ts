@@ -82,7 +82,7 @@ test("feeds invalid protocol output and diagnostics into the next model turn", a
   });
 
   assert.equal(result, "Chicken was identified.");
-  assert.match(requests[1] ?? "", /ARBITRARY_TEXT/);
+  assert.match(requests[1] ?? "", /INVALID_JSON/);
   assert.match(requests[1] ?? "", /forgot the result envelope/);
 });
 

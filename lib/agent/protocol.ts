@@ -1,9 +1,5 @@
 import type { FoodToolName } from "../food-data/tools";
 
-const TOOL_OPEN = String.fromCharCode(96, 96, 96) + "sonion-tool";
-const TOOL_CLOSE = "end-tool";
-const RESULT_OPEN = String.fromCharCode(96, 96, 96) + "result";
-const RESULT_CLOSE = "end";
 const MAX_DIAGNOSTIC_VALUE_LENGTH = 120;
 
 function serializeTranscriptData(value: unknown): string {
@@ -11,11 +7,7 @@ function serializeTranscriptData(value: unknown): string {
 }
 
 export type ProtocolDiagnosticCode =
-  | "ARBITRARY_TEXT"
-  | "MALFORMED_FENCE"
-  | "MISSING_TERMINATOR"
   | "INVALID_JSON"
-  | "MIXED_RESPONSE"
   | "DUPLICATE_ENVELOPE_FIELD"
   | "UNKNOWN_ENVELOPE_FIELD"
   | "MISSING_ENVELOPE_FIELD"
@@ -56,6 +48,8 @@ export type ResultResponse = {
 export type ParsedAgentResponse =
   | { ok: true; response: ToolResponse | ResultResponse }
   | { ok: false; diagnostics: ProtocolDiagnostic[] };
+
+type JsonEnvelope = Record<string, unknown>;
 
 export type ProtocolLimits = {
   maxModelOutputChars: number;
@@ -112,11 +106,13 @@ function duplicateTopLevelKeys(json: string): string[] {
   const duplicates: string[] = [];
   const keys = new Set<string>();
   let depth = 0;
+  let rootObjectComplete = false;
   let index = 0;
   let previousSignificant = "";
 
   while (index < json.length) {
     const character = json[index];
+    if (rootObjectComplete) break;
     if (character === '"') {
       const start = index;
       index += 1;
@@ -143,107 +139,15 @@ function duplicateTopLevelKeys(json: string): string[] {
       continue;
     }
     if (character === "{" || character === "[") depth += 1;
-    if (character === "}" || character === "]") depth -= 1;
+    if (character === "}" || character === "]") {
+      depth -= 1;
+      if (depth === 0 && character === "}") rootObjectComplete = true;
+    }
     if (!/\s/.test(character)) previousSignificant = character;
     index += 1;
   }
 
   return duplicates;
-}
-
-function parseJsonEnvelope(
-  body: string,
-  blockIndex: number,
-): { value?: Record<string, unknown>; diagnostics: ProtocolDiagnostic[] } {
-  const diagnostics: ProtocolDiagnostic[] = [];
-  let duplicateKeys: string[] = [];
-  try {
-    duplicateKeys = duplicateTopLevelKeys(body);
-  } catch {
-    // JSON.parse below produces the authoritative malformed-JSON diagnostic.
-  }
-  for (const key of duplicateKeys) {
-    diagnostics.push(
-      diagnostic("DUPLICATE_ENVELOPE_FIELD", 'Envelope field "' + key + '" appears more than once.', {
-        blockIndex,
-        fieldPath: key,
-        expected: "Each envelope field must appear exactly once.",
-      }),
-    );
-  }
-
-  let parsed: unknown;
-  try {
-    parsed = JSON.parse(body);
-  } catch {
-    diagnostics.push(
-      diagnostic("INVALID_JSON", "Tool envelope is not valid JSON.", {
-        blockIndex,
-        receivedType: "invalid-json",
-        expected: "One JSON object containing the tool envelope.",
-      }),
-    );
-    return { diagnostics };
-  }
-
-  if (typeof parsed !== "object" || parsed === null || Array.isArray(parsed)) {
-    diagnostics.push(
-      fieldDiagnostic("INVALID_ENVELOPE_FIELD", "Tool envelope must be a JSON object.", parsed, {
-        blockIndex,
-        fieldPath: "",
-        expected: "object",
-      }),
-    );
-    return { diagnostics };
-  }
-
-  return { value: parsed as Record<string, unknown>, diagnostics };
-}
-
-function parseDelimitedBlocks(
-  response: string,
-  opener: string,
-  closer: string,
-): { bodies: string[]; diagnostics: ProtocolDiagnostic[] } {
-  const bodies: string[] = [];
-  const diagnostics: ProtocolDiagnostic[] = [];
-  let cursor = 0;
-  let blockIndex = 0;
-
-  while (cursor < response.length) {
-    while (/\s/.test(response[cursor] ?? "")) cursor += 1;
-    if (cursor >= response.length) break;
-
-    if (!response.startsWith(opener + "\n", cursor) && !response.startsWith(opener + "\r\n", cursor)) {
-      diagnostics.push(
-        diagnostic("ARBITRARY_TEXT", "Only complete protocol blocks may appear outside a block.", {
-          blockIndex,
-          expected: opener + " ... " + closer,
-        }),
-      );
-      break;
-    }
-
-    const afterOpen = cursor + opener.length;
-    const bodyStart = response[afterOpen] === "\r" ? afterOpen + 2 : afterOpen + 1;
-    const closerMatch = response.slice(bodyStart).match(new RegExp("\r?\n" + closer + "(?=\r?\n|$)"));
-    if (!closerMatch || closerMatch.index === undefined) {
-      diagnostics.push(
-        diagnostic("MISSING_TERMINATOR", 'Protocol block is missing its "' + closer + '" terminator.', {
-          blockIndex,
-          expected: "A line containing " + closer + " after the JSON body.",
-        }),
-      );
-      break;
-    }
-
-    const bodyEnd = bodyStart + closerMatch.index;
-    bodies.push(response.slice(bodyStart, bodyEnd));
-    cursor = bodyEnd + closerMatch[0].length;
-    blockIndex += 1;
-  }
-
-  return { bodies, diagnostics };
 }
 
 function checkEnvelopeKeys(
@@ -279,6 +183,55 @@ function checkEnvelopeKeys(
   return diagnostics;
 }
 
+function parseJsonEnvelope(
+  body: string,
+  blockIndex: number,
+): { value?: JsonEnvelope; diagnostics: ProtocolDiagnostic[] } {
+  const diagnostics: ProtocolDiagnostic[] = [];
+  let duplicateKeys: string[] = [];
+  try {
+    duplicateKeys = duplicateTopLevelKeys(body);
+  } catch {
+    // JSON.parse below produces the authoritative malformed-JSON diagnostic.
+  }
+  for (const key of duplicateKeys) {
+    diagnostics.push(
+      diagnostic("DUPLICATE_ENVELOPE_FIELD", 'Envelope field "' + key + '" appears more than once.', {
+        blockIndex,
+        fieldPath: key,
+        expected: "Each envelope field must appear exactly once.",
+      }),
+    );
+  }
+
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(body);
+  } catch {
+    diagnostics.push(
+      diagnostic("INVALID_JSON", "Model output must be exactly one valid JSON document.", {
+        blockIndex,
+        receivedType: "invalid-json",
+        expected: "One JSON object containing either a tools or result envelope.",
+      }),
+    );
+    return { diagnostics };
+  }
+
+  if (typeof parsed !== "object" || parsed === null || Array.isArray(parsed)) {
+    diagnostics.push(
+      fieldDiagnostic("INVALID_ENVELOPE_FIELD", "Model output must be a JSON object.", parsed, {
+        blockIndex,
+        fieldPath: "",
+        expected: "object",
+      }),
+    );
+    return { diagnostics };
+  }
+
+  return { value: parsed as JsonEnvelope, diagnostics };
+}
+
 export function parseToolResponse(
   response: string,
   options: { toolNames?: readonly string[]; limits?: ProtocolLimits } = {},
@@ -296,72 +249,102 @@ export function parseToolResponse(
     };
   }
 
-  const trimmed = response.trim();
-  if (!trimmed.startsWith(TOOL_OPEN + "\n") && !trimmed.startsWith(TOOL_OPEN + "\r\n")) {
-    return {
-      ok: false,
-      diagnostics: [
-        diagnostic("MALFORMED_FENCE", "Tool response must start with a sonion-tool fence.", {
-          expected: TOOL_OPEN + " ... " + TOOL_CLOSE,
-        }),
-      ],
-    };
+  const envelopeResult = parseJsonEnvelope(response.trim(), 0);
+  const diagnostics = [...envelopeResult.diagnostics];
+  if (!envelopeResult.value) return { ok: false, diagnostics };
+
+  const envelope = envelopeResult.value;
+  diagnostics.push(...checkEnvelopeKeys(envelope, ["kind", "calls"], 0));
+  if (envelope.kind !== "tools") {
+    diagnostics.push(
+      fieldDiagnostic("INVALID_ENVELOPE_FIELD", 'Tool response kind must be "tools".', envelope.kind, {
+        blockIndex: 0,
+        fieldPath: "kind",
+        expected: '"tools"',
+      }),
+    );
   }
 
-  const parsedBlocks = parseDelimitedBlocks(trimmed, TOOL_OPEN, TOOL_CLOSE);
-  const diagnostics = [...parsedBlocks.diagnostics];
+  const callsValue = envelope.calls;
   const calls: ToolCall[] = [];
   const availableTools = options.toolNames ?? [];
+  if (!Array.isArray(callsValue)) {
+    diagnostics.push(
+      fieldDiagnostic("INVALID_ENVELOPE_FIELD", "Tool response calls must be a JSON array.", callsValue, {
+        blockIndex: 0,
+        fieldPath: "calls",
+        expected: "array",
+      }),
+    );
+  } else if (callsValue.length === 0) {
+    diagnostics.push(
+      diagnostic("MISSING_ENVELOPE_FIELD", "Tool response calls must contain at least one call.", {
+        blockIndex: 0,
+        fieldPath: "calls",
+        expected: "A non-empty array of tool calls.",
+      }),
+    );
+  }
 
-  parsedBlocks.bodies.forEach((body, blockIndex) => {
-    const envelopeResult = parseJsonEnvelope(body.trim(), blockIndex);
-    diagnostics.push(...envelopeResult.diagnostics);
-    if (!envelopeResult.value) return;
+  if (Array.isArray(callsValue)) {
+    callsValue.forEach((callValue, callIndex) => {
+      if (typeof callValue !== "object" || callValue === null || Array.isArray(callValue)) {
+        diagnostics.push(
+          fieldDiagnostic("INVALID_ENVELOPE_FIELD", "Each tool call must be a JSON object.", callValue, {
+            blockIndex: callIndex,
+            callIndex,
+            fieldPath: "calls." + callIndex,
+            expected: "object",
+          }),
+        );
+        return;
+      }
 
-    const envelope = envelopeResult.value;
-    const name = envelope.name;
-    const args = envelope.arguments;
-    if (typeof name !== "string") {
-      diagnostics.push(
-        fieldDiagnostic("INVALID_ENVELOPE_FIELD", "Tool name must be a string.", name, {
-          blockIndex,
-          callIndex: blockIndex,
-          fieldPath: "name",
-          expected: "string",
-        }),
-      );
-    } else if (!availableTools.includes(name)) {
-      diagnostics.push(
-        fieldDiagnostic("UNKNOWN_TOOL", 'Unknown tool "' + name + '".', name, {
-          blockIndex,
-          callIndex: blockIndex,
-          fieldPath: "name",
-          expected: "One of the registered food tools.",
-          availableTools,
-        }),
-      );
-    }
-    diagnostics.push(...checkEnvelopeKeys(envelope, ["name", "arguments"], blockIndex));
-    if (typeof args !== "object" || args === null || Array.isArray(args)) {
-      diagnostics.push(
-        fieldDiagnostic("INVALID_ENVELOPE_FIELD", "Tool arguments must be a JSON object.", args, {
-          blockIndex,
-          callIndex: blockIndex,
-          fieldPath: "arguments",
-          expected: "object",
-        }),
-      );
-    }
-    if (typeof name === "string" && availableTools.includes(name) && typeof args === "object" && args !== null && !Array.isArray(args)) {
-      calls.push({ name: name as FoodToolName, arguments: args as Record<string, unknown>, callIndex: blockIndex });
-    }
-  });
+      const call = callValue as JsonEnvelope;
+      const name = call.name;
+      const args = call.arguments;
+      if (typeof name !== "string") {
+        diagnostics.push(
+          fieldDiagnostic("INVALID_ENVELOPE_FIELD", "Tool name must be a string.", name, {
+            blockIndex: callIndex,
+            callIndex,
+            fieldPath: "calls." + callIndex + ".name",
+            expected: "string",
+          }),
+        );
+      } else if (!availableTools.includes(name)) {
+        diagnostics.push(
+          fieldDiagnostic("UNKNOWN_TOOL", 'Unknown tool "' + name + '".', name, {
+            blockIndex: callIndex,
+            callIndex,
+            fieldPath: "calls." + callIndex + ".name",
+            expected: "One of the registered food tools.",
+            availableTools,
+          }),
+        );
+      }
+      diagnostics.push(...checkEnvelopeKeys(call, ["name", "arguments"], callIndex));
+      if (typeof args !== "object" || args === null || Array.isArray(args)) {
+        diagnostics.push(
+          fieldDiagnostic("INVALID_ENVELOPE_FIELD", "Tool arguments must be a JSON object.", args, {
+            blockIndex: callIndex,
+            callIndex,
+            fieldPath: "calls." + callIndex + ".arguments",
+            expected: "object",
+          }),
+        );
+      }
+      if (typeof name === "string" && availableTools.includes(name) && typeof args === "object" && args !== null && !Array.isArray(args)) {
+        calls.push({ name: name as FoodToolName, arguments: args as Record<string, unknown>, callIndex });
+      }
+    });
+  }
 
   if (diagnostics.length > 0) return { ok: false, diagnostics };
   if (calls.length === 0) {
     return {
       ok: false,
-      diagnostics: [diagnostic("MALFORMED_FENCE", "Tool response did not contain a usable tool call.")],
+      diagnostics: [diagnostic("MISSING_ENVELOPE_FIELD", "Tool response did not contain a usable tool call.")],
     };
   }
   return { ok: true, response: { kind: "tools", calls } };
@@ -384,35 +367,21 @@ export function parseResultResponse(
     };
   }
 
-  const trimmed = response.trim();
-  if (!trimmed.startsWith(RESULT_OPEN + "\n") && !trimmed.startsWith(RESULT_OPEN + "\r\n")) {
-    return {
-      ok: false,
-      diagnostics: [
-        diagnostic("MALFORMED_FENCE", "Result response must start with a result fence.", {
-          expected: RESULT_OPEN + " ... " + RESULT_CLOSE,
-        }),
-      ],
-    };
-  }
-
-  const parsedBlocks = parseDelimitedBlocks(trimmed, RESULT_OPEN, RESULT_CLOSE);
-  const diagnostics = [...parsedBlocks.diagnostics];
-  if (parsedBlocks.bodies.length !== 1) {
-    diagnostics.push(
-      diagnostic("MALFORMED_FENCE", "A result response must contain exactly one result block.", {
-        expected: "Exactly one result block.",
-      }),
-    );
-  }
-  if (diagnostics.length > 0 || !parsedBlocks.bodies[0]) return { ok: false, diagnostics };
-
-  const envelopeResult = parseJsonEnvelope(parsedBlocks.bodies[0].trim(), 0);
-  diagnostics.push(...envelopeResult.diagnostics);
+  const envelopeResult = parseJsonEnvelope(response.trim(), 0);
+  const diagnostics = [...envelopeResult.diagnostics];
   if (!envelopeResult.value) return { ok: false, diagnostics };
 
   const envelope = envelopeResult.value;
-  diagnostics.push(...checkEnvelopeKeys(envelope, ["content"], 0));
+  diagnostics.push(...checkEnvelopeKeys(envelope, ["kind", "content"], 0));
+  if (envelope.kind !== "result") {
+    diagnostics.push(
+      fieldDiagnostic("INVALID_ENVELOPE_FIELD", 'Result response kind must be "result".', envelope.kind, {
+        blockIndex: 0,
+        fieldPath: "kind",
+        expected: '"result"',
+      }),
+    );
+  }
   const content = envelope.content;
   if (typeof content !== "string") {
     diagnostics.push(
@@ -447,29 +416,33 @@ export function parseAgentResponse(
   response: string,
   options: { toolNames?: readonly string[]; limits?: ProtocolLimits } = {},
 ): ParsedAgentResponse {
-  const trimmed = response.trim();
-  const hasToolMarker =
-    trimmed.includes(TOOL_OPEN) || /(?:^|\r?\n)end-tool(?:\r?\n|$)/.test(trimmed);
-  const hasResultMarker =
-    trimmed.includes(RESULT_OPEN) || /(?:^|\r?\n)end(?:\r?\n|$)/.test(trimmed);
-
-  if (hasToolMarker && hasResultMarker) {
+  const limits = options.limits ?? DEFAULT_PROTOCOL_LIMITS;
+  if (response.length > limits.maxModelOutputChars) {
     return {
       ok: false,
       diagnostics: [
-        diagnostic("MIXED_RESPONSE", "A model response cannot mix tool blocks and a result block.", {
-          expected: "Tool blocks only, or one result block only.",
+        diagnostic("PAYLOAD_TOO_LARGE", "Model output exceeds the configured size limit.", {
+          receivedType: "string",
+          expected: "At most " + limits.maxModelOutputChars + " characters.",
         }),
       ],
     };
   }
-  if (hasToolMarker) return parseToolResponse(response, options);
-  if (hasResultMarker) return parseResultResponse(response, options);
+
+  const parsed = parseJsonEnvelope(response.trim(), 0);
+  if (!parsed.value) return { ok: false, diagnostics: parsed.diagnostics };
+
+  if (parsed.value.kind === "tools") return parseToolResponse(response, options);
+  if (parsed.value.kind === "result") return parseResultResponse(response, options);
+
   return {
     ok: false,
     diagnostics: [
-      diagnostic("ARBITRARY_TEXT", "Model output must contain only protocol blocks.", {
-        expected: TOOL_OPEN + " ... " + TOOL_CLOSE + " or " + RESULT_OPEN + " ... " + RESULT_CLOSE,
+      ...parsed.diagnostics,
+      fieldDiagnostic("INVALID_ENVELOPE_FIELD", 'Response kind must be either "tools" or "result".', parsed.value.kind, {
+        blockIndex: 0,
+        fieldPath: "kind",
+        expected: '"tools" or "result"',
       }),
     ],
   };
@@ -496,9 +469,15 @@ export function formatProtocolErrors(
 }
 
 export function formatToolCall(name: FoodToolName, argumentsValue: Record<string, unknown>): string {
-  return TOOL_OPEN + "\n" + JSON.stringify({ name, arguments: argumentsValue }) + "\n" + TOOL_CLOSE;
+  return formatToolCalls([{ name, arguments: argumentsValue }]);
+}
+
+export function formatToolCalls(
+  calls: readonly { name: FoodToolName; arguments: Record<string, unknown> }[],
+): string {
+  return JSON.stringify({ kind: "tools", calls });
 }
 
 export function formatResult(content: string): string {
-  return RESULT_OPEN + "\n" + JSON.stringify({ content }) + "\n" + RESULT_CLOSE;
+  return JSON.stringify({ kind: "result", content });
 }

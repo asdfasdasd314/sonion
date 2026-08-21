@@ -113,7 +113,10 @@ export async function POST(request: Request) {
         const result = await client.models.generateContent({
           model,
           contents,
-          config: { systemInstruction },
+          config: {
+            systemInstruction,
+            responseMimeType: "application/json",
+          },
         });
         return result.text ?? "";
       },
