@@ -9,7 +9,7 @@ The meal-estimation feature converts the model's food identity and Portion Unit 
 - The model returns only `{ items: [{ itemName, fdcId, portionUnits, portionKind }] }`; it never supplies grams, milliliters, density, nutrients, totals, or nutrition prose.
 - `parameter_files/meal-estimation.toml` is the source of truth for the solid/liquid PU calibration and fallback densities.
 - USDA portions recognize milliliters, cups, fluid ounces, tablespoons, and teaspoons. Each valid volume portion stores total milliliters and derived grams-per-milliliter density, and the deterministic preferred portion description is exposed when used.
-- Missing nutrients remain `null`. A total is `null` when any item lacks that nutrient rather than treating missing data as zero.
+- Missing nutrients remain `null`. Missing calories are derived from complete protein, carbohydrate, and fat values using the 4/4/9 macro equation, and calorie totals sum every available or derived item value rather than treating missing data as zero.
 - The API returns `{ items, totals }`, and the browser validates that response before rendering a responsive accessible item table.
 - Fallback density provenance and incomplete nutrient data are shown as uncertainty messages. No estimate is persisted or added to meal history.
 
@@ -32,3 +32,4 @@ TESTING
 
 - Added the strict Portion Unit selection contract, server-owned calibration, USDA density provenance, nutrient scaling, uncertainty-aware API response, and accessible UI rendering.
 - Mapped strict result-payload key errors to the offending content field so correction diagnostics identify prohibited nutrition fields precisely.
+- Added macro-derived calories and partial calorie totals so one incomplete USDA record no longer hides the meal's calculable calories.

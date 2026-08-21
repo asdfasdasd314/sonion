@@ -144,7 +144,7 @@ export default function MealInterpreter({ accessToken }: MealInterpreterProps) {
               <p className="warning-message" role="status">Some weights use an estimated fallback density because USDA volume data was unavailable.</p>
             ) : null}
             {response.items.some((item) => [item.calories, item.protein, item.fat, item.carbohydrates].some((value) => value === null)) ? (
-              <p className="warning-message" role="status">Some nutrient values were missing from the USDA records, so the related meal totals are shown as —.</p>
+              <p className="warning-message" role="status">Some nutrient values were missing from the USDA records. Calories use available values and are derived from complete macros when possible; other affected meal totals are shown as —.</p>
             ) : null}
           </div>
         ) : null}

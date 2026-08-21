@@ -22,9 +22,26 @@ function scaledNutrient(value: number | undefined, grams: number): number | null
   return value === undefined ? null : grams * value / 100;
 }
 
-function total(items: readonly MealEstimateItem[], key: "calories" | "protein" | "fat" | "carbohydrates"): number | null {
-  if (items.some((item) => item[key] === null)) return null;
-  return items.reduce((sum, item) => sum + (item[key] as number), 0);
+function caloriesFromMacros(
+  protein: number | null,
+  carbohydrates: number | null,
+  fat: number | null,
+): number | null {
+  if (protein === null || carbohydrates === null || fat === null) return null;
+  return (4 * protein) + (4 * carbohydrates) + (9 * fat);
+}
+
+function total(
+  items: readonly MealEstimateItem[],
+  key: "calories" | "protein" | "fat" | "carbohydrates",
+  allowMissing = false,
+): number | null {
+  if (!allowMissing && items.some((item) => item[key] === null)) return null;
+
+  const knownValues = items
+    .map((item) => item[key])
+    .filter((value): value is number => value !== null);
+  return knownValues.length ? knownValues.reduce((sum, value) => sum + value, 0) : null;
 }
 
 export function portionUnitMilliliters(
@@ -68,6 +85,11 @@ export function estimateMeal(
           portionKind: selected.portionKind,
         };
     const estimatedGrams = estimatedMilliliters * densitySource.gramsPerMilliliter;
+    const protein = scaledNutrient(food.nutrientsPer100g.proteinG, estimatedGrams);
+    const fat = scaledNutrient(food.nutrientsPer100g.fatG, estimatedGrams);
+    const carbohydrates = scaledNutrient(food.nutrientsPer100g.carbohydratesG, estimatedGrams);
+    const calories = scaledNutrient(food.nutrientsPer100g.caloriesKcal, estimatedGrams) ??
+      caloriesFromMacros(protein, carbohydrates, fat);
 
     return {
       foodName: food.description,
@@ -77,17 +99,17 @@ export function estimateMeal(
       estimatedMilliliters,
       estimatedGrams,
       densitySource,
-      calories: scaledNutrient(food.nutrientsPer100g.caloriesKcal, estimatedGrams),
-      protein: scaledNutrient(food.nutrientsPer100g.proteinG, estimatedGrams),
-      fat: scaledNutrient(food.nutrientsPer100g.fatG, estimatedGrams),
-      carbohydrates: scaledNutrient(food.nutrientsPer100g.carbohydratesG, estimatedGrams),
+      calories,
+      protein,
+      fat,
+      carbohydrates,
     } satisfies MealEstimateItem;
   });
 
   return {
     items,
     totals: {
-      calories: total(items, "calories"),
+      calories: total(items, "calories", true),
       protein: total(items, "protein"),
       fat: total(items, "fat"),
       carbohydrates: total(items, "carbohydrates"),

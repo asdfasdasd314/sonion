@@ -29,6 +29,20 @@ const foods: NormalizedFood[] = [
     nutrientsPer100g: { caloriesKcal: 46, proteinG: 0.1, fatG: 0.1 },
     portions: [],
   },
+  {
+    fdcId: 3,
+    description: "Food with macro-only calories",
+    dataset: "foundation",
+    nutrientsPer100g: { proteinG: 10, fatG: 5, carbohydratesG: 20 },
+    portions: [],
+  },
+  {
+    fdcId: 4,
+    description: "Food without calorie data",
+    dataset: "foundation",
+    nutrientsPer100g: {},
+    portions: [],
+  },
 ];
 
 test("validates positive finite Portion Units and solid/liquid kinds", () => {
@@ -60,6 +74,28 @@ test("converts additive solid and liquid Portion Units, scales nutrients, and us
   assert.equal(estimate.items[1]?.carbohydrates, null);
   assert.equal(estimate.totals.carbohydrates, null);
   assert.equal(estimate.totals.calories, 467.65625);
+});
+
+test("derives missing item calories from protein, fat, and carbohydrates", () => {
+  const estimate = estimateMeal({
+    items: [{ itemName: "macro-only food", fdcId: 3, portionUnits: 1, portionKind: "solid" }],
+  }, foods, parameters);
+
+  assert.equal(estimate.items[0]?.estimatedGrams, 112.5);
+  assert.equal(estimate.items[0]?.calories, 185.625);
+  assert.equal(estimate.totals.calories, 185.625);
+});
+
+test("keeps calculable calorie totals when another item has no calorie data", () => {
+  const estimate = estimateMeal({
+    items: [
+      { itemName: "rice", fdcId: 1, portionUnits: 1, portionKind: "solid" },
+      { itemName: "unknown calories", fdcId: 4, portionUnits: 1, portionKind: "solid" },
+    ],
+  }, foods, parameters);
+
+  assert.equal(estimate.items[1]?.calories, null);
+  assert.equal(estimate.totals.calories, 158.4375);
 });
 
 test("rejects unknown FDC IDs and preserves the stable response schema", () => {

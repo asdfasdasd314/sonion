@@ -361,7 +361,7 @@ The final model response must be one JSON result object shaped like `{"kind":"re
 
 ## Meal estimation contract
 
-Each result item uses the USDA food name and contains its FDC ID, Portion Unit quantity, portion kind, estimated milliliters, estimated grams, density provenance, calories, protein, fat, and carbohydrates. Nutrient values are per meal item in the requested amount and are `null` when USDA data is missing. A total is `null` if any item is missing that nutrient. USDA volume portions are preferred for density; otherwise the response identifies the configured solid or liquid fallback density so the UI can show uncertainty.
+Each result item uses the USDA food name and contains its FDC ID, Portion Unit quantity, portion kind, estimated milliliters, estimated grams, density provenance, calories, protein, fat, and carbohydrates. Nutrient values are per meal item in the requested amount and are `null` when USDA data is missing. If calories are missing but protein, carbohydrates, and fat are available, calories are derived as `(4 × protein) + (4 × carbohydrates) + (9 × fat)`. Calorie totals sum all available or derived item values, while other nutrient totals remain `null` if any item is missing that nutrient. USDA volume portions are preferred for density; otherwise the response identifies the configured solid or liquid fallback density so the UI can show uncertainty.
 
 ---
 
