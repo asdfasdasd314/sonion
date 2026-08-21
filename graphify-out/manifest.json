@@ -70,8 +70,8 @@
     "semantic_hash": "5c27369b226fcf2be8a6cfe52224e767"
   },
   "README.md": {
-    "mtime": 1787275910.0314898,
-    "ast_hash": "85fb7a559d4ff1b0acf2c095514c59d3",
+    "mtime": 1787277603.3368459,
+    "ast_hash": "ae910d927f1d1edb172d76216ea6ed00",
     "semantic_hash": ""
   },
   "public/file.svg": {
@@ -215,8 +215,8 @@
     "semantic_hash": ""
   },
   "components/meal-interpreter.tsx": {
-    "mtime": 1787275910.0332875,
-    "ast_hash": "6bd43213fd57f19398bf1e4ee0353471",
+    "mtime": 1787277603.3371239,
+    "ast_hash": "9e0a6fc0ed99a2d03f9912bc9b02aed9",
     "semantic_hash": ""
   },
   "components/nutrition-targets.tsx": {
@@ -265,8 +265,8 @@
     "semantic_hash": ""
   },
   "lib/meal-estimation/estimate.ts": {
-    "mtime": 1787275910.0393584,
-    "ast_hash": "5f85530adbc5fce0039d32e78ae4aef7",
+    "mtime": 1787277603.3377178,
+    "ast_hash": "55c202a9f9a5488441a733aad7dffb19",
     "semantic_hash": ""
   },
   "lib/meal-estimation/index.ts": {
@@ -280,13 +280,13 @@
     "semantic_hash": ""
   },
   "test/meal-estimation.test.ts": {
-    "mtime": 1787275910.0427604,
-    "ast_hash": "4dcb4ae93d02ee56b9ee8e470d0c7265",
+    "mtime": 1787277603.3380158,
+    "ast_hash": "9f6b188bdd2d9ef6fff7750434c0248f",
     "semantic_hash": ""
   },
   "feature_files/meal-estimation.md": {
-    "mtime": 1787275910.0348568,
-    "ast_hash": "b9122c736e95b6b42da5128e252154d0",
+    "mtime": 1787277603.3374822,
+    "ast_hash": "f023a4e3e0d70f3e3c319daf3c1a36f9",
     "semantic_hash": ""
   }
 }

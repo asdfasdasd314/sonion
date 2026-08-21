@@ -145,8 +145,8 @@
     "semantic_hash": ""
   },
   "lib/food-data/normalize.ts": {
-    "mtime": 1787275910.0381851,
-    "ast_hash": "923f18ad530135bc92b01ae48c471bfd",
+    "mtime": 1787276310.6168773,
+    "ast_hash": "c5b067c2a70b14a5d68161cfcd639339",
     "semantic_hash": ""
   },
   "lib/food-data/raw.ts": {
@@ -170,13 +170,13 @@
     "semantic_hash": ""
   },
   "test/food-data.test.ts": {
-    "mtime": 1787275910.0424623,
-    "ast_hash": "f69c1ca6a0df326e7cdc94688e86d613",
+    "mtime": 1787276310.617058,
+    "ast_hash": "0dcc520faa104c06220bacab0b0e26bf",
     "semantic_hash": ""
   },
   "feature_files/food-data.md": {
-    "mtime": 1787275910.0343554,
-    "ast_hash": "d06421da7dca22b8f899a65bd2a797bd",
+    "mtime": 1787276310.6166835,
+    "ast_hash": "196e1eb35b85d3b93a23f4e49e4935f9",
     "semantic_hash": ""
   },
   "lib/agent/food-tools-skill.ts": {
