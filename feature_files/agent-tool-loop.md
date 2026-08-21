@@ -38,3 +38,4 @@ TESTING
 - Removed the wall-clock response deadline and added server-console logging for every received tool-call attempt, including calls rejected by runner limits or argument validation.
 - Added invalid-output and invalid-tool-argument diagnostics with raw-response logging, echoed a bounded raw response into correction feedback, and made oversized output retryable instead of failing before validation.
 - Replaced the fence-delimited model contract with a discriminator-based JSON-only contract and requested JSON MIME responses from Google AI after valid tool JSON was rejected because trailing Markdown fences were parsed as arbitrary text.
+- Aligned the unknown-tool protocol assertion with its nested `calls.0.name` diagnostic path so the verification suite matches the JSON envelope.

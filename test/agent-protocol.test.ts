@@ -48,7 +48,7 @@ test("reports unknown tools, unsupported fields, and exact paths", () => {
   assert.equal(parsed.ok, false);
   if (!parsed.ok) {
     assert.equal(parsed.diagnostics[0]?.code, "UNKNOWN_TOOL");
-    assert.equal(parsed.diagnostics[0]?.fieldPath, "name");
+    assert.equal(parsed.diagnostics[0]?.fieldPath, "calls.0.name");
     assert.deepEqual(parsed.diagnostics[0]?.availableTools, toolNames);
     assert.equal(parsed.diagnostics[1]?.code, "UNKNOWN_ENVELOPE_FIELD");
     assert.equal(parsed.diagnostics[1]?.fieldPath, "extra");
