@@ -70,8 +70,8 @@
     "semantic_hash": "5c27369b226fcf2be8a6cfe52224e767"
   },
   "README.md": {
-    "mtime": 1787277603.3368459,
-    "ast_hash": "ae910d927f1d1edb172d76216ea6ed00",
+    "mtime": 1787278361.082835,
+    "ast_hash": "c981974c680066e5e24477c5f57f6622",
     "semantic_hash": ""
   },
   "public/file.svg": {
@@ -110,8 +110,8 @@
     "semantic_hash": ""
   },
   "feature_files/gemini.md": {
-    "mtime": 1787275910.0346236,
-    "ast_hash": "1d088158ea9f1014fc496bec9e079988",
+    "mtime": 1787278361.0837648,
+    "ast_hash": "dc9e25da5ceacaed1888539d6f30dd1f",
     "semantic_hash": ""
   },
   "components/auth-panel.tsx": {
@@ -190,8 +190,8 @@
     "semantic_hash": ""
   },
   "lib/agent/runner.ts": {
-    "mtime": 1787275910.0369005,
-    "ast_hash": "2a3080b69826a6402e30aae8324e026a",
+    "mtime": 1787278361.0840087,
+    "ast_hash": "38732194453e37abed77595bd44b3a42",
     "semantic_hash": ""
   },
   "test/agent-protocol.test.ts": {
@@ -200,13 +200,13 @@
     "semantic_hash": ""
   },
   "test/agent-runner.test.ts": {
-    "mtime": 1787275910.0420313,
-    "ast_hash": "3b9c0aa755d861d17a3c9bbc1c05b499",
+    "mtime": 1787278361.0848699,
+    "ast_hash": "776045051d8e0e25b10cf969130b8b4f",
     "semantic_hash": ""
   },
   "feature_files/agent-tool-loop.md": {
-    "mtime": 1787275910.033604,
-    "ast_hash": "b91b98b67daad4c2948eff9be6dae814",
+    "mtime": 1787278361.0833666,
+    "ast_hash": "596737427f7c9283b54cd5387d2f417d",
     "semantic_hash": ""
   },
   "components/meal-history.tsx": {

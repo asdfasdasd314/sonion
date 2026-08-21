@@ -1,16 +1,16 @@
 # Graph Report - sonion  (2026-08-20)
 
 ## Corpus Check
-- 53 files · ~20,209 words
+- 53 files · ~20,280 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 429 nodes · 762 edges · 24 communities (18 shown, 6 thin omitted)
+- 429 nodes · 763 edges · 24 communities (18 shown, 6 thin omitted)
 - Extraction: 98% EXTRACTED · 2% INFERRED · 0% AMBIGUOUS · INFERRED: 17 edges (avg confidence: 0.87)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `a9c7a946`
+- Built from commit: `dee4d4cc`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 

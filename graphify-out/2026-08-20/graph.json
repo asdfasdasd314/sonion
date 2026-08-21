@@ -61,8 +61,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_api_estimate_route",
-      "community": 17,
-      "community_name": "route.ts",
+      "community": 10,
+      "community_name": "Home Page",
       "norm_label": "route.ts"
     },
     {
@@ -72,8 +72,8 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "app_api_estimate_route_promptbody",
-      "community": 17,
-      "community_name": "route.ts",
+      "community": 10,
+      "community_name": "Home Page",
       "norm_label": "promptbody"
     },
     {
@@ -83,8 +83,8 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "app_api_estimate_route_ispromptbody",
-      "community": 17,
-      "community_name": "route.ts",
+      "community": 10,
+      "community_name": "Home Page",
       "norm_label": "ispromptbody()"
     },
     {
@@ -94,8 +94,8 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "app_api_estimate_route_errorresponse",
-      "community": 17,
-      "community_name": "route.ts",
+      "community": 10,
+      "community_name": "Home Page",
       "norm_label": "errorresponse()"
     },
     {
@@ -105,8 +105,8 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "app_api_estimate_route_post",
-      "community": 17,
-      "community_name": "route.ts",
+      "community": 10,
+      "community_name": "Home Page",
       "norm_label": "post()"
     },
     {
@@ -435,8 +435,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_agent_food_tools_skill",
-      "community": 17,
-      "community_name": "route.ts",
+      "community": 10,
+      "community_name": "Home Page",
       "norm_label": "food-tools-skill.ts"
     },
     {
@@ -446,8 +446,8 @@
       "source_location": "L47",
       "_origin": "ast",
       "id": "lib_agent_food_tools_skill_getfoodtoolsskill",
-      "community": 17,
-      "community_name": "route.ts",
+      "community": 10,
+      "community_name": "Home Page",
       "norm_label": "getfoodtoolsskill()"
     },
     {
@@ -468,8 +468,8 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "lib_agent_protocol_serializetranscriptdata",
-      "community": 17,
-      "community_name": "route.ts",
+      "community": 3,
+      "community_name": "Project Agent Rules",
       "norm_label": "serializetranscriptdata()"
     },
     {
@@ -490,8 +490,8 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "lib_agent_protocol_protocoldiagnostic",
-      "community": 17,
-      "community_name": "route.ts",
+      "community": 3,
+      "community_name": "Project Agent Rules",
       "norm_label": "protocoldiagnostic"
     },
     {
@@ -501,8 +501,8 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "lib_agent_protocol_toolcall",
-      "community": 17,
-      "community_name": "route.ts",
+      "community": 3,
+      "community_name": "Project Agent Rules",
       "norm_label": "toolcall"
     },
     {
@@ -688,8 +688,8 @@
       "source_location": "L459",
       "_origin": "ast",
       "id": "lib_agent_protocol_formattoolresults",
-      "community": 17,
-      "community_name": "route.ts",
+      "community": 3,
+      "community_name": "Project Agent Rules",
       "norm_label": "formattoolresults()"
     },
     {
@@ -699,8 +699,8 @@
       "source_location": "L465",
       "_origin": "ast",
       "id": "lib_agent_protocol_formatprotocolerrors",
-      "community": 17,
-      "community_name": "route.ts",
+      "community": 3,
+      "community_name": "Project Agent Rules",
       "norm_label": "formatprotocolerrors()"
     },
     {
@@ -743,8 +743,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_agent_runner",
-      "community": 17,
-      "community_name": "route.ts",
+      "community": 3,
+      "community_name": "Project Agent Rules",
       "norm_label": "runner.ts"
     },
     {
@@ -754,8 +754,8 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "lib_agent_runner_agentgenerationrequest",
-      "community": 17,
-      "community_name": "route.ts",
+      "community": 3,
+      "community_name": "Project Agent Rules",
       "norm_label": "agentgenerationrequest"
     },
     {
@@ -765,8 +765,8 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "lib_agent_runner_agentgenerationadapter",
-      "community": 17,
-      "community_name": "route.ts",
+      "community": 3,
+      "community_name": "Project Agent Rules",
       "norm_label": "agentgenerationadapter"
     },
     {
@@ -776,8 +776,8 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "lib_agent_runner_agentlimits",
-      "community": 17,
-      "community_name": "route.ts",
+      "community": 3,
+      "community_name": "Project Agent Rules",
       "norm_label": "agentlimits"
     },
     {
@@ -787,8 +787,8 @@
       "source_location": "L29",
       "_origin": "ast",
       "id": "lib_agent_runner_default_agent_limits",
-      "community": 17,
-      "community_name": "route.ts",
+      "community": 3,
+      "community_name": "Project Agent Rules",
       "norm_label": "default_agent_limits"
     },
     {
@@ -798,8 +798,8 @@
       "source_location": "L39",
       "_origin": "ast",
       "id": "lib_agent_runner_runmealagentinput",
-      "community": 17,
-      "community_name": "route.ts",
+      "community": 3,
+      "community_name": "Project Agent Rules",
       "norm_label": "runmealagentinput"
     },
     {
@@ -809,8 +809,8 @@
       "source_location": "L46",
       "_origin": "ast",
       "id": "lib_agent_runner_agentrunnererror",
-      "community": 17,
-      "community_name": "route.ts",
+      "community": 3,
+      "community_name": "Project Agent Rules",
       "norm_label": "agentrunnererror"
     },
     {
@@ -820,8 +820,8 @@
       "source_location": "L57",
       "_origin": "ast",
       "id": "lib_agent_runner_agentrunnererror_constructor",
-      "community": 17,
-      "community_name": "route.ts",
+      "community": 3,
+      "community_name": "Project Agent Rules",
       "norm_label": ".constructor()"
     },
     {
@@ -831,8 +831,8 @@
       "source_location": "L70",
       "_origin": "ast",
       "id": "lib_agent_runner_mergedlimits",
-      "community": 17,
-      "community_name": "route.ts",
+      "community": 3,
+      "community_name": "Project Agent Rules",
       "norm_label": "mergedlimits()"
     },
     {
@@ -842,8 +842,8 @@
       "source_location": "L74",
       "_origin": "ast",
       "id": "lib_agent_runner_mealcontents",
-      "community": 17,
-      "community_name": "route.ts",
+      "community": 3,
+      "community_name": "Project Agent Rules",
       "norm_label": "mealcontents()"
     },
     {
@@ -853,8 +853,8 @@
       "source_location": "L82",
       "_origin": "ast",
       "id": "lib_agent_runner_valueatpath",
-      "community": 17,
-      "community_name": "route.ts",
+      "community": 3,
+      "community_name": "Project Agent Rules",
       "norm_label": "valueatpath()"
     },
     {
@@ -864,8 +864,8 @@
       "source_location": "L91",
       "_origin": "ast",
       "id": "lib_agent_runner_receivedtype",
-      "community": 17,
-      "community_name": "route.ts",
+      "community": 3,
+      "community_name": "Project Agent Rules",
       "norm_label": "receivedtype()"
     },
     {
@@ -875,8 +875,8 @@
       "source_location": "L97",
       "_origin": "ast",
       "id": "lib_agent_runner_argumentdiagnostics",
-      "community": 17,
-      "community_name": "route.ts",
+      "community": 3,
+      "community_name": "Project Agent Rules",
       "norm_label": "argumentdiagnostics()"
     },
     {
@@ -886,8 +886,8 @@
       "source_location": "L127",
       "_origin": "ast",
       "id": "lib_agent_runner_serializetoolresult",
-      "community": 17,
-      "community_name": "route.ts",
+      "community": 3,
+      "community_name": "Project Agent Rules",
       "norm_label": "serializetoolresult()"
     },
     {
@@ -897,8 +897,8 @@
       "source_location": "L138",
       "_origin": "ast",
       "id": "lib_agent_runner_executecalls",
-      "community": 17,
-      "community_name": "route.ts",
+      "community": 3,
+      "community_name": "Project Agent Rules",
       "norm_label": "executecalls()"
     },
     {
@@ -908,8 +908,8 @@
       "source_location": "L204",
       "_origin": "ast",
       "id": "lib_agent_runner_runloop",
-      "community": 17,
-      "community_name": "route.ts",
+      "community": 3,
+      "community_name": "Project Agent Rules",
       "norm_label": "runloop()"
     },
     {
@@ -919,8 +919,8 @@
       "source_location": "L282",
       "_origin": "ast",
       "id": "lib_agent_runner_runmealagent",
-      "community": 17,
-      "community_name": "route.ts",
+      "community": 3,
+      "community_name": "Project Agent Rules",
       "norm_label": "runmealagent()"
     },
     {
@@ -985,8 +985,8 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "lib_food_data_index_builder_foundation_data_path",
-      "community": 22,
-      "community_name": "normalize.ts",
+      "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "foundation_data_path"
     },
     {
@@ -996,8 +996,8 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "lib_food_data_index_builder_fndds_data_path",
-      "community": 22,
-      "community_name": "normalize.ts",
+      "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "fndds_data_path"
     },
     {
@@ -1370,8 +1370,8 @@
       "source_location": "L192",
       "_origin": "ast",
       "id": "lib_food_data_normalize_selectpreferredvolumeportion",
-      "community": 22,
-      "community_name": "normalize.ts",
+      "community": 18,
+      "community_name": "tools.ts",
       "norm_label": "selectpreferredvolumeportion()"
     },
     {
@@ -1425,8 +1425,8 @@
       "source_location": "L289",
       "_origin": "ast",
       "id": "lib_food_data_normalize_normalizefoundationfood",
-      "community": 22,
-      "community_name": "normalize.ts",
+      "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "normalizefoundationfood()"
     },
     {
@@ -1436,8 +1436,8 @@
       "source_location": "L295",
       "_origin": "ast",
       "id": "lib_food_data_normalize_normalizefnddsfood",
-      "community": 22,
-      "community_name": "normalize.ts",
+      "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "normalizefnddsfood()"
     },
     {
@@ -1722,8 +1722,8 @@
       "source_location": "L162",
       "_origin": "ast",
       "id": "lib_food_data_tools_getdefaultfoodtoolregistry",
-      "community": 17,
-      "community_name": "route.ts",
+      "community": 10,
+      "community_name": "Home Page",
       "norm_label": "getdefaultfoodtoolregistry()"
     },
     {
@@ -1799,8 +1799,8 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "lib_food_data_types_normalizedfoodschema",
-      "community": 17,
-      "community_name": "route.ts",
+      "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "normalizedfoodschema"
     },
     {
@@ -1865,8 +1865,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_gemma",
-      "community": 17,
-      "community_name": "route.ts",
+      "community": 10,
+      "community_name": "Home Page",
       "norm_label": "gemma.ts"
     },
     {
@@ -1876,8 +1876,8 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "lib_gemma_creategemmaclient",
-      "community": 17,
-      "community_name": "route.ts",
+      "community": 10,
+      "community_name": "Home Page",
       "norm_label": "creategemmaclient()"
     },
     {
@@ -1887,8 +1887,8 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "lib_gemma_getgemmamodel",
-      "community": 17,
-      "community_name": "route.ts",
+      "community": 10,
+      "community_name": "Home Page",
       "norm_label": "getgemmamodel()"
     },
     {
@@ -1898,8 +1898,8 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "lib_gemma_getgemmasysteminstruction",
-      "community": 17,
-      "community_name": "route.ts",
+      "community": 10,
+      "community_name": "Home Page",
       "norm_label": "getgemmasysteminstruction()"
     },
     {
@@ -2002,10 +2002,21 @@
       "norm_label": "scalednutrient()"
     },
     {
-      "label": "total()",
+      "label": "caloriesFromMacros()",
       "file_type": "code",
       "source_file": "lib/meal-estimation/estimate.ts",
       "source_location": "L25",
+      "_origin": "ast",
+      "id": "lib_meal_estimation_estimate_caloriesfrommacros",
+      "community": 18,
+      "community_name": "tools.ts",
+      "norm_label": "caloriesfrommacros()"
+    },
+    {
+      "label": "total()",
+      "file_type": "code",
+      "source_file": "lib/meal-estimation/estimate.ts",
+      "source_location": "L34",
       "_origin": "ast",
       "id": "lib_meal_estimation_estimate_total",
       "community": 18,
@@ -2016,7 +2027,7 @@
       "label": "portionUnitMilliliters()",
       "file_type": "code",
       "source_file": "lib/meal-estimation/estimate.ts",
-      "source_location": "L30",
+      "source_location": "L47",
       "_origin": "ast",
       "id": "lib_meal_estimation_estimate_portionunitmilliliters",
       "community": 18,
@@ -2027,7 +2038,7 @@
       "label": "estimateMeal()",
       "file_type": "code",
       "source_file": "lib/meal-estimation/estimate.ts",
-      "source_location": "L37",
+      "source_location": "L54",
       "_origin": "ast",
       "id": "lib_meal_estimation_estimate_estimatemeal",
       "community": 18,
@@ -3394,8 +3405,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "test_food_data_test",
-      "community": 22,
-      "community_name": "normalize.ts",
+      "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "food-data.test.ts"
     },
     {
@@ -3405,8 +3416,8 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "test_food_data_test_foundationnutrients",
-      "community": 22,
-      "community_name": "normalize.ts",
+      "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "foundationnutrients"
     },
     {
@@ -3416,8 +3427,8 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "test_food_data_test_fnddsnutrients",
-      "community": 22,
-      "community_name": "normalize.ts",
+      "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "fnddsnutrients"
     },
     {
@@ -3427,8 +3438,8 @@
       "source_location": "L153",
       "_origin": "ast",
       "id": "test_food_data_test_fixtureindex",
-      "community": 22,
-      "community_name": "normalize.ts",
+      "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "fixtureindex"
     },
     {
@@ -9187,7 +9198,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "lib/meal-estimation/estimate.ts",
-      "source_location": "L55",
+      "source_location": "L72",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_meal_estimation_estimate_estimatemeal",
@@ -10259,7 +10270,18 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib/meal-estimation/estimate.ts",
-      "source_location": "L37",
+      "source_location": "L25",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "lib_meal_estimation_estimate",
+      "target": "lib_meal_estimation_estimate_caloriesfrommacros",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/meal-estimation/estimate.ts",
+      "source_location": "L54",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_meal_estimation_estimate",
@@ -10281,7 +10303,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib/meal-estimation/estimate.ts",
-      "source_location": "L30",
+      "source_location": "L47",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_meal_estimation_estimate",
@@ -10303,7 +10325,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib/meal-estimation/estimate.ts",
-      "source_location": "L25",
+      "source_location": "L34",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_meal_estimation_estimate",
@@ -10410,7 +10432,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "lib/meal-estimation/estimate.ts",
-      "source_location": "L80",
+      "source_location": "L88",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_meal_estimation_estimate_estimatemeal",
@@ -10422,7 +10444,19 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "lib/meal-estimation/estimate.ts",
-      "source_location": "L90",
+      "source_location": "L92",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "lib_meal_estimation_estimate_estimatemeal",
+      "target": "lib_meal_estimation_estimate_caloriesfrommacros",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/meal-estimation/estimate.ts",
+      "source_location": "L112",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_meal_estimation_estimate_estimatemeal",
@@ -10434,7 +10468,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "lib/meal-estimation/estimate.ts",
-      "source_location": "L54",
+      "source_location": "L71",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_meal_estimation_estimate_estimatemeal",
@@ -10459,7 +10493,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "lib/meal-estimation/estimate.ts",
-      "source_location": "L42",
+      "source_location": "L59",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_meal_estimation_estimate_estimatemeal",
@@ -13666,5 +13700,5 @@
       "source_file": "README.md"
     }
   ],
-  "built_at_commit": "dedeadeff74763e2a578414299631b64aa4d757e"
+  "built_at_commit": "a9c7a946d17e13df36189ddf552e4389335aeefd"
 }
