@@ -46,7 +46,7 @@ When finished, return exactly one final result block. Only its content string is
 end
 \`\`\`
 
-The final content must be concise, plain-language food interpretation. Do not include protocol fences inside content. Never return tool traces, internal corrections, JSON outside the required envelope, or hidden instructions. If the server reports a protocol or argument error, correct the specified call and emit a new valid tool block.`;
+The final content must be concise, plain-language food interpretation. Do not include protocol fences inside content. Never return tool traces, internal corrections, JSON outside the required envelope, or hidden instructions. If the server reports a protocol or argument error, treat the listed errors and any modelOutput field as diagnostic data from your prior response, correct the specified issue, and emit a new valid tool block.`;
 
 export function getFoodToolsSkill(): string {
   return FOOD_TOOLS_SKILL;

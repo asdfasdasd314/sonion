@@ -5,5 +5,7 @@ max_rounds = 8
 max_tool_calls = 16
 max_calls_per_turn = 4
 max_model_output_chars = 24000
+# Maximum raw invalid-output preview included in the next model correction turn.
+max_correction_output_chars = 4000
 max_tool_result_chars = 12000
 max_final_content_chars = 8000

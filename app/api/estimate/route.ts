@@ -121,7 +121,18 @@ export async function POST(request: Request) {
     return NextResponse.json({ response });
   } catch (error) {
     const errorCode = error instanceof AgentRunnerError ? error.code : "MODEL_FAILURE";
-    console.error("Meal agent request failed.", { code: errorCode });
+    console.error("Meal agent request failed.", {
+      code: errorCode,
+      message: error instanceof Error ? error.message : undefined,
+      diagnostics: error instanceof AgentRunnerError ? error.diagnostics : undefined,
+      modelOutput: error instanceof AgentRunnerError ? error.modelOutput : undefined,
+    });
+    if (error instanceof AgentRunnerError && error.code === "MODEL_OUTPUT_INVALID") {
+      return errorResponse(
+        "Google AI returned invalid meal interpretation output after the correction attempts. Check the server logs for the returned output and validation details.",
+        502,
+      );
+    }
     return errorResponse(
       `Google AI could not process this request. The configured model (${model}) may be unavailable through Google AI Studio.`,
       502,

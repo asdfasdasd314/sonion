@@ -60,11 +60,13 @@ export type ParsedAgentResponse =
 export type ProtocolLimits = {
   maxModelOutputChars: number;
   maxFinalContentChars: number;
+  maxCorrectionOutputChars: number;
 };
 
 export const DEFAULT_PROTOCOL_LIMITS: ProtocolLimits = {
   maxModelOutputChars: 24_000,
   maxFinalContentChars: 8_000,
+  maxCorrectionOutputChars: 4_000,
 };
 
 function diagnostic(
@@ -479,8 +481,18 @@ export function formatToolResults(
   return "<sonion-tool-results>\n" + serializeTranscriptData({ results }) + "\n</sonion-tool-results>";
 }
 
-export function formatProtocolErrors(diagnostics: readonly ProtocolDiagnostic[]): string {
-  return "<sonion-protocol-errors>\n" + serializeTranscriptData({ errors: diagnostics }) + "\n</sonion-protocol-errors>";
+export function formatProtocolErrors(
+  diagnostics: readonly ProtocolDiagnostic[],
+  modelOutput?: string,
+  maxCorrectionOutputChars = DEFAULT_PROTOCOL_LIMITS.maxCorrectionOutputChars,
+): string {
+  const output = modelOutput === undefined
+    ? undefined
+    : modelOutput.length > maxCorrectionOutputChars
+      ? modelOutput.slice(0, maxCorrectionOutputChars) + "…"
+      : modelOutput;
+  const payload = output === undefined ? { errors: diagnostics } : { errors: diagnostics, modelOutput: output };
+  return "<sonion-protocol-errors>\n" + serializeTranscriptData(payload) + "\n</sonion-protocol-errors>";
 }
 
 export function formatToolCall(name: FoodToolName, argumentsValue: Record<string, unknown>): string {

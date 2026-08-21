@@ -30,6 +30,7 @@ export const DEFAULT_AGENT_LIMITS: AgentLimits = {
   maxToolCalls: 16,
   maxCallsPerTurn: 4,
   maxModelOutputChars: 24_000,
+  maxCorrectionOutputChars: 4_000,
   maxToolResultChars: 12_000,
   maxFinalContentChars: 8_000,
 };
@@ -49,10 +50,19 @@ export class AgentRunnerError extends Error {
     | "MODEL_FAILURE"
     | "FINAL_OUTPUT_INVALID";
 
-  constructor(code: AgentRunnerError["code"], message: string) {
+  readonly diagnostics?: readonly ProtocolDiagnostic[];
+  readonly modelOutput?: string;
+
+  constructor(
+    code: AgentRunnerError["code"],
+    message: string,
+    details: { diagnostics?: readonly ProtocolDiagnostic[]; modelOutput?: string } = {},
+  ) {
     super(message);
     this.name = "AgentRunnerError";
     this.code = code;
+    this.diagnostics = details.diagnostics;
+    this.modelOutput = details.modelOutput;
   }
 }
 
@@ -205,20 +215,29 @@ async function runLoop(input: RunMealAgentInput, limits: AgentLimits): Promise<s
       throw new AgentRunnerError("MODEL_FAILURE", "The model provider failed.");
     }
 
-    if (modelOutput.length > limits.maxModelOutputChars) {
-      throw new AgentRunnerError("MODEL_OUTPUT_INVALID", "The model output exceeded its size limit.");
-    }
-
     const parsed = parseAgentResponse(modelOutput, {
       toolNames: Object.keys(input.tools),
       limits,
     });
 
     if (!parsed.ok) {
+      console.error("Meal agent returned invalid model output.", {
+        round: round + 1,
+        diagnostics: parsed.diagnostics,
+        modelOutput,
+      });
       if (round + 1 >= limits.maxRounds) {
-        throw new AgentRunnerError("MODEL_OUTPUT_INVALID", "The model returned invalid protocol output.");
+        throw new AgentRunnerError(
+          "MODEL_OUTPUT_INVALID",
+          "The model returned invalid protocol output.",
+          { diagnostics: parsed.diagnostics, modelOutput },
+        );
       }
-      contents += "\n\n" + formatProtocolErrors(parsed.diagnostics);
+      contents += "\n\n" + formatProtocolErrors(
+        parsed.diagnostics,
+        modelOutput,
+        limits.maxCorrectionOutputChars,
+      );
       continue;
     }
 
@@ -236,7 +255,23 @@ async function runLoop(input: RunMealAgentInput, limits: AgentLimits): Promise<s
       contents += "\n\n" + formatToolResults(execution.results);
     }
     if (execution.diagnostics.length > 0) {
-      contents += "\n\n" + formatProtocolErrors(execution.diagnostics);
+      console.error("Meal agent returned invalid tool arguments.", {
+        round: round + 1,
+        diagnostics: execution.diagnostics,
+        modelOutput,
+      });
+      if (round + 1 >= limits.maxRounds) {
+        throw new AgentRunnerError(
+          "MODEL_OUTPUT_INVALID",
+          "The model returned invalid tool arguments.",
+          { diagnostics: execution.diagnostics, modelOutput },
+        );
+      }
+      contents += "\n\n" + formatProtocolErrors(
+        execution.diagnostics,
+        modelOutput,
+        limits.maxCorrectionOutputChars,
+      );
     }
   }
 

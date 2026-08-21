@@ -62,6 +62,28 @@ test("returns a bounded correction when arguments fail strict validation", async
   assert.equal(result, "Chicken was identified; the exact portion is uncertain.");
   assert.match(requests[1] ?? "", /INVALID_TOOL_ARGUMENTS/);
   assert.match(requests[1] ?? "", /arguments\.unsupported/);
+  assert.match(requests[1] ?? "", /"modelOutput"/);
+});
+
+test("feeds invalid protocol output and diagnostics into the next model turn", async () => {
+  const tools = createFoodToolRegistry(fixtureIndex);
+  const requests: string[] = [];
+  let turn = 0;
+  const invalidOutput = "I found chicken, but forgot the result envelope.";
+
+  const result = await runMealAgent({
+    mealPrompt: "chicken",
+    tools,
+    generate: async ({ contents }) => {
+      requests.push(contents);
+      turn += 1;
+      return turn === 1 ? invalidOutput : formatResult("Chicken was identified.");
+    },
+  });
+
+  assert.equal(result, "Chicken was identified.");
+  assert.match(requests[1] ?? "", /ARBITRARY_TEXT/);
+  assert.match(requests[1] ?? "", /forgot the result envelope/);
 });
 
 test("never executes a strict-registry call with unknown, missing, or invalid arguments", () => {
