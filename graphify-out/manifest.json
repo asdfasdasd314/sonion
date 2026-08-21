@@ -20,8 +20,8 @@
     "semantic_hash": "9b77af189a21a7a64e4bd7a426f64176"
   },
   "package.json": {
-    "mtime": 1787255707.3821037,
-    "ast_hash": "c6fa7cb2cc4d30e5d6d90fc5ece7f11f",
+    "mtime": 1787272052.4820685,
+    "ast_hash": "1f69a8e12a2f5ea3c780ad24af451bc5",
     "semantic_hash": ""
   },
   "postcss.config.mjs": {
@@ -70,8 +70,8 @@
     "semantic_hash": "5c27369b226fcf2be8a6cfe52224e767"
   },
   "README.md": {
-    "mtime": 1787255707.3778307,
-    "ast_hash": "2761dedd4f614f38ef0d542febe88df1",
+    "mtime": 1787272052.4797902,
+    "ast_hash": "8028cb9ae8f6e4a7827e4075c66e2fd9",
     "semantic_hash": ""
   },
   "public/file.svg": {
@@ -100,8 +100,8 @@
     "semantic_hash": "a2760511c65806022ad20adf74370ff3"
   },
   "app/api/estimate/route.ts": {
-    "mtime": 1787255707.3782876,
-    "ast_hash": "abeca345a4dfb3207bf94e3bb794fe7a",
+    "mtime": 1787272052.4800792,
+    "ast_hash": "3bf5eb46cbc800f44d70cd96fe6c8f50",
     "semantic_hash": ""
   },
   "lib/gemma.ts": {
@@ -130,18 +130,18 @@
     "semantic_hash": ""
   },
   "lib/food-data/index-builder.ts": {
-    "mtime": 1787253904.9631963,
-    "ast_hash": "49619517feed1da9eb2c1c032877de33",
+    "mtime": 1787272052.4813612,
+    "ast_hash": "868f942da8b02de3caee9825256d585b",
     "semantic_hash": ""
   },
   "lib/food-data/index.ts": {
-    "mtime": 1787255707.3811188,
-    "ast_hash": "fdb7642a588856fb4574a0b8c16ac554",
+    "mtime": 1787272052.4815881,
+    "ast_hash": "c6ad5fde2abaaf468bb47e2d128b6ea4",
     "semantic_hash": ""
   },
   "lib/food-data/loader.ts": {
-    "mtime": 1787253904.9640763,
-    "ast_hash": "9ed933faa0d414cfea376a1a1668c15f",
+    "mtime": 1787272052.4818206,
+    "ast_hash": "581c9e5a0852e23b6e1c51501039d660",
     "semantic_hash": ""
   },
   "lib/food-data/normalize.ts": {
@@ -175,12 +175,12 @@
     "semantic_hash": ""
   },
   "feature_files/food-data.md": {
-    "mtime": 1787255707.3786788,
-    "ast_hash": "921af0087100e46334a2e410f4b33115",
+    "mtime": 1787272052.4808578,
+    "ast_hash": "60ad340613df8aa2716103adc1f7a9e9",
     "semantic_hash": ""
   },
   "lib/agent/food-tools-skill.ts": {
-    "mtime": 1787255707.379817,
+    "mtime": 1787271628.0405278,
     "ast_hash": "18b8bb6d1e4d60c499eab58281cb6f72",
     "semantic_hash": ""
   },
@@ -205,8 +205,8 @@
     "semantic_hash": ""
   },
   "feature_files/agent-tool-loop.md": {
-    "mtime": 1787255707.37842,
-    "ast_hash": "5760e13a8cb12933bf2ea835feb85413",
+    "mtime": 1787272052.4805684,
+    "ast_hash": "893faeba15ef9c8a4b9c68d29d9b70f1",
     "semantic_hash": ""
   },
   "components/meal-history.tsx": {
@@ -247,6 +247,16 @@
   "feature_files/nutrition-dashboard.md": {
     "mtime": 1787260862.3350108,
     "ast_hash": "85d2e11694479e99aca6a6e3f31033ca",
+    "semantic_hash": ""
+  },
+  "lib/food-data/errors.ts": {
+    "mtime": 1787272052.48109,
+    "ast_hash": "8e2ace601703af1edc6a32cdbcf9b33f",
+    "semantic_hash": ""
+  },
+  "scripts/ensure-food-index.ts": {
+    "mtime": 1787272052.4823034,
+    "ast_hash": "25d41b879d5ff0bd487905afc487e3fe",
     "semantic_hash": ""
   }
 }
