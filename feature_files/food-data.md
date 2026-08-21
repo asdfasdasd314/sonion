@@ -21,9 +21,11 @@ The food-data feature turns the local USDA Foundation Foods and FNDDS / Survey F
 - `lib/food-data/normalize.ts` owns both adapters, nutrient extraction, portion extraction, ingredients, and calorie precedence.
 - `lib/food-data/index-builder.ts` reads the two hardcoded local inputs and writes the compact runtime index.
 - `lib/food-data/loader.ts` caches the generated index and FDC-ID map.
+- `lib/food-data/errors.ts` defines setup failures that must remain distinct from model failures.
 - `lib/food-data/tools.ts` owns the validated search and lookup tools.
 - `lib/agent/runner.ts` consumes the allowlisted registry without exposing the loader or raw index to the model.
 - `scripts/build-food-index.ts` is the index-generation entry point.
+- `scripts/ensure-food-index.ts` validates the generated index and rebuilds it for local dev/build startup when needed.
 - `test/food-data.test.ts` covers adapters, tools, and real-record integration searches when the gitignored data is present.
 
 ## Dev Mode
@@ -37,3 +39,4 @@ TESTING
 - Moved `tsx` and its `esbuild` runtime chain to production dependencies so `npm test` resolves after production-only dependency installation.
 - Scoped the root USDA-data ignore rule so the tracked server-side `lib/food-data` implementation is included in handoffs.
 - Repaired real-record search expectations so chicken and broccoli integration cases select descriptions that match the documented starts-with ranking tier rather than arbitrary lexical token-overlap matches.
+- Added typed setup errors, stricter generated-index validation, and automatic prepare hooks so missing or invalid local food data is reported before the agent loop starts.

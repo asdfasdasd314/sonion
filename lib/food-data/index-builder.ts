@@ -4,6 +4,7 @@ import path from "node:path";
 import { normalizeFoundationFood, normalizeFnddsFood } from "./normalize";
 import { asRawFoodRecord, type RawFoodRecord } from "./raw";
 import type { NormalizedFood } from "./types";
+import { FoodDataSetupError } from "./errors";
 
 export const FOOD_DATA_DIR = path.resolve(process.cwd(), "food-data");
 export const FOUNDATION_DATA_PATH = path.join(
@@ -13,9 +14,9 @@ export const FOUNDATION_DATA_PATH = path.join(
 export const FNDDS_DATA_PATH = path.join(FOOD_DATA_DIR, "surveyDownload.json");
 export const RUNTIME_INDEX_PATH = path.join(FOOD_DATA_DIR, "food-index.json");
 
-function setupError(label: string, filePath: string, cause?: unknown): Error {
+function setupError(label: string, filePath: string, cause?: unknown): FoodDataSetupError {
   const suffix = cause instanceof Error ? ` (${cause.message})` : "";
-  return new Error(
+  return new FoodDataSetupError(
     `Food data setup error: ${label} is unavailable at ${filePath}. ` +
       `Place the gitignored USDA input there before running the food-data index command${suffix}`,
   );
@@ -82,6 +83,13 @@ export function buildFoodIndex(): NormalizedFood[] {
     ["SurveyFoods", "surveyFoods", "foods"],
   );
 
+  if (foundationRecords.length === 0 && fnddsRecords.length === 0) {
+    throw new FoodDataSetupError(
+      "Food data setup error: the USDA input files contain no usable food records. " +
+        "Check the Foundation Foods and FNDDS JSON files, then run npm run food-data:index.",
+    );
+  }
+
   const byId = new Map<number, NormalizedFood>();
   for (const food of [
     ...normalizeRecords(foundationRecords, normalizeFoundationFood),
@@ -90,17 +98,34 @@ export function buildFoodIndex(): NormalizedFood[] {
     if (!byId.has(food.fdcId)) byId.set(food.fdcId, food);
   }
 
-  return [...byId.values()].sort(
+  const index = [...byId.values()].sort(
     (left, right) =>
       compareText(left.description, right.description) ||
       compareText(left.dataset, right.dataset) ||
       left.fdcId - right.fdcId,
   );
+
+  if (index.length === 0) {
+    throw new FoodDataSetupError(
+      "Food data setup error: the USDA input files contain no normalizable food records. " +
+        "Check the input contents, then run npm run food-data:index.",
+    );
+  }
+
+  return index;
 }
 
 export function writeFoodIndex(index: readonly NormalizedFood[]): void {
-  mkdirSync(FOOD_DATA_DIR, { recursive: true });
-  writeFileSync(RUNTIME_INDEX_PATH, JSON.stringify(index), "utf8");
+  try {
+    mkdirSync(FOOD_DATA_DIR, { recursive: true });
+    writeFileSync(RUNTIME_INDEX_PATH, JSON.stringify(index), "utf8");
+  } catch (error) {
+    throw new FoodDataSetupError(
+      `Food data setup error: generated index could not be written at ${RUNTIME_INDEX_PATH}. ` +
+        "Make food-data writable, then run npm run food-data:index.",
+      { cause: error },
+    );
+  }
 }
 
 export function buildAndWriteFoodIndex(): NormalizedFood[] {

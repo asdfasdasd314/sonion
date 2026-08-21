@@ -336,6 +336,8 @@ Generate the compact normalized runtime index with:
 npm run food-data:index
 ```
 
+`npm run dev`, `npm run build`, and `npm run start` validate the generated index first and rebuild it automatically when it is missing or invalid. These commands require the two local USDA input files above.
+
 The generated `food-data/food-index.json` is kept outside `public/`. Application code should use `searchFoods({ query, limit?, dataset? })` and `getFood({ fdcId })` from `lib/food-data`; raw USDA records, file paths, SQL, URLs, and shell commands are not tool inputs. Search defaults to five results and allows at most ten. Missing nutrient values remain absent, invalid portions are omitted, and unknown IDs return `{ error: "FOOD_NOT_FOUND" }`.
 
 Foundation calorie selection prefers nutrient 2048, then 2047. FNDDS uses nutrient 1008. Calorie entries are never summed.

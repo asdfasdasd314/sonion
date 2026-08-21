@@ -20,6 +20,7 @@ The estimate route runs a bounded, server-side text-protocol loop so the food in
 - lib/agent/runner.ts owns the capability sandbox and bounded orchestration loop.
 - lib/food-data/tools.ts provides the strict allowlisted registry.
 - app/api/estimate/route.ts authenticates requests and returns only the validated final content.
+- lib/food-data/errors.ts and app/api/estimate/route.ts keep food-data setup failures separate from Gemma/SDK failures.
 - parameter_files/agent-tool-loop.toml records server-only safety limits.
 - test/agent-protocol.test.ts and test/agent-runner.test.ts cover protocol and orchestration behavior.
 
@@ -31,3 +32,4 @@ TESTING
 
 - Added the strict text protocol, fixed food-tool skill, application capability sandbox, bounded model loop, and internal correction transcripts.
 - Ordered unknown-tool diagnostics before envelope-field diagnostics and corrected the protocol test to identify the actual unsupported field.
+- Classified food-data registry setup failures before the Gemma call so missing or invalid indexes return a clear 503 setup response while preserving the tool loop and system skill.

@@ -4,10 +4,14 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "predev": "npm run food-data:prepare",
     "build": "next build",
+    "prebuild": "npm run food-data:prepare",
     "start": "next start",
+    "prestart": "npm run food-data:prepare",
     "lint": "eslint",
     "food-data:index": "tsx scripts/build-food-index.ts",
+    "food-data:prepare": "tsx scripts/ensure-food-index.ts",
     "test": "tsx --test test/*.test.ts"
   },
   "dependencies": {

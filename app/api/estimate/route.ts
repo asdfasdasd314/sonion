@@ -5,6 +5,7 @@ import {
   getGemmaModel,
 } from "@/lib/gemma";
 import { runMealAgent, AgentRunnerError } from "@/lib/agent/runner";
+import { FoodDataSetupError, type FoodToolRegistry } from "@/lib/food-data";
 import { getDefaultFoodToolRegistry } from "@/lib/food-data/tools";
 import {
   getSupabaseUser,
@@ -87,11 +88,27 @@ export async function POST(request: Request) {
 
   const model = getGemmaModel();
 
+  let tools: FoodToolRegistry;
+  try {
+    tools = getDefaultFoodToolRegistry();
+  } catch (error) {
+    if (error instanceof FoodDataSetupError) {
+      console.error("Meal agent food data is not ready.", { error });
+      return errorResponse(
+        "Food data setup error: the local USDA index is missing or invalid. Run npm run food-data:index with the USDA JSON inputs in food-data/, then restart the app.",
+        503,
+      );
+    }
+
+    console.error("Meal agent food data setup failed.", { error });
+    return errorResponse("Food data setup error: the local food tools could not be initialized.", 503);
+  }
+
   try {
     const client = createGemmaClient(apiKey);
     const response = await runMealAgent({
       mealPrompt: prompt,
-      tools: getDefaultFoodToolRegistry(),
+      tools,
       generate: async ({ systemInstruction, contents }) => {
         const result = await client.models.generateContent({
           model,
