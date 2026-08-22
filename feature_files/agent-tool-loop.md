@@ -22,7 +22,7 @@ The estimate route runs a server-side JSON protocol loop so the food interpreter
 - lib/agent/runner.ts owns the capability sandbox and result-driven orchestration loop.
 - lib/food-data/tools.ts provides the strict allowlisted registry.
 - app/api/estimate/route.ts authenticates requests, retrieves authoritative records, and returns only the validated meal estimate.
-- lib/food-data/errors.ts and app/api/estimate/route.ts keep food-data setup failures separate from Gemma/SDK failures.
+- lib/food-data/errors.ts and app/api/estimate/route.ts keep food-data setup failures separate from Google AI SDK failures.
 - parameter_files/agent-tool-loop.toml records server-only per-turn and payload safety limits.
 - test/agent-protocol.test.ts and test/agent-runner.test.ts cover protocol and orchestration behavior.
 

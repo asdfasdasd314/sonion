@@ -2,7 +2,9 @@ import { NextResponse } from "next/server";
 
 import {
   createGemmaClient,
+  getGeminiModel,
   getGemmaModel,
+  getNextMealModel,
 } from "@/lib/gemma";
 import { runMealAgent, AgentRunnerError } from "@/lib/agent/runner";
 import { FoodDataSetupError, type FoodToolRegistry } from "@/lib/food-data";
@@ -83,12 +85,10 @@ export async function POST(request: Request) {
 
   if (!apiKey) {
     return errorResponse(
-      "Gemma is not configured yet. Add GEMINI_API_KEY to your local environment and restart the app.",
+      "Google AI is not configured yet. Add GEMINI_API_KEY to your local environment and restart the app.",
       503,
     );
   }
-
-  const model = getGemmaModel();
 
   let tools: FoodToolRegistry;
   try {
@@ -112,6 +112,8 @@ export async function POST(request: Request) {
       mealPrompt: prompt,
       tools,
       generate: async ({ systemInstruction, contents }) => {
+        const model = getNextMealModel();
+        console.log("Meal agent model request.", { model });
         const result = await client.models.generateContent({
           model,
           contents,
@@ -159,7 +161,7 @@ export async function POST(request: Request) {
       );
     }
     return errorResponse(
-      `Google AI could not process this request. The configured model (${model}) may be unavailable through Google AI Studio.`,
+      `Google AI could not process this request. The configured models (${getGeminiModel()} and ${getGemmaModel()}) may be unavailable through Google AI Studio.`,
       502,
     );
   }

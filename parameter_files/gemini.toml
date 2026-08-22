@@ -1,5 +1,7 @@
-# Runtime configuration for the Gemini food-description interpreter.
+# Runtime configuration for the alternating Gemini food-description interpreter.
 # API keys belong in the environment and must not be added here.
 
-model = "gemma-4-31b-it"
-model_environment_variable = "GEMINI_MODEL"
+default_model = "gemini-3.5-flash-lite"
+default_model_environment_variable = "GEMINI_FLASH_LITE_MODEL"
+alternate_model = "gemma-4-31b-it"
+alternate_model_environment_variable = "GEMMA_MODEL"
