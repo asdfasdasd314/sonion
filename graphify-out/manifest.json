@@ -210,8 +210,8 @@
     "semantic_hash": ""
   },
   "components/meal-history.tsx": {
-    "mtime": 1787362977.2939336,
-    "ast_hash": "5bf4dcdf93a184032698eac2c120eee8",
+    "mtime": 1787434371.948458,
+    "ast_hash": "92f4e641904e350cb82f8c89ed054f56",
     "semantic_hash": ""
   },
   "components/meal-interpreter.tsx": {
@@ -340,8 +340,8 @@
     "semantic_hash": ""
   },
   "feature_files/meal-history.md": {
-    "mtime": 1787362977.2956228,
-    "ast_hash": "c1c64819725d5d5579da8867380c797f",
+    "mtime": 1787434371.948722,
+    "ast_hash": "be3c32e2094fe8b9a69b745f2e582975",
     "semantic_hash": ""
   },
   "supabase/.temp/linked-project.json": {
