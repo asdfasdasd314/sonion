@@ -25,8 +25,6 @@ export const MealRecordSchema = z.object({
   user_id: z.string().regex(UUID_PATTERN),
   meal_date: LocalDateSchema,
   meal_time: LocalTimeSchema,
-  // Records created before meal descriptions were persisted have no prompt.
-  meal_prompt: z.string().trim().min(1).max(2_000).nullable().optional(),
   meal_snapshot: MealEstimateSchema,
   created_at: z.string().min(1),
   updated_at: z.string().min(1),

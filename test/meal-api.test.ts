@@ -31,7 +31,6 @@ const savedMeal = {
   user_id: userId,
   meal_date: "2026-08-21",
   meal_time: "08:05:00",
-  meal_prompt: "one bowl of rice",
   meal_snapshot: snapshot,
   created_at: "2026-08-21T12:00:00.000Z",
   updated_at: "2026-08-21T12:00:00.000Z",
@@ -75,6 +74,7 @@ test("meal GET verifies the bearer token and lists only the authenticated user's
   const response = await GET(authenticatedRequest("http://localhost/api/meals"));
   assert.equal(response.status, 200);
   assert.deepEqual(await response.json(), { meals: [savedMeal] });
+  assert.match(String(calls[1]?.input), /select=id,user_id,meal_date,meal_time,meal_snapshot,created_at,updated_at/);
   assert.match(String(calls[1]?.input), /order=meal_date.desc,meal_time.desc/);
   assert.equal((calls[1]?.init?.headers as Headers).get("Authorization"), `Bearer ${accessToken}`);
 });
@@ -89,7 +89,6 @@ test("meal POST derives user_id from the verified auth response", async () => {
   assert.equal(response.status, 201);
   const body = JSON.parse(String(calls[1]?.init?.body)) as Record<string, unknown>;
   assert.equal(body.user_id, userId);
-  assert.equal("meal_prompt" in body, false);
   assert.equal("userId" in body, false);
 });
 
@@ -104,8 +103,6 @@ test("PATCH and DELETE use the bearer token and a specific meal ID for owner-saf
   assert.match(String(patchCalls[1]?.input), new RegExp(`id=eq\\.${mealId}`));
   const patchBody = JSON.parse(String(patchCalls[1]?.init?.body)) as Record<string, unknown>;
   assert.equal(patchBody.meal_time, "09:10");
-  assert.equal("meal_prompt" in patchBody, false);
-
   const deleteCalls = mockFetch([{ body: { id: userId } }, { status: 204 }]);
   const deleteResponse = await DELETE(authenticatedRequest(`http://localhost/api/meals/${mealId}`, { method: "DELETE" }), { params: Promise.resolve({ id: mealId }) });
   assert.equal(deleteResponse.status, 204);

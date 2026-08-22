@@ -2,8 +2,6 @@
 storage = "supabase-postgrest"
 snapshot_format = "meal-estimate-jsonb"
 meal_title = "omitted"
-original_prompt_column = "meal_prompt"
-original_prompt_max_length = 2000
 revision_max_length = 1200
 composed_revision_prompt_max_length = 4000
 save_payload = "meal_date,meal_time,meal_snapshot"
@@ -14,4 +12,4 @@ ownership_source = "verified-supabase-bearer-user"
 service_role_browser_access = false
 user_edit_delete_controls = "refinement-save-and-confirmed-delete"
 legacy_prompt_behavior = "refine-from-saved-foods"
-prompt_persistence = "read-if-present-only"
+prompt_persistence = "client-session-only"

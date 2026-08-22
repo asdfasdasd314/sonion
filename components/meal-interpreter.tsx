@@ -33,8 +33,8 @@ export default function MealInterpreter({ accessToken, mealToRefine, onClearFocu
 
   useEffect(() => {
     if (mealToRefine) {
-      setPrompt(mealToRefine.meal_prompt ?? "");
-      setOriginalPrompt(mealToRefine.meal_prompt ?? "");
+      setPrompt("");
+      setOriginalPrompt("");
       setHasSubmittedPrompt(true);
       setResponse(mealToRefine.meal_snapshot);
       setRevision("");

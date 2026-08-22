@@ -50,7 +50,7 @@ async function mealRequest<T>(accessToken: string, path = "", options: RequestIn
   return payload as T;
 }
 
-const MEAL_COLUMNS = "id,user_id,meal_date,meal_time,meal_prompt,meal_snapshot,created_at,updated_at";
+const MEAL_COLUMNS = "id,user_id,meal_date,meal_time,meal_snapshot,created_at,updated_at";
 
 export async function listMeals(accessToken: string): Promise<MealRecord[]> {
   const payload = await mealRequest<unknown>(
