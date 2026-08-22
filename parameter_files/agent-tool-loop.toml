@@ -1,7 +1,8 @@
 # Server-only limits for the food interpretation agent.
 # These values are intentionally not accepted from the browser or model.
 
-max_rounds = 8
+# The model loop has no round-count limit; it continues until the model returns
+# a valid result. Keep per-turn and payload limits to protect the tool boundary.
 max_calls_per_turn = 4
 max_model_output_chars = 24000
 # Maximum raw invalid-output preview included in the next model correction turn.

@@ -47,7 +47,7 @@ test("runs search, lookup, and final result without exposing arbitrary capabilit
   assert.match(requests[0] ?? "", /Do not use paths, files/);
 });
 
-test("allows valid tool calls to continue across rounds without an aggregate call limit", async () => {
+test("allows valid tool calls to continue beyond the previous round limit", async () => {
   const tools = createFoodToolRegistry(fixtureIndex);
   let turn = 0;
 
@@ -56,7 +56,7 @@ test("allows valid tool calls to continue across rounds without an aggregate cal
     tools,
     generate: async () => {
       turn += 1;
-      if (turn === 6) return formatResult(selection);
+      if (turn === 10) return formatResult(selection);
 
       return formatToolCalls(
         Array.from({ length: 4 }, () => ({
@@ -68,7 +68,7 @@ test("allows valid tool calls to continue across rounds without an aggregate cal
   });
 
   assert.deepEqual(result, selection);
-  assert.equal(turn, 6);
+  assert.equal(turn, 10);
 });
 
 test("returns a bounded correction when arguments fail strict validation", async () => {

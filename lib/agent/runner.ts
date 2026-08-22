@@ -20,13 +20,11 @@ export type AgentGenerationAdapter = (
 ) => Promise<string>;
 
 export type AgentLimits = ProtocolLimits & {
-  maxRounds: number;
   maxCallsPerTurn: number;
   maxToolResultChars: number;
 };
 
 export const DEFAULT_AGENT_LIMITS: AgentLimits = {
-  maxRounds: 8,
   maxCallsPerTurn: 4,
   maxModelOutputChars: 24_000,
   maxCorrectionOutputChars: 4_000,
@@ -43,7 +41,6 @@ export type RunMealAgentInput = {
 
 export class AgentRunnerError extends Error {
   readonly code:
-    | "ROUND_LIMIT"
     | "MODEL_OUTPUT_INVALID"
     | "MODEL_FAILURE"
     | "FINAL_OUTPUT_INVALID";
@@ -196,7 +193,7 @@ async function executeCalls(
 async function runLoop(input: RunMealAgentInput, limits: AgentLimits): Promise<MealSelection> {
   let contents = mealContents(input.mealPrompt);
 
-  for (let round = 0; round < limits.maxRounds; round += 1) {
+  for (let round = 0; ; round += 1) {
     let modelOutput: string;
     try {
       modelOutput = await input.generate({
@@ -218,13 +215,6 @@ async function runLoop(input: RunMealAgentInput, limits: AgentLimits): Promise<M
         diagnostics: parsed.diagnostics,
         modelOutput,
       });
-      if (round + 1 >= limits.maxRounds) {
-        throw new AgentRunnerError(
-          "MODEL_OUTPUT_INVALID",
-          "The model returned invalid protocol output.",
-          { diagnostics: parsed.diagnostics, modelOutput },
-        );
-      }
       contents += "\n\n" + formatProtocolErrors(
         parsed.diagnostics,
         modelOutput,
@@ -250,13 +240,6 @@ async function runLoop(input: RunMealAgentInput, limits: AgentLimits): Promise<M
         diagnostics: execution.diagnostics,
         modelOutput,
       });
-      if (round + 1 >= limits.maxRounds) {
-        throw new AgentRunnerError(
-          "MODEL_OUTPUT_INVALID",
-          "The model returned invalid tool arguments.",
-          { diagnostics: execution.diagnostics, modelOutput },
-        );
-      }
       contents += "\n\n" + formatProtocolErrors(
         execution.diagnostics,
         modelOutput,
@@ -264,8 +247,6 @@ async function runLoop(input: RunMealAgentInput, limits: AgentLimits): Promise<M
       );
     }
   }
-
-  throw new AgentRunnerError("ROUND_LIMIT", "The agent exceeded its round limit.");
 }
 
 export async function runMealAgent(input: RunMealAgentInput): Promise<MealSelection> {
