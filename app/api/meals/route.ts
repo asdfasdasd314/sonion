@@ -36,7 +36,7 @@ export async function POST(request: Request) {
       return errorResponse("Send a valid JSON request body.", 400);
     }
     const parsed = MealSaveBodySchema.safeParse(body);
-    if (!parsed.success) return errorResponse("Include a valid meal date, local time, and complete meal estimate.", 400);
+    if (!parsed.success) return errorResponse("Include a valid meal date, local time, original description, and complete meal estimate.", 400);
     return NextResponse.json(await saveMeal(accessToken, user.id, parsed.data), { status: 201 });
   } catch (error) {
     return mapError(error);

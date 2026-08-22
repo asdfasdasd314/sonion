@@ -6,6 +6,7 @@ import AuthPanel from "@/components/auth-panel";
 import MealHistory from "@/components/meal-history";
 import MealInterpreter from "@/components/meal-interpreter";
 import NutritionTargets from "@/components/nutrition-targets";
+import type { MealRecord } from "@/lib/meal-history/types";
 import {
   clearStoredSession,
   loadStoredSession,
@@ -20,6 +21,7 @@ export default function Home() {
   const [isAuthReady, setIsAuthReady] = useState(false);
   const [isSigningOut, setIsSigningOut] = useState(false);
   const [mealHistoryRefreshKey, setMealHistoryRefreshKey] = useState(0);
+  const [focusedMeal, setFocusedMeal] = useState<MealRecord | null>(null);
 
   useEffect(() => {
     let isCurrent = true;
@@ -91,8 +93,13 @@ export default function Home() {
         <div className="auth-loading">Restoring your secure session...</div>
       ) : session ? (
         <div className="dashboard-grid">
-          <MealHistory accessToken={session.access_token} refreshKey={mealHistoryRefreshKey} />
-          <MealInterpreter accessToken={session.access_token} onMealSaved={() => setMealHistoryRefreshKey((key) => key + 1)} />
+          <MealHistory accessToken={session.access_token} onSelectMeal={setFocusedMeal} refreshKey={mealHistoryRefreshKey} />
+          <MealInterpreter
+            accessToken={session.access_token}
+            mealToRefine={focusedMeal}
+            onClearFocusedMeal={() => setFocusedMeal(null)}
+            onMealSaved={() => setMealHistoryRefreshKey((key) => key + 1)}
+          />
           <NutritionTargets />
         </div>
       ) : (

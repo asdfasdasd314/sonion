@@ -52,10 +52,12 @@ test("validates strict local date and time values", () => {
 });
 
 test("validates complete save and non-empty patch payloads", () => {
-  assert.equal(MealSaveBodySchema.safeParse({ mealDate: "2026-08-21", mealTime: "08:05", mealSnapshot: estimate }).success, true);
+  assert.equal(MealSaveBodySchema.safeParse({ mealDate: "2026-08-21", mealTime: "08:05", mealPrompt: "rice and chicken", mealSnapshot: estimate }).success, true);
+  assert.equal(MealSaveBodySchema.safeParse({ mealDate: "2026-08-21", mealTime: "08:05", mealSnapshot: estimate }).success, false);
   assert.equal(MealSaveBodySchema.safeParse({ mealDate: "2026-08-21", mealTime: "08:05", mealSnapshot: { items: [] } }).success, false);
   assert.equal(MealPatchBodySchema.safeParse({}).success, false);
   assert.equal(MealPatchBodySchema.safeParse({ mealTime: "12:30:00" }).success, true);
+  assert.equal(MealPatchBodySchema.safeParse({ mealPrompt: "changed description" }).success, false);
 });
 
 test("extracts only bearer tokens and maps persisted snapshots without meal titles", () => {

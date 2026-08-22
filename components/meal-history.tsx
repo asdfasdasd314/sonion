@@ -3,12 +3,13 @@
 import { useEffect, useState } from "react";
 
 import { groupMealsByDate } from "@/lib/meal-history/mapping";
-import { parseMealRecordList } from "@/lib/meal-history/types";
+import { parseMealRecordList, type MealRecord } from "@/lib/meal-history/types";
 import { aggregateDailyMacros, aggregateMealMacros, formatMacroValue } from "@/lib/nutrition/meals";
 import type { MacroTotals, MealDay } from "@/lib/nutrition/types";
 
 type MealHistoryProps = {
   accessToken: string;
+  onSelectMeal: (meal: MealRecord) => void;
   refreshKey: number;
 };
 
@@ -37,11 +38,12 @@ function MacroSummary({ macros, compact = false }: { macros: MacroTotals; compac
   );
 }
 
-function MealDetails({ day }: { day: MealDay }) {
+function MealDetails({ day, onSelectMeal, recordsById }: { day: MealDay; onSelectMeal: (meal: MealRecord) => void; recordsById: Map<string, MealRecord> }) {
   return (
     <div className="meal-day-details">
       {day.meals.map((meal) => {
         const mealMacros = aggregateMealMacros(meal);
+        const record = recordsById.get(meal.id);
         return (
           <article className="meal-entry" key={meal.id}>
             <div className="meal-entry-heading">
@@ -66,6 +68,9 @@ function MealDetails({ day }: { day: MealDay }) {
                 </li>
               ))}
             </ul>
+            {record ? (
+              <button className="meal-refine-button" onClick={() => onSelectMeal(record)} type="button">Refine this meal</button>
+            ) : null}
           </article>
         );
       })}
@@ -73,8 +78,9 @@ function MealDetails({ day }: { day: MealDay }) {
   );
 }
 
-export default function MealHistory({ accessToken, refreshKey }: MealHistoryProps) {
+export default function MealHistory({ accessToken, onSelectMeal, refreshKey }: MealHistoryProps) {
   const [days, setDays] = useState<MealDay[]>([]);
+  const [records, setRecords] = useState<MealRecord[]>([]);
   const [expandedDays, setExpandedDays] = useState<string[]>([]);
   const [state, setState] = useState<HistoryState>("loading");
   const [error, setError] = useState("");
@@ -96,6 +102,7 @@ export default function MealHistory({ accessToken, refreshKey }: MealHistoryProp
         const records = parseMealRecordList(payload);
         if (!records) throw new Error("The meal history response was incomplete.");
         if (isCurrent) {
+          setRecords(records);
           const nextDays = groupMealsByDate(records);
           setDays(nextDays);
           setExpandedDays((current) => current.length ? current.filter((id) => nextDays.some((day) => day.id === id)) : nextDays[0] ? [nextDays[0].id] : []);
@@ -116,6 +123,8 @@ export default function MealHistory({ accessToken, refreshKey }: MealHistoryProp
   function toggleDay(dayId: string) {
     setExpandedDays((current) => current.includes(dayId) ? current.filter((id) => id !== dayId) : [...current, dayId]);
   }
+
+  const recordsById = new Map(records.map((record) => [record.id, record]));
 
   return (
     <section aria-labelledby="meal-history-title" className="panel history-panel">
@@ -148,7 +157,7 @@ export default function MealHistory({ accessToken, refreshKey }: MealHistoryProp
                   </span>
                   <MacroSummary compact macros={totals} />
                 </button>
-                {isExpanded ? <div id={detailsId}><MealDetails day={day} /></div> : null}
+                {isExpanded ? <div id={detailsId}><MealDetails day={day} onSelectMeal={onSelectMeal} recordsById={recordsById} /></div> : null}
               </div>
             );
           })}

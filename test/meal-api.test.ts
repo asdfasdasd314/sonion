@@ -31,6 +31,7 @@ const savedMeal = {
   user_id: userId,
   meal_date: "2026-08-21",
   meal_time: "08:05:00",
+  meal_prompt: "one bowl of rice",
   meal_snapshot: snapshot,
   created_at: "2026-08-21T12:00:00.000Z",
   updated_at: "2026-08-21T12:00:00.000Z",
@@ -83,11 +84,12 @@ test("meal POST derives user_id from the verified auth response", async () => {
   const response = await POST(authenticatedRequest("http://localhost/api/meals", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ mealDate: "2026-08-21", mealTime: "08:05", mealSnapshot: snapshot }),
+    body: JSON.stringify({ mealDate: "2026-08-21", mealTime: "08:05", mealPrompt: "one bowl of rice", mealSnapshot: snapshot }),
   }));
   assert.equal(response.status, 201);
   const body = JSON.parse(String(calls[1]?.init?.body)) as Record<string, unknown>;
   assert.equal(body.user_id, userId);
+  assert.equal(body.meal_prompt, "one bowl of rice");
   assert.equal("userId" in body, false);
 });
 
@@ -100,7 +102,9 @@ test("PATCH and DELETE use the bearer token and a specific meal ID for owner-saf
   }), { params: Promise.resolve({ id: mealId }) });
   assert.equal(patchResponse.status, 200);
   assert.match(String(patchCalls[1]?.input), new RegExp(`id=eq\\.${mealId}`));
-  assert.equal(JSON.parse(String(patchCalls[1]?.init?.body)).meal_time, "09:10");
+  const patchBody = JSON.parse(String(patchCalls[1]?.init?.body)) as Record<string, unknown>;
+  assert.equal(patchBody.meal_time, "09:10");
+  assert.equal("meal_prompt" in patchBody, false);
 
   const deleteCalls = mockFetch([{ body: { id: userId } }, { status: 204 }]);
   const deleteResponse = await DELETE(authenticatedRequest(`http://localhost/api/meals/${mealId}`, { method: "DELETE" }), { params: Promise.resolve({ id: mealId }) });

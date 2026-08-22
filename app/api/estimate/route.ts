@@ -17,7 +17,7 @@ import {
   SupabaseConfigurationError,
 } from "@/lib/supabase-auth";
 
-const MAX_PROMPT_LENGTH = 2_000;
+const MAX_PROMPT_LENGTH = 4_000;
 
 type PromptBody = {
   prompt: unknown;
