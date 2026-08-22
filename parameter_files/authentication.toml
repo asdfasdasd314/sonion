@@ -4,3 +4,5 @@
 auth_method = "email-password"
 session_persistence = "browser-local-storage"
 session_refresh_leeway_seconds = 60
+meal_ownership_source = "verified-bearer-token-user-id"
+service_role_exposed_to_browser = false

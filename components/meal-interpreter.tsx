@@ -1,29 +1,45 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { FormEvent } from "react";
 
+import { canStartMealSave, saveStateAfterResponse, type MealSaveState } from "@/lib/meal-history/save";
+import { isValidLocalDate, isValidLocalTime, parseMealRecord } from "@/lib/meal-history/types";
 import { parseMealEstimate, type MealEstimate } from "@/lib/meal-estimation/types";
 
 const MAX_PROMPT_LENGTH = 2_000;
 
 type MealInterpreterProps = {
   accessToken: string;
+  onMealSaved: () => void;
 };
 
-export default function MealInterpreter({ accessToken }: MealInterpreterProps) {
+export default function MealInterpreter({ accessToken, onMealSaved }: MealInterpreterProps) {
   const [prompt, setPrompt] = useState("");
   const [response, setResponse] = useState<MealEstimate | null>(null);
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [mealDate, setMealDate] = useState("");
+  const [mealTime, setMealTime] = useState("");
+  const [saveState, setSaveState] = useState<MealSaveState>("idle");
+  const [saveError, setSaveError] = useState("");
+
+  useEffect(() => {
+    const now = new Date();
+    const pad = (value: number) => String(value).padStart(2, "0");
+    setMealDate(`${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`);
+    setMealTime(`${pad(now.getHours())}:${pad(now.getMinutes())}`);
+  }, []);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (isSubmitting) return;
+    if (isSubmitting || saveState === "saving") return;
 
     const trimmedPrompt = prompt.trim();
-    setResponse("");
+    setResponse(null);
     setError("");
+    setSaveState("idle");
+    setSaveError("");
 
     if (!trimmedPrompt) {
       setError("Enter a food description before submitting.");
@@ -63,12 +79,53 @@ export default function MealInterpreter({ accessToken }: MealInterpreterProps) {
     }
   }
 
+  async function handleSaveMeal() {
+    if (!canStartMealSave(response, saveState)) return;
+    setSaveError("");
+
+    if (!isValidLocalDate(mealDate)) {
+      setSaveState("error");
+      setSaveError("Choose a valid meal date.");
+      return;
+    }
+    if (!isValidLocalTime(mealTime)) {
+      setSaveState("error");
+      setSaveError("Choose a valid local meal time.");
+      return;
+    }
+
+    setSaveState("saving");
+    try {
+      const result = await fetch("/api/meals", {
+        method: "POST",
+        headers: { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" },
+        body: JSON.stringify({ mealDate, mealTime, mealSnapshot: response }),
+      });
+      const payload = (await result.json().catch(() => ({}))) as unknown;
+      if (!result.ok) {
+        setSaveState(saveStateAfterResponse(false));
+        setSaveError(getErrorMessage(payload) ?? "Sonion could not save this meal.");
+        return;
+      }
+      if (!parseMealRecord(payload)) {
+        setSaveState(saveStateAfterResponse(false));
+        setSaveError("Sonion saved an incomplete meal record. Refresh your history and try again.");
+        return;
+      }
+      setSaveState(saveStateAfterResponse(true));
+      onMealSaved();
+    } catch {
+      setSaveState("error");
+      setSaveError("Sonion could not reach the meal history service. Try again shortly.");
+    }
+  }
+
   return (
     <section aria-labelledby="interpreter-title" className="panel interpreter-panel">
       <div className="interpreter-mark" aria-hidden="true">✦</div>
       <p className="eyebrow">Meal interpreter</p>
       <h1 id="interpreter-title">Describe it. We&apos;ll break it down.</h1>
-      <p className="interpreter-intro">Write what you ate in plain language and Sonion will estimate the foods and macros. Nothing is saved to your meal history yet.</p>
+      <p className="interpreter-intro">Write what you ate in plain language, review the estimate, and save it to your private meal history.</p>
 
       <form className="interpreter-form" onSubmit={handleSubmit}>
         <label htmlFor="food-prompt">What did you eat?</label>
@@ -146,11 +203,31 @@ export default function MealInterpreter({ accessToken }: MealInterpreterProps) {
             {response.items.some((item) => [item.calories, item.protein, item.fat, item.carbohydrates].some((value) => value === null)) ? (
               <p className="warning-message" role="status">Some nutrient values were missing from the USDA records. Calories use available values and are derived from complete macros when possible; other affected meal totals are shown as —.</p>
             ) : null}
+            <div className="save-meal-box">
+              <p className="response-label">Save this meal</p>
+              <div className="save-meal-fields">
+                <label htmlFor="meal-date">Local date<input id="meal-date" onChange={(event) => { setMealDate(event.target.value); setSaveState("idle"); }} type="date" value={mealDate} /></label>
+                <label htmlFor="meal-time">Local time<input id="meal-time" onChange={(event) => { setMealTime(event.target.value); setSaveState("idle"); }} type="time" value={mealTime} /></label>
+              </div>
+              <button aria-busy={saveState === "saving"} className="primary-button save-meal-button" disabled={saveState === "saving" || saveState === "saved"} onClick={() => void handleSaveMeal()} type="button">
+                {saveState === "saving" ? "Saving..." : saveState === "saved" ? "Saved to history" : "Save meal"}
+              </button>
+              <div aria-live="polite" className="save-status">
+                {saveState === "error" ? <p className="error-message">{saveError}</p> : null}
+                {saveState === "saved" ? <p className="saved-message">This processed estimate is now in your private meal history.</p> : null}
+              </div>
+            </div>
           </div>
         ) : null}
       </section>
     </section>
   );
+}
+
+function getErrorMessage(payload: unknown) {
+  return typeof payload === "object" && payload !== null && "error" in payload && typeof payload.error === "string"
+    ? payload.error
+    : undefined;
 }
 
 function formatValue(value: number | null, maximumFractionDigits = 1): string {

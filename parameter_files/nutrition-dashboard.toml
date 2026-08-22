@@ -1,7 +1,10 @@
 # Client-only nutrition dashboard assumptions.
-data_persistence = "none"
-seed_reset_behavior = "seeded-data-resets-on-refresh"
-ai_history_integration = "disabled"
+data_persistence = "meal-history-in-supabase; targets-remain-client-only"
+seed_reset_behavior = "disabled"
+ai_history_integration = "save-complete-processed-estimate"
+meal_title = "omitted"
+history_order = "local-date-time-descending"
+nullable_nutrient_aggregation = "sum-known-values; null-when-none-known"
 weight_unit = "lb"
 height_unit = "in"
 activity_multiplier_sedentary = 1.20

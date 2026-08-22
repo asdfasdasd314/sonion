@@ -11,7 +11,7 @@ The meal-estimation feature converts the model's food identity and Portion Unit 
 - USDA portions recognize milliliters, cups, fluid ounces, tablespoons, and teaspoons. Each valid volume portion stores total milliliters and derived grams-per-milliliter density, and the deterministic preferred portion description is exposed when used.
 - Missing nutrients remain `null`. Missing calories are derived from complete protein, carbohydrate, and fat values using the 4/4/9 macro equation, and calorie totals sum every available or derived item value rather than treating missing data as zero.
 - The API returns `{ items, totals }`, and the browser validates that response before rendering a responsive accessible item table.
-- Fallback density provenance and incomplete nutrient data are shown as uncertainty messages. No estimate is persisted or added to meal history.
+- Fallback density provenance and incomplete nutrient data are shown as uncertainty messages. A successful estimate can be saved as an immutable JSONB meal snapshot with its local date and time.
 
 ## Relevant Files
 
@@ -20,7 +20,8 @@ The meal-estimation feature converts the model's food identity and Portion Unit 
 - `lib/meal-estimation/estimate.ts` owns volume conversion, density selection, nutrient scaling, and totals.
 - `lib/food-data/normalize.ts` normalizes USDA volume portions and derives density.
 - `app/api/estimate/route.ts` retrieves authoritative records and returns the stable estimate object.
-- `components/meal-interpreter.tsx` parses and renders the estimate without persisting it.
+- `components/meal-interpreter.tsx` parses, renders, and saves the estimate through the authenticated meal API.
+- `lib/meal-history/types.ts` reuses `MealEstimateSchema` as the persistence contract so all food attributes and nullable values survive saving.
 - `test/meal-estimation.test.ts` covers conversion, additivity, validation, density provenance, scaling, null values, totals, and response shape.
 - `parameter_files/meal-estimation.toml` records the initial calibration assumptions.
 
@@ -33,3 +34,4 @@ TESTING
 - Added the strict Portion Unit selection contract, server-owned calibration, USDA density provenance, nutrient scaling, uncertainty-aware API response, and accessible UI rendering.
 - Mapped strict result-payload key errors to the offending content field so correction diagnostics identify prohibited nutrition fields precisely.
 - Added macro-derived calories and partial calorie totals so one incomplete USDA record no longer hides the meal's calculable calories.
+- Connected validated estimate results to the owner-scoped meal persistence flow without adding meal-type titles.

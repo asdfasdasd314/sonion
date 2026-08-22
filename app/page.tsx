@@ -19,6 +19,7 @@ export default function Home() {
   const [session, setSession] = useState<SupabaseSession | null>(null);
   const [isAuthReady, setIsAuthReady] = useState(false);
   const [isSigningOut, setIsSigningOut] = useState(false);
+  const [mealHistoryRefreshKey, setMealHistoryRefreshKey] = useState(0);
 
   useEffect(() => {
     let isCurrent = true;
@@ -90,8 +91,8 @@ export default function Home() {
         <div className="auth-loading">Restoring your secure session...</div>
       ) : session ? (
         <div className="dashboard-grid">
-          <MealHistory />
-          <MealInterpreter accessToken={session.access_token} />
+          <MealHistory accessToken={session.access_token} refreshKey={mealHistoryRefreshKey} />
+          <MealInterpreter accessToken={session.access_token} onMealSaved={() => setMealHistoryRefreshKey((key) => key + 1)} />
           <NutritionTargets />
         </div>
       ) : (
@@ -99,13 +100,13 @@ export default function Home() {
           <div className="auth-copy">
             <p className="eyebrow">A quieter way to track</p>
             <h1>Your food, in focus.</h1>
-            <p>Sign in to explore the private meal dashboard. Your current history is only a seeded preview while the format and AI output are being tested.</p>
+            <p>Sign in to explore the private meal dashboard. Processed estimates can be saved to a meal history that only your account can access.</p>
           </div>
           <AuthPanel onAuthenticated={(nextSession) => setSession(nextSession)} />
         </section>
       )}
 
-      <footer className="app-footer">Early prototype · meals and targets live in browser memory only · AI interpretation uses your authenticated session</footer>
+      <footer className="app-footer">Early prototype · saved meal history is private to your Supabase account · AI interpretation uses your authenticated session</footer>
     </main>
   );
 }
