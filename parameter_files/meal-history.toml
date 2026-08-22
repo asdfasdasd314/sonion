@@ -11,5 +11,5 @@ local_time_format = "HH:mm[:ss]"
 audit_timezone = "UTC"
 ownership_source = "verified-supabase-bearer-user"
 service_role_browser_access = false
-user_edit_delete_controls = "refinement-save-only"
+user_edit_delete_controls = "refinement-save-and-confirmed-delete"
 legacy_prompt_behavior = "refine-from-saved-foods"

@@ -38,14 +38,62 @@ function MacroSummary({ macros, compact = false }: { macros: MacroTotals; compac
   );
 }
 
-function MealDetails({ day, onSelectMeal, recordsById }: { day: MealDay; onSelectMeal: (meal: MealRecord) => void; recordsById: Map<string, MealRecord> }) {
+type MealDetailsProps = {
+  day: MealDay;
+  onSelectMeal: (meal: MealRecord) => void;
+  recordsById: Map<string, MealRecord>;
+  deletingMealId: string | null;
+  deleteError: string;
+  pendingDeleteMealId: string | null;
+  onCancelDelete: () => void;
+  onConfirmDelete: (mealId: string) => void;
+  onRequestDelete: (mealId: string) => void;
+};
+
+function MealDetails({
+  day,
+  onSelectMeal,
+  recordsById,
+  deletingMealId,
+  deleteError,
+  pendingDeleteMealId,
+  onCancelDelete,
+  onConfirmDelete,
+  onRequestDelete,
+}: MealDetailsProps) {
   return (
     <div className="meal-day-details">
       {day.meals.map((meal) => {
         const mealMacros = aggregateMealMacros(meal);
         const record = recordsById.get(meal.id);
+        const isDeletePending = pendingDeleteMealId === meal.id;
+        const isDeleting = deletingMealId === meal.id;
+        const confirmationId = `delete-meal-confirmation-${meal.id}`;
         return (
           <article className="meal-entry" key={meal.id}>
+            <button
+              aria-controls={isDeletePending ? confirmationId : undefined}
+              aria-expanded={isDeletePending}
+              aria-label={`Delete meal recorded at ${formatTime(meal.time)}`}
+              className="meal-delete-button"
+              disabled={deletingMealId !== null}
+              onClick={() => onRequestDelete(meal.id)}
+              type="button"
+            >
+              ×
+            </button>
+            {isDeletePending ? (
+              <div aria-labelledby={`${confirmationId}-title`} className="meal-delete-confirmation" id={confirmationId} role="dialog">
+                <p id={`${confirmationId}-title`}>Delete this meal from your history?</p>
+                <div className="meal-delete-actions">
+                  <button className="secondary-button" disabled={isDeleting} onClick={onCancelDelete} type="button">Cancel</button>
+                  <button aria-busy={isDeleting} className="primary-button" disabled={isDeleting} onClick={() => onConfirmDelete(meal.id)} type="button">
+                    {isDeleting ? "Deleting..." : "Delete"}
+                  </button>
+                </div>
+                {deleteError ? <p className="meal-delete-error" role="alert">{deleteError}</p> : null}
+              </div>
+            ) : null}
             <div className="meal-entry-heading">
               <div>
                 <h4>{formatTime(meal.time)}</h4>
@@ -84,6 +132,9 @@ export default function MealHistory({ accessToken, onSelectMeal, refreshKey }: M
   const [expandedDays, setExpandedDays] = useState<string[]>([]);
   const [state, setState] = useState<HistoryState>("loading");
   const [error, setError] = useState("");
+  const [pendingDeleteMealId, setPendingDeleteMealId] = useState<string | null>(null);
+  const [deletingMealId, setDeletingMealId] = useState<string | null>(null);
+  const [deleteError, setDeleteError] = useState("");
 
   useEffect(() => {
     let isCurrent = true;
@@ -126,6 +177,46 @@ export default function MealHistory({ accessToken, onSelectMeal, refreshKey }: M
 
   const recordsById = new Map(records.map((record) => [record.id, record]));
 
+  function requestDelete(mealId: string) {
+    setDeleteError("");
+    setPendingDeleteMealId(mealId);
+  }
+
+  function cancelDelete() {
+    if (deletingMealId !== null) return;
+    setDeleteError("");
+    setPendingDeleteMealId(null);
+  }
+
+  async function confirmDelete(mealId: string) {
+    setDeletingMealId(mealId);
+    setDeleteError("");
+    try {
+      const response = await fetch(`/api/meals/${encodeURIComponent(mealId)}`, {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${accessToken}` },
+      });
+      const payload = (await response.json().catch(() => ({}))) as unknown;
+      if (!response.ok) {
+        if (response.status === 401) setState("unauthorized");
+        throw new Error(getErrorMessage(payload));
+      }
+
+      const dayContainingMeal = days.find((day) => day.meals.some((meal) => meal.id === mealId));
+      setDays((current) => current
+        .map((day) => ({ ...day, meals: day.meals.filter((meal) => meal.id !== mealId) }))
+        .filter((day) => day.meals.length > 0));
+      if (dayContainingMeal?.meals.length === 1) {
+        setExpandedDays((current) => current.filter((dayId) => dayId !== dayContainingMeal.id));
+      }
+      setPendingDeleteMealId(null);
+    } catch (deleteRequestError) {
+      setDeleteError(deleteRequestError instanceof Error ? deleteRequestError.message : "Could not delete this meal.");
+    } finally {
+      setDeletingMealId(null);
+    }
+  }
+
   return (
     <section aria-labelledby="meal-history-title" className="panel history-panel">
       <div className="panel-heading">
@@ -157,7 +248,21 @@ export default function MealHistory({ accessToken, onSelectMeal, refreshKey }: M
                   </span>
                   <MacroSummary compact macros={totals} />
                 </button>
-                {isExpanded ? <div id={detailsId}><MealDetails day={day} onSelectMeal={onSelectMeal} recordsById={recordsById} /></div> : null}
+                {isExpanded ? (
+                  <div id={detailsId}>
+                    <MealDetails
+                      day={day}
+                      deleteError={deleteError}
+                      deletingMealId={deletingMealId}
+                      onCancelDelete={cancelDelete}
+                      onConfirmDelete={(mealId) => void confirmDelete(mealId)}
+                      onRequestDelete={requestDelete}
+                      pendingDeleteMealId={pendingDeleteMealId}
+                      onSelectMeal={onSelectMeal}
+                      recordsById={recordsById}
+                    />
+                  </div>
+                ) : null}
               </div>
             );
           })}
