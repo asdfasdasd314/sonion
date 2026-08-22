@@ -215,8 +215,8 @@
     "semantic_hash": ""
   },
   "components/meal-interpreter.tsx": {
-    "mtime": 1787435007.9676504,
-    "ast_hash": "a770064bda1ccf462974eddd9bce05c6",
+    "mtime": 1787435277.8852398,
+    "ast_hash": "3ce7b8cc2105d9f5917f669e62388e53",
     "semantic_hash": ""
   },
   "components/nutrition-targets.tsx": {
@@ -315,13 +315,13 @@
     "semantic_hash": ""
   },
   "lib/meal-history/supabase.ts": {
-    "mtime": 1787435007.9680884,
-    "ast_hash": "5672e425d71426cb23f695c2f3c61157",
+    "mtime": 1787435277.8860176,
+    "ast_hash": "db4582116f3975363a34582506bcda0c",
     "semantic_hash": ""
   },
   "lib/meal-history/types.ts": {
-    "mtime": 1787435007.9682593,
-    "ast_hash": "e95d58ae9848bde7cac08e74c2b0c69a",
+    "mtime": 1787435277.886232,
+    "ast_hash": "dd9d13092d6c9f497b8d3f22f145e035",
     "semantic_hash": ""
   },
   "supabase/migrations/20260821000000_create_meals.sql": {
@@ -330,28 +330,23 @@
     "semantic_hash": ""
   },
   "test/meal-api.test.ts": {
-    "mtime": 1787435007.968778,
-    "ast_hash": "529df4bee24db0dba9c62788e25f075f",
+    "mtime": 1787435277.8867953,
+    "ast_hash": "a660aeaa02331ef53bb85095af53cba7",
     "semantic_hash": ""
   },
   "test/meal-history.test.ts": {
-    "mtime": 1787435007.968956,
-    "ast_hash": "6803dc0841a59ab2b0d39d0141b7827e",
+    "mtime": 1787435277.8869865,
+    "ast_hash": "f47e437ea059a7889b5b79e8d8e8d970",
     "semantic_hash": ""
   },
   "feature_files/meal-history.md": {
-    "mtime": 1787435007.9678812,
-    "ast_hash": "4ac5d052e14542d1ee845da3584df3dd",
+    "mtime": 1787435277.885601,
+    "ast_hash": "fd8f452056e1447ddb21c5c2fdc946f4",
     "semantic_hash": ""
   },
   "supabase/.temp/linked-project.json": {
     "mtime": 1787363328.9230573,
     "ast_hash": "48b3dbc3fdf375b11e82851cddc168b2",
-    "semantic_hash": ""
-  },
-  "supabase/migrations/20260822000000_add_meal_prompts.sql": {
-    "mtime": 1787434638.1471994,
-    "ast_hash": "20feec335f9ffdaed6cc5fc13d64f407",
     "semantic_hash": ""
   }
 }
