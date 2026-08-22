@@ -84,12 +84,12 @@ test("meal POST derives user_id from the verified auth response", async () => {
   const response = await POST(authenticatedRequest("http://localhost/api/meals", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ mealDate: "2026-08-21", mealTime: "08:05", mealPrompt: "one bowl of rice", mealSnapshot: snapshot }),
+    body: JSON.stringify({ mealDate: "2026-08-21", mealTime: "08:05", mealSnapshot: snapshot }),
   }));
   assert.equal(response.status, 201);
   const body = JSON.parse(String(calls[1]?.init?.body)) as Record<string, unknown>;
   assert.equal(body.user_id, userId);
-  assert.equal(body.meal_prompt, "one bowl of rice");
+  assert.equal("meal_prompt" in body, false);
   assert.equal("userId" in body, false);
 });
 

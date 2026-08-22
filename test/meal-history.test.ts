@@ -51,9 +51,9 @@ test("validates strict local date and time values", () => {
   assert.equal(isValidLocalTime("8:05"), false);
 });
 
-test("validates complete save and non-empty patch payloads", () => {
-  assert.equal(MealSaveBodySchema.safeParse({ mealDate: "2026-08-21", mealTime: "08:05", mealPrompt: "rice and chicken", mealSnapshot: estimate }).success, true);
-  assert.equal(MealSaveBodySchema.safeParse({ mealDate: "2026-08-21", mealTime: "08:05", mealSnapshot: estimate }).success, false);
+test("validates meal-content saves and non-empty patch payloads", () => {
+  assert.equal(MealSaveBodySchema.safeParse({ mealDate: "2026-08-21", mealTime: "08:05", mealSnapshot: estimate }).success, true);
+  assert.equal(MealSaveBodySchema.safeParse({ mealDate: "2026-08-21", mealTime: "08:05", mealPrompt: "rice and chicken", mealSnapshot: estimate }).success, false);
   assert.equal(MealSaveBodySchema.safeParse({ mealDate: "2026-08-21", mealTime: "08:05", mealSnapshot: { items: [] } }).success, false);
   assert.equal(MealPatchBodySchema.safeParse({}).success, false);
   assert.equal(MealPatchBodySchema.safeParse({ mealTime: "12:30:00" }).success, true);

@@ -36,7 +36,6 @@ export type MealRecord = z.infer<typeof MealRecordSchema>;
 export const MealSaveBodySchema = z.object({
   mealDate: LocalDateSchema,
   mealTime: LocalTimeSchema,
-  mealPrompt: z.string().trim().min(1).max(2_000),
   mealSnapshot: MealEstimateSchema,
 }).strict();
 export type MealSaveBody = z.infer<typeof MealSaveBodySchema>;

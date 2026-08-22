@@ -73,7 +73,6 @@ export async function saveMeal(accessToken: string, userId: string, input: MealS
       user_id: userId,
       meal_date: input.mealDate,
       meal_time: input.mealTime,
-      meal_prompt: input.mealPrompt,
       meal_snapshot: input.mealSnapshot,
     }),
   });

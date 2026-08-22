@@ -117,8 +117,7 @@ export default function MealInterpreter({ accessToken, mealToRefine, onClearFocu
       return;
     }
 
-    // Lock the submitted wording before the network request starts. It is the
-    // source of truth for every later revision and save.
+    // Keep the wording for optional context during this refinement session.
     setOriginalPrompt(trimmedPrompt);
     setPrompt(trimmedPrompt);
     setHasSubmittedPrompt(true);
@@ -169,9 +168,7 @@ export default function MealInterpreter({ accessToken, mealToRefine, onClearFocu
       const result = await fetch(endpoint, {
         method: isUpdate ? "PATCH" : "POST",
         headers: { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" },
-        body: JSON.stringify(isUpdate
-          ? { mealDate, mealTime, mealSnapshot: response }
-          : { mealDate, mealTime, mealPrompt: originalPrompt, mealSnapshot: response }),
+        body: JSON.stringify({ mealDate, mealTime, mealSnapshot: response }),
       });
       const payload = (await result.json().catch(() => ({}))) as unknown;
       if (!result.ok) {
@@ -193,7 +190,6 @@ export default function MealInterpreter({ accessToken, mealToRefine, onClearFocu
   }
 
   const isFocusedMeal = Boolean(mealToRefine);
-  const displayedOriginalPrompt = originalPrompt || "Original description unavailable for this older saved meal. The saved foods will be used as revision context.";
 
   return (
     <section aria-labelledby="interpreter-title" className="panel interpreter-panel">
@@ -202,7 +198,7 @@ export default function MealInterpreter({ accessToken, mealToRefine, onClearFocu
       <h1 id="interpreter-title">{isFocusedMeal ? "Refine this meal." : "Describe it. We&apos;ll break it down."}</h1>
       <p className="interpreter-intro">
         {isFocusedMeal
-          ? "Review the original description and estimate, explain what needs correcting, then save the revised meal when it looks right."
+          ? "Review the saved estimate, explain what needs correcting, then save the revised meal when it looks right."
           : "Write what you ate in plain language, review the estimate, and save it to your private meal history."}
       </p>
 
@@ -226,14 +222,14 @@ export default function MealInterpreter({ accessToken, mealToRefine, onClearFocu
             </button>
           </div>
         </form>
-      ) : (
+      ) : originalPrompt ? (
         <section aria-label="Original meal description" className="original-prompt-box">
           <p className="response-label">Original description · locked</p>
-          <p className="original-prompt">{displayedOriginalPrompt}</p>
+          <p className="original-prompt">{originalPrompt}</p>
           {!response && isSubmitting ? <p className="processing-message">Updating the estimate...</p> : null}
           {!response && !isSubmitting ? <button className="secondary-button" onClick={() => void requestEstimate(originalPrompt)} type="button">Try interpretation again</button> : null}
         </section>
-      )}
+      ) : null}
 
       <div aria-live="assertive" className="message-slot" role="alert">
         {error ? <p className="error-message">{error}</p> : null}
@@ -359,8 +355,8 @@ function EstimateWarnings({ response }: { response: MealEstimate }) {
 }
 
 function composeEstimatePrompt(originalPrompt: string, revision: string, previousEstimate: MealEstimate | null) {
-  if (!revision) return originalPrompt;
   const context = originalPrompt || `Saved foods: ${previousEstimate?.items.map((item) => `${item.portionUnits} ${item.portionKind} unit(s) of ${item.foodName}`).join(", ") ?? "the saved meal"}`;
+  if (!revision) return context;
   return `Original meal description:\n${context}\n\nUser revision to apply:\n${revision}`;
 }
 
