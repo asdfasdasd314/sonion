@@ -215,8 +215,8 @@
     "semantic_hash": ""
   },
   "components/meal-interpreter.tsx": {
-    "mtime": 1787434638.1376898,
-    "ast_hash": "3a14b58c4f9a7cae4c25d07f5f17128c",
+    "mtime": 1787435007.9676504,
+    "ast_hash": "a770064bda1ccf462974eddd9bce05c6",
     "semantic_hash": ""
   },
   "components/nutrition-targets.tsx": {
@@ -295,8 +295,8 @@
     "semantic_hash": ""
   },
   "app/api/meals/route.ts": {
-    "mtime": 1787434638.1365283,
-    "ast_hash": "49f51501be9fafe86e87d3b3dd44227f",
+    "mtime": 1787435007.9674597,
+    "ast_hash": "fda6391b04628efa3d76d5cf3a2e8d7f",
     "semantic_hash": ""
   },
   "lib/meal-history/mapping.ts": {
@@ -315,13 +315,13 @@
     "semantic_hash": ""
   },
   "lib/meal-history/supabase.ts": {
-    "mtime": 1787434638.1447325,
-    "ast_hash": "1bb1d858c0b1b392019f8834f9e86602",
+    "mtime": 1787435007.9680884,
+    "ast_hash": "5672e425d71426cb23f695c2f3c61157",
     "semantic_hash": ""
   },
   "lib/meal-history/types.ts": {
-    "mtime": 1787434638.145864,
-    "ast_hash": "53d0fa912d27068a5db4f546e4dc60fa",
+    "mtime": 1787435007.9682593,
+    "ast_hash": "e95d58ae9848bde7cac08e74c2b0c69a",
     "semantic_hash": ""
   },
   "supabase/migrations/20260821000000_create_meals.sql": {
@@ -330,18 +330,18 @@
     "semantic_hash": ""
   },
   "test/meal-api.test.ts": {
-    "mtime": 1787434638.148514,
-    "ast_hash": "939eb65583594f1e7f9121a5f21d928e",
+    "mtime": 1787435007.968778,
+    "ast_hash": "529df4bee24db0dba9c62788e25f075f",
     "semantic_hash": ""
   },
   "test/meal-history.test.ts": {
-    "mtime": 1787434638.1492705,
-    "ast_hash": "d7285ba11adea18e12b0dd749e7e04a3",
+    "mtime": 1787435007.968956,
+    "ast_hash": "6803dc0841a59ab2b0d39d0141b7827e",
     "semantic_hash": ""
   },
   "feature_files/meal-history.md": {
-    "mtime": 1787434638.1378758,
-    "ast_hash": "164abe11e72b3faf97ebd1413e2b0409",
+    "mtime": 1787435007.9678812,
+    "ast_hash": "4ac5d052e14542d1ee845da3584df3dd",
     "semantic_hash": ""
   },
   "supabase/.temp/linked-project.json": {
