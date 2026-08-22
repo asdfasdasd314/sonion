@@ -4,6 +4,9 @@ import test, { afterEach } from "node:test";
 import { DELETE, PATCH } from "../app/api/meals/[id]/route";
 import { GET, POST } from "../app/api/meals/route";
 
+process.env.NEXT_PUBLIC_SUPABASE_URL ??= "https://test.supabase.local";
+process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ??= "test-anon-key";
+
 const accessToken = "verified-access-token";
 const userId = "11111111-1111-4111-8111-111111111111";
 const mealId = "22222222-2222-4222-8222-222222222222";
