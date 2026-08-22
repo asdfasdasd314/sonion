@@ -3,17 +3,33 @@ import assert from "node:assert/strict";
 
 import {
   formatResult,
+  formatRevision,
   formatToolCall,
   formatToolCalls,
   parseAgentResponse,
   parseResultResponse,
+  parseRevisionResponse,
   parseToolResponse,
 } from "../lib/agent/protocol";
 import type { MealSelection } from "../lib/meal-estimation/types";
+import type { MealRevision } from "../lib/meal-revision/types";
 
 const toolNames = ["searchFoods", "getFood"];
 const selection: MealSelection = {
   items: [{ itemName: "chicken", fdcId: 12, portionUnits: 1.5, portionKind: "solid" }],
+};
+const revision: MealRevision = {
+  updates: [{
+    action: "replace",
+    targetItemIndex: 0,
+    targetItemName: "white rice",
+    itemName: "brown rice",
+    fdcId: 13,
+    portionUnits: 1,
+    portionKind: "solid",
+    reason: "The user specified brown rice.",
+  }],
+  notes: "The rice changed; the other foods were not mentioned and stayed unchanged.",
 };
 
 test("parses multiple tool calls and preserves call indexes", () => {
@@ -38,6 +54,15 @@ test("extracts only validated result content", () => {
     ok: true,
     response: { kind: "result", content: selection },
   });
+});
+
+test("extracts only validated structured revision content", () => {
+  const parsed = parseRevisionResponse(formatRevision(revision));
+  assert.deepEqual(parsed, {
+    ok: true,
+    response: { kind: "revision", content: revision },
+  });
+  assert.equal(parseAgentResponse(formatRevision(revision), { resultKind: "result" }).ok, false);
 });
 
 test("rejects prose, empty selections, and nutrition fields in the result payload", () => {

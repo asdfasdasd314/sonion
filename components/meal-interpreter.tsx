@@ -6,6 +6,7 @@ import type { FormEvent } from "react";
 import { canStartMealSave, saveStateAfterResponse, type MealSaveState } from "@/lib/meal-history/save";
 import { isValidLocalDate, isValidLocalTime, parseMealRecord, type MealRecord } from "@/lib/meal-history/types";
 import { parseMealEstimate, type MealEstimate } from "@/lib/meal-estimation/types";
+import { parseMealRevisionResponse, type MealRevision } from "@/lib/meal-revision/types";
 
 const MAX_PROMPT_LENGTH = 2_000;
 const MAX_REVISION_LENGTH = 1_200;
@@ -22,6 +23,7 @@ export default function MealInterpreter({ accessToken, mealToRefine, onClearFocu
   const [originalPrompt, setOriginalPrompt] = useState("");
   const [hasSubmittedPrompt, setHasSubmittedPrompt] = useState(false);
   const [response, setResponse] = useState<MealEstimate | null>(null);
+  const [revisionResult, setRevisionResult] = useState<MealRevision | null>(null);
   const [revision, setRevision] = useState("");
   const [revisionSubmitted, setRevisionSubmitted] = useState(false);
   const [error, setError] = useState("");
@@ -37,6 +39,7 @@ export default function MealInterpreter({ accessToken, mealToRefine, onClearFocu
       setOriginalPrompt("");
       setHasSubmittedPrompt(true);
       setResponse(mealToRefine.meal_snapshot);
+      setRevisionResult(null);
       setRevision("");
       setRevisionSubmitted(false);
       setError("");
@@ -57,6 +60,7 @@ export default function MealInterpreter({ accessToken, mealToRefine, onClearFocu
     setOriginalPrompt("");
     setHasSubmittedPrompt(false);
     setResponse(null);
+    setRevisionResult(null);
     setRevision("");
     setRevisionSubmitted(false);
     setError("");
@@ -74,6 +78,7 @@ export default function MealInterpreter({ accessToken, mealToRefine, onClearFocu
       setRevisionSubmitted(false);
     } else {
       setResponse(null);
+      setRevisionResult(null);
     }
 
     setIsSubmitting(true);
@@ -81,7 +86,12 @@ export default function MealInterpreter({ accessToken, mealToRefine, onClearFocu
       const result = await fetch("/api/estimate", {
         method: "POST",
         headers: { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" },
-        body: JSON.stringify({ prompt: composeEstimatePrompt(sourcePrompt, revisionText, response) }),
+        body: JSON.stringify(revisionText
+          ? {
+              prompt: sourcePrompt || "Saved meal",
+              revision: { instruction: revisionText, previousEstimate: response },
+            }
+          : { prompt: sourcePrompt }),
       });
       const payload = (await result.json().catch(() => ({}))) as unknown;
 
@@ -89,13 +99,24 @@ export default function MealInterpreter({ accessToken, mealToRefine, onClearFocu
         setError(getErrorMessage(payload) ?? "Sonion could not interpret that prompt.");
         return;
       }
-      const estimate = parseMealEstimate(payload);
-      if (!estimate) {
-        setError("Sonion returned an incomplete meal estimate. Try submitting the meal again.");
-        return;
+      if (revisionText) {
+        const revised = parseMealRevisionResponse(payload);
+        if (!revised) {
+          setError("Sonion returned an incomplete structured revision. Try submitting the correction again.");
+          return;
+        }
+        setResponse(revised.estimate);
+        setRevisionResult(revised.revision);
+        setRevisionSubmitted(true);
+      } else {
+        const estimate = parseMealEstimate(payload);
+        if (!estimate) {
+          setError("Sonion returned an incomplete meal estimate. Try submitting the meal again.");
+          return;
+        }
+        setResponse(estimate);
+        setRevisionResult(null);
       }
-      setResponse(estimate);
-      if (revisionText) setRevisionSubmitted(true);
     } catch {
       setError("Sonion could not reach the backend. Check that the app is running and try again.");
     } finally {
@@ -238,6 +259,7 @@ export default function MealInterpreter({ accessToken, mealToRefine, onClearFocu
         {hasSubmittedPrompt ? (
           <div className="response-card">
             <p className="response-label">AI-produced estimate</p>
+            {revisionResult ? <RevisionSummary revision={revisionResult} /> : null}
             {response ? <EstimateTable response={response} /> : null}
             {response ? <EstimateWarnings response={response} /> : null}
             {response ? (
@@ -354,10 +376,34 @@ function EstimateWarnings({ response }: { response: MealEstimate }) {
   );
 }
 
-function composeEstimatePrompt(originalPrompt: string, revision: string, previousEstimate: MealEstimate | null) {
-  const context = originalPrompt || `Saved foods: ${previousEstimate?.items.map((item) => `${item.portionUnits} ${item.portionKind} unit(s) of ${item.foodName}`).join(", ") ?? "the saved meal"}`;
-  if (!revision) return context;
-  return `Original meal description:\n${context}\n\nUser revision to apply:\n${revision}`;
+function RevisionSummary({ revision }: { revision: MealRevision }) {
+  return (
+    <section aria-label="Structured revision summary" className="revision-summary">
+      <p className="response-label">Revision notes</p>
+      <p className="revision-notes">{revision.notes}</p>
+      {revision.updates.length > 0 ? (
+        <ul className="revision-updates">
+          {revision.updates.map((update, index) => (
+            <li key={`${update.action}-${index}`}>
+              <strong>{formatRevisionAction(update.action)}</strong>{" "}
+              {update.action === "replace"
+                ? `${update.targetItemName} → ${update.itemName}`
+                : update.action === "remove"
+                  ? update.targetItemName
+                  : update.itemName}
+              <span>{update.reason}</span>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p className="field-help">No meal items were changed.</p>
+      )}
+    </section>
+  );
+}
+
+function formatRevisionAction(action: MealRevision["updates"][number]["action"]): string {
+  return action === "replace" ? "Updated" : action === "remove" ? "Removed" : "Added";
 }
 
 function getErrorMessage(payload: unknown) {

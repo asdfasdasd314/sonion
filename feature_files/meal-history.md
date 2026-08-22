@@ -24,7 +24,7 @@ Meal history persists each processed estimate as an owner-scoped JSONB snapshot.
 - `lib/meal-history/save.ts` defines save-state transitions and duplicate-submit protection.
 - `app/api/meals/route.ts` handles authenticated list/save operations.
 - `app/api/meals/[id]/route.ts` handles ownership-safe update/delete operations; updates replace the estimate only after an explicit focused-meal save.
-- `components/meal-interpreter.tsx` keeps the active submitted description in client state only, derives focused-meal context from saved foods, submits revisions, and chooses POST for new saves or PATCH for focused history saves.
+- `components/meal-interpreter.tsx` keeps the active submitted description in client state only, derives focused-meal context from saved foods, submits structured revisions, and chooses POST for new saves or PATCH for focused history saves. The revision protocol itself is owned by `feature_files/meal-revision.md`.
 - `components/meal-history.tsx` exposes the focus/refinement action from each saved meal.
 - `test/meal-history.test.ts` covers validation, mapping, ordering, nullable aggregation, and save-state behavior.
 - `parameter_files/meal-history.toml` records the persistence contract.

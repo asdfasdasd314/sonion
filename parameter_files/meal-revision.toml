@@ -1,0 +1,4 @@
+# Server-owned limits for structured meal revisions.
+revision_max_length = 1200
+revision_notes_max_length = 1200
+max_revision_updates = 50

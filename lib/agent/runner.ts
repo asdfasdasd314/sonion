@@ -9,6 +9,7 @@ import {
 import { getFoodToolsSkill } from "./food-tools-skill";
 import type { FoodToolRegistry } from "../food-data/tools";
 import type { MealSelection } from "../meal-estimation/types";
+import type { MealRevision, MealRevisionContext } from "../meal-revision/types";
 
 export type AgentGenerationRequest = {
   systemInstruction: string;
@@ -37,6 +38,8 @@ export type RunMealAgentInput = {
   tools: FoodToolRegistry;
   generate: AgentGenerationAdapter;
   limits?: Partial<AgentLimits>;
+  responseMode?: "selection" | "revision";
+  revisionContext?: MealRevisionContext;
 };
 
 export class AgentRunnerError extends Error {
@@ -65,7 +68,23 @@ function mergedLimits(overrides: Partial<AgentLimits> | undefined): AgentLimits 
   return { ...DEFAULT_AGENT_LIMITS, ...overrides };
 }
 
-function mealContents(mealPrompt: string): string {
+function mealContents(
+  mealPrompt: string,
+  responseMode: "selection" | "revision",
+  revisionContext: MealRevisionContext | undefined,
+): string {
+  if (responseMode === "revision") {
+    return [
+      "<sonion-meal-revision>",
+      (JSON.stringify({
+        originalDescription: revisionContext?.originalDescription ?? "",
+        currentMeal: revisionContext?.items ?? [],
+        userRevision: mealPrompt,
+      }) ?? "null").replace(/</g, "\\u003c"),
+      "</sonion-meal-revision>",
+    ].join("\n");
+  }
+
   return [
     "<sonion-user-meal>",
     (JSON.stringify({ description: mealPrompt }) ?? "null").replace(/</g, "\\u003c"),
@@ -190,14 +209,15 @@ async function executeCalls(
   return { results, diagnostics };
 }
 
-async function runLoop(input: RunMealAgentInput, limits: AgentLimits): Promise<MealSelection> {
-  let contents = mealContents(input.mealPrompt);
+async function runLoop(input: RunMealAgentInput, limits: AgentLimits): Promise<MealSelection | MealRevision> {
+  const responseMode = input.responseMode ?? "selection";
+  let contents = mealContents(input.mealPrompt, responseMode, input.revisionContext);
 
   for (let round = 0; ; round += 1) {
     let modelOutput: string;
     try {
       modelOutput = await input.generate({
-        systemInstruction: getFoodToolsSkill(),
+        systemInstruction: getFoodToolsSkill(responseMode),
         contents,
       });
     } catch {
@@ -207,6 +227,7 @@ async function runLoop(input: RunMealAgentInput, limits: AgentLimits): Promise<M
     const parsed = parseAgentResponse(modelOutput, {
       toolNames: Object.keys(input.tools),
       limits,
+      resultKind: responseMode === "revision" ? "revision" : "result",
     });
 
     if (!parsed.ok) {
@@ -223,7 +244,9 @@ async function runLoop(input: RunMealAgentInput, limits: AgentLimits): Promise<M
       continue;
     }
 
-    if (parsed.response.kind === "result") return parsed.response.content;
+    if (parsed.response.kind === "result" || parsed.response.kind === "revision") {
+      return parsed.response.content;
+    }
 
     const execution = await executeCalls(
       parsed.response.calls,
@@ -249,10 +272,19 @@ async function runLoop(input: RunMealAgentInput, limits: AgentLimits): Promise<M
   }
 }
 
-export async function runMealAgent(input: RunMealAgentInput): Promise<MealSelection> {
+export function runMealAgent(
+  input: RunMealAgentInput & { responseMode: "revision" },
+): Promise<MealRevision>;
+export function runMealAgent(
+  input: RunMealAgentInput & { responseMode?: "selection" },
+): Promise<MealSelection>;
+export async function runMealAgent(input: RunMealAgentInput): Promise<MealSelection | MealRevision> {
   const limits = mergedLimits(input.limits);
   if (!input.mealPrompt.trim()) {
     throw new AgentRunnerError("MODEL_OUTPUT_INVALID", "The meal prompt must not be empty.");
+  }
+  if (input.responseMode === "revision" && !input.revisionContext) {
+    throw new AgentRunnerError("MODEL_OUTPUT_INVALID", "A revision requires the current meal context.");
   }
 
   return runLoop(input, limits);

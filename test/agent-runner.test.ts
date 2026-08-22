@@ -2,10 +2,11 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 
 import { runMealAgent } from "../lib/agent/runner";
-import { formatResult, formatToolCall, formatToolCalls } from "../lib/agent/protocol";
+import { formatResult, formatRevision, formatToolCall, formatToolCalls } from "../lib/agent/protocol";
 import { createFoodToolRegistry } from "../lib/food-data/tools";
 import type { NormalizedFood } from "../lib/food-data/types";
 import type { MealSelection } from "../lib/meal-estimation/types";
+import type { MealRevision } from "../lib/meal-revision/types";
 
 const fixtureIndex: NormalizedFood[] = [
   {
@@ -19,6 +20,10 @@ const fixtureIndex: NormalizedFood[] = [
 
 const selection: MealSelection = {
   items: [{ itemName: "roasted chicken", fdcId: 10, portionUnits: 1, portionKind: "solid" }],
+};
+const revision: MealRevision = {
+  updates: [],
+  notes: "No foods changed because the requested correction could not be matched to the current meal.",
 };
 
 test("runs search, lookup, and final result without exposing arbitrary capabilities", async () => {
@@ -92,6 +97,31 @@ test("returns a bounded correction when arguments fail strict validation", async
   assert.match(requests[1] ?? "", /INVALID_TOOL_ARGUMENTS/);
   assert.match(requests[1] ?? "", /arguments\.unsupported/);
   assert.match(requests[1] ?? "", /"modelOutput"/);
+});
+
+test("runs the revision mode with a reduced current-meal context", async () => {
+  const tools = createFoodToolRegistry(fixtureIndex);
+  const requests: string[] = [];
+
+  const result = await runMealAgent({
+    mealPrompt: "Actually, keep the chicken as-is.",
+    tools,
+    responseMode: "revision",
+    revisionContext: {
+      originalDescription: "one scoop of roasted chicken",
+      items: [{ itemIndex: 0, itemName: "roasted chicken", fdcId: 10, portionUnits: 1, portionKind: "solid" }],
+    },
+    generate: async ({ systemInstruction, contents }) => {
+      requests.push(systemInstruction + "\n" + contents);
+      return formatRevision(revision);
+    },
+  });
+
+  assert.deepEqual(result, revision);
+  assert.match(requests[0] ?? "", /<sonion-meal-revision>/);
+  assert.match(requests[0] ?? "", /"itemIndex":0/);
+  assert.doesNotMatch(requests[0] ?? "", /estimatedGrams/);
+  assert.match(requests[0] ?? "", /kind":"revision/);
 });
 
 test("feeds invalid protocol output and diagnostics into the next model turn", async () => {

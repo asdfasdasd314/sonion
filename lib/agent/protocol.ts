@@ -1,5 +1,6 @@
 import type { FoodToolName } from "../food-data/tools";
 import { MealSelectionSchema, type MealSelection } from "../meal-estimation/types";
+import { MealRevisionSchema, type MealRevision } from "../meal-revision/types";
 
 const MAX_DIAGNOSTIC_VALUE_LENGTH = 120;
 
@@ -46,8 +47,13 @@ export type ResultResponse = {
   content: MealSelection;
 };
 
+export type RevisionResponse = {
+  kind: "revision";
+  content: MealRevision;
+};
+
 export type ParsedAgentResponse =
-  | { ok: true; response: ToolResponse | ResultResponse }
+  | { ok: true; response: ToolResponse | ResultResponse | RevisionResponse }
   | { ok: false; diagnostics: ProtocolDiagnostic[] };
 
 type JsonEnvelope = Record<string, unknown>;
@@ -420,9 +426,83 @@ export function parseResultResponse(
   return { ok: true, response: { kind: "result", content: parsedContent.data } };
 }
 
+export function parseRevisionResponse(
+  response: string,
+  options: { limits?: ProtocolLimits } = {},
+): ParsedAgentResponse {
+  const limits = options.limits ?? DEFAULT_PROTOCOL_LIMITS;
+  if (response.length > limits.maxModelOutputChars) {
+    return {
+      ok: false,
+      diagnostics: [
+        diagnostic("PAYLOAD_TOO_LARGE", "Model output exceeds the configured size limit.", {
+          receivedType: "string",
+          expected: "At most " + limits.maxModelOutputChars + " characters.",
+        }),
+      ],
+    };
+  }
+
+  const envelopeResult = parseJsonEnvelope(response.trim(), 0);
+  const diagnostics = [...envelopeResult.diagnostics];
+  if (!envelopeResult.value) return { ok: false, diagnostics };
+
+  const envelope = envelopeResult.value;
+  diagnostics.push(...checkEnvelopeKeys(envelope, ["kind", "content"], 0));
+  if (envelope.kind !== "revision") {
+    diagnostics.push(
+      fieldDiagnostic("INVALID_ENVELOPE_FIELD", 'Revision response kind must be "revision".', envelope.kind, {
+        blockIndex: 0,
+        fieldPath: "kind",
+        expected: '"revision"',
+      }),
+    );
+  }
+
+  const content = envelope.content;
+  const parsedContent = MealRevisionSchema.safeParse(content);
+  if (!parsedContent.success) {
+    for (const issue of parsedContent.error.issues) {
+      const issueDetails = issue as typeof issue & { keys?: string[] };
+      const issuePaths =
+        issueDetails.code === "unrecognized_keys" && issueDetails.keys?.length
+          ? issueDetails.keys.map((key) => [...issue.path, key])
+          : [issue.path];
+
+      for (const issuePath of issuePaths) {
+        diagnostics.push(
+          fieldDiagnostic("INVALID_ENVELOPE_FIELD", "Revision content is not valid.", content, {
+            fieldPath: ["content", ...issuePath.map(String)].join("."),
+            expected: issue.message,
+          }),
+        );
+      }
+    }
+    return { ok: false, diagnostics };
+  }
+
+  const serializedContent = JSON.stringify(parsedContent.data);
+  if (serializedContent.length > limits.maxFinalContentChars) {
+    diagnostics.push(
+      diagnostic("PAYLOAD_TOO_LARGE", "Final revision content exceeds the configured size limit.", {
+        fieldPath: "content",
+        receivedType: "object",
+        expected: "At most " + limits.maxFinalContentChars + " characters.",
+      }),
+    );
+  }
+
+  if (diagnostics.length > 0) return { ok: false, diagnostics };
+  return { ok: true, response: { kind: "revision", content: parsedContent.data } };
+}
+
 export function parseAgentResponse(
   response: string,
-  options: { toolNames?: readonly string[]; limits?: ProtocolLimits } = {},
+  options: {
+    toolNames?: readonly string[];
+    limits?: ProtocolLimits;
+    resultKind?: "result" | "revision";
+  } = {},
 ): ParsedAgentResponse {
   const limits = options.limits ?? DEFAULT_PROTOCOL_LIMITS;
   if (response.length > limits.maxModelOutputChars) {
@@ -441,16 +521,45 @@ export function parseAgentResponse(
   if (!parsed.value) return { ok: false, diagnostics: parsed.diagnostics };
 
   if (parsed.value.kind === "tools") return parseToolResponse(response, options);
-  if (parsed.value.kind === "result") return parseResultResponse(response, options);
+  if (parsed.value.kind === "result") {
+    if (options.resultKind === "revision") {
+      return {
+        ok: false,
+        diagnostics: [
+          fieldDiagnostic("INVALID_ENVELOPE_FIELD", 'Expected a "revision" response after the tool calls.', parsed.value.kind, {
+            blockIndex: 0,
+            fieldPath: "kind",
+            expected: '"revision"',
+          }),
+        ],
+      };
+    }
+    return parseResultResponse(response, options);
+  }
+  if (parsed.value.kind === "revision") {
+    if (options.resultKind === "result") {
+      return {
+        ok: false,
+        diagnostics: [
+          fieldDiagnostic("INVALID_ENVELOPE_FIELD", 'Expected a "result" response after the tool calls.', parsed.value.kind, {
+            blockIndex: 0,
+            fieldPath: "kind",
+            expected: '"result"',
+          }),
+        ],
+      };
+    }
+    return parseRevisionResponse(response, options);
+  }
 
   return {
     ok: false,
     diagnostics: [
       ...parsed.diagnostics,
-      fieldDiagnostic("INVALID_ENVELOPE_FIELD", 'Response kind must be either "tools" or "result".', parsed.value.kind, {
+      fieldDiagnostic("INVALID_ENVELOPE_FIELD", 'Response kind must be either "tools", "result", or "revision".', parsed.value.kind, {
         blockIndex: 0,
         fieldPath: "kind",
-        expected: '"tools" or "result"',
+        expected: '"tools", "result", or "revision"',
       }),
     ],
   };
@@ -488,4 +597,8 @@ export function formatToolCalls(
 
 export function formatResult(content: MealSelection): string {
   return JSON.stringify({ kind: "result", content });
+}
+
+export function formatRevision(content: MealRevision): string {
+  return JSON.stringify({ kind: "revision", content });
 }

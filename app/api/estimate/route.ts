@@ -11,6 +11,18 @@ import { FoodDataSetupError, type FoodToolRegistry } from "@/lib/food-data";
 import { getDefaultFoodToolRegistry } from "@/lib/food-data/tools";
 import { NormalizedFoodSchema, type NormalizedFood } from "@/lib/food-data/types";
 import { estimateMeal, MealEstimationError } from "@/lib/meal-estimation";
+import { applyMealRevision, MealRevisionError } from "@/lib/meal-revision/apply";
+import { MEAL_REVISION_PARAMETERS } from "@/lib/meal-revision/config";
+import {
+  MealRevisionRequestSchema,
+  revisionContextFromEstimate,
+  type MealRevision,
+} from "@/lib/meal-revision/types";
+import {
+  MealEstimateSchema,
+  type MealEstimate,
+  type MealSelection,
+} from "@/lib/meal-estimation/types";
 import {
   getSupabaseUser,
   SupabaseAuthError,
@@ -21,6 +33,7 @@ const MAX_PROMPT_LENGTH = 4_000;
 
 type PromptBody = {
   prompt: unknown;
+  revision?: unknown;
 };
 
 function isPromptBody(value: unknown): value is PromptBody {
@@ -81,6 +94,27 @@ export async function POST(request: Request) {
     );
   }
 
+  let revisionRequest: {
+    instruction: string;
+    previousEstimate: MealEstimate;
+  } | undefined;
+  if (body.revision !== undefined) {
+    const parsedRevision = MealRevisionRequestSchema.safeParse(body.revision);
+    if (!parsedRevision.success) {
+      return errorResponse("The revision request is incomplete or invalid.", 400);
+    }
+    if (parsedRevision.data.instruction.length > MEAL_REVISION_PARAMETERS.revisionMaxLength) {
+      return errorResponse(
+        `Keep the revision under ${MEAL_REVISION_PARAMETERS.revisionMaxLength.toLocaleString()} characters.`,
+        400,
+      );
+    }
+    if (!MealEstimateSchema.safeParse(parsedRevision.data.previousEstimate).success) {
+      return errorResponse("The current meal estimate is invalid and cannot be revised.", 400);
+    }
+    revisionRequest = parsedRevision.data;
+  }
+
   const apiKey = process.env.GEMINI_API_KEY?.trim();
 
   if (!apiKey) {
@@ -108,23 +142,44 @@ export async function POST(request: Request) {
 
   try {
     const client = createGemmaClient(apiKey);
-    const selection = await runMealAgent({
-      mealPrompt: prompt,
-      tools,
-      generate: async ({ systemInstruction, contents }) => {
-        const model = getNextMealModel();
-        console.log("Meal agent model request.", { model });
-        const result = await client.models.generateContent({
-          model,
-          contents,
-          config: {
-            systemInstruction,
-            responseMimeType: "application/json",
-          },
-        });
-        return result.text ?? "";
-      },
-    });
+    const generate = async ({ systemInstruction, contents }: { systemInstruction: string; contents: string }) => {
+      const model = getNextMealModel();
+      console.log("Meal agent model request.", { model });
+      const result = await client.models.generateContent({
+        model,
+        contents,
+        config: {
+          systemInstruction,
+          responseMimeType: "application/json",
+        },
+      });
+      return result.text ?? "";
+    };
+
+    let revision: MealRevision | undefined;
+    let selection: MealSelection;
+    if (revisionRequest) {
+      revision = await runMealAgent({
+        mealPrompt: revisionRequest.instruction,
+        tools,
+        generate,
+        responseMode: "revision",
+        revisionContext: revisionContextFromEstimate(revisionRequest.previousEstimate, prompt),
+      });
+      if (
+        revision.updates.length > MEAL_REVISION_PARAMETERS.maxUpdates
+        || revision.notes.length > MEAL_REVISION_PARAMETERS.notesMaxLength
+      ) {
+        throw new MealRevisionError("The revision contains too many updates.");
+      }
+      selection = applyMealRevision(revisionRequest.previousEstimate, revision);
+    } else {
+      selection = await runMealAgent({
+        mealPrompt: prompt,
+        tools,
+        generate,
+      });
+    }
 
     const authoritativeFoods: NormalizedFood[] = [];
     for (const item of selection.items) {
@@ -138,8 +193,18 @@ export async function POST(request: Request) {
       authoritativeFoods.push(record as NormalizedFood);
     }
 
-    return NextResponse.json(estimateMeal(selection, authoritativeFoods));
+    const estimate = estimateMeal(selection, authoritativeFoods);
+    return revision
+      ? NextResponse.json({ estimate, revision })
+      : NextResponse.json(estimate);
   } catch (error) {
+    if (error instanceof MealRevisionError) {
+      console.error("Meal agent returned an unusable structured revision.", { message: error.message });
+      return errorResponse(
+        "Google AI could not apply that revision safely. Review the current estimate and try describing the correction more specifically.",
+        502,
+      );
+    }
     if (error instanceof MealEstimationError) {
       console.error("Meal agent returned an unusable food selection.", { code: error.code });
       return errorResponse(
