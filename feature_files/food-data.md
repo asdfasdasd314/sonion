@@ -6,13 +6,13 @@ The food-data feature turns the local USDA Foundation Foods and FNDDS / Survey F
 
 ## Key Points
 
-- The authoritative local inputs are `food-data/FoodData_Central_foundation_food_json_2026-04-30.json` and `food-data/surveyDownload.json`.
+- The authoritative local inputs are `food-data/FoodData_Central_foundation_food_json_2026-04-30.json` and `food-data/surveyDownload.json`; both remain gitignored because of their size.
 - `normalizeFoundationFood` and `normalizeFnddsFood` hide USDA-specific nesting and preserve only application nutrition, category, portion, food-code, and simple ingredient fields; recognized volume portions also retain normalized milliliters and derived density.
 - Foundation calories select nutrient 2048 first, then 2047; FNDDS calories use nutrient 1008. Energy entries are never summed.
 - Missing nutrients remain omitted, invalid portions are omitted, and a food with no usable portions has `portions: []`.
 - `searchFoods` and `getFood` validate inputs with strict Zod schemas. They reject unknown parameters and do not accept paths, SQL, URLs, shell commands, or raw USDA records.
 - `createFoodToolRegistry` exposes the only two agent capabilities and executes against the normalized in-memory index only.
-- `food-data/food-index.json` is generated locally and remains outside `public/`.
+- `food-data/food-index.json` is a compact generated artifact that may be committed for deployment and remains outside `public/`.
 
 ## Relevant Files
 
@@ -25,7 +25,7 @@ The food-data feature turns the local USDA Foundation Foods and FNDDS / Survey F
 - `lib/food-data/tools.ts` owns the validated search and lookup tools.
 - `lib/agent/runner.ts` consumes the allowlisted registry without exposing the loader or raw index to the model.
 - `scripts/build-food-index.ts` is the index-generation entry point.
-- `scripts/ensure-food-index.ts` validates the generated index and rebuilds it for local dev/build startup when needed.
+- `scripts/ensure-food-index.ts` validates the generated index and rebuilds it for local dev/build startup when needed; a Vercel build without either the generated artifact or raw inputs logs an actionable warning instead of failing before Next.js can deploy.
 - `test/food-data.test.ts` covers adapters, tools, and real-record integration searches when the gitignored data is present.
 
 ## Dev Mode
@@ -42,3 +42,4 @@ TESTING
 - Added typed setup errors, stricter generated-index validation, and automatic prepare hooks so missing or invalid local food data is reported before the agent loop starts.
 - Added USDA volume-unit normalization, deterministic preferred volume portions, and derived density provenance for meal estimation.
 - Fixed index invalidation from negative USDA nutrient sentinels by omitting negative nutrient values during normalization.
+- Kept raw USDA inputs ignored while allowing the compact generated index to be deployed, and made Vercel preparation tolerate a missing local-only source bundle with an explicit runtime warning.
