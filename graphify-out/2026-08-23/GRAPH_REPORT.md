@@ -1,16 +1,16 @@
 # Graph Report - sonion  (2026-08-23)
 
 ## Corpus Check
-- 71 files · ~196,983 words
+- 71 files · ~197,038 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 556 nodes · 1076 edges · 27 communities (21 shown, 6 thin omitted)
+- 556 nodes · 1080 edges · 26 communities (20 shown, 6 thin omitted)
 - Extraction: 98% EXTRACTED · 2% INFERRED · 0% AMBIGUOUS · INFERRED: 23 edges (avg confidence: 0.82)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `2f9a4cbf`
+- Built from commit: `ef2810bb`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -41,7 +41,6 @@
 - Client-only nutrition dashboard
 - Portion Unit meal estimation
 - Supabase meal history
-- config.ts
 
 ## God Nodes (most connected - your core abstractions)
 1. `POST()` - 16 edges
@@ -75,7 +74,7 @@
 - **Feature and Parameter File Workflow** — _agents_profiles_architecture, _agents_profiles_coding, _agents_profiles_integrating, _agents_profiles_planning, agents, claude [EXTRACTED 1.00]
 - **Next.js Starter Project Assets** — readme, public_next, public_vercel, public_file, public_globe, public_window [INFERRED 0.85]
 
-## Communities (27 total, 6 thin omitted)
+## Communities (26 total, 6 thin omitted)
 
 ### Community 0 - "TypeScript Compiler Options"
 Cohesion: 0.07
@@ -94,8 +93,8 @@ Cohesion: 0.08
 Nodes (51): getFoodToolsSkill(), checkEnvelopeKeys(), DEFAULT_PROTOCOL_LIMITS, diagnostic(), duplicateTopLevelKeys(), fieldDiagnostic(), formatProtocolErrors(), formatResult() (+43 more)
 
 ### Community 4 - "TypeScript References"
-Cohesion: 0.07
-Nodes (61): FoodDataSetupError, asRecord(), buildAndWriteFoodIndex(), buildFoodIndex(), compareText(), extractRecords(), FNDDS_DATA_PATH, FOOD_DATA_DIR (+53 more)
+Cohesion: 0.05
+Nodes (80): FoodDataSetupError, asRecord(), buildAndWriteFoodIndex(), buildFoodIndex(), compareText(), extractRecords(), FNDDS_DATA_PATH, FOOD_DATA_DIR (+72 more)
 
 ### Community 5 - "Architecture Profiles"
 Cohesion: 0.06
@@ -157,26 +156,22 @@ Nodes (6): Dev Mode, Key Points, Portion Unit meal estimation, Relevant Files, S
 Cohesion: 0.29
 Nodes (6): Dev Mode, Key Points, Relevant Files, State Log, Summary, Supabase meal history
 
-### Community 26 - "config.ts"
-Cohesion: 0.17
-Nodes (19): compareText(), createFoodToolRegistry(), createFoodTools(), FoodToolDefinition, FoodToolName, FoodToolRegistry, FoodToolset, getDefaultTools() (+11 more)
-
 ## Knowledge Gaps
-- **185 isolated node(s):** `PromptBody`, `geistSans`, `geistMono`, `metadata`, `AuthMode` (+180 more)
+- **184 isolated node(s):** `PromptBody`, `geistSans`, `geistMono`, `metadata`, `AuthMode` (+179 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **6 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `NormalizedFood` connect `TypeScript References` to `Project Agent Rules`, `tools.ts`, `config.ts`, `normalize.ts`?**
-  _High betweenness centrality (0.022) - this node is a cross-community bridge._
+- **Why does `NormalizedFood` connect `TypeScript References` to `tools.ts`, `Project Agent Rules`, `normalize.ts`?**
+  _High betweenness centrality (0.021) - this node is a cross-community bridge._
 - **Why does `MealEstimate` connect `normalize.ts` to `Linting and Styling`, `tools.ts`?**
   _High betweenness centrality (0.018) - this node is a cross-community bridge._
 - **Why does `getSupabaseUser()` connect `Linting and Styling` to `tools.ts`, `Home Page`?**
   _High betweenness centrality (0.010) - this node is a cross-community bridge._
 - **What connects `PromptBody`, `geistSans`, `geistMono` to the rest of the system?**
-  _185 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _184 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `TypeScript Compiler Options` be split into smaller, more focused modules?**
   _Cohesion score 0.06896551724137931 - nodes in this community are weakly interconnected._
 - **Should `Linting and Styling` be split into smaller, more focused modules?**

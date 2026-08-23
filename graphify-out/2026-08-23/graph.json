@@ -1799,8 +1799,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_food_data_tools",
-      "community": 26,
-      "community_name": "config.ts",
+      "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "tools.ts"
     },
     {
@@ -1810,8 +1810,8 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "lib_food_data_tools_searchfoodsschema",
-      "community": 26,
-      "community_name": "config.ts",
+      "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "searchfoodsschema"
     },
     {
@@ -1821,8 +1821,8 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "lib_food_data_tools_getfoodschema",
-      "community": 26,
-      "community_name": "config.ts",
+      "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "getfoodschema"
     },
     {
@@ -1832,8 +1832,8 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "lib_food_data_tools_foodtoolname",
-      "community": 26,
-      "community_name": "config.ts",
+      "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "foodtoolname"
     },
     {
@@ -1843,8 +1843,8 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "lib_food_data_tools_foodtooldefinition",
-      "community": 26,
-      "community_name": "config.ts",
+      "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "foodtooldefinition"
     },
     {
@@ -1854,8 +1854,8 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "lib_food_data_tools_foodtoolregistry",
-      "community": 26,
-      "community_name": "config.ts",
+      "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "foodtoolregistry"
     },
     {
@@ -1865,8 +1865,8 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "lib_food_data_tools_searchfoodsresponse",
-      "community": 26,
-      "community_name": "config.ts",
+      "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "searchfoodsresponse"
     },
     {
@@ -1876,8 +1876,8 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "lib_food_data_tools_getfoodresponse",
-      "community": 26,
-      "community_name": "config.ts",
+      "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "getfoodresponse"
     },
     {
@@ -1887,8 +1887,8 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "lib_food_data_tools_foodtoolset",
-      "community": 26,
-      "community_name": "config.ts",
+      "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "foodtoolset"
     },
     {
@@ -1898,8 +1898,8 @@
       "source_location": "L39",
       "_origin": "ast",
       "id": "lib_food_data_tools_invalidarguments",
-      "community": 26,
-      "community_name": "config.ts",
+      "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "invalidarguments()"
     },
     {
@@ -1909,8 +1909,8 @@
       "source_location": "L43",
       "_origin": "ast",
       "id": "lib_food_data_tools_tokens",
-      "community": 26,
-      "community_name": "config.ts",
+      "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "tokens()"
     },
     {
@@ -1920,8 +1920,8 @@
       "source_location": "L52",
       "_origin": "ast",
       "id": "lib_food_data_tools_matchingtoken",
-      "community": 26,
-      "community_name": "config.ts",
+      "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "matchingtoken()"
     },
     {
@@ -1931,8 +1931,8 @@
       "source_location": "L61",
       "_origin": "ast",
       "id": "lib_food_data_tools_comparetext",
-      "community": 26,
-      "community_name": "config.ts",
+      "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "comparetext()"
     },
     {
@@ -1942,8 +1942,8 @@
       "source_location": "L65",
       "_origin": "ast",
       "id": "lib_food_data_tools_scorefood",
-      "community": 26,
-      "community_name": "config.ts",
+      "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "scorefood()"
     },
     {
@@ -1953,8 +1953,8 @@
       "source_location": "L89",
       "_origin": "ast",
       "id": "lib_food_data_tools_searchfoodsinindex",
-      "community": 26,
-      "community_name": "config.ts",
+      "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "searchfoodsinindex()"
     },
     {
@@ -1964,8 +1964,8 @@
       "source_location": "L120",
       "_origin": "ast",
       "id": "lib_food_data_tools_createfoodtools",
-      "community": 26,
-      "community_name": "config.ts",
+      "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "createfoodtools()"
     },
     {
@@ -1975,8 +1975,8 @@
       "source_location": "L129",
       "_origin": "ast",
       "id": "lib_food_data_tools_createfoodtoolregistry",
-      "community": 26,
-      "community_name": "config.ts",
+      "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "createfoodtoolregistry()"
     },
     {
@@ -1986,8 +1986,8 @@
       "source_location": "L157",
       "_origin": "ast",
       "id": "lib_food_data_tools_getdefaulttools",
-      "community": 26,
-      "community_name": "config.ts",
+      "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "getdefaulttools()"
     },
     {
@@ -2008,8 +2008,8 @@
       "source_location": "L167",
       "_origin": "ast",
       "id": "lib_food_data_tools_searchfoods",
-      "community": 26,
-      "community_name": "config.ts",
+      "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "searchfoods()"
     },
     {
@@ -2019,8 +2019,8 @@
       "source_location": "L171",
       "_origin": "ast",
       "id": "lib_food_data_tools_getfood",
-      "community": 26,
-      "community_name": "config.ts",
+      "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "getfood()"
     },
     {
@@ -6421,6 +6421,18 @@
       "_origin": "ast",
       "source": "app_api_estimate_route",
       "target": "lib_food_data_tools",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/estimate/route.ts",
+      "source_location": "L10",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "app_api_estimate_route",
+      "target": "lib_food_data_tools_foodtoolregistry",
       "confidence_score": 1.0
     },
     {
@@ -11167,6 +11179,42 @@
       "_origin": "ast",
       "source": "lib_food_data_index",
       "target": "lib_food_data_tools_createfoodtools",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "re_exports",
+      "context": "re-export",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/food-data/index.ts",
+      "source_location": "L29",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "lib_food_data_index",
+      "target": "lib_food_data_tools_foodtooldefinition",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "re_exports",
+      "context": "re-export",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/food-data/index.ts",
+      "source_location": "L29",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "lib_food_data_index",
+      "target": "lib_food_data_tools_foodtoolname",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "re_exports",
+      "context": "re-export",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/food-data/index.ts",
+      "source_location": "L29",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "lib_food_data_index",
+      "target": "lib_food_data_tools_foodtoolregistry",
       "confidence_score": 1.0
     },
     {
@@ -18755,5 +18803,5 @@
       "source_file": "README.md"
     }
   ],
-  "built_at_commit": "2f9a4cbf7919d0958f5f14308f16eb4e9302693a"
+  "built_at_commit": "ef2810bbcca6e28a3aa4eaeb6c5b9d273e8a5803"
 }
