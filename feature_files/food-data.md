@@ -19,13 +19,13 @@ The food-data feature turns the local USDA Foundation Foods and FNDDS / Survey F
 - `lib/food-data/types.ts` defines the agent-facing normalized types.
 - `lib/food-data/raw.ts` defines the narrow typed USDA input shapes.
 - `lib/food-data/normalize.ts` owns both adapters, nutrient extraction, portion extraction, ingredients, and calorie precedence.
-- `lib/food-data/index-builder.ts` reads the two hardcoded local inputs and writes the compact runtime index.
+- `lib/food-data/index-builder.ts` reads the two hardcoded local inputs and writes the compact runtime index, replacing dangling `food-data` symlinks before write.
 - `lib/food-data/loader.ts` caches the generated index and FDC-ID map.
 - `lib/food-data/errors.ts` defines setup failures that must remain distinct from model failures.
 - `lib/food-data/tools.ts` owns the validated search and lookup tools.
 - `lib/agent/runner.ts` consumes the allowlisted registry without exposing the loader or raw index to the model.
 - `scripts/build-food-index.ts` is the index-generation entry point.
-- `scripts/ensure-food-index.ts` validates the generated index and rebuilds it for local dev/build startup when needed; a Vercel build without either the generated artifact or raw inputs logs an actionable warning instead of failing before Next.js can deploy.
+- `scripts/ensure-food-index.ts` validates the generated index and rebuilds it for local dev/build startup when needed; it clears unusable `food-data` symlinks first, and a Vercel build without either the generated artifact or raw inputs logs an actionable warning instead of failing before Next.js can deploy.
 - `test/food-data.test.ts` covers adapters, tools, and real-record integration searches when the gitignored data is present.
 
 ## Dev Mode
@@ -43,3 +43,4 @@ TESTING
 - Added USDA volume-unit normalization, deterministic preferred volume portions, and derived density provenance for meal estimation.
 - Fixed index invalidation from negative USDA nutrient sentinels by omitting negative nutrient values during normalization.
 - Kept raw USDA inputs ignored while allowing the compact generated index to be deployed, and made Vercel preparation tolerate a missing local-only source bundle with an explicit runtime warning.
+- Replaced a non-portable absolute `food-data` symlink with a real directory and committed `food-index.json` as the Vercel runtime artifact; prepare/write now replaces dangling `food-data` symlinks before mkdir/stat so builds no longer ENOENT.

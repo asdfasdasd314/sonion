@@ -6,10 +6,13 @@ import {
   FNDDS_DATA_PATH,
   RUNTIME_INDEX_PATH,
   buildAndWriteFoodIndex,
+  replaceUnusableFoodDataSymlink,
 } from "../lib/food-data/index-builder";
 import { loadFoodIndex } from "../lib/food-data/loader";
 
 function prepareFoodIndex(): void {
+  replaceUnusableFoodDataSymlink();
+
   try {
     const index = loadFoodIndex();
     console.log(`Validated food-data/food-index.json with ${index.length} normalized foods.`);

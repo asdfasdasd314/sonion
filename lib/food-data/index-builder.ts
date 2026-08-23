@@ -1,4 +1,12 @@
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import {
+  existsSync,
+  lstatSync,
+  mkdirSync,
+  readFileSync,
+  rmSync,
+  statSync,
+  writeFileSync,
+} from "node:fs";
 import path from "node:path";
 
 import { normalizeFoundationFood, normalizeFnddsFood } from "./normalize";
@@ -13,6 +21,30 @@ export const FOUNDATION_DATA_PATH = path.join(
 );
 export const FNDDS_DATA_PATH = path.join(FOOD_DATA_DIR, "surveyDownload.json");
 export const RUNTIME_INDEX_PATH = path.join(FOOD_DATA_DIR, "food-index.json");
+
+/**
+ * If `food-data` is a dangling/unusable symlink (e.g. a machine-absolute host
+ * path that does not exist on Vercel), remove it so later mkdir/stat/write
+ * operate on a real directory. Usable symlink mounts are left alone.
+ */
+export function replaceUnusableFoodDataSymlink(): void {
+  let isSymlink = false;
+  try {
+    isSymlink = lstatSync(FOOD_DATA_DIR).isSymbolicLink();
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code === "ENOENT") return;
+    throw error;
+  }
+  if (!isSymlink) return;
+
+  try {
+    if (statSync(FOOD_DATA_DIR).isDirectory()) return;
+  } catch {
+    // Target missing or not a directory — fall through and replace.
+  }
+
+  rmSync(FOOD_DATA_DIR, { force: true });
+}
 
 function setupError(label: string, filePath: string, cause?: unknown): FoodDataSetupError {
   const suffix = cause instanceof Error ? ` (${cause.message})` : "";
@@ -117,6 +149,7 @@ export function buildFoodIndex(): NormalizedFood[] {
 
 export function writeFoodIndex(index: readonly NormalizedFood[]): void {
   try {
+    replaceUnusableFoodDataSymlink();
     mkdirSync(FOOD_DATA_DIR, { recursive: true });
     writeFileSync(RUNTIME_INDEX_PATH, JSON.stringify(index), "utf8");
   } catch (error) {
