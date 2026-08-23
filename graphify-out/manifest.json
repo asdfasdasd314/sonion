@@ -70,8 +70,8 @@
     "semantic_hash": "5c27369b226fcf2be8a6cfe52224e767"
   },
   "README.md": {
-    "mtime": 1787436565.2827024,
-    "ast_hash": "99fc6da0ca772ad83a40c63333e945e2",
+    "mtime": 1787446169.4926622,
+    "ast_hash": "01dea68e566bdef110ca04596d52cc2a",
     "semantic_hash": ""
   },
   "public/file.svg": {
@@ -175,8 +175,8 @@
     "semantic_hash": ""
   },
   "feature_files/food-data.md": {
-    "mtime": 1787276310.6166835,
-    "ast_hash": "196e1eb35b85d3b93a23f4e49e4935f9",
+    "mtime": 1787446169.508002,
+    "ast_hash": "059ee85720db494c44b973fcbf72631b",
     "semantic_hash": ""
   },
   "lib/agent/food-tools-skill.ts": {
@@ -255,8 +255,8 @@
     "semantic_hash": ""
   },
   "scripts/ensure-food-index.ts": {
-    "mtime": 1787272052.4823034,
-    "ast_hash": "25d41b879d5ff0bd487905afc487e3fe",
+    "mtime": 1787446169.5225456,
+    "ast_hash": "0bf1846a071bf08a17be2571689c0288",
     "semantic_hash": ""
   },
   "lib/meal-estimation/config.ts": {

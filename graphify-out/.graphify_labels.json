@@ -24,5 +24,6 @@
   "22": "normalize.ts",
   "23": "Client-only nutrition dashboard",
   "24": "Portion Unit meal estimation",
-  "25": "Supabase meal history"
+  "25": "Supabase meal history",
+  "26": "config.ts"
 }

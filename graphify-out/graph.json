@@ -61,8 +61,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_api_estimate_route",
-      "community": 10,
-      "community_name": "Home Page",
+      "community": 18,
+      "community_name": "tools.ts",
       "norm_label": "route.ts"
     },
     {
@@ -72,8 +72,8 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "app_api_estimate_route_promptbody",
-      "community": 10,
-      "community_name": "Home Page",
+      "community": 18,
+      "community_name": "tools.ts",
       "norm_label": "promptbody"
     },
     {
@@ -83,8 +83,8 @@
       "source_location": "L39",
       "_origin": "ast",
       "id": "app_api_estimate_route_ispromptbody",
-      "community": 10,
-      "community_name": "Home Page",
+      "community": 18,
+      "community_name": "tools.ts",
       "norm_label": "ispromptbody()"
     },
     {
@@ -94,8 +94,8 @@
       "source_location": "L43",
       "_origin": "ast",
       "id": "app_api_estimate_route_errorresponse",
-      "community": 10,
-      "community_name": "Home Page",
+      "community": 18,
+      "community_name": "tools.ts",
       "norm_label": "errorresponse()"
     },
     {
@@ -105,8 +105,8 @@
       "source_location": "L47",
       "_origin": "ast",
       "id": "app_api_estimate_route_post",
-      "community": 10,
-      "community_name": "Home Page",
+      "community": 18,
+      "community_name": "tools.ts",
       "norm_label": "post()"
     },
     {
@@ -468,8 +468,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_meal_interpreter",
-      "community": 18,
-      "community_name": "tools.ts",
+      "community": 1,
+      "community_name": "Linting and Styling",
       "norm_label": "meal-interpreter.tsx"
     },
     {
@@ -479,8 +479,8 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "components_meal_interpreter_mealinterpreterprops",
-      "community": 18,
-      "community_name": "tools.ts",
+      "community": 1,
+      "community_name": "Linting and Styling",
       "norm_label": "mealinterpreterprops"
     },
     {
@@ -490,8 +490,8 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "components_meal_interpreter_mealinterpreter",
-      "community": 18,
-      "community_name": "tools.ts",
+      "community": 1,
+      "community_name": "Linting and Styling",
       "norm_label": "mealinterpreter()"
     },
     {
@@ -501,8 +501,8 @@
       "source_location": "L318",
       "_origin": "ast",
       "id": "components_meal_interpreter_estimatetable",
-      "community": 18,
-      "community_name": "tools.ts",
+      "community": 1,
+      "community_name": "Linting and Styling",
       "norm_label": "estimatetable()"
     },
     {
@@ -512,8 +512,8 @@
       "source_location": "L366",
       "_origin": "ast",
       "id": "components_meal_interpreter_estimatewarnings",
-      "community": 18,
-      "community_name": "tools.ts",
+      "community": 1,
+      "community_name": "Linting and Styling",
       "norm_label": "estimatewarnings()"
     },
     {
@@ -523,8 +523,8 @@
       "source_location": "L379",
       "_origin": "ast",
       "id": "components_meal_interpreter_revisionsummary",
-      "community": 18,
-      "community_name": "tools.ts",
+      "community": 1,
+      "community_name": "Linting and Styling",
       "norm_label": "revisionsummary()"
     },
     {
@@ -534,8 +534,8 @@
       "source_location": "L405",
       "_origin": "ast",
       "id": "components_meal_interpreter_formatrevisionaction",
-      "community": 18,
-      "community_name": "tools.ts",
+      "community": 1,
+      "community_name": "Linting and Styling",
       "norm_label": "formatrevisionaction()"
     },
     {
@@ -545,8 +545,8 @@
       "source_location": "L409",
       "_origin": "ast",
       "id": "components_meal_interpreter_geterrormessage",
-      "community": 18,
-      "community_name": "tools.ts",
+      "community": 1,
+      "community_name": "Linting and Styling",
       "norm_label": "geterrormessage()"
     },
     {
@@ -556,8 +556,8 @@
       "source_location": "L415",
       "_origin": "ast",
       "id": "components_meal_interpreter_formatvalue",
-      "community": 18,
-      "community_name": "tools.ts",
+      "community": 1,
+      "community_name": "Linting and Styling",
       "norm_label": "formatvalue()"
     },
     {
@@ -666,8 +666,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_agent_food_tools_skill",
-      "community": 10,
-      "community_name": "Home Page",
+      "community": 18,
+      "community_name": "tools.ts",
       "norm_label": "food-tools-skill.ts"
     },
     {
@@ -677,8 +677,8 @@
       "source_location": "L63",
       "_origin": "ast",
       "id": "lib_agent_food_tools_skill_getfoodtoolsskill",
-      "community": 10,
-      "community_name": "Home Page",
+      "community": 18,
+      "community_name": "tools.ts",
       "norm_label": "getfoodtoolsskill()"
     },
     {
@@ -1634,8 +1634,8 @@
       "source_location": "L192",
       "_origin": "ast",
       "id": "lib_food_data_normalize_selectpreferredvolumeportion",
-      "community": 18,
-      "community_name": "tools.ts",
+      "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "selectpreferredvolumeportion()"
     },
     {
@@ -1700,8 +1700,8 @@
       "source_location": "L295",
       "_origin": "ast",
       "id": "lib_food_data_normalize_normalizefnddsfood",
-      "community": 22,
-      "community_name": "normalize.ts",
+      "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "normalizefnddsfood()"
     },
     {
@@ -1843,8 +1843,8 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "lib_food_data_tools_foodtoolregistry",
-      "community": 4,
-      "community_name": "TypeScript References",
+      "community": 3,
+      "community_name": "Project Agent Rules",
       "norm_label": "foodtoolregistry"
     },
     {
@@ -1986,8 +1986,8 @@
       "source_location": "L162",
       "_origin": "ast",
       "id": "lib_food_data_tools_getdefaultfoodtoolregistry",
-      "community": 10,
-      "community_name": "Home Page",
+      "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "getdefaultfoodtoolregistry()"
     },
     {
@@ -2129,8 +2129,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_gemma",
-      "community": 10,
-      "community_name": "Home Page",
+      "community": 18,
+      "community_name": "tools.ts",
       "norm_label": "gemma.ts"
     },
     {
@@ -2140,8 +2140,8 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "lib_gemma_alternatingmodelselector",
-      "community": 10,
-      "community_name": "Home Page",
+      "community": 18,
+      "community_name": "tools.ts",
       "norm_label": "alternatingmodelselector"
     },
     {
@@ -2151,8 +2151,8 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "lib_gemma_createalternatingmodelselector",
-      "community": 10,
-      "community_name": "Home Page",
+      "community": 18,
+      "community_name": "tools.ts",
       "norm_label": "createalternatingmodelselector()"
     },
     {
@@ -2162,8 +2162,8 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "lib_gemma_nextmodelprovider",
-      "community": 10,
-      "community_name": "Home Page",
+      "community": 18,
+      "community_name": "tools.ts",
       "norm_label": "nextmodelprovider"
     },
     {
@@ -2173,8 +2173,8 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "lib_gemma_creategemmaclient",
-      "community": 10,
-      "community_name": "Home Page",
+      "community": 18,
+      "community_name": "tools.ts",
       "norm_label": "creategemmaclient()"
     },
     {
@@ -2184,8 +2184,8 @@
       "source_location": "L29",
       "_origin": "ast",
       "id": "lib_gemma_getgeminimodel",
-      "community": 10,
-      "community_name": "Home Page",
+      "community": 18,
+      "community_name": "tools.ts",
       "norm_label": "getgeminimodel()"
     },
     {
@@ -2195,8 +2195,8 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "lib_gemma_getgemmamodel",
-      "community": 10,
-      "community_name": "Home Page",
+      "community": 18,
+      "community_name": "tools.ts",
       "norm_label": "getgemmamodel()"
     },
     {
@@ -2206,8 +2206,8 @@
       "source_location": "L37",
       "_origin": "ast",
       "id": "lib_gemma_getnextmealmodel",
-      "community": 10,
-      "community_name": "Home Page",
+      "community": 18,
+      "community_name": "tools.ts",
       "norm_label": "getnextmealmodel()"
     },
     {
@@ -2217,8 +2217,8 @@
       "source_location": "L41",
       "_origin": "ast",
       "id": "lib_gemma_getgemmasysteminstruction",
-      "community": 10,
-      "community_name": "Home Page",
+      "community": 18,
+      "community_name": "tools.ts",
       "norm_label": "getgemmasysteminstruction()"
     },
     {
@@ -2602,8 +2602,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_meal_history_request",
-      "community": 10,
-      "community_name": "Home Page",
+      "community": 1,
+      "community_name": "Linting and Styling",
       "norm_label": "request.ts"
     },
     {
@@ -2635,8 +2635,8 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "lib_meal_history_request_getbearertoken",
-      "community": 21,
-      "community_name": "nutrition-targets.tsx",
+      "community": 1,
+      "community_name": "Linting and Styling",
       "norm_label": "getbearertoken()"
     },
     {
@@ -2657,8 +2657,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_meal_history_save",
-      "community": 18,
-      "community_name": "tools.ts",
+      "community": 1,
+      "community_name": "Linting and Styling",
       "norm_label": "save.ts"
     },
     {
@@ -2668,8 +2668,8 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "lib_meal_history_save_mealsavestate",
-      "community": 18,
-      "community_name": "tools.ts",
+      "community": 1,
+      "community_name": "Linting and Styling",
       "norm_label": "mealsavestate"
     },
     {
@@ -2679,8 +2679,8 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "lib_meal_history_save_canstartmealsave",
-      "community": 18,
-      "community_name": "tools.ts",
+      "community": 1,
+      "community_name": "Linting and Styling",
       "norm_label": "canstartmealsave()"
     },
     {
@@ -2690,8 +2690,8 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "lib_meal_history_save_savestateafterresponse",
-      "community": 18,
-      "community_name": "tools.ts",
+      "community": 1,
+      "community_name": "Linting and Styling",
       "norm_label": "savestateafterresponse()"
     },
     {
@@ -3042,8 +3042,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_meal_revision_config",
-      "community": 10,
-      "community_name": "Home Page",
+      "community": 26,
+      "community_name": "config.ts",
       "norm_label": "config.ts"
     },
     {
@@ -3053,8 +3053,8 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "lib_meal_revision_config_mealrevisionparameters",
-      "community": 10,
-      "community_name": "Home Page",
+      "community": 26,
+      "community_name": "config.ts",
       "norm_label": "mealrevisionparameters"
     },
     {
@@ -3064,8 +3064,8 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "lib_meal_revision_config_parametervalue",
-      "community": 10,
-      "community_name": "Home Page",
+      "community": 26,
+      "community_name": "config.ts",
       "norm_label": "parametervalue()"
     },
     {
@@ -3075,8 +3075,8 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "lib_meal_revision_config_loadparameters",
-      "community": 10,
-      "community_name": "Home Page",
+      "community": 26,
+      "community_name": "config.ts",
       "norm_label": "loadparameters()"
     },
     {
@@ -3086,8 +3086,8 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "lib_meal_revision_config_meal_revision_parameters",
-      "community": 10,
-      "community_name": "Home Page",
+      "community": 26,
+      "community_name": "config.ts",
       "norm_label": "meal_revision_parameters"
     },
     {
@@ -3185,8 +3185,8 @@
       "source_location": "L47",
       "_origin": "ast",
       "id": "lib_meal_revision_types_mealrevisionschema",
-      "community": 18,
-      "community_name": "tools.ts",
+      "community": 3,
+      "community_name": "Project Agent Rules",
       "norm_label": "mealrevisionschema"
     },
     {
@@ -3229,8 +3229,8 @@
       "source_location": "L59",
       "_origin": "ast",
       "id": "lib_meal_revision_types_mealrevisionrequestschema",
-      "community": 10,
-      "community_name": "Home Page",
+      "community": 18,
+      "community_name": "tools.ts",
       "norm_label": "mealrevisionrequestschema"
     },
     {
@@ -3284,8 +3284,8 @@
       "source_location": "L83",
       "_origin": "ast",
       "id": "lib_meal_revision_types_revisioncontextfromestimate",
-      "community": 10,
-      "community_name": "Home Page",
+      "community": 18,
+      "community_name": "tools.ts",
       "norm_label": "revisioncontextfromestimate()"
     },
     {
@@ -3603,8 +3603,8 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "lib_supabase_auth_supabaseuser",
-      "community": 10,
-      "community_name": "Home Page",
+      "community": 1,
+      "community_name": "Linting and Styling",
       "norm_label": "supabaseuser"
     },
     {
@@ -3658,8 +3658,8 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "lib_supabase_auth_supabaseconfigurationerror",
-      "community": 10,
-      "community_name": "Home Page",
+      "community": 1,
+      "community_name": "Linting and Styling",
       "norm_label": "supabaseconfigurationerror"
     },
     {
@@ -3669,8 +3669,8 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "lib_supabase_auth_supabaseconfigurationerror_constructor",
-      "community": 10,
-      "community_name": "Home Page",
+      "community": 1,
+      "community_name": "Linting and Styling",
       "norm_label": ".constructor()"
     },
     {
@@ -3680,8 +3680,8 @@
       "source_location": "L42",
       "_origin": "ast",
       "id": "lib_supabase_auth_supabaseautherror",
-      "community": 10,
-      "community_name": "Home Page",
+      "community": 1,
+      "community_name": "Linting and Styling",
       "norm_label": "supabaseautherror"
     },
     {
@@ -3691,8 +3691,8 @@
       "source_location": "L45",
       "_origin": "ast",
       "id": "lib_supabase_auth_supabaseautherror_constructor",
-      "community": 10,
-      "community_name": "Home Page",
+      "community": 1,
+      "community_name": "Linting and Styling",
       "norm_label": ".constructor()"
     },
     {
@@ -3801,8 +3801,8 @@
       "source_location": "L173",
       "_origin": "ast",
       "id": "lib_supabase_auth_getsupabaseuser",
-      "community": 10,
-      "community_name": "Home Page",
+      "community": 18,
+      "community_name": "tools.ts",
       "norm_label": "getsupabaseuser()"
     },
     {
@@ -4411,6 +4411,17 @@
       "norm_label": "ensure-food-index.ts"
     },
     {
+      "label": "prepareFoodIndex()",
+      "file_type": "code",
+      "source_file": "scripts/ensure-food-index.ts",
+      "source_location": "L12",
+      "_origin": "ast",
+      "id": "scripts_ensure_food_index_preparefoodindex",
+      "community": 4,
+      "community_name": "TypeScript References",
+      "norm_label": "preparefoodindex()"
+    },
+    {
       "label": "agent-protocol.test.ts",
       "file_type": "code",
       "source_file": "test/agent-protocol.test.ts",
@@ -4637,8 +4648,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "test_meal_history_test",
-      "community": 21,
-      "community_name": "nutrition-targets.tsx",
+      "community": 1,
+      "community_name": "Linting and Styling",
       "norm_label": "meal-history.test.ts"
     },
     {
@@ -4648,8 +4659,8 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "test_meal_history_test_estimate",
-      "community": 21,
-      "community_name": "nutrition-targets.tsx",
+      "community": 1,
+      "community_name": "Linting and Styling",
       "norm_label": "estimate"
     },
     {
@@ -10328,7 +10339,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "scripts/ensure-food-index.ts",
-      "source_location": "L2",
+      "source_location": "L3",
       "weight": 1.0,
       "_origin": "ast",
       "source": "scripts_ensure_food_index",
@@ -10387,7 +10398,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "scripts/ensure-food-index.ts",
-      "source_location": "L2",
+      "source_location": "L3",
       "weight": 1.0,
       "_origin": "ast",
       "source": "scripts_ensure_food_index",
@@ -10674,7 +10685,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "scripts/ensure-food-index.ts",
-      "source_location": "L1",
+      "source_location": "L4",
       "weight": 1.0,
       "_origin": "ast",
       "source": "scripts_ensure_food_index",
@@ -10697,12 +10708,36 @@
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
+      "source_file": "scripts/ensure-food-index.ts",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "scripts_ensure_food_index",
+      "target": "lib_food_data_index_builder_foundation_data_path",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
       "source_file": "test/food-data.test.ts",
       "source_location": "L13",
       "weight": 1.0,
       "_origin": "ast",
       "source": "test_food_data_test",
       "target": "lib_food_data_index_builder_foundation_data_path",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ensure-food-index.ts",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "scripts_ensure_food_index",
+      "target": "lib_food_data_index_builder_fndds_data_path",
       "confidence_score": 1.0
     },
     {
@@ -10726,6 +10761,18 @@
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_food_data_loader",
+      "target": "lib_food_data_index_builder_runtime_index_path",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ensure-food-index.ts",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "scripts_ensure_food_index",
       "target": "lib_food_data_index_builder_runtime_index_path",
       "confidence_score": 1.0
     },
@@ -10926,10 +10973,22 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "scripts/ensure-food-index.ts",
-      "source_location": "L1",
+      "source_location": "L4",
       "weight": 1.0,
       "_origin": "ast",
       "source": "scripts_ensure_food_index",
+      "target": "lib_food_data_index_builder_buildandwritefoodindex",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ensure-food-index.ts",
+      "source_location": "L31",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "scripts_ensure_food_index_preparefoodindex",
       "target": "lib_food_data_index_builder_buildandwritefoodindex",
       "confidence_score": 1.0
     },
@@ -11283,7 +11342,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "scripts/ensure-food-index.ts",
-      "source_location": "L3",
+      "source_location": "L10",
       "weight": 1.0,
       "_origin": "ast",
       "source": "scripts_ensure_food_index",
@@ -11367,10 +11426,22 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "scripts/ensure-food-index.ts",
-      "source_location": "L3",
+      "source_location": "L10",
       "weight": 1.0,
       "_origin": "ast",
       "source": "scripts_ensure_food_index",
+      "target": "lib_food_data_loader_loadfoodindex",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ensure-food-index.ts",
+      "source_location": "L14",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "scripts_ensure_food_index_preparefoodindex",
       "target": "lib_food_data_loader_loadfoodindex",
       "confidence_score": 1.0
     },
@@ -17004,6 +17075,17 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "scripts/ensure-food-index.ts",
+      "source_location": "L12",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "scripts_ensure_food_index",
+      "target": "scripts_ensure_food_index_preparefoodindex",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "test/agent-protocol.test.ts",
       "source_location": "L21",
       "weight": 1.0,
@@ -18557,5 +18639,5 @@
       "source_file": "README.md"
     }
   ],
-  "built_at_commit": "cad9765ed28a57e0e9be4866b13164cdb464c0c2"
+  "built_at_commit": "6881817979d4b38801c2da6672ba3fc819fe03d5"
 }
