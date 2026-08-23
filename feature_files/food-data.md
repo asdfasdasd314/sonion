@@ -26,7 +26,7 @@ The food-data feature turns the local USDA Foundation Foods and FNDDS / Survey F
 - `lib/agent/runner.ts` consumes the allowlisted registry without exposing the loader or raw index to the model.
 - `scripts/build-food-index.ts` is the index-generation entry point.
 - `scripts/ensure-food-index.ts` validates the generated index and rebuilds it for local dev/build startup when needed; it clears unusable `food-data` symlinks first, and a Vercel build without either the generated artifact or raw inputs logs an actionable warning instead of failing before Next.js can deploy.
-- `test/food-data.test.ts` covers adapters, tools, and real-record integration searches when the gitignored data is present.
+- `test/food-data.test.ts` covers adapters, tools, and real-record integration searches against raw USDA inputs when present, otherwise the committed `food-index.json`.
 
 ## Dev Mode
 
@@ -44,3 +44,4 @@ TESTING
 - Fixed index invalidation from negative USDA nutrient sentinels by omitting negative nutrient values during normalization.
 - Kept raw USDA inputs ignored while allowing the compact generated index to be deployed, and made Vercel preparation tolerate a missing local-only source bundle with an explicit runtime warning.
 - Replaced a non-portable absolute `food-data` symlink with a real directory and committed `food-index.json` as the Vercel runtime artifact; prepare/write now replaces dangling `food-data` symlinks before mkdir/stat so builds no longer ENOENT.
+- Real-record food-data tests now accept the committed `food-index.json` when gitignored USDA raw inputs are absent after the symlink→directory packaging change.

@@ -10,7 +10,12 @@ import {
   selectCalorieValue,
   selectPreferredVolumePortion,
 } from "../lib/food-data";
-import { FOUNDATION_DATA_PATH, FNDDS_DATA_PATH } from "../lib/food-data/index-builder";
+import {
+  FOUNDATION_DATA_PATH,
+  FNDDS_DATA_PATH,
+  RUNTIME_INDEX_PATH,
+} from "../lib/food-data/index-builder";
+import { loadFoodIndex } from "../lib/food-data/loader";
 import type { RawNutrient } from "../lib/food-data/raw";
 import type { NormalizedFood } from "../lib/food-data/types";
 
@@ -205,17 +210,20 @@ test("getFood returns compact records, typed not-found, and validation errors", 
 });
 
 const localInputsAvailable = existsSync(FOUNDATION_DATA_PATH) && existsSync(FNDDS_DATA_PATH);
+const runtimeIndexAvailable = existsSync(RUNTIME_INDEX_PATH);
+const realRecordsAvailable = localInputsAvailable || runtimeIndexAvailable;
 
-test("real USDA inputs are available for integration searches", () => {
+test("real USDA records are available for integration searches", () => {
   assert.ok(
-    localInputsAvailable,
-    `Food data setup error: expected ${FOUNDATION_DATA_PATH} and ${FNDDS_DATA_PATH}. ` +
-      "These gitignored local inputs must be present to run real-record tests.",
+    realRecordsAvailable,
+    `Food data setup error: expected gitignored raw inputs at ${FOUNDATION_DATA_PATH} and ${FNDDS_DATA_PATH}, ` +
+      `or the committed runtime index at ${RUNTIME_INDEX_PATH}.`,
   );
 });
 
-if (localInputsAvailable) {
-  const realIndex = buildFoodIndex();
+if (realRecordsAvailable) {
+  // Prefer rebuilding from raw USDA when present; otherwise use the committed deploy artifact.
+  const realIndex = localInputsAvailable ? buildFoodIndex() : loadFoodIndex();
   const realTools = createFoodTools(realIndex);
   const cases = [
     ["skim milk", (food: NormalizedFood) => /milk/i.test(food.description) && /skim|fat free/i.test(food.description)],
