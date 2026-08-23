@@ -41,3 +41,4 @@ TESTING
 - Aligned the unknown-tool protocol assertion with its nested `calls.0.name` diagnostic path so the verification suite matches the JSON envelope.
 - Replaced prose final content with a strict Portion Unit selection payload and handed calculations to the server-owned meal-estimation layer.
 - Removed the round-count limit so valid multi-step food lookups can continue until the model returns a result; per-turn and payload limits remain the tool-boundary controls.
+- Widened `valueAtPath` to accept Zod `PropertyKey[]` paths so Vercel TypeScript checks no longer reject symbol-capable issue paths.

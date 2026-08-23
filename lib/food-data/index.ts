@@ -19,9 +19,6 @@ export {
   NormalizedPortionSchema,
 } from "./types";
 export type {
-  FoodToolDefinition,
-  FoodToolName,
-  FoodToolRegistry,
   FoodDataset,
   FoodSearchResult,
   FoodToolError,
@@ -29,3 +26,8 @@ export type {
   NormalizedNutrients,
   NormalizedPortion,
 } from "./types";
+export type {
+  FoodToolDefinition,
+  FoodToolName,
+  FoodToolRegistry,
+} from "./tools";

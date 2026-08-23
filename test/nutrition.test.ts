@@ -73,7 +73,7 @@ test("rounds displayed values without changing calculation precision", () => {
 });
 
 test("reports required, non-positive, and impossible inputs", () => {
-  const errors = validateNutritionTargetInput({ weightLb: 0, heightIn: 118, age: 8, activityLevel: "", goal: "" });
+  const errors = validateNutritionTargetInput({ weightLb: 0, heightIn: 118, age: 8 });
   assert.equal(errors.weightLb, "Use a body weight between 1 and 1,102 lb.");
   assert.equal(errors.heightIn, "Use a height between 19.7 and 98.4 inches.");
   assert.equal(errors.age, "Use an age between 13 and 120 years.");

@@ -45,3 +45,4 @@ TESTING
 - Kept raw USDA inputs ignored while allowing the compact generated index to be deployed, and made Vercel preparation tolerate a missing local-only source bundle with an explicit runtime warning.
 - Replaced a non-portable absolute `food-data` symlink with a real directory and committed `food-index.json` as the Vercel runtime artifact; prepare/write now replaces dangling `food-data` symlinks before mkdir/stat so builds no longer ENOENT.
 - Real-record food-data tests now accept the committed `food-index.json` when gitignored USDA raw inputs are absent after the symlink→directory packaging change.
+- Re-exported `FoodToolDefinition`, `FoodToolName`, and `FoodToolRegistry` from `tools.ts` through the food-data barrel so Vercel typecheck matches the owning module.

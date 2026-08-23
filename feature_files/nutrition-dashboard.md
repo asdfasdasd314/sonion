@@ -43,3 +43,4 @@ HACKING
 - Prevented the conditional weekly-change input from receiving an undefined value so it remains controlled when the cut/bulk fields mount.
 - Added responsive accessible meal-estimate rows with explicit fallback-density and missing-nutrient uncertainty messaging.
 - Replaced seeded history with authenticated Supabase loading, added save-state transitions and refresh-after-save, and preserved null nutrient semantics in aggregation.
+- Fixed the required-input nutrition validation fixture to omit activity/goal instead of empty strings so TypeScript accepts `Partial<NutritionTargetInput>`.

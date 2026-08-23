@@ -92,7 +92,7 @@ function mealContents(
   ].join("\n");
 }
 
-function valueAtPath(value: unknown, path: readonly (string | number)[]): unknown {
+function valueAtPath(value: unknown, path: readonly PropertyKey[]): unknown {
   let current = value;
   for (const segment of path) {
     if (typeof current !== "object" || current === null) return undefined;
