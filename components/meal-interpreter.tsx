@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import type { FormEvent } from "react";
 
+import { createMealCopyDraft, MEAL_COPY_REVISION_REQUIRED_BEFORE_SAVE } from "@/lib/meal-copy/draft";
 import { canStartMealSave, saveStateAfterResponse, type MealSaveState } from "@/lib/meal-history/save";
 import { isValidLocalDate, isValidLocalTime, parseMealRecord, type MealRecord } from "@/lib/meal-history/types";
 import { parseMealEstimate, type MealEstimate } from "@/lib/meal-estimation/types";
@@ -13,12 +14,21 @@ const MAX_REVISION_LENGTH = 1_200;
 
 type MealInterpreterProps = {
   accessToken: string;
+  mealToCopy: MealRecord | null;
   mealToRefine: MealRecord | null;
+  onClearCopiedMeal: () => void;
   onClearFocusedMeal: () => void;
   onMealSaved: () => void;
 };
 
-export default function MealInterpreter({ accessToken, mealToRefine, onClearFocusedMeal, onMealSaved }: MealInterpreterProps) {
+export default function MealInterpreter({
+  accessToken,
+  mealToCopy,
+  mealToRefine,
+  onClearCopiedMeal,
+  onClearFocusedMeal,
+  onMealSaved,
+}: MealInterpreterProps) {
   const [prompt, setPrompt] = useState("");
   const [originalPrompt, setOriginalPrompt] = useState("");
   const [hasSubmittedPrompt, setHasSubmittedPrompt] = useState(false);
@@ -32,8 +42,27 @@ export default function MealInterpreter({ accessToken, mealToRefine, onClearFocu
   const [mealTime, setMealTime] = useState("");
   const [saveState, setSaveState] = useState<MealSaveState>("idle");
   const [saveError, setSaveError] = useState("");
+  const [copySourceLabel, setCopySourceLabel] = useState("");
 
   useEffect(() => {
+    if (mealToCopy) {
+      const draft = createMealCopyDraft(mealToCopy);
+      setPrompt("");
+      setOriginalPrompt("");
+      setHasSubmittedPrompt(true);
+      setResponse(draft.mealSnapshot);
+      setRevisionResult(null);
+      setRevision("");
+      setRevisionSubmitted(false);
+      setError("");
+      setSaveState("idle");
+      setSaveError("");
+      setMealDate(draft.mealDate);
+      setMealTime(draft.mealTime);
+      setCopySourceLabel(`${draft.sourceMealDate} · ${draft.sourceMealTime.slice(0, 5)}`);
+      return;
+    }
+
     if (mealToRefine) {
       setPrompt("");
       setOriginalPrompt("");
@@ -47,11 +76,12 @@ export default function MealInterpreter({ accessToken, mealToRefine, onClearFocu
       setSaveError("");
       setMealDate(mealToRefine.meal_date);
       setMealTime(mealToRefine.meal_time.slice(0, 5));
+      setCopySourceLabel("");
       return;
     }
 
     resetForNewMeal();
-  }, [mealToRefine]);
+  }, [mealToCopy, mealToRefine]);
 
   function resetForNewMeal() {
     const now = new Date();
@@ -66,6 +96,7 @@ export default function MealInterpreter({ accessToken, mealToRefine, onClearFocu
     setError("");
     setSaveState("idle");
     setSaveError("");
+    setCopySourceLabel("");
     setMealDate(`${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`);
     setMealTime(`${pad(now.getHours())}:${pad(now.getMinutes())}`);
   }
@@ -169,6 +200,11 @@ export default function MealInterpreter({ accessToken, mealToRefine, onClearFocu
       setSaveState("error");
       return;
     }
+    if (mealToCopy && MEAL_COPY_REVISION_REQUIRED_BEFORE_SAVE && !revisionSubmitted) {
+      setSaveError("Submit a revision before saving this copied meal.");
+      setSaveState("error");
+      return;
+    }
     setSaveError("");
 
     if (!isValidLocalDate(mealDate)) {
@@ -211,17 +247,32 @@ export default function MealInterpreter({ accessToken, mealToRefine, onClearFocu
   }
 
   const isFocusedMeal = Boolean(mealToRefine);
+  const isCopiedMeal = Boolean(mealToCopy);
+  const canSaveWithoutRevision = !isFocusedMeal || revisionSubmitted;
+  const revisionHelp = isCopiedMeal
+    ? "Optional. For example: “Same order, but no cheese.” Leave blank to save the copy as-is."
+    : "For example: “The milk was whole milk, not 2%.”";
+  const modeEyebrow = isCopiedMeal ? "Meal copy" : isFocusedMeal ? "Meal refinement" : "Meal interpreter";
+  const modeTitle = isCopiedMeal
+    ? "Copy this meal."
+    : isFocusedMeal
+      ? "Refine this meal."
+      : "Describe it. We'll break it down.";
+  const modeIntro = isCopiedMeal
+    ? "Review the copied estimate, tweak the date and time, optionally note a small change, then save it as a new meal."
+    : isFocusedMeal
+      ? "Review the saved estimate, explain what needs correcting, then save the revised meal when it looks right."
+      : "Write what you ate in plain language, review the estimate, and save it to your private meal history.";
 
   return (
     <section aria-labelledby="interpreter-title" className="panel interpreter-panel">
       <div className="interpreter-mark" aria-hidden="true">✦</div>
-      <p className="eyebrow">{isFocusedMeal ? "Meal refinement" : "Meal interpreter"}</p>
-      <h1 id="interpreter-title">{isFocusedMeal ? "Refine this meal." : "Describe it. We&apos;ll break it down."}</h1>
-      <p className="interpreter-intro">
-        {isFocusedMeal
-          ? "Review the saved estimate, explain what needs correcting, then save the revised meal when it looks right."
-          : "Write what you ate in plain language, review the estimate, and save it to your private meal history."}
-      </p>
+      <p className="eyebrow">{modeEyebrow}</p>
+      <h1 id="interpreter-title">{modeTitle}</h1>
+      <p className="interpreter-intro">{modeIntro}</p>
+      {isCopiedMeal && copySourceLabel ? (
+        <p className="copy-source-note">Copied from {copySourceLabel}. Saving creates a new history entry.</p>
+      ) : null}
 
       {!hasSubmittedPrompt ? (
         <form className="interpreter-form" onSubmit={handleSubmit}>
@@ -264,9 +315,13 @@ export default function MealInterpreter({ accessToken, mealToRefine, onClearFocu
             {response ? <EstimateWarnings response={response} /> : null}
             {response ? (
               <form className="revision-box" onSubmit={handleRevisionSubmit}>
-                <p className="response-label">Revision</p>
-                <label htmlFor="meal-revision">What did Sonion get wrong, or what did you forget to mention?</label>
-                <p className="field-help" id="meal-revision-help">For example: “The milk was whole milk, not 2%.”</p>
+                <p className="response-label">{isCopiedMeal ? "Optional refinement" : "Revision"}</p>
+                <label htmlFor="meal-revision">
+                  {isCopiedMeal
+                    ? "Any small change from the usual meal?"
+                    : "What did Sonion get wrong, or what did you forget to mention?"}
+                </label>
+                <p className="field-help" id="meal-revision-help">{revisionHelp}</p>
                 <textarea
                   aria-describedby="meal-revision-help revision-count"
                   id="meal-revision"
@@ -277,40 +332,77 @@ export default function MealInterpreter({ accessToken, mealToRefine, onClearFocu
                     setSaveState("idle");
                     setSaveError("");
                   }}
-                  placeholder="Describe the correction or anything you forgot..."
+                  placeholder={isCopiedMeal ? "Describe a small tweak, or leave blank..." : "Describe the correction or anything you forgot..."}
                   value={revision}
                 />
                 <div className="form-footer">
                   <span className="character-count" id="revision-count">{revision.length.toLocaleString()} / {MAX_REVISION_LENGTH.toLocaleString()}</span>
                   <button aria-busy={isSubmitting} className="primary-button" disabled={isSubmitting || !revision.trim()} type="submit">
-                    {isSubmitting ? "Revising..." : "Submit revision"}
+                    {isSubmitting ? "Revising..." : isCopiedMeal ? "Apply refinement" : "Submit revision"}
                   </button>
                 </div>
                 {revisionSubmitted ? <p className="submitted-message">Revision submitted. Review the new estimate, then save it manually when it is correct.</p> : null}
                 {isFocusedMeal && !revisionSubmitted ? <p className="field-help revision-save-help">Submit a revision before saving this focused meal.</p> : null}
+                {isCopiedMeal && !revisionSubmitted ? <p className="field-help revision-save-help">You can save this copy as-is, or apply a refinement first.</p> : null}
               </form>
             ) : null}
             {response ? (
               <div className="save-meal-box">
-                <p className="response-label">{isFocusedMeal ? "Save revised meal" : "Save this meal"}</p>
+                <p className="response-label">
+                  {isCopiedMeal ? "Save copied meal" : isFocusedMeal ? "Save revised meal" : "Save this meal"}
+                </p>
                 <div className="save-meal-fields">
                   <label htmlFor="meal-date">Local date<input id="meal-date" onChange={(event) => { setMealDate(event.target.value); setSaveState("idle"); }} type="date" value={mealDate} /></label>
                   <label htmlFor="meal-time">Local time<input id="meal-time" onChange={(event) => { setMealTime(event.target.value); setSaveState("idle"); }} type="time" value={mealTime} /></label>
                 </div>
-                <button aria-busy={saveState === "saving"} className="primary-button save-meal-button" disabled={saveState === "saving" || saveState === "saved" || (isFocusedMeal && !revisionSubmitted)} onClick={() => void handleSaveMeal()} type="button">
-                  {saveState === "saving" ? "Saving..." : saveState === "saved" ? "Saved to history" : isFocusedMeal ? "Save revised meal" : "Save meal"}
+                <button
+                  aria-busy={saveState === "saving"}
+                  className="primary-button save-meal-button"
+                  disabled={saveState === "saving" || saveState === "saved" || !canSaveWithoutRevision}
+                  onClick={() => void handleSaveMeal()}
+                  type="button"
+                >
+                  {saveState === "saving"
+                    ? "Saving..."
+                    : saveState === "saved"
+                      ? "Saved to history"
+                      : isCopiedMeal
+                        ? "Save as new meal"
+                        : isFocusedMeal
+                          ? "Save revised meal"
+                          : "Save meal"}
                 </button>
                 <div aria-live="polite" className="save-status">
                   {saveState === "error" ? <p className="error-message">{saveError}</p> : null}
-                  {saveState === "saved" ? <p className="saved-message">{isFocusedMeal ? "The revised estimate replaced the old meal in your history." : "This processed estimate is now in your private meal history."}</p> : null}
+                  {saveState === "saved" ? (
+                    <p className="saved-message">
+                      {isCopiedMeal
+                        ? "The copied estimate was saved as a new meal in your history."
+                        : isFocusedMeal
+                          ? "The revised estimate replaced the old meal in your history."
+                          : "This processed estimate is now in your private meal history."}
+                    </p>
+                  ) : null}
                 </div>
               </div>
             ) : null}
             {isFocusedMeal ? <button className="secondary-button cancel-refinement-button" onClick={onClearFocusedMeal} type="button">Cancel refinement</button> : null}
+            {isCopiedMeal ? <button className="secondary-button cancel-copy-button" onClick={onClearCopiedMeal} type="button">Cancel copy</button> : null}
           </div>
         ) : null}
       </section>
-      {saveState === "saved" && !isFocusedMeal ? <button className="secondary-button start-another-button" onClick={resetForNewMeal} type="button">Start another meal</button> : null}
+      {saveState === "saved" && !isFocusedMeal ? (
+        <button
+          className="secondary-button start-another-button"
+          onClick={() => {
+            if (isCopiedMeal) onClearCopiedMeal();
+            else resetForNewMeal();
+          }}
+          type="button"
+        >
+          Start another meal
+        </button>
+      ) : null}
     </section>
   );
 }

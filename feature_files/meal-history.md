@@ -25,7 +25,7 @@ Meal history persists each processed estimate as an owner-scoped JSONB snapshot.
 - `app/api/meals/route.ts` handles authenticated list/save operations.
 - `app/api/meals/[id]/route.ts` handles ownership-safe update/delete operations; updates replace the estimate only after an explicit focused-meal save.
 - `components/meal-interpreter.tsx` keeps the active submitted description in client state only, derives focused-meal context from saved foods, submits structured revisions, and chooses POST for new saves or PATCH for focused history saves. The revision protocol itself is owned by `feature_files/meal-revision.md`.
-- `components/meal-history.tsx` exposes the focus/refinement action from each saved meal.
+- `components/meal-history.tsx` exposes the focus/refinement action and the copy-to-new-meal action from each saved meal. Meal copy draft behavior is owned by `feature_files/meal-copy.md`.
 - `test/meal-history.test.ts` covers validation, mapping, ordering, nullable aggregation, and save-state behavior.
 - `parameter_files/meal-history.toml` records the persistence contract.
 - `components/meal-history.tsx` renders the upper-left delete control, confirmation widget, request state, and frontend removal after a successful DELETE.
@@ -41,3 +41,4 @@ TESTING
 - Added optional prompt context, history-to-interpreter focus, explicit AI revision submission, and manual POST/PATCH save boundaries so an unreviewed revision never changes saved history.
 - Added an accessible per-meal delete confirmation flow that calls the existing ownership-safe DELETE endpoint and removes the deleted meal from grouped history state after success.
 - Removed the unavailable persisted meal-prompt dependency; meal history now selects and validates only columns present in the base meals table, while focused revisions derive context from saved foods.
+- Linked the per-meal copy action to the interpreter copy draft so history can seed a new POST save without owning copy-draft rules.

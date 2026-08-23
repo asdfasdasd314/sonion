@@ -9,6 +9,7 @@ import type { MacroTotals, MealDay } from "@/lib/nutrition/types";
 
 type MealHistoryProps = {
   accessToken: string;
+  onCopyMeal: (meal: MealRecord) => void;
   onSelectMeal: (meal: MealRecord) => void;
   refreshKey: number;
 };
@@ -40,6 +41,7 @@ function MacroSummary({ macros, compact = false }: { macros: MacroTotals; compac
 
 type MealDetailsProps = {
   day: MealDay;
+  onCopyMeal: (meal: MealRecord) => void;
   onSelectMeal: (meal: MealRecord) => void;
   recordsById: Map<string, MealRecord>;
   deletingMealId: string | null;
@@ -52,6 +54,7 @@ type MealDetailsProps = {
 
 function MealDetails({
   day,
+  onCopyMeal,
   onSelectMeal,
   recordsById,
   deletingMealId,
@@ -117,7 +120,10 @@ function MealDetails({
               ))}
             </ul>
             {record ? (
-              <button className="meal-refine-button" onClick={() => onSelectMeal(record)} type="button">Refine this meal</button>
+              <div className="meal-entry-actions">
+                <button className="meal-copy-button" onClick={() => onCopyMeal(record)} type="button">Copy this meal</button>
+                <button className="meal-refine-button" onClick={() => onSelectMeal(record)} type="button">Refine this meal</button>
+              </div>
             ) : null}
           </article>
         );
@@ -126,7 +132,7 @@ function MealDetails({
   );
 }
 
-export default function MealHistory({ accessToken, onSelectMeal, refreshKey }: MealHistoryProps) {
+export default function MealHistory({ accessToken, onCopyMeal, onSelectMeal, refreshKey }: MealHistoryProps) {
   const [days, setDays] = useState<MealDay[]>([]);
   const [records, setRecords] = useState<MealRecord[]>([]);
   const [expandedDays, setExpandedDays] = useState<string[]>([]);
@@ -256,6 +262,7 @@ export default function MealHistory({ accessToken, onSelectMeal, refreshKey }: M
                       deletingMealId={deletingMealId}
                       onCancelDelete={cancelDelete}
                       onConfirmDelete={(mealId) => void confirmDelete(mealId)}
+                      onCopyMeal={onCopyMeal}
                       onRequestDelete={requestDelete}
                       pendingDeleteMealId={pendingDeleteMealId}
                       onSelectMeal={onSelectMeal}

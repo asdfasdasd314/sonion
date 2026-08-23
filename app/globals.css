@@ -119,9 +119,11 @@ textarea::placeholder, input::placeholder { color: #a0aca5; }
 .original-prompt-box { background: #f7faf7; border: 1px solid #d5e5d9; border-radius: 14px; margin-top: 26px; padding: 14px; }
 .original-prompt { font-size: 12px; line-height: 1.65; margin: 0; white-space: pre-wrap; }
 .processing-message, .submitted-message { color: var(--green); font-size: 10px; line-height: 1.5; margin: 9px 0 0; }
-.meal-refine-button, .cancel-refinement-button, .start-another-button { font-size: 10px; }
-.meal-refine-button { background: transparent; border: 1px solid #bfd4c5; border-radius: 99px; color: var(--green); font-weight: 800; margin-top: 10px; padding: 6px 10px; }
-.meal-refine-button:hover { background: var(--green-pale); border-color: #8fbba0; }
+.meal-refine-button, .meal-copy-button, .cancel-refinement-button, .cancel-copy-button, .start-another-button { font-size: 10px; }
+.meal-entry-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.meal-refine-button, .meal-copy-button { background: transparent; border: 1px solid #bfd4c5; border-radius: 99px; color: var(--green); font-weight: 800; margin-top: 0; padding: 6px 10px; }
+.meal-refine-button:hover, .meal-copy-button:hover { background: var(--green-pale); border-color: #8fbba0; }
+.copy-source-note { color: var(--ink-muted); font-size: 12px; line-height: 1.5; margin: 10px 0 0; }
 .response-label { color: var(--green); font-size: 10px; font-weight: 800; letter-spacing: .12em; margin: 0 0 7px; text-transform: uppercase; }
 .response-text { font-size: 12px; line-height: 1.7; margin: 0; white-space: pre-wrap; }
 .estimate-table-wrap { overflow-x: auto; }
@@ -183,7 +185,7 @@ textarea::placeholder, input::placeholder { color: #a0aca5; }
 .save-meal-button { margin-top: 11px; }
 .save-status { min-height: 0; }
 .saved-message { color: var(--green); font-size: 10px; line-height: 1.5; margin: 9px 0 0; }
-.cancel-refinement-button { margin-top: 14px; }
+.cancel-refinement-button, .cancel-copy-button { margin-top: 14px; }
 .start-another-button { margin-top: 12px; }
 .auth-layout { align-items: center; display: grid; gap: 70px; grid-template-columns: 1fr minmax(320px, 460px); margin: 0 auto; max-width: 1000px; min-height: calc(100vh - 160px); }
 .auth-copy h1 { font-size: clamp(42px, 6vw, 76px); letter-spacing: -.065em; line-height: .98; margin: 13px 0 22px; max-width: 600px; }

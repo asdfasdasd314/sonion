@@ -22,6 +22,25 @@ export default function Home() {
   const [isSigningOut, setIsSigningOut] = useState(false);
   const [mealHistoryRefreshKey, setMealHistoryRefreshKey] = useState(0);
   const [focusedMeal, setFocusedMeal] = useState<MealRecord | null>(null);
+  const [copiedMeal, setCopiedMeal] = useState<MealRecord | null>(null);
+
+  function handleSelectMeal(meal: MealRecord) {
+    setCopiedMeal(null);
+    setFocusedMeal(meal);
+  }
+
+  function handleCopyMeal(meal: MealRecord) {
+    setFocusedMeal(null);
+    setCopiedMeal(meal);
+  }
+
+  function handleClearFocusedMeal() {
+    setFocusedMeal(null);
+  }
+
+  function handleClearCopiedMeal() {
+    setCopiedMeal(null);
+  }
 
   useEffect(() => {
     let isCurrent = true;
@@ -93,11 +112,18 @@ export default function Home() {
         <div className="auth-loading">Restoring your secure session...</div>
       ) : session ? (
         <div className="dashboard-grid">
-          <MealHistory accessToken={session.access_token} onSelectMeal={setFocusedMeal} refreshKey={mealHistoryRefreshKey} />
+          <MealHistory
+            accessToken={session.access_token}
+            onCopyMeal={handleCopyMeal}
+            onSelectMeal={handleSelectMeal}
+            refreshKey={mealHistoryRefreshKey}
+          />
           <MealInterpreter
             accessToken={session.access_token}
+            mealToCopy={copiedMeal}
             mealToRefine={focusedMeal}
-            onClearFocusedMeal={() => setFocusedMeal(null)}
+            onClearCopiedMeal={handleClearCopiedMeal}
+            onClearFocusedMeal={handleClearFocusedMeal}
             onMealSaved={() => setMealHistoryRefreshKey((key) => key + 1)}
           />
           <NutritionTargets />

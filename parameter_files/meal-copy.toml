@@ -1,0 +1,6 @@
+# Meal-copy draft behavior for duplicating a saved estimate into a new history entry.
+default_datetime = "now"
+revision_required_before_save = false
+save_method = "post-new-record"
+clone_strategy = "structured-clone"
+source_record_mutation = "never"
