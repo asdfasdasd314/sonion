@@ -1,16 +1,16 @@
-# Graph Report - sonion  (2026-08-22)
+# Graph Report - sonion  (2026-08-23)
 
 ## Corpus Check
-- 70 files · ~27,506 words
+- 71 files · ~196,983 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 554 nodes · 1068 edges · 27 communities (21 shown, 6 thin omitted)
+- 556 nodes · 1076 edges · 27 communities (21 shown, 6 thin omitted)
 - Extraction: 98% EXTRACTED · 2% INFERRED · 0% AMBIGUOUS · INFERRED: 23 edges (avg confidence: 0.82)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `68818179`
+- Built from commit: `2f9a4cbf`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -91,11 +91,11 @@ Nodes (44): eslint, eslint-config-next, @google/genai, next, dependencies, @goog
 
 ### Community 3 - "Project Agent Rules"
 Cohesion: 0.08
-Nodes (51): checkEnvelopeKeys(), DEFAULT_PROTOCOL_LIMITS, diagnostic(), duplicateTopLevelKeys(), fieldDiagnostic(), formatProtocolErrors(), formatResult(), formatRevision() (+43 more)
+Nodes (51): getFoodToolsSkill(), checkEnvelopeKeys(), DEFAULT_PROTOCOL_LIMITS, diagnostic(), duplicateTopLevelKeys(), fieldDiagnostic(), formatProtocolErrors(), formatResult() (+43 more)
 
 ### Community 4 - "TypeScript References"
-Cohesion: 0.08
-Nodes (54): FoodDataSetupError, asRecord(), buildAndWriteFoodIndex(), buildFoodIndex(), compareText(), extractRecords(), FNDDS_DATA_PATH, FOOD_DATA_DIR (+46 more)
+Cohesion: 0.07
+Nodes (61): FoodDataSetupError, asRecord(), buildAndWriteFoodIndex(), buildFoodIndex(), compareText(), extractRecords(), FNDDS_DATA_PATH, FOOD_DATA_DIR (+53 more)
 
 ### Community 5 - "Architecture Profiles"
 Cohesion: 0.06
@@ -118,16 +118,16 @@ Cohesion: 0.50
 Nodes (4): Bridge Agent Profile, Answer Oriented Programming, Coding Readiness, Centralized Project Document cp_doc
 
 ### Community 10 - "Home Page"
-Cohesion: 0.17
-Nodes (20): Home(), AuthMode, AuthPanel(), AuthPanelProps, AuthErrorResponse, authRequest(), AuthResponse, AuthResult (+12 more)
+Cohesion: 0.15
+Nodes (21): Home(), AuthMode, AuthPanel(), AuthPanelProps, AuthErrorResponse, authRequest(), AuthResponse, AuthResult (+13 more)
 
 ### Community 17 - "route.ts"
 Cohesion: 0.29
 Nodes (6): Dev Mode, Key Points, Relevant Files, State Log, Structured meal revisions, Summary
 
 ### Community 18 - "tools.ts"
-Cohesion: 0.06
-Nodes (61): errorResponse(), isPromptBody(), POST(), PromptBody, getFoodToolsSkill(), AlternatingModelSelector, createGemmaClient(), getGeminiModel() (+53 more)
+Cohesion: 0.08
+Nodes (38): errorResponse(), isPromptBody(), POST(), PromptBody, getDefaultFoodToolRegistry(), NormalizedFoodSchema, AlternatingModelSelector, createGemmaClient() (+30 more)
 
 ### Community 19 - "Gemini model selection"
 Cohesion: 0.29
@@ -142,8 +142,8 @@ Cohesion: 0.08
 Nodes (43): formatDate(), formatTime(), HistoryState, MacroSummary(), MealDetails(), MealDetailsProps, MealHistory(), MealHistoryProps (+35 more)
 
 ### Community 22 - "normalize.ts"
-Cohesion: 0.15
-Nodes (26): finiteNumber(), ingredientDescription(), normalizedUnit(), normalizeFood(), normalizeIngredients(), normalizePortion(), normalizePortions(), NUTRIENT_IDS (+18 more)
+Cohesion: 0.13
+Nodes (28): selectPreferredVolumePortion(), loadParameters(), MEAL_ESTIMATION_PARAMETERS, MealEstimationParameters, parameterValue(), caloriesFromMacros(), estimateMeal(), MealEstimationError (+20 more)
 
 ### Community 23 - "Client-only nutrition dashboard"
 Cohesion: 0.29
@@ -158,28 +158,28 @@ Cohesion: 0.29
 Nodes (6): Dev Mode, Key Points, Relevant Files, State Log, Summary, Supabase meal history
 
 ### Community 26 - "config.ts"
-Cohesion: 0.50
-Nodes (4): loadParameters(), MEAL_REVISION_PARAMETERS, MealRevisionParameters, parameterValue()
+Cohesion: 0.17
+Nodes (19): compareText(), createFoodToolRegistry(), createFoodTools(), FoodToolDefinition, FoodToolName, FoodToolRegistry, FoodToolset, getDefaultTools() (+11 more)
 
 ## Knowledge Gaps
-- **184 isolated node(s):** `PromptBody`, `geistSans`, `geistMono`, `metadata`, `AuthMode` (+179 more)
+- **185 isolated node(s):** `PromptBody`, `geistSans`, `geistMono`, `metadata`, `AuthMode` (+180 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **6 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `NormalizedFood` connect `TypeScript References` to `tools.ts`, `Project Agent Rules`, `normalize.ts`?**
-  _High betweenness centrality (0.021) - this node is a cross-community bridge._
-- **Why does `MealEstimate` connect `tools.ts` to `Linting and Styling`?**
-  _High betweenness centrality (0.017) - this node is a cross-community bridge._
-- **Why does `getSupabaseUser()` connect `tools.ts` to `Linting and Styling`, `Home Page`?**
+- **Why does `NormalizedFood` connect `TypeScript References` to `Project Agent Rules`, `tools.ts`, `config.ts`, `normalize.ts`?**
+  _High betweenness centrality (0.022) - this node is a cross-community bridge._
+- **Why does `MealEstimate` connect `normalize.ts` to `Linting and Styling`, `tools.ts`?**
+  _High betweenness centrality (0.018) - this node is a cross-community bridge._
+- **Why does `getSupabaseUser()` connect `Linting and Styling` to `tools.ts`, `Home Page`?**
   _High betweenness centrality (0.010) - this node is a cross-community bridge._
 - **What connects `PromptBody`, `geistSans`, `geistMono` to the rest of the system?**
-  _184 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _185 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `TypeScript Compiler Options` be split into smaller, more focused modules?**
   _Cohesion score 0.06896551724137931 - nodes in this community are weakly interconnected._
 - **Should `Linting and Styling` be split into smaller, more focused modules?**
-  _Cohesion score 0.06538461538461539 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.06746031746031746 - nodes in this community are weakly interconnected._
 - **Should `Next.js Dependencies` be split into smaller, more focused modules?**
   _Cohesion score 0.044444444444444446 - nodes in this community are weakly interconnected._

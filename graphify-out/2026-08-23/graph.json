@@ -666,8 +666,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_agent_food_tools_skill",
-      "community": 18,
-      "community_name": "tools.ts",
+      "community": 3,
+      "community_name": "Project Agent Rules",
       "norm_label": "food-tools-skill.ts"
     },
     {
@@ -677,8 +677,8 @@
       "source_location": "L63",
       "_origin": "ast",
       "id": "lib_agent_food_tools_skill_getfoodtoolsskill",
-      "community": 18,
-      "community_name": "tools.ts",
+      "community": 3,
+      "community_name": "Project Agent Rules",
       "norm_label": "getfoodtoolsskill()"
     },
     {
@@ -1235,7 +1235,7 @@
       "label": "FOOD_DATA_DIR",
       "file_type": "code",
       "source_file": "lib/food-data/index-builder.ts",
-      "source_location": "L9",
+      "source_location": "L17",
       "_origin": "ast",
       "id": "lib_food_data_index_builder_food_data_dir",
       "community": 4,
@@ -1246,7 +1246,7 @@
       "label": "FOUNDATION_DATA_PATH",
       "file_type": "code",
       "source_file": "lib/food-data/index-builder.ts",
-      "source_location": "L10",
+      "source_location": "L18",
       "_origin": "ast",
       "id": "lib_food_data_index_builder_foundation_data_path",
       "community": 4,
@@ -1257,7 +1257,7 @@
       "label": "FNDDS_DATA_PATH",
       "file_type": "code",
       "source_file": "lib/food-data/index-builder.ts",
-      "source_location": "L14",
+      "source_location": "L22",
       "_origin": "ast",
       "id": "lib_food_data_index_builder_fndds_data_path",
       "community": 4,
@@ -1268,7 +1268,7 @@
       "label": "RUNTIME_INDEX_PATH",
       "file_type": "code",
       "source_file": "lib/food-data/index-builder.ts",
-      "source_location": "L15",
+      "source_location": "L23",
       "_origin": "ast",
       "id": "lib_food_data_index_builder_runtime_index_path",
       "community": 4,
@@ -1276,10 +1276,21 @@
       "norm_label": "runtime_index_path"
     },
     {
+      "label": "replaceUnusableFoodDataSymlink()",
+      "file_type": "code",
+      "source_file": "lib/food-data/index-builder.ts",
+      "source_location": "L30",
+      "_origin": "ast",
+      "id": "lib_food_data_index_builder_replaceunusablefooddatasymlink",
+      "community": 4,
+      "community_name": "TypeScript References",
+      "norm_label": "replaceunusablefooddatasymlink()"
+    },
+    {
       "label": "setupError()",
       "file_type": "code",
       "source_file": "lib/food-data/index-builder.ts",
-      "source_location": "L17",
+      "source_location": "L49",
       "_origin": "ast",
       "id": "lib_food_data_index_builder_setuperror",
       "community": 4,
@@ -1290,7 +1301,7 @@
       "label": "readJson()",
       "file_type": "code",
       "source_file": "lib/food-data/index-builder.ts",
-      "source_location": "L25",
+      "source_location": "L57",
       "_origin": "ast",
       "id": "lib_food_data_index_builder_readjson",
       "community": 4,
@@ -1301,7 +1312,7 @@
       "label": "asRecord()",
       "file_type": "code",
       "source_file": "lib/food-data/index-builder.ts",
-      "source_location": "L35",
+      "source_location": "L67",
       "_origin": "ast",
       "id": "lib_food_data_index_builder_asrecord",
       "community": 4,
@@ -1312,7 +1323,7 @@
       "label": "extractRecords()",
       "file_type": "code",
       "source_file": "lib/food-data/index-builder.ts",
-      "source_location": "L41",
+      "source_location": "L73",
       "_origin": "ast",
       "id": "lib_food_data_index_builder_extractrecords",
       "community": 4,
@@ -1323,7 +1334,7 @@
       "label": "normalizeRecords()",
       "file_type": "code",
       "source_file": "lib/food-data/index-builder.ts",
-      "source_location": "L63",
+      "source_location": "L95",
       "_origin": "ast",
       "id": "lib_food_data_index_builder_normalizerecords",
       "community": 4,
@@ -1334,7 +1345,7 @@
       "label": "compareText()",
       "file_type": "code",
       "source_file": "lib/food-data/index-builder.ts",
-      "source_location": "L72",
+      "source_location": "L104",
       "_origin": "ast",
       "id": "lib_food_data_index_builder_comparetext",
       "community": 4,
@@ -1345,7 +1356,7 @@
       "label": "buildFoodIndex()",
       "file_type": "code",
       "source_file": "lib/food-data/index-builder.ts",
-      "source_location": "L76",
+      "source_location": "L108",
       "_origin": "ast",
       "id": "lib_food_data_index_builder_buildfoodindex",
       "community": 4,
@@ -1356,7 +1367,7 @@
       "label": "writeFoodIndex()",
       "file_type": "code",
       "source_file": "lib/food-data/index-builder.ts",
-      "source_location": "L118",
+      "source_location": "L150",
       "_origin": "ast",
       "id": "lib_food_data_index_builder_writefoodindex",
       "community": 4,
@@ -1367,7 +1378,7 @@
       "label": "buildAndWriteFoodIndex()",
       "file_type": "code",
       "source_file": "lib/food-data/index-builder.ts",
-      "source_location": "L131",
+      "source_location": "L164",
       "_origin": "ast",
       "id": "lib_food_data_index_builder_buildandwritefoodindex",
       "community": 4,
@@ -1436,8 +1447,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_food_data_normalize",
-      "community": 22,
-      "community_name": "normalize.ts",
+      "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "normalize.ts"
     },
     {
@@ -1447,8 +1458,8 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "lib_food_data_normalize_nutrient_ids",
-      "community": 22,
-      "community_name": "normalize.ts",
+      "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "nutrient_ids"
     },
     {
@@ -1458,8 +1469,8 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "lib_food_data_normalize_text",
-      "community": 22,
-      "community_name": "normalize.ts",
+      "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "text()"
     },
     {
@@ -1469,8 +1480,8 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "lib_food_data_normalize_finitenumber",
-      "community": 22,
-      "community_name": "normalize.ts",
+      "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "finitenumber()"
     },
     {
@@ -1480,8 +1491,8 @@
       "source_location": "L37",
       "_origin": "ast",
       "id": "lib_food_data_normalize_positivenumber",
-      "community": 22,
-      "community_name": "normalize.ts",
+      "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "positivenumber()"
     },
     {
@@ -1491,8 +1502,8 @@
       "source_location": "L42",
       "_origin": "ast",
       "id": "lib_food_data_normalize_nutrientid",
-      "community": 22,
-      "community_name": "normalize.ts",
+      "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "nutrientid()"
     },
     {
@@ -1502,8 +1513,8 @@
       "source_location": "L46",
       "_origin": "ast",
       "id": "lib_food_data_normalize_nutrientamount",
-      "community": 22,
-      "community_name": "normalize.ts",
+      "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "nutrientamount()"
     },
     {
@@ -1513,8 +1524,8 @@
       "source_location": "L51",
       "_origin": "ast",
       "id": "lib_food_data_normalize_nutrientvalues",
-      "community": 22,
-      "community_name": "normalize.ts",
+      "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "nutrientvalues()"
     },
     {
@@ -1524,8 +1535,8 @@
       "source_location": "L69",
       "_origin": "ast",
       "id": "lib_food_data_normalize_selectcalorievalue",
-      "community": 22,
-      "community_name": "normalize.ts",
+      "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "selectcalorievalue()"
     },
     {
@@ -1535,8 +1546,8 @@
       "source_location": "L85",
       "_origin": "ast",
       "id": "lib_food_data_normalize_portionunit",
-      "community": 22,
-      "community_name": "normalize.ts",
+      "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "portionunit()"
     },
     {
@@ -1546,8 +1557,8 @@
       "source_location": "L89",
       "_origin": "ast",
       "id": "lib_food_data_normalize_portiondescription",
-      "community": 22,
-      "community_name": "normalize.ts",
+      "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "portiondescription()"
     },
     {
@@ -1557,8 +1568,8 @@
       "source_location": "L106",
       "_origin": "ast",
       "id": "lib_food_data_normalize_volumeunit",
-      "community": 22,
-      "community_name": "normalize.ts",
+      "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "volumeunit"
     },
     {
@@ -1568,8 +1579,8 @@
       "source_location": "L108",
       "_origin": "ast",
       "id": "lib_food_data_normalize_volume_milliliters",
-      "community": 22,
-      "community_name": "normalize.ts",
+      "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "volume_milliliters"
     },
     {
@@ -1579,8 +1590,8 @@
       "source_location": "L116",
       "_origin": "ast",
       "id": "lib_food_data_normalize_volume_unit_aliases",
-      "community": 22,
-      "community_name": "normalize.ts",
+      "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "volume_unit_aliases"
     },
     {
@@ -1590,8 +1601,8 @@
       "source_location": "L137",
       "_origin": "ast",
       "id": "lib_food_data_normalize_normalizedunit",
-      "community": 22,
-      "community_name": "normalize.ts",
+      "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "normalizedunit()"
     },
     {
@@ -1601,8 +1612,8 @@
       "source_location": "L143",
       "_origin": "ast",
       "id": "lib_food_data_normalize_volumedetails",
-      "community": 22,
-      "community_name": "normalize.ts",
+      "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "volumedetails()"
     },
     {
@@ -1612,8 +1623,8 @@
       "source_location": "L161",
       "_origin": "ast",
       "id": "lib_food_data_normalize_normalizeportion",
-      "community": 22,
-      "community_name": "normalize.ts",
+      "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "normalizeportion()"
     },
     {
@@ -1623,8 +1634,8 @@
       "source_location": "L183",
       "_origin": "ast",
       "id": "lib_food_data_normalize_volume_preference",
-      "community": 22,
-      "community_name": "normalize.ts",
+      "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "volume_preference"
     },
     {
@@ -1634,8 +1645,8 @@
       "source_location": "L192",
       "_origin": "ast",
       "id": "lib_food_data_normalize_selectpreferredvolumeportion",
-      "community": 4,
-      "community_name": "TypeScript References",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "selectpreferredvolumeportion()"
     },
     {
@@ -1645,8 +1656,8 @@
       "source_location": "L207",
       "_origin": "ast",
       "id": "lib_food_data_normalize_normalizeportions",
-      "community": 22,
-      "community_name": "normalize.ts",
+      "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "normalizeportions()"
     },
     {
@@ -1656,8 +1667,8 @@
       "source_location": "L217",
       "_origin": "ast",
       "id": "lib_food_data_normalize_ingredientdescription",
-      "community": 22,
-      "community_name": "normalize.ts",
+      "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "ingredientdescription()"
     },
     {
@@ -1667,8 +1678,8 @@
       "source_location": "L226",
       "_origin": "ast",
       "id": "lib_food_data_normalize_normalizeingredients",
-      "community": 22,
-      "community_name": "normalize.ts",
+      "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "normalizeingredients()"
     },
     {
@@ -1678,8 +1689,8 @@
       "source_location": "L238",
       "_origin": "ast",
       "id": "lib_food_data_normalize_normalizefood",
-      "community": 22,
-      "community_name": "normalize.ts",
+      "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "normalizefood()"
     },
     {
@@ -1711,8 +1722,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_food_data_raw",
-      "community": 22,
-      "community_name": "normalize.ts",
+      "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "raw.ts"
     },
     {
@@ -1722,8 +1733,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_food_data_raw_rawnutrient",
-      "community": 22,
-      "community_name": "normalize.ts",
+      "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "rawnutrient"
     },
     {
@@ -1733,8 +1744,8 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "lib_food_data_raw_rawmeasureunit",
-      "community": 22,
-      "community_name": "normalize.ts",
+      "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "rawmeasureunit"
     },
     {
@@ -1744,8 +1755,8 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "lib_food_data_raw_rawfoodportion",
-      "community": 22,
-      "community_name": "normalize.ts",
+      "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "rawfoodportion"
     },
     {
@@ -1755,8 +1766,8 @@
       "source_location": "L29",
       "_origin": "ast",
       "id": "lib_food_data_raw_rawinputfood",
-      "community": 22,
-      "community_name": "normalize.ts",
+      "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "rawinputfood"
     },
     {
@@ -1766,8 +1777,8 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "lib_food_data_raw_rawfoodrecord",
-      "community": 22,
-      "community_name": "normalize.ts",
+      "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "rawfoodrecord"
     },
     {
@@ -1788,8 +1799,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_food_data_tools",
-      "community": 4,
-      "community_name": "TypeScript References",
+      "community": 26,
+      "community_name": "config.ts",
       "norm_label": "tools.ts"
     },
     {
@@ -1799,8 +1810,8 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "lib_food_data_tools_searchfoodsschema",
-      "community": 4,
-      "community_name": "TypeScript References",
+      "community": 26,
+      "community_name": "config.ts",
       "norm_label": "searchfoodsschema"
     },
     {
@@ -1810,8 +1821,8 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "lib_food_data_tools_getfoodschema",
-      "community": 4,
-      "community_name": "TypeScript References",
+      "community": 26,
+      "community_name": "config.ts",
       "norm_label": "getfoodschema"
     },
     {
@@ -1821,8 +1832,8 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "lib_food_data_tools_foodtoolname",
-      "community": 4,
-      "community_name": "TypeScript References",
+      "community": 26,
+      "community_name": "config.ts",
       "norm_label": "foodtoolname"
     },
     {
@@ -1832,8 +1843,8 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "lib_food_data_tools_foodtooldefinition",
-      "community": 4,
-      "community_name": "TypeScript References",
+      "community": 26,
+      "community_name": "config.ts",
       "norm_label": "foodtooldefinition"
     },
     {
@@ -1843,8 +1854,8 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "lib_food_data_tools_foodtoolregistry",
-      "community": 3,
-      "community_name": "Project Agent Rules",
+      "community": 26,
+      "community_name": "config.ts",
       "norm_label": "foodtoolregistry"
     },
     {
@@ -1854,8 +1865,8 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "lib_food_data_tools_searchfoodsresponse",
-      "community": 4,
-      "community_name": "TypeScript References",
+      "community": 26,
+      "community_name": "config.ts",
       "norm_label": "searchfoodsresponse"
     },
     {
@@ -1865,8 +1876,8 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "lib_food_data_tools_getfoodresponse",
-      "community": 4,
-      "community_name": "TypeScript References",
+      "community": 26,
+      "community_name": "config.ts",
       "norm_label": "getfoodresponse"
     },
     {
@@ -1876,8 +1887,8 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "lib_food_data_tools_foodtoolset",
-      "community": 4,
-      "community_name": "TypeScript References",
+      "community": 26,
+      "community_name": "config.ts",
       "norm_label": "foodtoolset"
     },
     {
@@ -1887,8 +1898,8 @@
       "source_location": "L39",
       "_origin": "ast",
       "id": "lib_food_data_tools_invalidarguments",
-      "community": 4,
-      "community_name": "TypeScript References",
+      "community": 26,
+      "community_name": "config.ts",
       "norm_label": "invalidarguments()"
     },
     {
@@ -1898,8 +1909,8 @@
       "source_location": "L43",
       "_origin": "ast",
       "id": "lib_food_data_tools_tokens",
-      "community": 4,
-      "community_name": "TypeScript References",
+      "community": 26,
+      "community_name": "config.ts",
       "norm_label": "tokens()"
     },
     {
@@ -1909,8 +1920,8 @@
       "source_location": "L52",
       "_origin": "ast",
       "id": "lib_food_data_tools_matchingtoken",
-      "community": 4,
-      "community_name": "TypeScript References",
+      "community": 26,
+      "community_name": "config.ts",
       "norm_label": "matchingtoken()"
     },
     {
@@ -1920,8 +1931,8 @@
       "source_location": "L61",
       "_origin": "ast",
       "id": "lib_food_data_tools_comparetext",
-      "community": 4,
-      "community_name": "TypeScript References",
+      "community": 26,
+      "community_name": "config.ts",
       "norm_label": "comparetext()"
     },
     {
@@ -1931,8 +1942,8 @@
       "source_location": "L65",
       "_origin": "ast",
       "id": "lib_food_data_tools_scorefood",
-      "community": 4,
-      "community_name": "TypeScript References",
+      "community": 26,
+      "community_name": "config.ts",
       "norm_label": "scorefood()"
     },
     {
@@ -1942,8 +1953,8 @@
       "source_location": "L89",
       "_origin": "ast",
       "id": "lib_food_data_tools_searchfoodsinindex",
-      "community": 4,
-      "community_name": "TypeScript References",
+      "community": 26,
+      "community_name": "config.ts",
       "norm_label": "searchfoodsinindex()"
     },
     {
@@ -1953,8 +1964,8 @@
       "source_location": "L120",
       "_origin": "ast",
       "id": "lib_food_data_tools_createfoodtools",
-      "community": 4,
-      "community_name": "TypeScript References",
+      "community": 26,
+      "community_name": "config.ts",
       "norm_label": "createfoodtools()"
     },
     {
@@ -1964,8 +1975,8 @@
       "source_location": "L129",
       "_origin": "ast",
       "id": "lib_food_data_tools_createfoodtoolregistry",
-      "community": 4,
-      "community_name": "TypeScript References",
+      "community": 26,
+      "community_name": "config.ts",
       "norm_label": "createfoodtoolregistry()"
     },
     {
@@ -1975,8 +1986,8 @@
       "source_location": "L157",
       "_origin": "ast",
       "id": "lib_food_data_tools_getdefaulttools",
-      "community": 4,
-      "community_name": "TypeScript References",
+      "community": 26,
+      "community_name": "config.ts",
       "norm_label": "getdefaulttools()"
     },
     {
@@ -1986,8 +1997,8 @@
       "source_location": "L162",
       "_origin": "ast",
       "id": "lib_food_data_tools_getdefaultfoodtoolregistry",
-      "community": 4,
-      "community_name": "TypeScript References",
+      "community": 18,
+      "community_name": "tools.ts",
       "norm_label": "getdefaultfoodtoolregistry()"
     },
     {
@@ -1997,8 +2008,8 @@
       "source_location": "L167",
       "_origin": "ast",
       "id": "lib_food_data_tools_searchfoods",
-      "community": 4,
-      "community_name": "TypeScript References",
+      "community": 26,
+      "community_name": "config.ts",
       "norm_label": "searchfoods()"
     },
     {
@@ -2008,8 +2019,8 @@
       "source_location": "L171",
       "_origin": "ast",
       "id": "lib_food_data_tools_getfood",
-      "community": 4,
-      "community_name": "TypeScript References",
+      "community": 26,
+      "community_name": "config.ts",
       "norm_label": "getfood()"
     },
     {
@@ -2063,8 +2074,8 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "lib_food_data_types_normalizedfoodschema",
-      "community": 4,
-      "community_name": "TypeScript References",
+      "community": 18,
+      "community_name": "tools.ts",
       "norm_label": "normalizedfoodschema"
     },
     {
@@ -2217,8 +2228,8 @@
       "source_location": "L41",
       "_origin": "ast",
       "id": "lib_gemma_getgemmasysteminstruction",
-      "community": 18,
-      "community_name": "tools.ts",
+      "community": 3,
+      "community_name": "Project Agent Rules",
       "norm_label": "getgemmasysteminstruction()"
     },
     {
@@ -2228,8 +2239,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_meal_estimation_config",
-      "community": 18,
-      "community_name": "tools.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "config.ts"
     },
     {
@@ -2239,8 +2250,8 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "lib_meal_estimation_config_mealestimationparameters",
-      "community": 18,
-      "community_name": "tools.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "mealestimationparameters"
     },
     {
@@ -2250,8 +2261,8 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "lib_meal_estimation_config_parametervalue",
-      "community": 18,
-      "community_name": "tools.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "parametervalue()"
     },
     {
@@ -2261,8 +2272,8 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "lib_meal_estimation_config_loadparameters",
-      "community": 18,
-      "community_name": "tools.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "loadparameters()"
     },
     {
@@ -2272,8 +2283,8 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "lib_meal_estimation_config_meal_estimation_parameters",
-      "community": 18,
-      "community_name": "tools.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "meal_estimation_parameters"
     },
     {
@@ -2283,8 +2294,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_meal_estimation_estimate",
-      "community": 18,
-      "community_name": "tools.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "estimate.ts"
     },
     {
@@ -2294,8 +2305,8 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "lib_meal_estimation_estimate_mealestimationerror",
-      "community": 18,
-      "community_name": "tools.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "mealestimationerror"
     },
     {
@@ -2305,8 +2316,8 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "lib_meal_estimation_estimate_mealestimationerror_constructor",
-      "community": 18,
-      "community_name": "tools.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": ".constructor()"
     },
     {
@@ -2316,8 +2327,8 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "lib_meal_estimation_estimate_scalednutrient",
-      "community": 18,
-      "community_name": "tools.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "scalednutrient()"
     },
     {
@@ -2327,8 +2338,8 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "lib_meal_estimation_estimate_caloriesfrommacros",
-      "community": 18,
-      "community_name": "tools.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "caloriesfrommacros()"
     },
     {
@@ -2338,8 +2349,8 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "lib_meal_estimation_estimate_total",
-      "community": 18,
-      "community_name": "tools.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "total()"
     },
     {
@@ -2349,8 +2360,8 @@
       "source_location": "L47",
       "_origin": "ast",
       "id": "lib_meal_estimation_estimate_portionunitmilliliters",
-      "community": 18,
-      "community_name": "tools.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "portionunitmilliliters()"
     },
     {
@@ -2360,8 +2371,8 @@
       "source_location": "L54",
       "_origin": "ast",
       "id": "lib_meal_estimation_estimate_estimatemeal",
-      "community": 18,
-      "community_name": "tools.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "estimatemeal()"
     },
     {
@@ -2371,8 +2382,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_meal_estimation_index",
-      "community": 18,
-      "community_name": "tools.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "index.ts"
     },
     {
@@ -2382,8 +2393,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_meal_estimation_types",
-      "community": 18,
-      "community_name": "tools.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "types.ts"
     },
     {
@@ -2393,8 +2404,8 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "lib_meal_estimation_types_portionkindschema",
-      "community": 18,
-      "community_name": "tools.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "portionkindschema"
     },
     {
@@ -2404,8 +2415,8 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "lib_meal_estimation_types_portionkind",
-      "community": 18,
-      "community_name": "tools.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "portionkind"
     },
     {
@@ -2415,8 +2426,8 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "lib_meal_estimation_types_mealselectionitemschema",
-      "community": 18,
-      "community_name": "tools.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "mealselectionitemschema"
     },
     {
@@ -2426,8 +2437,8 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "lib_meal_estimation_types_mealselectionschema",
-      "community": 18,
-      "community_name": "tools.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "mealselectionschema"
     },
     {
@@ -2437,8 +2448,8 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "lib_meal_estimation_types_mealselectionitem",
-      "community": 18,
-      "community_name": "tools.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "mealselectionitem"
     },
     {
@@ -2448,8 +2459,8 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "lib_meal_estimation_types_mealselection",
-      "community": 18,
-      "community_name": "tools.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "mealselection"
     },
     {
@@ -2459,8 +2470,8 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "lib_meal_estimation_types_densityprovenanceschema",
-      "community": 18,
-      "community_name": "tools.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "densityprovenanceschema"
     },
     {
@@ -2470,8 +2481,8 @@
       "source_location": "L31",
       "_origin": "ast",
       "id": "lib_meal_estimation_types_densityprovenance",
-      "community": 18,
-      "community_name": "tools.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "densityprovenance"
     },
     {
@@ -2481,8 +2492,8 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "lib_meal_estimation_types_nutrientvalueschema",
-      "community": 18,
-      "community_name": "tools.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "nutrientvalueschema"
     },
     {
@@ -2492,8 +2503,8 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "lib_meal_estimation_types_mealestimateitemschema",
-      "community": 18,
-      "community_name": "tools.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "mealestimateitemschema"
     },
     {
@@ -2503,8 +2514,8 @@
       "source_location": "L49",
       "_origin": "ast",
       "id": "lib_meal_estimation_types_mealestimateschema",
-      "community": 18,
-      "community_name": "tools.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "mealestimateschema"
     },
     {
@@ -2514,8 +2525,8 @@
       "source_location": "L58",
       "_origin": "ast",
       "id": "lib_meal_estimation_types_mealestimateitem",
-      "community": 18,
-      "community_name": "tools.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "mealestimateitem"
     },
     {
@@ -2525,8 +2536,8 @@
       "source_location": "L59",
       "_origin": "ast",
       "id": "lib_meal_estimation_types_mealestimate",
-      "community": 18,
-      "community_name": "tools.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "mealestimate"
     },
     {
@@ -2536,8 +2547,8 @@
       "source_location": "L61",
       "_origin": "ast",
       "id": "lib_meal_estimation_types_parsemealselection",
-      "community": 18,
-      "community_name": "tools.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "parsemealselection()"
     },
     {
@@ -2547,8 +2558,8 @@
       "source_location": "L66",
       "_origin": "ast",
       "id": "lib_meal_estimation_types_parsemealestimate",
-      "community": 18,
-      "community_name": "tools.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "parsemealestimate()"
     },
     {
@@ -3042,8 +3053,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_meal_revision_config",
-      "community": 26,
-      "community_name": "config.ts",
+      "community": 18,
+      "community_name": "tools.ts",
       "norm_label": "config.ts"
     },
     {
@@ -3053,8 +3064,8 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "lib_meal_revision_config_mealrevisionparameters",
-      "community": 26,
-      "community_name": "config.ts",
+      "community": 18,
+      "community_name": "tools.ts",
       "norm_label": "mealrevisionparameters"
     },
     {
@@ -3064,8 +3075,8 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "lib_meal_revision_config_parametervalue",
-      "community": 26,
-      "community_name": "config.ts",
+      "community": 18,
+      "community_name": "tools.ts",
       "norm_label": "parametervalue()"
     },
     {
@@ -3075,8 +3086,8 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "lib_meal_revision_config_loadparameters",
-      "community": 26,
-      "community_name": "config.ts",
+      "community": 18,
+      "community_name": "tools.ts",
       "norm_label": "loadparameters()"
     },
     {
@@ -3086,8 +3097,8 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "lib_meal_revision_config_meal_revision_parameters",
-      "community": 26,
-      "community_name": "config.ts",
+      "community": 18,
+      "community_name": "tools.ts",
       "norm_label": "meal_revision_parameters"
     },
     {
@@ -3185,8 +3196,8 @@
       "source_location": "L47",
       "_origin": "ast",
       "id": "lib_meal_revision_types_mealrevisionschema",
-      "community": 3,
-      "community_name": "Project Agent Rules",
+      "community": 18,
+      "community_name": "tools.ts",
       "norm_label": "mealrevisionschema"
     },
     {
@@ -3680,8 +3691,8 @@
       "source_location": "L42",
       "_origin": "ast",
       "id": "lib_supabase_auth_supabaseautherror",
-      "community": 1,
-      "community_name": "Linting and Styling",
+      "community": 10,
+      "community_name": "Home Page",
       "norm_label": "supabaseautherror"
     },
     {
@@ -3691,8 +3702,8 @@
       "source_location": "L45",
       "_origin": "ast",
       "id": "lib_supabase_auth_supabaseautherror_constructor",
-      "community": 1,
-      "community_name": "Linting and Styling",
+      "community": 10,
+      "community_name": "Home Page",
       "norm_label": ".constructor()"
     },
     {
@@ -3801,8 +3812,8 @@
       "source_location": "L173",
       "_origin": "ast",
       "id": "lib_supabase_auth_getsupabaseuser",
-      "community": 18,
-      "community_name": "tools.ts",
+      "community": 1,
+      "community_name": "Linting and Styling",
       "norm_label": "getsupabaseuser()"
     },
     {
@@ -4414,7 +4425,7 @@
       "label": "prepareFoodIndex()",
       "file_type": "code",
       "source_file": "scripts/ensure-food-index.ts",
-      "source_location": "L12",
+      "source_location": "L13",
       "_origin": "ast",
       "id": "scripts_ensure_food_index_preparefoodindex",
       "community": 4,
@@ -4524,7 +4535,7 @@
       "label": "foundationNutrients",
       "file_type": "code",
       "source_file": "test/food-data.test.ts",
-      "source_location": "L17",
+      "source_location": "L22",
       "_origin": "ast",
       "id": "test_food_data_test_foundationnutrients",
       "community": 4,
@@ -4535,7 +4546,7 @@
       "label": "fnddsNutrients",
       "file_type": "code",
       "source_file": "test/food-data.test.ts",
-      "source_location": "L26",
+      "source_location": "L31",
       "_origin": "ast",
       "id": "test_food_data_test_fnddsnutrients",
       "community": 4,
@@ -4546,12 +4557,23 @@
       "label": "fixtureIndex",
       "file_type": "code",
       "source_file": "test/food-data.test.ts",
-      "source_location": "L153",
+      "source_location": "L158",
       "_origin": "ast",
       "id": "test_food_data_test_fixtureindex",
       "community": 4,
       "community_name": "TypeScript References",
       "norm_label": "fixtureindex"
+    },
+    {
+      "label": "runtimeIndexAvailable",
+      "file_type": "code",
+      "source_file": "test/food-data.test.ts",
+      "source_location": "L213",
+      "_origin": "ast",
+      "id": "test_food_data_test_runtimeindexavailable",
+      "community": 4,
+      "community_name": "TypeScript References",
+      "norm_label": "runtimeindexavailable"
     },
     {
       "label": "meal-api.test.ts",
@@ -4615,8 +4637,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "test_meal_estimation_test",
-      "community": 18,
-      "community_name": "tools.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "meal-estimation.test.ts"
     },
     {
@@ -4626,8 +4648,8 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "test_meal_estimation_test_parameters",
-      "community": 18,
-      "community_name": "tools.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "parameters"
     },
     {
@@ -4637,8 +4659,8 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "test_meal_estimation_test_foods",
-      "community": 18,
-      "community_name": "tools.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "foods"
     },
     {
@@ -10315,7 +10337,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "lib/food-data/index-builder.ts",
-      "source_location": "L7",
+      "source_location": "L15",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_food_data_index_builder",
@@ -10374,7 +10396,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "lib/food-data/index-builder.ts",
-      "source_location": "L7",
+      "source_location": "L15",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_food_data_index_builder",
@@ -10421,7 +10443,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib/food-data/index-builder.ts",
-      "source_location": "L35",
+      "source_location": "L67",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_food_data_index_builder",
@@ -10432,7 +10454,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib/food-data/index-builder.ts",
-      "source_location": "L131",
+      "source_location": "L164",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_food_data_index_builder",
@@ -10443,7 +10465,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib/food-data/index-builder.ts",
-      "source_location": "L76",
+      "source_location": "L108",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_food_data_index_builder",
@@ -10454,7 +10476,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib/food-data/index-builder.ts",
-      "source_location": "L72",
+      "source_location": "L104",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_food_data_index_builder",
@@ -10465,7 +10487,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib/food-data/index-builder.ts",
-      "source_location": "L41",
+      "source_location": "L73",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_food_data_index_builder",
@@ -10476,7 +10498,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib/food-data/index-builder.ts",
-      "source_location": "L14",
+      "source_location": "L22",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_food_data_index_builder",
@@ -10487,7 +10509,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib/food-data/index-builder.ts",
-      "source_location": "L9",
+      "source_location": "L17",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_food_data_index_builder",
@@ -10498,7 +10520,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib/food-data/index-builder.ts",
-      "source_location": "L10",
+      "source_location": "L18",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_food_data_index_builder",
@@ -10509,7 +10531,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib/food-data/index-builder.ts",
-      "source_location": "L63",
+      "source_location": "L95",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_food_data_index_builder",
@@ -10520,7 +10542,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib/food-data/index-builder.ts",
-      "source_location": "L25",
+      "source_location": "L57",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_food_data_index_builder",
@@ -10531,7 +10553,18 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib/food-data/index-builder.ts",
-      "source_location": "L15",
+      "source_location": "L30",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "lib_food_data_index_builder",
+      "target": "lib_food_data_index_builder_replaceunusablefooddatasymlink",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/food-data/index-builder.ts",
+      "source_location": "L23",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_food_data_index_builder",
@@ -10542,7 +10575,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib/food-data/index-builder.ts",
-      "source_location": "L17",
+      "source_location": "L49",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_food_data_index_builder",
@@ -10553,7 +10586,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib/food-data/index-builder.ts",
-      "source_location": "L118",
+      "source_location": "L150",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_food_data_index_builder",
@@ -10565,7 +10598,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "lib/food-data/index-builder.ts",
-      "source_location": "L4",
+      "source_location": "L12",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_food_data_index_builder",
@@ -10577,7 +10610,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "lib/food-data/index-builder.ts",
-      "source_location": "L4",
+      "source_location": "L12",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_food_data_index_builder",
@@ -10589,7 +10622,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "lib/food-data/index-builder.ts",
-      "source_location": "L4",
+      "source_location": "L12",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_food_data_index_builder",
@@ -10601,7 +10634,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "lib/food-data/index-builder.ts",
-      "source_location": "L5",
+      "source_location": "L13",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_food_data_index_builder",
@@ -10613,7 +10646,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "lib/food-data/index-builder.ts",
-      "source_location": "L5",
+      "source_location": "L13",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_food_data_index_builder",
@@ -10625,7 +10658,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "lib/food-data/index-builder.ts",
-      "source_location": "L5",
+      "source_location": "L13",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_food_data_index_builder",
@@ -10637,7 +10670,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "lib/food-data/index-builder.ts",
-      "source_location": "L6",
+      "source_location": "L14",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_food_data_index_builder",
@@ -10649,7 +10682,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "lib/food-data/index-builder.ts",
-      "source_location": "L6",
+      "source_location": "L14",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_food_data_index_builder",
@@ -10777,11 +10810,59 @@
       "confidence_score": 1.0
     },
     {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "test/food-data.test.ts",
+      "source_location": "L13",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_food_data_test",
+      "target": "lib_food_data_index_builder_runtime_index_path",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "lib/food-data/index-builder.ts",
-      "source_location": "L26",
+      "source_location": "L152",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "lib_food_data_index_builder_writefoodindex",
+      "target": "lib_food_data_index_builder_replaceunusablefooddatasymlink",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ensure-food-index.ts",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "scripts_ensure_food_index",
+      "target": "lib_food_data_index_builder_replaceunusablefooddatasymlink",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ensure-food-index.ts",
+      "source_location": "L14",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "scripts_ensure_food_index_preparefoodindex",
+      "target": "lib_food_data_index_builder_replaceunusablefooddatasymlink",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/food-data/index-builder.ts",
+      "source_location": "L58",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_food_data_index_builder_readjson",
@@ -10793,7 +10874,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "lib/food-data/index-builder.ts",
-      "source_location": "L78",
+      "source_location": "L110",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_food_data_index_builder_buildfoodindex",
@@ -10805,7 +10886,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "lib/food-data/index-builder.ts",
-      "source_location": "L48",
+      "source_location": "L80",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_food_data_index_builder_extractrecords",
@@ -10817,7 +10898,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "lib/food-data/index-builder.ts",
-      "source_location": "L77",
+      "source_location": "L109",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_food_data_index_builder_buildfoodindex",
@@ -10830,7 +10911,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "lib/food-data/index-builder.ts",
-      "source_location": "L44",
+      "source_location": "L76",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_food_data_index_builder_extractrecords",
@@ -10841,7 +10922,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "lib/food-data/index-builder.ts",
-      "source_location": "L95",
+      "source_location": "L127",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_food_data_index_builder_buildfoodindex",
@@ -10853,7 +10934,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "lib/food-data/index-builder.ts",
-      "source_location": "L103",
+      "source_location": "L135",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_food_data_index_builder_buildfoodindex",
@@ -10877,7 +10958,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "lib/food-data/index-builder.ts",
-      "source_location": "L132",
+      "source_location": "L165",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_food_data_index_builder_buildandwritefoodindex",
@@ -10890,7 +10971,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "lib/food-data/index-builder.ts",
-      "source_location": "L96",
+      "source_location": "L128",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_food_data_index_builder_buildfoodindex",
@@ -10902,7 +10983,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "lib/food-data/index-builder.ts",
-      "source_location": "L95",
+      "source_location": "L127",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_food_data_index_builder_buildfoodindex",
@@ -10937,7 +11018,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "lib/food-data/index-builder.ts",
-      "source_location": "L133",
+      "source_location": "L166",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_food_data_index_builder_buildandwritefoodindex",
@@ -10985,7 +11066,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/ensure-food-index.ts",
-      "source_location": "L31",
+      "source_location": "L34",
       "weight": 1.0,
       "_origin": "ast",
       "source": "scripts_ensure_food_index_preparefoodindex",
@@ -11342,10 +11423,22 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "scripts/ensure-food-index.ts",
-      "source_location": "L10",
+      "source_location": "L11",
       "weight": 1.0,
       "_origin": "ast",
       "source": "scripts_ensure_food_index",
+      "target": "lib_food_data_loader",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "test/food-data.test.ts",
+      "source_location": "L18",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_food_data_test",
       "target": "lib_food_data_loader",
       "confidence_score": 1.0
     },
@@ -11426,7 +11519,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "scripts/ensure-food-index.ts",
-      "source_location": "L10",
+      "source_location": "L11",
       "weight": 1.0,
       "_origin": "ast",
       "source": "scripts_ensure_food_index",
@@ -11438,10 +11531,22 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/ensure-food-index.ts",
-      "source_location": "L14",
+      "source_location": "L17",
       "weight": 1.0,
       "_origin": "ast",
       "source": "scripts_ensure_food_index_preparefoodindex",
+      "target": "lib_food_data_loader_loadfoodindex",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "test/food-data.test.ts",
+      "source_location": "L18",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_food_data_test",
       "target": "lib_food_data_loader_loadfoodindex",
       "confidence_score": 1.0
     },
@@ -12332,7 +12437,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "test/food-data.test.ts",
-      "source_location": "L14",
+      "source_location": "L19",
       "weight": 1.0,
       "_origin": "ast",
       "source": "test_food_data_test",
@@ -12344,7 +12449,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "test/food-data.test.ts",
-      "source_location": "L14",
+      "source_location": "L19",
       "weight": 1.0,
       "_origin": "ast",
       "source": "test_food_data_test",
@@ -12963,7 +13068,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "test/food-data.test.ts",
-      "source_location": "L15",
+      "source_location": "L20",
       "weight": 1.0,
       "_origin": "ast",
       "source": "test_food_data_test",
@@ -13011,7 +13116,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "test/food-data.test.ts",
-      "source_location": "L15",
+      "source_location": "L20",
       "weight": 1.0,
       "_origin": "ast",
       "source": "test_food_data_test",
@@ -17076,7 +17181,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/ensure-food-index.ts",
-      "source_location": "L12",
+      "source_location": "L13",
       "weight": 1.0,
       "_origin": "ast",
       "source": "scripts_ensure_food_index",
@@ -17153,7 +17258,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "test/food-data.test.ts",
-      "source_location": "L153",
+      "source_location": "L158",
       "weight": 1.0,
       "_origin": "ast",
       "source": "test_food_data_test",
@@ -17164,7 +17269,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "test/food-data.test.ts",
-      "source_location": "L26",
+      "source_location": "L31",
       "weight": 1.0,
       "_origin": "ast",
       "source": "test_food_data_test",
@@ -17175,11 +17280,22 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "test/food-data.test.ts",
-      "source_location": "L17",
+      "source_location": "L22",
       "weight": 1.0,
       "_origin": "ast",
       "source": "test_food_data_test",
       "target": "test_food_data_test_foundationnutrients",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "test/food-data.test.ts",
+      "source_location": "L213",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_food_data_test",
+      "target": "test_food_data_test_runtimeindexavailable",
       "confidence_score": 1.0
     },
     {
@@ -18639,5 +18755,5 @@
       "source_file": "README.md"
     }
   ],
-  "built_at_commit": "6881817979d4b38801c2da6672ba3fc819fe03d5"
+  "built_at_commit": "2f9a4cbf7919d0958f5f14308f16eb4e9302693a"
 }
