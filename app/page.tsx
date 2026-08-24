@@ -1,12 +1,19 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import AuthPanel from "@/components/auth-panel";
+import InterpretationErrorsPanel from "@/components/interpretation-errors";
 import MealHistory from "@/components/meal-history";
 import MealInterpreter from "@/components/meal-interpreter";
 import NutritionTargets from "@/components/nutrition-targets";
+import { parseInterpretationErrorList } from "@/lib/interpretation-errors/types";
 import type { MealRecord } from "@/lib/meal-history/types";
+import { parseMealRecordList } from "@/lib/meal-history/types";
+import {
+  DASHBOARD_POLL_INTERVAL_MS,
+  mealListFingerprint,
+} from "@/lib/nutrition/dashboard-poll";
 import {
   clearStoredSession,
   loadStoredSession,
@@ -21,8 +28,11 @@ export default function Home() {
   const [isAuthReady, setIsAuthReady] = useState(false);
   const [isSigningOut, setIsSigningOut] = useState(false);
   const [mealHistoryRefreshKey, setMealHistoryRefreshKey] = useState(0);
+  const [errorsRefreshKey, setErrorsRefreshKey] = useState(0);
   const [focusedMeal, setFocusedMeal] = useState<MealRecord | null>(null);
   const [copiedMeal, setCopiedMeal] = useState<MealRecord | null>(null);
+  const mealFingerprintRef = useRef<string | null>(null);
+  const errorsFingerprintRef = useRef<string | null>(null);
 
   function handleSelectMeal(meal: MealRecord) {
     setCopiedMeal(null);
@@ -40,6 +50,14 @@ export default function Home() {
 
   function handleClearCopiedMeal() {
     setCopiedMeal(null);
+  }
+
+  function bumpHistory() {
+    setMealHistoryRefreshKey((key) => key + 1);
+  }
+
+  function handleInterpretAndSaveQueued() {
+    setErrorsRefreshKey((key) => key + 1);
   }
 
   useEffect(() => {
@@ -79,6 +97,78 @@ export default function Home() {
     return () => { isCurrent = false; };
   }, []);
 
+  useEffect(() => {
+    if (!session) {
+      mealFingerprintRef.current = null;
+      errorsFingerprintRef.current = null;
+      return;
+    }
+
+    let cancelled = false;
+    const accessToken = session.access_token;
+
+    async function pollDashboard() {
+      if (typeof document !== "undefined" && document.visibilityState === "hidden") return;
+
+      try {
+        const [mealsResponse, errorsResponse] = await Promise.all([
+          fetch("/api/meals", { cache: "no-store", headers: { Authorization: `Bearer ${accessToken}` } }),
+          fetch("/api/interpretation-errors", {
+            cache: "no-store",
+            headers: { Authorization: `Bearer ${accessToken}` },
+          }),
+        ]);
+
+        if (cancelled) return;
+
+        if (mealsResponse.ok) {
+          const mealsPayload = (await mealsResponse.json().catch(() => ({}))) as unknown;
+          const meals = parseMealRecordList(mealsPayload);
+          if (meals) {
+            const fingerprint = mealListFingerprint(meals);
+            if (mealFingerprintRef.current === null) {
+              mealFingerprintRef.current = fingerprint;
+            } else if (mealFingerprintRef.current !== fingerprint) {
+              mealFingerprintRef.current = fingerprint;
+              bumpHistory();
+            }
+          }
+        }
+
+        if (errorsResponse.ok) {
+          const errorsPayload = (await errorsResponse.json().catch(() => ({}))) as unknown;
+          const errors = parseInterpretationErrorList(errorsPayload);
+          if (errors) {
+            const fingerprint = mealListFingerprint(errors);
+            if (errorsFingerprintRef.current === null) {
+              errorsFingerprintRef.current = fingerprint;
+            } else if (errorsFingerprintRef.current !== fingerprint) {
+              errorsFingerprintRef.current = fingerprint;
+              setErrorsRefreshKey((key) => key + 1);
+            }
+          }
+        }
+      } catch {
+        // Light polling is best-effort; keep the last known dashboard state.
+      }
+    }
+
+    const intervalId = window.setInterval(() => {
+      void pollDashboard();
+    }, DASHBOARD_POLL_INTERVAL_MS);
+
+    function onVisibility() {
+      if (document.visibilityState === "visible") void pollDashboard();
+    }
+    document.addEventListener("visibilitychange", onVisibility);
+
+    return () => {
+      cancelled = true;
+      window.clearInterval(intervalId);
+      document.removeEventListener("visibilitychange", onVisibility);
+    };
+  }, [session]);
+
   async function handleSignOut() {
     if (!session || isSigningOut) return;
     setIsSigningOut(true);
@@ -111,22 +201,29 @@ export default function Home() {
       {!isAuthReady ? (
         <div className="auth-loading">Restoring your secure session...</div>
       ) : session ? (
-        <div className="dashboard-grid">
-          <MealHistory
+        <div className="dashboard-stack">
+          <div className="dashboard-grid">
+            <MealHistory
+              accessToken={session.access_token}
+              onCopyMeal={handleCopyMeal}
+              onSelectMeal={handleSelectMeal}
+              refreshKey={mealHistoryRefreshKey}
+            />
+            <MealInterpreter
+              accessToken={session.access_token}
+              mealToCopy={copiedMeal}
+              mealToRefine={focusedMeal}
+              onClearCopiedMeal={handleClearCopiedMeal}
+              onClearFocusedMeal={handleClearFocusedMeal}
+              onInterpretAndSaveQueued={handleInterpretAndSaveQueued}
+              onMealSaved={bumpHistory}
+            />
+            <NutritionTargets />
+          </div>
+          <InterpretationErrorsPanel
             accessToken={session.access_token}
-            onCopyMeal={handleCopyMeal}
-            onSelectMeal={handleSelectMeal}
-            refreshKey={mealHistoryRefreshKey}
+            refreshKey={errorsRefreshKey}
           />
-          <MealInterpreter
-            accessToken={session.access_token}
-            mealToCopy={copiedMeal}
-            mealToRefine={focusedMeal}
-            onClearCopiedMeal={handleClearCopiedMeal}
-            onClearFocusedMeal={handleClearFocusedMeal}
-            onMealSaved={() => setMealHistoryRefreshKey((key) => key + 1)}
-          />
-          <NutritionTargets />
         </div>
       ) : (
         <section className="auth-layout">

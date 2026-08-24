@@ -19,3 +19,5 @@ fat_grams_per_kg = 0.8
 protein_kcal_per_gram = 4
 carbohydrate_kcal_per_gram = 4
 fat_kcal_per_gram = 9
+background_poll_interval_ms = 20000
+pause_poll_when_tab_hidden = true

@@ -47,8 +47,9 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
 .sign-out-button { background: transparent; border: 1px solid var(--line); border-radius: 99px; color: var(--ink-muted); font-size: 12px; font-weight: 700; padding: 8px 13px; }
 .sign-out-button:hover { border-color: #aab9b2; color: var(--foreground); }
 .dashboard-grid { align-items: start; display: grid; gap: 18px; grid-template-columns: minmax(250px, .9fr) minmax(360px, 1.35fr) minmax(280px, 1fr); margin: 0 auto; max-width: 1560px; }
+.dashboard-stack { display: grid; gap: 18px; margin: 0 auto; max-width: 1560px; }
 .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 22px; box-shadow: 0 18px 50px -38px rgba(25, 54, 44, .45); min-width: 0; }
-.history-panel, .targets-panel { padding: 20px; }
+.history-panel, .targets-panel, .errors-panel { padding: 20px; }
 .interpreter-panel { min-height: 560px; padding: clamp(26px, 4vw, 46px); }
 .panel-heading { align-items: flex-start; display: flex; gap: 12px; justify-content: space-between; }
 .panel-heading h2 { font-size: 19px; letter-spacing: -.035em; margin: 4px 0 0; }
@@ -107,6 +108,11 @@ textarea:focus, input:focus, select:focus { background: #fff; border-color: var(
 textarea { min-height: 142px; padding: 13px 14px; resize: vertical; }
 textarea::placeholder, input::placeholder { color: #a0aca5; }
 .form-footer { justify-content: space-between; margin-top: 10px; }
+.interpret-actions { align-items: flex-end; flex-wrap: wrap; gap: 10px; }
+.interpret-action-buttons { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; }
+.interpret-action-buttons .secondary-button { margin-top: 0; }
+.pre-submit-datetime { margin-top: 14px; }
+.queued-message { background: var(--green-pale); border-radius: 11px; color: var(--green-dark); font-size: 11px; line-height: 1.5; margin: 12px 0 0; padding: 10px 12px; }
 .character-count { color: #9aa69f; font-size: 10px; }
 .primary-button, .secondary-button { border: 0; border-radius: 99px; font-size: 12px; font-weight: 800; padding: 11px 17px; }
 .primary-button { background: var(--green-dark); color: #fff; }
@@ -187,6 +193,22 @@ textarea::placeholder, input::placeholder { color: #a0aca5; }
 .saved-message { color: var(--green); font-size: 10px; line-height: 1.5; margin: 9px 0 0; }
 .cancel-refinement-button, .cancel-copy-button { margin-top: 14px; }
 .start-another-button { margin-top: 12px; }
+.errors-panel { padding: 0; overflow: hidden; }
+.errors-toggle { align-items: center; background: #fff; border: 0; color: var(--foreground); display: flex; gap: 12px; justify-content: space-between; padding: 18px 20px; text-align: left; width: 100%; }
+.errors-toggle:hover { background: #f9fbf8; }
+.errors-toggle .eyebrow { margin: 0 0 4px; }
+.errors-toggle strong { display: block; font-size: 16px; letter-spacing: -.03em; }
+.errors-toggle small { color: var(--ink-muted); display: block; font-size: 11px; margin-top: 4px; }
+.errors-panel-body { border-top: 1px solid var(--line); padding: 4px 20px 18px; }
+.errors-list { list-style: none; margin: 0; padding: 0; }
+.error-entry { border: 1px solid #efc8c0; border-radius: 14px; background: #fffaf9; margin-bottom: 10px; padding: 12px 13px; }
+.error-entry:last-child { margin-bottom: 0; }
+.error-entry-heading { align-items: flex-start; display: flex; gap: 12px; justify-content: space-between; }
+.error-code { color: var(--red-ink); font-size: 11px; font-weight: 800; letter-spacing: .04em; margin: 0; text-transform: uppercase; }
+.error-when, .error-relative { color: var(--ink-muted); font-size: 10px; margin: 4px 0 0; }
+.error-message-body { color: var(--foreground); font-size: 12px; line-height: 1.55; margin: 10px 0 0; }
+.error-prompt-preview { color: var(--ink-muted); font-size: 11px; line-height: 1.5; margin: 8px 0 0; white-space: pre-wrap; }
+.error-entry-heading .secondary-button { margin-top: 0; flex-shrink: 0; }
 .auth-layout { align-items: center; display: grid; gap: 70px; grid-template-columns: 1fr minmax(320px, 460px); margin: 0 auto; max-width: 1000px; min-height: calc(100vh - 160px); }
 .auth-copy h1 { font-size: clamp(42px, 6vw, 76px); letter-spacing: -.065em; line-height: .98; margin: 13px 0 22px; max-width: 600px; }
 .auth-copy p:last-child { color: var(--ink-muted); font-size: 16px; line-height: 1.7; max-width: 480px; }
@@ -207,7 +229,7 @@ textarea::placeholder, input::placeholder { color: #a0aca5; }
   .app-header { margin-bottom: 18px; }
   .account-email { display: none; }
   .dashboard-grid, .auth-layout { display: flex; flex-direction: column; gap: 14px; }
-  .history-panel, .interpreter-panel, .targets-panel { width: 100%; }
+  .history-panel, .interpreter-panel, .targets-panel, .errors-panel { width: 100%; }
   .interpreter-panel { min-height: auto; padding: 26px 20px; }
   .history-list { max-height: none; }
   .targets-panel .target-form { display: grid; grid-template-columns: 1fr; }

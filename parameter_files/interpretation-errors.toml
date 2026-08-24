@@ -1,0 +1,7 @@
+# Owner-scoped interpretation failure records for Interpret and Save.
+source_interpret_and_save = "interpret_and_save"
+prompt_max_stored_chars = 500
+error_message_max_chars = 500
+diagnostics_max_chars = 2000
+list_order = "created_at-descending"
+exclude_dismissed_by_default = true

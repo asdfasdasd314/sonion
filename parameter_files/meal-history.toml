@@ -13,3 +13,4 @@ service_role_browser_access = false
 user_edit_delete_controls = "refinement-save-and-confirmed-delete"
 legacy_prompt_behavior = "refine-from-saved-foods"
 prompt_persistence = "client-session-only"
+interpret_and_save = "after-callback-auto-insert"

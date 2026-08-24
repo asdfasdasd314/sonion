@@ -42,3 +42,4 @@ TESTING
 - Added an accessible per-meal delete confirmation flow that calls the existing ownership-safe DELETE endpoint and removes the deleted meal from grouped history state after success.
 - Removed the unavailable persisted meal-prompt dependency; meal history now selects and validates only columns present in the base meals table, while focused revisions derive context from saved foods.
 - Linked the per-meal copy action to the interpreter copy draft so history can seed a new POST save without owning copy-draft rules.
+- Background Interpret and Save inserts use the same owner-scoped `saveMeal` path; history refreshes via dashboard light polling when the meal list identity changes.

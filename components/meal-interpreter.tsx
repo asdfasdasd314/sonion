@@ -18,6 +18,7 @@ type MealInterpreterProps = {
   mealToRefine: MealRecord | null;
   onClearCopiedMeal: () => void;
   onClearFocusedMeal: () => void;
+  onInterpretAndSaveQueued?: () => void;
   onMealSaved: () => void;
 };
 
@@ -27,6 +28,7 @@ export default function MealInterpreter({
   mealToRefine,
   onClearCopiedMeal,
   onClearFocusedMeal,
+  onInterpretAndSaveQueued,
   onMealSaved,
 }: MealInterpreterProps) {
   const [prompt, setPrompt] = useState("");
@@ -38,6 +40,8 @@ export default function MealInterpreter({
   const [revisionSubmitted, setRevisionSubmitted] = useState(false);
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isQueueingSave, setIsQueueingSave] = useState(false);
+  const [queueNotice, setQueueNotice] = useState("");
   const [mealDate, setMealDate] = useState("");
   const [mealTime, setMealTime] = useState("");
   const [saveState, setSaveState] = useState<MealSaveState>("idle");
@@ -60,6 +64,7 @@ export default function MealInterpreter({
       setMealDate(draft.mealDate);
       setMealTime(draft.mealTime);
       setCopySourceLabel(`${draft.sourceMealDate} · ${draft.sourceMealTime.slice(0, 5)}`);
+      setQueueNotice("");
       return;
     }
 
@@ -77,13 +82,14 @@ export default function MealInterpreter({
       setMealDate(mealToRefine.meal_date);
       setMealTime(mealToRefine.meal_time.slice(0, 5));
       setCopySourceLabel("");
+      setQueueNotice("");
       return;
     }
 
     resetForNewMeal();
   }, [mealToCopy, mealToRefine]);
 
-  function resetForNewMeal() {
+  function resetForNewMeal(options: { keepQueueNotice?: boolean } = {}) {
     const now = new Date();
     const pad = (value: number) => String(value).padStart(2, "0");
     setPrompt("");
@@ -94,6 +100,8 @@ export default function MealInterpreter({
     setRevision("");
     setRevisionSubmitted(false);
     setError("");
+    setIsQueueingSave(false);
+    if (!options.keepQueueNotice) setQueueNotice("");
     setSaveState("idle");
     setSaveError("");
     setCopySourceLabel("");
@@ -155,25 +163,80 @@ export default function MealInterpreter({
     }
   }
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    if (isSubmitting || hasSubmittedPrompt) return;
-
+  function validateNewMealPrompt(): string | null {
     const trimmedPrompt = prompt.trim();
     if (!trimmedPrompt) {
       setError("Enter a food description before submitting.");
-      return;
+      return null;
     }
     if (trimmedPrompt.length > MAX_PROMPT_LENGTH) {
       setError(`Keep the prompt under ${MAX_PROMPT_LENGTH.toLocaleString()} characters.`);
-      return;
+      return null;
     }
+    return trimmedPrompt;
+  }
 
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (isSubmitting || isQueueingSave || hasSubmittedPrompt) return;
+
+    const trimmedPrompt = validateNewMealPrompt();
+    if (!trimmedPrompt) return;
+
+    setQueueNotice("");
     // Keep the wording for optional context during this refinement session.
     setOriginalPrompt(trimmedPrompt);
     setPrompt(trimmedPrompt);
     setHasSubmittedPrompt(true);
     void requestEstimate(trimmedPrompt);
+  }
+
+  async function handleInterpretAndSave() {
+    if (isSubmitting || isQueueingSave || hasSubmittedPrompt || mealToRefine || mealToCopy) return;
+
+    const trimmedPrompt = validateNewMealPrompt();
+    if (!trimmedPrompt) return;
+
+    if (!isValidLocalDate(mealDate)) {
+      setError("Choose a valid meal date before using Interpret and Save.");
+      return;
+    }
+    if (!isValidLocalTime(mealTime)) {
+      setError("Choose a valid local meal time before using Interpret and Save.");
+      return;
+    }
+
+    setError("");
+    setQueueNotice("");
+    setIsQueueingSave(true);
+    try {
+      const result = await fetch("/api/estimate", {
+        method: "POST",
+        headers: { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" },
+        body: JSON.stringify({
+          prompt: trimmedPrompt,
+          saveAfterInterpret: true,
+          mealDate,
+          mealTime,
+        }),
+      });
+      const payload = (await result.json().catch(() => ({}))) as unknown;
+      if (!result.ok) {
+        setError(getErrorMessage(payload) ?? "Sonion could not queue Interpret and Save.");
+        return;
+      }
+      if (result.status !== 202 || !isAcceptedAck(payload)) {
+        setError("Sonion returned an unexpected Interpret and Save acknowledgment.");
+        return;
+      }
+      resetForNewMeal({ keepQueueNotice: true });
+      setQueueNotice("Queued — will save when ready. You can leave this page.");
+      onInterpretAndSaveQueued?.();
+    } catch {
+      setError("Sonion could not reach the backend. Check that the app is running and try again.");
+    } finally {
+      setIsQueueingSave(false);
+    }
   }
 
   function handleRevisionSubmit(event: FormEvent<HTMLFormElement>) {
@@ -262,7 +325,7 @@ export default function MealInterpreter({
     ? "Review the copied estimate, tweak the date and time, optionally note a small change, then save it as a new meal."
     : isFocusedMeal
       ? "Review the saved estimate, explain what needs correcting, then save the revised meal when it looks right."
-      : "Write what you ate in plain language, review the estimate, and save it to your private meal history.";
+      : "Write what you ate in plain language, review the estimate, and save it to your private meal history — or use Interpret and Save to queue auto-persist without waiting.";
 
   return (
     <section aria-labelledby="interpreter-title" className="panel interpreter-panel">
@@ -282,17 +345,58 @@ export default function MealInterpreter({
             aria-describedby="food-prompt-help prompt-count"
             id="food-prompt"
             maxLength={MAX_PROMPT_LENGTH}
-            onChange={(event) => setPrompt(event.target.value)}
+            onChange={(event) => {
+              setPrompt(event.target.value);
+              setQueueNotice("");
+            }}
             placeholder="Describe your meal in your own words..."
             required
             value={prompt}
           />
-          <div className="form-footer">
-            <span className="character-count" id="prompt-count">{prompt.length.toLocaleString()} / {MAX_PROMPT_LENGTH.toLocaleString()}</span>
-            <button aria-busy={isSubmitting} className="primary-button" disabled={isSubmitting} type="submit">
-              {isSubmitting ? "Interpreting..." : "Interpret meal"}
-            </button>
+          <div className="save-meal-fields pre-submit-datetime">
+            <label htmlFor="meal-date-pre">
+              Local date
+              <input
+                id="meal-date-pre"
+                onChange={(event) => {
+                  setMealDate(event.target.value);
+                  setQueueNotice("");
+                }}
+                type="date"
+                value={mealDate}
+              />
+            </label>
+            <label htmlFor="meal-time-pre">
+              Local time
+              <input
+                id="meal-time-pre"
+                onChange={(event) => {
+                  setMealTime(event.target.value);
+                  setQueueNotice("");
+                }}
+                type="time"
+                value={mealTime}
+              />
+            </label>
           </div>
+          <div className="form-footer interpret-actions">
+            <span className="character-count" id="prompt-count">{prompt.length.toLocaleString()} / {MAX_PROMPT_LENGTH.toLocaleString()}</span>
+            <div className="interpret-action-buttons">
+              <button
+                aria-busy={isQueueingSave}
+                className="secondary-button"
+                disabled={isSubmitting || isQueueingSave}
+                onClick={() => void handleInterpretAndSave()}
+                type="button"
+              >
+                {isQueueingSave ? "Queuing..." : "Interpret and Save"}
+              </button>
+              <button aria-busy={isSubmitting} className="primary-button" disabled={isSubmitting || isQueueingSave} type="submit">
+                {isSubmitting ? "Interpreting..." : "Interpret meal"}
+              </button>
+            </div>
+          </div>
+          {queueNotice ? <p className="queued-message" role="status">{queueNotice}</p> : null}
         </form>
       ) : originalPrompt ? (
         <section aria-label="Original meal description" className="original-prompt-box">
@@ -502,6 +606,13 @@ function getErrorMessage(payload: unknown) {
   return typeof payload === "object" && payload !== null && "error" in payload && typeof payload.error === "string"
     ? payload.error
     : undefined;
+}
+
+function isAcceptedAck(payload: unknown): boolean {
+  return typeof payload === "object"
+    && payload !== null
+    && "accepted" in payload
+    && (payload as { accepted: unknown }).accepted === true;
 }
 
 function formatValue(value: number | null, maximumFractionDigits = 1): string {
