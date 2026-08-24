@@ -5,8 +5,8 @@
     "semantic_hash": ""
   },
   "app/page.tsx": {
-    "mtime": 1787518402.6599689,
-    "ast_hash": "3956374c320013f3d7d9cbd70a711c6b",
+    "mtime": 1787531884.2601173,
+    "ast_hash": "a592a7bd9e6096533ca45cc896cf55b3",
     "semantic_hash": ""
   },
   "eslint.config.mjs": {
@@ -100,8 +100,8 @@
     "semantic_hash": "a2760511c65806022ad20adf74370ff3"
   },
   "app/api/estimate/route.ts": {
-    "mtime": 1787436565.2831311,
-    "ast_hash": "ce6f250b6ade4af539df6deb975b01c3",
+    "mtime": 1787531884.259015,
+    "ast_hash": "0a05fb3eb5c742d04f64366d484534c0",
     "semantic_hash": ""
   },
   "lib/gemma.ts": {
@@ -125,8 +125,8 @@
     "semantic_hash": ""
   },
   "feature_files/authentication.md": {
-    "mtime": 1787362977.2948983,
-    "ast_hash": "c803d5cdc106758041e90dcc12174bb8",
+    "mtime": 1787531884.260939,
+    "ast_hash": "b274de40b0598f2395502130d8f1142e",
     "semantic_hash": ""
   },
   "lib/food-data/index-builder.ts": {
@@ -215,8 +215,8 @@
     "semantic_hash": ""
   },
   "components/meal-interpreter.tsx": {
-    "mtime": 1787518402.660436,
-    "ast_hash": "6fd79c19be56f2c025d9d5bbd70df2d0",
+    "mtime": 1787531884.2604773,
+    "ast_hash": "7b3bc180731adf0edc691431109bcd44",
     "semantic_hash": ""
   },
   "components/nutrition-targets.tsx": {
@@ -245,8 +245,8 @@
     "semantic_hash": ""
   },
   "feature_files/nutrition-dashboard.md": {
-    "mtime": 1787517910.2434633,
-    "ast_hash": "b295ffbfc302ad69d509f0e6d96d93e8",
+    "mtime": 1787531884.2621562,
+    "ast_hash": "45f03fd8508b6662591e1a293e0ccca6",
     "semantic_hash": ""
   },
   "lib/food-data/errors.ts": {
@@ -285,8 +285,8 @@
     "semantic_hash": ""
   },
   "feature_files/meal-estimation.md": {
-    "mtime": 1787362977.2953644,
-    "ast_hash": "2f01e5053fecf8f79a4a3cb837c9ef09",
+    "mtime": 1787531884.26135,
+    "ast_hash": "afd7f7a48379bfbd732f08f8f28ebbaf",
     "semantic_hash": ""
   },
   "app/api/meals/[id]/route.ts": {
@@ -340,8 +340,8 @@
     "semantic_hash": ""
   },
   "feature_files/meal-history.md": {
-    "mtime": 1787518402.6611085,
-    "ast_hash": "84cbf6e8e34b4b5b303704f2dda6fef2",
+    "mtime": 1787531884.2615716,
+    "ast_hash": "15bab5fd7c1ce4850fb32f7925bb00fa",
     "semantic_hash": ""
   },
   "supabase/.temp/linked-project.json": {
@@ -392,6 +392,91 @@
   "feature_files/meal-copy.md": {
     "mtime": 1787518402.660604,
     "ast_hash": "285c257b930cfb13f4401cb8b0dc9799",
+    "semantic_hash": ""
+  },
+  "app/api/interpretation-errors/[id]/route.ts": {
+    "mtime": 1787531884.259245,
+    "ast_hash": "78d1302d5c552583d4f0525a836c6c18",
+    "semantic_hash": ""
+  },
+  "app/api/interpretation-errors/route.ts": {
+    "mtime": 1787531884.2593794,
+    "ast_hash": "13137e5af755d16c46ec93a381811517",
+    "semantic_hash": ""
+  },
+  "components/interpretation-errors.tsx": {
+    "mtime": 1787531884.2602792,
+    "ast_hash": "53810ac2e9517d64491ae2535935e498",
+    "semantic_hash": ""
+  },
+  "lib/interpretation-errors/bounds.ts": {
+    "mtime": 1787531884.2623165,
+    "ast_hash": "feab5e767afe97c6041d876dfe413752",
+    "semantic_hash": ""
+  },
+  "lib/interpretation-errors/config.ts": {
+    "mtime": 1787531884.2624345,
+    "ast_hash": "04949507dbd3065fcc78ce12bdf0ff26",
+    "semantic_hash": ""
+  },
+  "lib/interpretation-errors/index.ts": {
+    "mtime": 1787531884.2625484,
+    "ast_hash": "5f6f1f1c04770674f1d524b0f121958b",
+    "semantic_hash": ""
+  },
+  "lib/interpretation-errors/map-failure.ts": {
+    "mtime": 1787531884.2626987,
+    "ast_hash": "1a3985a12b7881f4a79a6de9606cb3cd",
+    "semantic_hash": ""
+  },
+  "lib/interpretation-errors/supabase.ts": {
+    "mtime": 1787531884.2628496,
+    "ast_hash": "ca5a95e84bec804f2e4e0259458b5939",
+    "semantic_hash": ""
+  },
+  "lib/interpretation-errors/types.ts": {
+    "mtime": 1787531884.262964,
+    "ast_hash": "258b2d9727a31bc0294bc5301610fbb4",
+    "semantic_hash": ""
+  },
+  "lib/meal-estimation/autosave-request.ts": {
+    "mtime": 1787531884.2630892,
+    "ast_hash": "ade1135c36bcabbe3b3baea66b55b54e",
+    "semantic_hash": ""
+  },
+  "lib/meal-estimation/pipeline.ts": {
+    "mtime": 1787531884.263218,
+    "ast_hash": "13d00604b1af9acafb72f0c59c14e64c",
+    "semantic_hash": ""
+  },
+  "lib/nutrition/dashboard-poll.ts": {
+    "mtime": 1787531884.263339,
+    "ast_hash": "d99d8d6e27a6e7435c18aba7c55737cc",
+    "semantic_hash": ""
+  },
+  "supabase/migrations/20260823200000_create_interpretation_errors.sql": {
+    "mtime": 1787531884.2648103,
+    "ast_hash": "58a0ab7348c7cc4a1897f1bded4ba590",
+    "semantic_hash": ""
+  },
+  "test/estimate-autosave.test.ts": {
+    "mtime": 1787531884.264947,
+    "ast_hash": "7767de9caba41697ff88bba3625388eb",
+    "semantic_hash": ""
+  },
+  "test/interpretation-errors-api.test.ts": {
+    "mtime": 1787531884.2650633,
+    "ast_hash": "ae325e50443ddbfb090e866d203074c1",
+    "semantic_hash": ""
+  },
+  "test/interpretation-errors.test.ts": {
+    "mtime": 1787531884.2651808,
+    "ast_hash": "e75c150a4b728ecbf7d61dcd1c1786d5",
+    "semantic_hash": ""
+  },
+  "feature_files/interpretation-errors.md": {
+    "mtime": 1787531884.261085,
+    "ast_hash": "215122cfcada3d8b96c433587b5f8df0",
     "semantic_hash": ""
   }
 }
