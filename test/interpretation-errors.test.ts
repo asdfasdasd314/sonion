@@ -52,7 +52,7 @@ test("buildInterpretationErrorInsert truncates the prompt and keeps date/time", 
       diagnostics: null,
     },
   });
-  assert.equal(insert.source, "interpret_and_save");
+  assert.equal(insert.source, "automatic_meal_processing");
   assert.equal(insert.mealDate, "2026-08-23");
   assert.equal(insert.mealTime, "19:30");
   assert.ok(insert.prompt.length <= 500);

@@ -28,3 +28,4 @@ TESTING
 ## State Log
 
 - Added owner-scoped interpretation error persistence, authenticated list/dismiss APIs, failure mapping, and a dashboard errors section for automatic meal processing.
+- Updated the contract test to retain the automatic meal processing source label after the legacy interpret-and-save flow was removed.
