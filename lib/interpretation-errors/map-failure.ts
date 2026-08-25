@@ -35,9 +35,9 @@ const USER_SAFE_MESSAGES: Record<string, string> = {
   SAVE_FAILED:
     "The meal estimate succeeded but could not be saved to your history.",
   REVISION_UNSUPPORTED:
-    "Interpret and Save cannot apply a structured revision.",
+    "Automatic refinement could not apply the requested change.",
   UNKNOWN:
-    "Interpret and Save failed unexpectedly.",
+    "Automatic meal processing failed unexpectedly.",
 };
 
 export function mapInterpretationFailure(error: unknown): MappedInterpretationFailure {
@@ -124,7 +124,7 @@ export function buildInterpretationErrorInsert(input: {
 }): InterpretationErrorInsert {
   const params = INTERPRETATION_ERROR_PARAMETERS;
   return {
-    source: input.source ?? params.sourceInterpretAndSave,
+    source: input.source ?? params.sourceAutomaticProcessing,
     prompt: truncateText(input.prompt, params.promptMaxStoredChars),
     mealDate: input.mealDate ?? null,
     mealTime: input.mealTime ?? null,

@@ -18,7 +18,7 @@ Sonion requires a Supabase email/password session before a user can access the m
 - `lib/supabase-auth.ts` owns Supabase Auth requests, session validation, and browser session storage.
 - `components/auth-panel.tsx` provides the email/password sign-in and account creation UI.
 - `app/page.tsx` restores the session, gates the dashboard, and passes the access token to the interpreter component.
-- `app/api/estimate/route.ts` verifies the access token before calling Gemma and before queuing Interpret and Save.
+- `app/api/estimate/route.ts` verifies the access token before calling Gemma and before queuing automatic batches or refinements.
 - `app/api/meals/route.ts` and `app/api/meals/[id]/route.ts` verify the access token before accessing persisted meals.
 - `app/api/interpretation-errors/route.ts` and `app/api/interpretation-errors/[id]/route.ts` verify the access token before listing or dismissing interpretation errors.
 - `supabase/migrations/20260821000000_create_meals.sql` defines the owner-scoped meals table and RLS policies.
@@ -34,4 +34,4 @@ HACKING
 
 - Added Supabase email/password auth, browser session restoration, authenticated UI gating, and bearer-token validation for meal interpretation.
 - Added bearer-token ownership checks for persistent meal history and documented the service-role/RLS boundary.
-- Extended the same bearer + RLS ownership pattern to interpretation-error list/insert/dismiss for Interpret and Save failures.
+- Extended the same bearer + RLS ownership pattern to interpretation-error list/insert/dismiss for automatic processing failures.

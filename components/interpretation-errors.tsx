@@ -134,7 +134,7 @@ export default function InterpretationErrorsPanel({
       {expanded ? (
         <div className="errors-panel-body" id={detailsId}>
           <p className="panel-intro">
-            Failures from Interpret and Save appear here so you do not need deployment logs. Dismiss when you have reviewed them.
+            Automatic meal-processing failures appear here so you do not need deployment logs. Dismiss when you have reviewed them.
           </p>
 
           {state === "loading" ? <p className="history-status" role="status">Loading interpretation errors...</p> : null}

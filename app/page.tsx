@@ -56,7 +56,7 @@ export default function Home() {
     setMealHistoryRefreshKey((key) => key + 1);
   }
 
-  function handleInterpretAndSaveQueued() {
+  function handleProcessingQueued() {
     setErrorsRefreshKey((key) => key + 1);
   }
 
@@ -215,7 +215,7 @@ export default function Home() {
               mealToRefine={focusedMeal}
               onClearCopiedMeal={handleClearCopiedMeal}
               onClearFocusedMeal={handleClearFocusedMeal}
-              onInterpretAndSaveQueued={handleInterpretAndSaveQueued}
+              onProcessingQueued={handleProcessingQueued}
               onMealSaved={bumpHistory}
             />
             <NutritionTargets />

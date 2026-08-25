@@ -1,0 +1,4 @@
+# Automatic batch meal interpretation and persistence.
+max_meals_per_request = 20
+request_acknowledgment = "accepted-only"
+processing_mode = "background"

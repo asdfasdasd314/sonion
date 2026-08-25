@@ -8,8 +8,8 @@ Sonion's authenticated home page is a simple three-column personal dashboard: pr
 
 - Meal history loads the authenticated user's records from `/api/meals`, maps JSONB snapshots into local-date groups, and aggregates nullable calories, protein, fat, and carbohydrates for each date header.
 - Date rows are keyboard-operable expand/collapse buttons. Expanded rows show meal-level and food-level macro detail.
-- The interpreter POSTs the signed-in user's prompt to `/api/estimate`, validates the `{ items, totals }` response, and lets the user save the complete estimate with local date/time, Portion Units, estimated volume/grams, density provenance, macros, totals, and uncertainty notices.
-- New meal descriptions also expose Interpret and Save: queue with local date/time, receive a 202 ACK, reset the form, and rely on background persistence plus light polling instead of the review UI.
+- The interpreter accepts multiple signed-in meal descriptions, each with local date/time, and queues them through `/api/estimate`; the API returns only a 202 acknowledgement and background processing saves complete USDA-backed estimates.
+- Refining a focused meal queues the structured revision and automatically PATCHes the saved record; the browser does not review or save a returned AI response.
 - While the authenticated dashboard is open, light polling checks meals and interpretation errors (paused when the tab is hidden) and refreshes history or the errors panel when list identity changes.
 - Interpretation failures appear in a sibling expandable section with dismiss controls; they are not nested inside history or the interpreter card.
 - The target calculator accepts weight in pounds and height in inches, converts them to kilograms and centimeters for the supplied Mifflin–St Jeor equation, then applies activity range midpoints and a user-selected weekly cut/bulk change in either percentage of body weight or pounds, using 3,500 kcal per pound, before calculating macros.
@@ -20,7 +20,7 @@ Sonion's authenticated home page is a simple three-column personal dashboard: pr
 
 - `app/page.tsx` owns session restoration, sign-out, auth gating, dashboard shell, and light polling.
 - `components/meal-history.tsx` loads and renders the authenticated expandable date and meal history.
-- `components/meal-interpreter.tsx` owns prompt validation, estimate requests, Interpret and Save, and response states.
+- `components/meal-interpreter.tsx` owns the repeatable dated meal list, automatic queue status, and automatic refinement/copy actions.
 - `components/interpretation-errors.tsx` owns the expandable interpretation-errors section.
 - `components/nutrition-targets.tsx` owns the target form and accessible inline validation.
 - `lib/meal-history/mapping.ts` maps persisted records into sorted date groups.
@@ -49,4 +49,4 @@ HACKING
 - Added responsive accessible meal-estimate rows with explicit fallback-density and missing-nutrient uncertainty messaging.
 - Replaced seeded history with authenticated Supabase loading, added save-state transitions and refresh-after-save, and preserved null nutrient semantics in aggregation.
 - Fixed the required-input nutrition validation fixture to omit activity/goal instead of empty strings so TypeScript accepts `Partial<NutritionTargetInput>`.
-- Added Interpret and Save controls, a sibling interpretation-errors section, and light polling for background meal/error updates.
+- Replaced manual interpretation/save controls with a repeatable batch queue and acknowledgement-only automatic persistence while preserving light polling for background meal/error updates.

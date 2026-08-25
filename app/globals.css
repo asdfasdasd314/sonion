@@ -100,6 +100,16 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
 .interpreter-panel h1 { font-size: clamp(31px, 3vw, 48px); letter-spacing: -.055em; line-height: 1.03; margin: 9px 0 16px; max-width: 480px; }
 .interpreter-intro { color: var(--ink-muted); font-size: 14px; line-height: 1.7; margin: 0; max-width: 455px; }
 .interpreter-form { margin-top: 36px; }
+.batch-meal-form { display: grid; gap: 14px; }
+.batch-meal-entry { border: 1px solid #d5e5d9; border-radius: 15px; margin: 0; padding: 15px; }
+.batch-meal-heading { align-items: center; display: flex; justify-content: space-between; margin-bottom: 12px; }
+.batch-meal-heading legend { color: var(--green-dark); font-size: 12px; font-weight: 800; padding: 0; }
+.batch-meal-entry textarea { min-height: 112px; }
+.batch-meal-entry .character-count { display: block; margin-top: 8px; text-align: right; }
+.batch-form-actions { align-items: center; display: flex; flex-wrap: wrap; gap: 9px; justify-content: space-between; }
+.batch-form-actions .secondary-button, .batch-form-actions .primary-button { margin-top: 0; }
+.remove-meal-button { background: transparent; border: 0; color: var(--red-ink); font-size: 10px; font-weight: 700; padding: 3px 0; }
+.remove-meal-button:hover { text-decoration: underline; }
 .interpreter-form label, .field-group label, .goal-fieldset legend { display: block; font-size: 12px; font-weight: 800; }
 .field-help { color: var(--ink-muted); font-size: 11px; line-height: 1.5; margin: 7px 0 10px; }
 textarea, input, select { background: #f9fbf9; border: 1px solid #cfdad2; border-radius: 12px; color: var(--foreground); display: block; transition: border-color .15s, background .15s; width: 100%; }
@@ -108,9 +118,6 @@ textarea:focus, input:focus, select:focus { background: #fff; border-color: var(
 textarea { min-height: 142px; padding: 13px 14px; resize: vertical; }
 textarea::placeholder, input::placeholder { color: #a0aca5; }
 .form-footer { justify-content: space-between; margin-top: 10px; }
-.interpret-actions { align-items: flex-end; flex-wrap: wrap; gap: 10px; }
-.interpret-action-buttons { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; }
-.interpret-action-buttons .secondary-button { margin-top: 0; }
 .pre-submit-datetime { margin-top: 14px; }
 .queued-message { background: var(--green-pale); border-radius: 11px; color: var(--green-dark); font-size: 11px; line-height: 1.5; margin: 12px 0 0; padding: 10px 12px; }
 .character-count { color: #9aa69f; font-size: 10px; }
@@ -178,6 +185,9 @@ textarea::placeholder, input::placeholder { color: #a0aca5; }
 .revision-box { border-top: 1px solid #c9dfd0; margin-top: 16px; padding-top: 15px; }
 .revision-box > label { display: block; font-size: 11px; font-weight: 800; }
 .revision-box textarea { min-height: 94px; margin-top: 8px; }
+.refinement-form { margin-top: 22px; }
+.refinement-datetime { margin-top: 13px; }
+.current-meal-context { margin-top: 22px; }
 .revision-save-help { margin-bottom: 0; }
 .revision-summary { border: 1px solid #c9dfd0; border-radius: 12px; background: #f5fbf6; margin-bottom: 16px; padding: 13px 15px; }
 .revision-notes { margin: 6px 0 0; }

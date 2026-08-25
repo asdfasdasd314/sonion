@@ -2,7 +2,7 @@
 
 ## Summary
 
-Owner-scoped interpretation failure records capture Interpret-and-Save background failures so they are visible in the dashboard without checking deployment or database logs. Successful auto-saves write normal `meals` rows and do not create error rows.
+Owner-scoped interpretation failure records capture automatic batch and refinement failures so they are visible in the dashboard without checking deployment or database logs. Successful background saves write normal `meals` rows and do not create error rows.
 
 ## Key Points
 
@@ -27,4 +27,4 @@ TESTING
 
 ## State Log
 
-- Added owner-scoped interpretation error persistence, authenticated list/dismiss APIs, failure mapping, and a dashboard errors section for Interpret and Save.
+- Added owner-scoped interpretation error persistence, authenticated list/dismiss APIs, failure mapping, and a dashboard errors section for automatic meal processing.

@@ -3,14 +3,19 @@
 import { useEffect, useState } from "react";
 import type { FormEvent } from "react";
 
-import { createMealCopyDraft, MEAL_COPY_REVISION_REQUIRED_BEFORE_SAVE } from "@/lib/meal-copy/draft";
-import { canStartMealSave, saveStateAfterResponse, type MealSaveState } from "@/lib/meal-history/save";
+import { createMealCopyDraft, currentLocalMealDateTime } from "@/lib/meal-copy/draft";
 import { isValidLocalDate, isValidLocalTime, parseMealRecord, type MealRecord } from "@/lib/meal-history/types";
-import { parseMealEstimate, type MealEstimate } from "@/lib/meal-estimation/types";
-import { parseMealRevisionResponse, type MealRevision } from "@/lib/meal-revision/types";
+import type { MealEstimate } from "@/lib/meal-estimation/types";
 
 const MAX_PROMPT_LENGTH = 2_000;
 const MAX_REVISION_LENGTH = 1_200;
+
+type MealDraft = {
+  id: number;
+  prompt: string;
+  mealDate: string;
+  mealTime: string;
+};
 
 type MealInterpreterProps = {
   accessToken: string;
@@ -18,9 +23,16 @@ type MealInterpreterProps = {
   mealToRefine: MealRecord | null;
   onClearCopiedMeal: () => void;
   onClearFocusedMeal: () => void;
-  onInterpretAndSaveQueued?: () => void;
+  onProcessingQueued?: () => void;
   onMealSaved: () => void;
 };
+
+let nextDraftId = 1;
+
+function createMealDraft(): MealDraft {
+  const { mealDate, mealTime } = currentLocalMealDateTime();
+  return { id: nextDraftId++, prompt: "", mealDate, mealTime };
+}
 
 export default function MealInterpreter({
   accessToken,
@@ -28,134 +40,113 @@ export default function MealInterpreter({
   mealToRefine,
   onClearCopiedMeal,
   onClearFocusedMeal,
-  onInterpretAndSaveQueued,
+  onProcessingQueued,
   onMealSaved,
 }: MealInterpreterProps) {
-  const [prompt, setPrompt] = useState("");
-  const [originalPrompt, setOriginalPrompt] = useState("");
-  const [hasSubmittedPrompt, setHasSubmittedPrompt] = useState(false);
-  const [response, setResponse] = useState<MealEstimate | null>(null);
-  const [revisionResult, setRevisionResult] = useState<MealRevision | null>(null);
+  const [batchMeals, setBatchMeals] = useState<MealDraft[]>([]);
   const [revision, setRevision] = useState("");
-  const [revisionSubmitted, setRevisionSubmitted] = useState(false);
-  const [error, setError] = useState("");
+  const [refinementDate, setRefinementDate] = useState("");
+  const [refinementTime, setRefinementTime] = useState("");
+  const [copyDate, setCopyDate] = useState("");
+  const [copyTime, setCopyTime] = useState("");
+  const [copySaved, setCopySaved] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isQueueingSave, setIsQueueingSave] = useState(false);
+  const [isCopySaving, setIsCopySaving] = useState(false);
+  const [refinementQueued, setRefinementQueued] = useState(false);
+  const [error, setError] = useState("");
   const [queueNotice, setQueueNotice] = useState("");
-  const [mealDate, setMealDate] = useState("");
-  const [mealTime, setMealTime] = useState("");
-  const [saveState, setSaveState] = useState<MealSaveState>("idle");
-  const [saveError, setSaveError] = useState("");
-  const [copySourceLabel, setCopySourceLabel] = useState("");
 
   useEffect(() => {
     if (mealToCopy) {
       const draft = createMealCopyDraft(mealToCopy);
-      setPrompt("");
-      setOriginalPrompt("");
-      setHasSubmittedPrompt(true);
-      setResponse(draft.mealSnapshot);
-      setRevisionResult(null);
-      setRevision("");
-      setRevisionSubmitted(false);
+      setCopyDate(draft.mealDate);
+      setCopyTime(draft.mealTime);
+      setCopySaved(false);
       setError("");
-      setSaveState("idle");
-      setSaveError("");
-      setMealDate(draft.mealDate);
-      setMealTime(draft.mealTime);
-      setCopySourceLabel(`${draft.sourceMealDate} · ${draft.sourceMealTime.slice(0, 5)}`);
       setQueueNotice("");
       return;
     }
 
     if (mealToRefine) {
-      setPrompt("");
-      setOriginalPrompt("");
-      setHasSubmittedPrompt(true);
-      setResponse(mealToRefine.meal_snapshot);
-      setRevisionResult(null);
       setRevision("");
-      setRevisionSubmitted(false);
+      setRefinementDate(mealToRefine.meal_date);
+      setRefinementTime(mealToRefine.meal_time.slice(0, 5));
+      setRefinementQueued(false);
       setError("");
-      setSaveState("idle");
-      setSaveError("");
-      setMealDate(mealToRefine.meal_date);
-      setMealTime(mealToRefine.meal_time.slice(0, 5));
-      setCopySourceLabel("");
       setQueueNotice("");
       return;
     }
 
-    resetForNewMeal();
+    setBatchMeals([createMealDraft()]);
+    setError("");
+    setQueueNotice("");
   }, [mealToCopy, mealToRefine]);
 
-  function resetForNewMeal(options: { keepQueueNotice?: boolean } = {}) {
-    const now = new Date();
-    const pad = (value: number) => String(value).padStart(2, "0");
-    setPrompt("");
-    setOriginalPrompt("");
-    setHasSubmittedPrompt(false);
-    setResponse(null);
-    setRevisionResult(null);
-    setRevision("");
-    setRevisionSubmitted(false);
+  function updateBatchMeal(id: number, field: "prompt" | "mealDate" | "mealTime", value: string) {
+    setBatchMeals((meals) => meals.map((meal) => meal.id === id ? { ...meal, [field]: value } : meal));
     setError("");
-    setIsQueueingSave(false);
-    if (!options.keepQueueNotice) setQueueNotice("");
-    setSaveState("idle");
-    setSaveError("");
-    setCopySourceLabel("");
-    setMealDate(`${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`);
-    setMealTime(`${pad(now.getHours())}:${pad(now.getMinutes())}`);
+    setQueueNotice("");
   }
 
-  async function requestEstimate(sourcePrompt: string, revisionText = "") {
+  function addBatchMeal() {
+    setBatchMeals((meals) => [...meals, createMealDraft()]);
     setError("");
-    setSaveState("idle");
-    setSaveError("");
-    if (revisionText) {
-      setRevisionSubmitted(false);
-    } else {
-      setResponse(null);
-      setRevisionResult(null);
+    setQueueNotice("");
+  }
+
+  function removeBatchMeal(id: number) {
+    setBatchMeals((meals) => meals.length > 1 ? meals.filter((meal) => meal.id !== id) : meals);
+    setError("");
+    setQueueNotice("");
+  }
+
+  async function handleBatchSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (isSubmitting || batchMeals.length === 0) return;
+
+    const meals = [] as Array<{ prompt: string; mealDate: string; mealTime: string }>;
+    for (const [index, meal] of batchMeals.entries()) {
+      const prompt = meal.prompt.trim();
+      if (!prompt) {
+        setError(`Enter a description for meal ${index + 1}.`);
+        return;
+      }
+      if (prompt.length > MAX_PROMPT_LENGTH) {
+        setError(`Keep meal ${index + 1} under ${MAX_PROMPT_LENGTH.toLocaleString()} characters.`);
+        return;
+      }
+      if (!isValidLocalDate(meal.mealDate)) {
+        setError(`Choose a valid date for meal ${index + 1}.`);
+        return;
+      }
+      if (!isValidLocalTime(meal.mealTime)) {
+        setError(`Choose a valid time for meal ${index + 1}.`);
+        return;
+      }
+      meals.push({ prompt, mealDate: meal.mealDate, mealTime: meal.mealTime });
     }
 
+    setError("");
+    setQueueNotice("");
     setIsSubmitting(true);
     try {
       const result = await fetch("/api/estimate", {
         method: "POST",
         headers: { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" },
-        body: JSON.stringify(revisionText
-          ? {
-              prompt: sourcePrompt || "Saved meal",
-              revision: { instruction: revisionText, previousEstimate: response },
-            }
-          : { prompt: sourcePrompt }),
+        body: JSON.stringify({ meals }),
       });
       const payload = (await result.json().catch(() => ({}))) as unknown;
-
       if (!result.ok) {
-        setError(getErrorMessage(payload) ?? "Sonion could not interpret that prompt.");
+        setError(getErrorMessage(payload) ?? "Sonion could not queue these meals.");
         return;
       }
-      if (revisionText) {
-        const revised = parseMealRevisionResponse(payload);
-        if (!revised) {
-          setError("Sonion returned an incomplete structured revision. Try submitting the correction again.");
-          return;
-        }
-        setResponse(revised.estimate);
-        setRevisionResult(revised.revision);
-        setRevisionSubmitted(true);
-      } else {
-        const estimate = parseMealEstimate(payload);
-        if (!estimate) {
-          setError("Sonion returned an incomplete meal estimate. Try submitting the meal again.");
-          return;
-        }
-        setResponse(estimate);
-        setRevisionResult(null);
+      if (result.status !== 202 || !isAcceptedAck(payload)) {
+        setError("Sonion returned an unexpected meal-processing acknowledgment.");
+        return;
       }
+      setBatchMeals([createMealDraft()]);
+      setQueueNotice(`${meals.length} ${meals.length === 1 ? "meal" : "meals"} queued. They will be saved automatically when ready.`);
+      onProcessingQueued?.();
     } catch {
       setError("Sonion could not reach the backend. Check that the app is running and try again.");
     } finally {
@@ -163,350 +154,196 @@ export default function MealInterpreter({
     }
   }
 
-  function validateNewMealPrompt(): string | null {
-    const trimmedPrompt = prompt.trim();
-    if (!trimmedPrompt) {
-      setError("Enter a food description before submitting.");
-      return null;
-    }
-    if (trimmedPrompt.length > MAX_PROMPT_LENGTH) {
-      setError(`Keep the prompt under ${MAX_PROMPT_LENGTH.toLocaleString()} characters.`);
-      return null;
-    }
-    return trimmedPrompt;
-  }
-
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleRefinementSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (isSubmitting || isQueueingSave || hasSubmittedPrompt) return;
+    if (!mealToRefine || isSubmitting || refinementQueued) return;
 
-    const trimmedPrompt = validateNewMealPrompt();
-    if (!trimmedPrompt) return;
-
-    setQueueNotice("");
-    // Keep the wording for optional context during this refinement session.
-    setOriginalPrompt(trimmedPrompt);
-    setPrompt(trimmedPrompt);
-    setHasSubmittedPrompt(true);
-    void requestEstimate(trimmedPrompt);
-  }
-
-  async function handleInterpretAndSave() {
-    if (isSubmitting || isQueueingSave || hasSubmittedPrompt || mealToRefine || mealToCopy) return;
-
-    const trimmedPrompt = validateNewMealPrompt();
-    if (!trimmedPrompt) return;
-
-    if (!isValidLocalDate(mealDate)) {
-      setError("Choose a valid meal date before using Interpret and Save.");
+    const instruction = revision.trim();
+    if (!instruction) {
+      setError("Describe what should change in the saved meal.");
       return;
     }
-    if (!isValidLocalTime(mealTime)) {
-      setError("Choose a valid local meal time before using Interpret and Save.");
+    if (instruction.length > MAX_REVISION_LENGTH) {
+      setError(`Keep the refinement under ${MAX_REVISION_LENGTH.toLocaleString()} characters.`);
+      return;
+    }
+    if (!isValidLocalDate(refinementDate)) {
+      setError("Choose a valid meal date before refining.");
+      return;
+    }
+    if (!isValidLocalTime(refinementTime)) {
+      setError("Choose a valid meal time before refining.");
       return;
     }
 
     setError("");
     setQueueNotice("");
-    setIsQueueingSave(true);
+    setIsSubmitting(true);
     try {
       const result = await fetch("/api/estimate", {
         method: "POST",
         headers: { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" },
         body: JSON.stringify({
-          prompt: trimmedPrompt,
-          saveAfterInterpret: true,
-          mealDate,
-          mealTime,
+          refinement: {
+            mealId: mealToRefine.id,
+            instruction,
+            previousEstimate: mealToRefine.meal_snapshot,
+            mealDate: refinementDate,
+            mealTime: refinementTime,
+          },
         }),
       });
       const payload = (await result.json().catch(() => ({}))) as unknown;
       if (!result.ok) {
-        setError(getErrorMessage(payload) ?? "Sonion could not queue Interpret and Save.");
+        setError(getErrorMessage(payload) ?? "Sonion could not queue this refinement.");
         return;
       }
       if (result.status !== 202 || !isAcceptedAck(payload)) {
-        setError("Sonion returned an unexpected Interpret and Save acknowledgment.");
+        setError("Sonion returned an unexpected refinement acknowledgment.");
         return;
       }
-      resetForNewMeal({ keepQueueNotice: true });
-      setQueueNotice("Queued — will save when ready. You can leave this page.");
-      onInterpretAndSaveQueued?.();
+      setRefinementQueued(true);
+      setQueueNotice("Refinement queued. The saved meal will update automatically when ready.");
+      onMealSaved();
+      onProcessingQueued?.();
     } catch {
       setError("Sonion could not reach the backend. Check that the app is running and try again.");
     } finally {
-      setIsQueueingSave(false);
+      setIsSubmitting(false);
     }
   }
 
-  function handleRevisionSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    if (isSubmitting || !response) return;
-
-    const trimmedRevision = revision.trim();
-    if (!trimmedRevision) {
-      setError("Describe what needs to be corrected before submitting the revision.");
+  async function handleCopySave() {
+    if (!mealToCopy || isCopySaving || copySaved) return;
+    if (!isValidLocalDate(copyDate)) {
+      setError("Choose a valid meal date.");
       return;
     }
-    if (trimmedRevision.length > MAX_REVISION_LENGTH) {
-      setError(`Keep the revision under ${MAX_REVISION_LENGTH.toLocaleString()} characters.`);
+    if (!isValidLocalTime(copyTime)) {
+      setError("Choose a valid meal time.");
       return;
     }
 
-    void requestEstimate(originalPrompt, trimmedRevision);
-  }
-
-  async function handleSaveMeal() {
-    if (!response || !canStartMealSave(response, saveState)) return;
-    if (mealToRefine && !revisionSubmitted) {
-      setSaveError("Submit a revision before saving this updated meal.");
-      setSaveState("error");
-      return;
-    }
-    if (mealToCopy && MEAL_COPY_REVISION_REQUIRED_BEFORE_SAVE && !revisionSubmitted) {
-      setSaveError("Submit a revision before saving this copied meal.");
-      setSaveState("error");
-      return;
-    }
-    setSaveError("");
-
-    if (!isValidLocalDate(mealDate)) {
-      setSaveState("error");
-      setSaveError("Choose a valid meal date.");
-      return;
-    }
-    if (!isValidLocalTime(mealTime)) {
-      setSaveState("error");
-      setSaveError("Choose a valid local meal time.");
-      return;
-    }
-
-    setSaveState("saving");
+    setError("");
+    setIsCopySaving(true);
     try {
-      const isUpdate = mealToRefine !== null;
-      const endpoint = mealToRefine ? `/api/meals/${mealToRefine.id}` : "/api/meals";
-      const result = await fetch(endpoint, {
-        method: isUpdate ? "PATCH" : "POST",
+      const result = await fetch("/api/meals", {
+        method: "POST",
         headers: { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" },
-        body: JSON.stringify({ mealDate, mealTime, mealSnapshot: response }),
+        body: JSON.stringify({ mealDate: copyDate, mealTime: copyTime, mealSnapshot: mealToCopy.meal_snapshot }),
       });
       const payload = (await result.json().catch(() => ({}))) as unknown;
       if (!result.ok) {
-        setSaveState(saveStateAfterResponse(false));
-        setSaveError(getErrorMessage(payload) ?? "Sonion could not save this meal.");
+        setError(getErrorMessage(payload) ?? "Sonion could not save this copied meal.");
         return;
       }
       if (!parseMealRecord(payload)) {
-        setSaveState(saveStateAfterResponse(false));
-        setSaveError("Sonion saved an incomplete meal record. Refresh your history and try again.");
+        setError("Sonion saved an incomplete copied meal. Refresh your history and try again.");
         return;
       }
-      setSaveState(saveStateAfterResponse(true));
+      setCopySaved(true);
       onMealSaved();
     } catch {
-      setSaveState("error");
-      setSaveError("Sonion could not reach the meal history service. Try again shortly.");
+      setError("Sonion could not reach the meal history service. Try again shortly.");
+    } finally {
+      setIsCopySaving(false);
     }
   }
 
-  const isFocusedMeal = Boolean(mealToRefine);
-  const isCopiedMeal = Boolean(mealToCopy);
-  const canSaveWithoutRevision = !isFocusedMeal || revisionSubmitted;
-  const revisionHelp = isCopiedMeal
-    ? "Optional. For example: “Same order, but no cheese.” Leave blank to save the copy as-is."
-    : "For example: “The milk was whole milk, not 2%.”";
-  const modeEyebrow = isCopiedMeal ? "Meal copy" : isFocusedMeal ? "Meal refinement" : "Meal interpreter";
-  const modeTitle = isCopiedMeal
-    ? "Copy this meal."
-    : isFocusedMeal
-      ? "Refine this meal."
-      : "Describe it. We'll break it down.";
-  const modeIntro = isCopiedMeal
-    ? "Review the copied estimate, tweak the date and time, optionally note a small change, then save it as a new meal."
-    : isFocusedMeal
-      ? "Review the saved estimate, explain what needs correcting, then save the revised meal when it looks right."
-      : "Write what you ate in plain language, review the estimate, and save it to your private meal history — or use Interpret and Save to queue auto-persist without waiting.";
+  if (mealToCopy) {
+    const copySourceLabel = `${mealToCopy.meal_date} · ${mealToCopy.meal_time.slice(0, 5)}`;
+    return (
+      <section aria-labelledby="interpreter-title" className="panel interpreter-panel">
+        <div className="interpreter-mark" aria-hidden="true">✦</div>
+        <p className="eyebrow">Meal copy</p>
+        <h1 id="interpreter-title">Copy this meal.</h1>
+        <p className="interpreter-intro">Save this estimate as a new history entry at another date and time.</p>
+        <p className="copy-source-note">Copied from {copySourceLabel}. Saving creates a new history entry.</p>
+        <div className="response-slot">
+          <div className="response-card">
+            <p className="response-label">Saved estimate</p>
+            <EstimateTable response={mealToCopy.meal_snapshot} />
+          </div>
+        </div>
+        <div className="save-meal-box">
+          <div className="save-meal-fields">
+            <label htmlFor="copy-meal-date">Local date<input id="copy-meal-date" onChange={(event) => setCopyDate(event.target.value)} type="date" value={copyDate} /></label>
+            <label htmlFor="copy-meal-time">Local time<input id="copy-meal-time" onChange={(event) => setCopyTime(event.target.value)} type="time" value={copyTime} /></label>
+          </div>
+          <button aria-busy={isCopySaving} className="primary-button save-meal-button" disabled={isCopySaving || copySaved} onClick={() => void handleCopySave()} type="button">
+            {isCopySaving ? "Saving..." : copySaved ? "Saved to history" : "Save as new meal"}
+          </button>
+          {copySaved ? <p className="saved-message">The copied estimate is now in your private meal history.</p> : null}
+        </div>
+        <div aria-live="assertive" className="message-slot" role="alert">{error ? <p className="error-message">{error}</p> : null}</div>
+        <button className="secondary-button cancel-copy-button" onClick={onClearCopiedMeal} type="button">Cancel copy</button>
+      </section>
+    );
+  }
+
+  if (mealToRefine) {
+    return (
+      <section aria-labelledby="interpreter-title" className="panel interpreter-panel">
+        <div className="interpreter-mark" aria-hidden="true">✦</div>
+        <p className="eyebrow">Meal refinement</p>
+        <h1 id="interpreter-title">Refine this meal.</h1>
+        <p className="interpreter-intro">Describe the correction and Sonion will update the saved meal automatically. There is no review or second save step.</p>
+        <div className="response-card current-meal-context">
+          <p className="response-label">Current saved estimate</p>
+          <p className="field-help">{mealToRefine.meal_snapshot.items.length} food items · {mealToRefine.meal_date} at {mealToRefine.meal_time.slice(0, 5)}</p>
+        </div>
+        <form className="revision-box refinement-form" onSubmit={handleRefinementSubmit}>
+          <label htmlFor="meal-revision">What should change?</label>
+          <p className="field-help" id="meal-revision-help">For example: “The milk was whole milk, not 2%.”</p>
+          <textarea aria-describedby="meal-revision-help revision-count" id="meal-revision" maxLength={MAX_REVISION_LENGTH} onChange={(event) => { setRevision(event.target.value); setError(""); setQueueNotice(""); }} placeholder="Describe the correction..." value={revision} />
+          <div className="save-meal-fields refinement-datetime">
+            <label htmlFor="refinement-date">Local date<input id="refinement-date" onChange={(event) => setRefinementDate(event.target.value)} type="date" value={refinementDate} /></label>
+            <label htmlFor="refinement-time">Local time<input id="refinement-time" onChange={(event) => setRefinementTime(event.target.value)} type="time" value={refinementTime} /></label>
+          </div>
+          <div className="form-footer">
+            <span className="character-count" id="revision-count">{revision.length.toLocaleString()} / {MAX_REVISION_LENGTH.toLocaleString()}</span>
+            <button aria-busy={isSubmitting} className="primary-button" disabled={isSubmitting || refinementQueued || !revision.trim()} type="submit">
+              {isSubmitting ? "Queueing..." : refinementQueued ? "Refinement queued" : "Refine meal"}
+            </button>
+          </div>
+          {queueNotice ? <p className="queued-message" role="status">{queueNotice}</p> : null}
+        </form>
+        <div aria-live="assertive" className="message-slot" role="alert">{error ? <p className="error-message">{error}</p> : null}</div>
+        <button className="secondary-button cancel-refinement-button" onClick={onClearFocusedMeal} type="button">Cancel refinement</button>
+      </section>
+    );
+  }
 
   return (
     <section aria-labelledby="interpreter-title" className="panel interpreter-panel">
       <div className="interpreter-mark" aria-hidden="true">✦</div>
-      <p className="eyebrow">{modeEyebrow}</p>
-      <h1 id="interpreter-title">{modeTitle}</h1>
-      <p className="interpreter-intro">{modeIntro}</p>
-      {isCopiedMeal && copySourceLabel ? (
-        <p className="copy-source-note">Copied from {copySourceLabel}. Saving creates a new history entry.</p>
-      ) : null}
-
-      {!hasSubmittedPrompt ? (
-        <form className="interpreter-form" onSubmit={handleSubmit}>
-          <label htmlFor="food-prompt">What did you eat?</label>
-          <p className="field-help" id="food-prompt-help">Try: “two scoops of rice, grilled chicken, and a little broccoli”</p>
-          <textarea
-            aria-describedby="food-prompt-help prompt-count"
-            id="food-prompt"
-            maxLength={MAX_PROMPT_LENGTH}
-            onChange={(event) => {
-              setPrompt(event.target.value);
-              setQueueNotice("");
-            }}
-            placeholder="Describe your meal in your own words..."
-            required
-            value={prompt}
-          />
-          <div className="save-meal-fields pre-submit-datetime">
-            <label htmlFor="meal-date-pre">
-              Local date
-              <input
-                id="meal-date-pre"
-                onChange={(event) => {
-                  setMealDate(event.target.value);
-                  setQueueNotice("");
-                }}
-                type="date"
-                value={mealDate}
-              />
-            </label>
-            <label htmlFor="meal-time-pre">
-              Local time
-              <input
-                id="meal-time-pre"
-                onChange={(event) => {
-                  setMealTime(event.target.value);
-                  setQueueNotice("");
-                }}
-                type="time"
-                value={mealTime}
-              />
-            </label>
-          </div>
-          <div className="form-footer interpret-actions">
-            <span className="character-count" id="prompt-count">{prompt.length.toLocaleString()} / {MAX_PROMPT_LENGTH.toLocaleString()}</span>
-            <div className="interpret-action-buttons">
-              <button
-                aria-busy={isQueueingSave}
-                className="secondary-button"
-                disabled={isSubmitting || isQueueingSave}
-                onClick={() => void handleInterpretAndSave()}
-                type="button"
-              >
-                {isQueueingSave ? "Queuing..." : "Interpret and Save"}
-              </button>
-              <button aria-busy={isSubmitting} className="primary-button" disabled={isSubmitting || isQueueingSave} type="submit">
-                {isSubmitting ? "Interpreting..." : "Interpret meal"}
-              </button>
+      <p className="eyebrow">Meal interpreter</p>
+      <h1 id="interpreter-title">Add your meals.</h1>
+      <p className="interpreter-intro">Add one or more descriptions, set each local date and time, then interpret them. Sonion will save every result automatically.</p>
+      <form className="interpreter-form batch-meal-form" onSubmit={(event) => void handleBatchSubmit(event)}>
+        {batchMeals.map((meal, index) => (
+          <fieldset className="batch-meal-entry" key={meal.id}>
+            <div className="batch-meal-heading">
+              <legend>Meal {index + 1}</legend>
+              {batchMeals.length > 1 ? <button className="remove-meal-button" onClick={() => removeBatchMeal(meal.id)} type="button">Remove</button> : null}
             </div>
-          </div>
-          {queueNotice ? <p className="queued-message" role="status">{queueNotice}</p> : null}
-        </form>
-      ) : originalPrompt ? (
-        <section aria-label="Original meal description" className="original-prompt-box">
-          <p className="response-label">Original description · locked</p>
-          <p className="original-prompt">{originalPrompt}</p>
-          {!response && isSubmitting ? <p className="processing-message">Updating the estimate...</p> : null}
-          {!response && !isSubmitting ? <button className="secondary-button" onClick={() => void requestEstimate(originalPrompt)} type="button">Try interpretation again</button> : null}
-        </section>
-      ) : null}
-
-      <div aria-live="assertive" className="message-slot" role="alert">
-        {error ? <p className="error-message">{error}</p> : null}
-      </div>
-      <section aria-label="Sonion response" aria-live="polite" className="response-slot">
-        {hasSubmittedPrompt ? (
-          <div className="response-card">
-            <p className="response-label">AI-produced estimate</p>
-            {revisionResult ? <RevisionSummary revision={revisionResult} /> : null}
-            {response ? <EstimateTable response={response} /> : null}
-            {response ? <EstimateWarnings response={response} /> : null}
-            {response ? (
-              <form className="revision-box" onSubmit={handleRevisionSubmit}>
-                <p className="response-label">{isCopiedMeal ? "Optional refinement" : "Revision"}</p>
-                <label htmlFor="meal-revision">
-                  {isCopiedMeal
-                    ? "Any small change from the usual meal?"
-                    : "What did Sonion get wrong, or what did you forget to mention?"}
-                </label>
-                <p className="field-help" id="meal-revision-help">{revisionHelp}</p>
-                <textarea
-                  aria-describedby="meal-revision-help revision-count"
-                  id="meal-revision"
-                  maxLength={MAX_REVISION_LENGTH}
-                  onChange={(event) => {
-                    setRevision(event.target.value);
-                    setRevisionSubmitted(false);
-                    setSaveState("idle");
-                    setSaveError("");
-                  }}
-                  placeholder={isCopiedMeal ? "Describe a small tweak, or leave blank..." : "Describe the correction or anything you forgot..."}
-                  value={revision}
-                />
-                <div className="form-footer">
-                  <span className="character-count" id="revision-count">{revision.length.toLocaleString()} / {MAX_REVISION_LENGTH.toLocaleString()}</span>
-                  <button aria-busy={isSubmitting} className="primary-button" disabled={isSubmitting || !revision.trim()} type="submit">
-                    {isSubmitting ? "Revising..." : isCopiedMeal ? "Apply refinement" : "Submit revision"}
-                  </button>
-                </div>
-                {revisionSubmitted ? <p className="submitted-message">Revision submitted. Review the new estimate, then save it manually when it is correct.</p> : null}
-                {isFocusedMeal && !revisionSubmitted ? <p className="field-help revision-save-help">Submit a revision before saving this focused meal.</p> : null}
-                {isCopiedMeal && !revisionSubmitted ? <p className="field-help revision-save-help">You can save this copy as-is, or apply a refinement first.</p> : null}
-              </form>
-            ) : null}
-            {response ? (
-              <div className="save-meal-box">
-                <p className="response-label">
-                  {isCopiedMeal ? "Save copied meal" : isFocusedMeal ? "Save revised meal" : "Save this meal"}
-                </p>
-                <div className="save-meal-fields">
-                  <label htmlFor="meal-date">Local date<input id="meal-date" onChange={(event) => { setMealDate(event.target.value); setSaveState("idle"); }} type="date" value={mealDate} /></label>
-                  <label htmlFor="meal-time">Local time<input id="meal-time" onChange={(event) => { setMealTime(event.target.value); setSaveState("idle"); }} type="time" value={mealTime} /></label>
-                </div>
-                <button
-                  aria-busy={saveState === "saving"}
-                  className="primary-button save-meal-button"
-                  disabled={saveState === "saving" || saveState === "saved" || !canSaveWithoutRevision}
-                  onClick={() => void handleSaveMeal()}
-                  type="button"
-                >
-                  {saveState === "saving"
-                    ? "Saving..."
-                    : saveState === "saved"
-                      ? "Saved to history"
-                      : isCopiedMeal
-                        ? "Save as new meal"
-                        : isFocusedMeal
-                          ? "Save revised meal"
-                          : "Save meal"}
-                </button>
-                <div aria-live="polite" className="save-status">
-                  {saveState === "error" ? <p className="error-message">{saveError}</p> : null}
-                  {saveState === "saved" ? (
-                    <p className="saved-message">
-                      {isCopiedMeal
-                        ? "The copied estimate was saved as a new meal in your history."
-                        : isFocusedMeal
-                          ? "The revised estimate replaced the old meal in your history."
-                          : "This processed estimate is now in your private meal history."}
-                    </p>
-                  ) : null}
-                </div>
-              </div>
-            ) : null}
-            {isFocusedMeal ? <button className="secondary-button cancel-refinement-button" onClick={onClearFocusedMeal} type="button">Cancel refinement</button> : null}
-            {isCopiedMeal ? <button className="secondary-button cancel-copy-button" onClick={onClearCopiedMeal} type="button">Cancel copy</button> : null}
-          </div>
-        ) : null}
-      </section>
-      {saveState === "saved" && !isFocusedMeal ? (
-        <button
-          className="secondary-button start-another-button"
-          onClick={() => {
-            if (isCopiedMeal) onClearCopiedMeal();
-            else resetForNewMeal();
-          }}
-          type="button"
-        >
-          Start another meal
-        </button>
-      ) : null}
+            <label htmlFor={`food-prompt-${meal.id}`}>What did you eat?</label>
+            <p className="field-help" id={`food-prompt-help-${meal.id}`}>Try: “two scoops of rice, grilled chicken, and a little broccoli”</p>
+            <textarea aria-describedby={`food-prompt-help-${meal.id} prompt-count-${meal.id}`} id={`food-prompt-${meal.id}`} maxLength={MAX_PROMPT_LENGTH} onChange={(event) => updateBatchMeal(meal.id, "prompt", event.target.value)} placeholder="Describe your meal in your own words..." required value={meal.prompt} />
+            <div className="save-meal-fields pre-submit-datetime">
+              <label htmlFor={`meal-date-${meal.id}`}>Local date<input id={`meal-date-${meal.id}`} onChange={(event) => updateBatchMeal(meal.id, "mealDate", event.target.value)} type="date" value={meal.mealDate} /></label>
+              <label htmlFor={`meal-time-${meal.id}`}>Local time<input id={`meal-time-${meal.id}`} onChange={(event) => updateBatchMeal(meal.id, "mealTime", event.target.value)} type="time" value={meal.mealTime} /></label>
+            </div>
+            <span className="character-count" id={`prompt-count-${meal.id}`}>{meal.prompt.length.toLocaleString()} / {MAX_PROMPT_LENGTH.toLocaleString()}</span>
+          </fieldset>
+        ))}
+        <div className="batch-form-actions">
+          <button className="secondary-button" onClick={addBatchMeal} type="button">+ Add another meal</button>
+          <button aria-busy={isSubmitting} className="primary-button" disabled={isSubmitting || batchMeals.length === 0} type="submit">{isSubmitting ? "Queueing..." : "Interpret meals"}</button>
+        </div>
+        {queueNotice ? <p className="queued-message" role="status">{queueNotice}</p> : null}
+      </form>
+      <div aria-live="assertive" className="message-slot" role="alert">{error ? <p className="error-message">{error}</p> : null}</div>
     </section>
   );
 }
@@ -515,91 +352,13 @@ function EstimateTable({ response }: { response: MealEstimate }) {
   return (
     <div className="estimate-table-wrap">
       <table className="estimate-table">
-        <caption className="visually-hidden">Estimated foods, portions, volume, weight, and nutrients</caption>
-        <thead>
-          <tr>
-            <th scope="col">Food</th>
-            <th scope="col">PU</th>
-            <th scope="col">Volume</th>
-            <th scope="col">Weight</th>
-            <th scope="col">Calories</th>
-            <th scope="col">Protein</th>
-            <th scope="col">Fat</th>
-            <th scope="col">Carbs</th>
-          </tr>
-        </thead>
-        <tbody>
-          {response.items.map((item, index) => (
-            <tr key={`${item.fdcId}-${index}`}>
-              <th data-label="Food" scope="row">{item.foodName}<small>{item.portionKind}</small></th>
-              <td data-label="PU">{formatValue(item.portionUnits, 2)}</td>
-              <td data-label="Volume">{formatValue(item.estimatedMilliliters)} ml</td>
-              <td data-label="Weight">{formatValue(item.estimatedGrams)} g</td>
-              <td data-label="Calories">{formatValue(item.calories)}</td>
-              <td data-label="Protein">{formatValue(item.protein)} g</td>
-              <td data-label="Fat">{formatValue(item.fat)} g</td>
-              <td data-label="Carbs">{formatValue(item.carbohydrates)} g</td>
-            </tr>
-          ))}
-        </tbody>
-        <tfoot>
-          <tr>
-            <th scope="row">Meal total</th>
-            <td />
-            <td />
-            <td />
-            <td>{formatValue(response.totals.calories)}</td>
-            <td>{formatValue(response.totals.protein)} g</td>
-            <td>{formatValue(response.totals.fat)} g</td>
-            <td>{formatValue(response.totals.carbohydrates)} g</td>
-          </tr>
-        </tfoot>
+        <caption className="visually-hidden">Estimated foods and nutrients</caption>
+        <thead><tr><th scope="col">Food</th><th scope="col">PU</th><th scope="col">Calories</th><th scope="col">Protein</th><th scope="col">Fat</th><th scope="col">Carbs</th></tr></thead>
+        <tbody>{response.items.map((item, index) => <tr key={`${item.fdcId}-${index}`}><th data-label="Food" scope="row">{item.foodName}<small>{item.portionKind}</small></th><td data-label="PU">{formatValue(item.portionUnits, 2)}</td><td data-label="Calories">{formatValue(item.calories)}</td><td data-label="Protein">{formatValue(item.protein)} g</td><td data-label="Fat">{formatValue(item.fat)} g</td><td data-label="Carbs">{formatValue(item.carbohydrates)} g</td></tr>)}</tbody>
+        <tfoot><tr><th scope="row">Meal total</th><td /><td>{formatValue(response.totals.calories)}</td><td>{formatValue(response.totals.protein)} g</td><td>{formatValue(response.totals.fat)} g</td><td>{formatValue(response.totals.carbohydrates)} g</td></tr></tfoot>
       </table>
     </div>
   );
-}
-
-function EstimateWarnings({ response }: { response: MealEstimate }) {
-  return (
-    <>
-      {response.items.some((item) => item.densitySource.type === "fallback") ? (
-        <p className="warning-message" role="status">Some weights use an estimated fallback density because USDA volume data was unavailable.</p>
-      ) : null}
-      {response.items.some((item) => [item.calories, item.protein, item.fat, item.carbohydrates].some((value) => value === null)) ? (
-        <p className="warning-message" role="status">Some nutrient values were missing from the USDA records. Calories use available values and are derived from complete macros when possible; other affected meal totals are shown as —.</p>
-      ) : null}
-    </>
-  );
-}
-
-function RevisionSummary({ revision }: { revision: MealRevision }) {
-  return (
-    <section aria-label="Structured revision summary" className="revision-summary">
-      <p className="response-label">Revision notes</p>
-      <p className="revision-notes">{revision.notes}</p>
-      {revision.updates.length > 0 ? (
-        <ul className="revision-updates">
-          {revision.updates.map((update, index) => (
-            <li key={`${update.action}-${index}`}>
-              <strong>{formatRevisionAction(update.action)}</strong>{" "}
-              {update.action === "replace"
-                ? `${update.targetItemName} → ${update.itemName}`
-                : update.action === "remove"
-                  ? update.targetItemName
-                  : update.itemName}
-              <span>{update.reason}</span>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p className="field-help">No meal items were changed.</p>
-      )}
-    </section>
-  );
-}
-
-function formatRevisionAction(action: MealRevision["updates"][number]["action"]): string {
-  return action === "replace" ? "Updated" : action === "remove" ? "Removed" : "Added";
 }
 
 function getErrorMessage(payload: unknown) {

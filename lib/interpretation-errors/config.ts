@@ -2,7 +2,7 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 
 export type InterpretationErrorParameters = {
-  sourceInterpretAndSave: string;
+  sourceAutomaticProcessing: string;
   promptMaxStoredChars: number;
   errorMessageMaxChars: number;
   diagnosticsMaxChars: number;
@@ -27,7 +27,7 @@ function parameterString(source: string, key: string): string {
 function loadParameters(): InterpretationErrorParameters {
   const source = readFileSync(join(process.cwd(), "parameter_files/interpretation-errors.toml"), "utf8");
   return {
-    sourceInterpretAndSave: parameterString(source, "source_interpret_and_save"),
+    sourceAutomaticProcessing: parameterString(source, "source_automatic_processing"),
     promptMaxStoredChars: parameterNumber(source, "prompt_max_stored_chars"),
     errorMessageMaxChars: parameterNumber(source, "error_message_max_chars"),
     diagnosticsMaxChars: parameterNumber(source, "diagnostics_max_chars"),

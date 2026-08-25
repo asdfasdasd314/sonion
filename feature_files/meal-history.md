@@ -11,7 +11,7 @@ Meal history persists each processed estimate as an owner-scoped JSONB snapshot.
 - `meal_date` and `meal_time` are native local `date` and `time without time zone` columns. Audit timestamps are UTC.
 - Supabase RLS and API authorization restrict normal browser requests to the verified owner. Service-role access is a trusted administrative boundary and is not exposed in this slice.
 - GET returns the current user's records in local date/time descending order. PATCH and DELETE remain owner-scoped, while the dashboard uses PATCH only after a submitted revision.
-- A history entry can focus the center interpreter panel. A submitted revision replaces the in-memory estimate, but a focused meal is updated in history only after the user explicitly saves it.
+- A history entry can focus the center interpreter panel. A queued revision replaces the saved row automatically after the server applies and recalculates the structured patch.
 - Saved records remain refinable using their foods as context; no prompt column is required.
 - DELETE is exposed in the dashboard through a per-meal confirmation control, while PATCH remains owner-scoped and is used for focused history saves after a submitted revision.
 
@@ -23,8 +23,8 @@ Meal history persists each processed estimate as an owner-scoped JSONB snapshot.
 - `lib/meal-history/mapping.ts` maps records into UI date groups.
 - `lib/meal-history/save.ts` defines save-state transitions and duplicate-submit protection.
 - `app/api/meals/route.ts` handles authenticated list/save operations.
-- `app/api/meals/[id]/route.ts` handles ownership-safe update/delete operations; updates replace the estimate only after an explicit focused-meal save.
-- `components/meal-interpreter.tsx` keeps the active submitted description in client state only, derives focused-meal context from saved foods, submits structured revisions, and chooses POST for new saves or PATCH for focused history saves. The revision protocol itself is owned by `feature_files/meal-revision.md`.
+- `app/api/meals/[id]/route.ts` handles ownership-safe update/delete operations; automatic refinements use the same owner-scoped PATCH path.
+- `components/meal-interpreter.tsx` submits automatic refinements with saved-food context and keeps copied meals on the POST-only new-record path. The revision protocol itself is owned by `feature_files/meal-revision.md`.
 - `components/meal-history.tsx` exposes the focus/refinement action and the copy-to-new-meal action from each saved meal. Meal copy draft behavior is owned by `feature_files/meal-copy.md`.
 - `test/meal-history.test.ts` covers validation, mapping, ordering, nullable aggregation, and save-state behavior.
 - `parameter_files/meal-history.toml` records the persistence contract.
@@ -38,8 +38,8 @@ TESTING
 
 - Created owner-scoped Supabase meal persistence with processed estimate snapshots, local date/time fields, API authorization, and history mapping.
 - Added isolated meal API test configuration so mocked auth/PostgREST requests exercise the route handlers without weakening production Supabase configuration checks.
-- Added optional prompt context, history-to-interpreter focus, explicit AI revision submission, and manual POST/PATCH save boundaries so an unreviewed revision never changes saved history.
+- Added optional prompt context and history-to-interpreter focus; revisions now queue and persist automatically once the server applies the validated patch.
 - Added an accessible per-meal delete confirmation flow that calls the existing ownership-safe DELETE endpoint and removes the deleted meal from grouped history state after success.
 - Removed the unavailable persisted meal-prompt dependency; meal history now selects and validates only columns present in the base meals table, while focused revisions derive context from saved foods.
 - Linked the per-meal copy action to the interpreter copy draft so history can seed a new POST save without owning copy-draft rules.
-- Background Interpret and Save inserts use the same owner-scoped `saveMeal` path; history refreshes via dashboard light polling when the meal list identity changes.
+- Background batch inserts and refinement updates use the same owner-scoped `saveMeal`/`updateMeal` paths; history refreshes via dashboard light polling when the meal list identity changes.

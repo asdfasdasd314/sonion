@@ -10,7 +10,7 @@ Meal revisions are a server-validated patch protocol. The model returns only the
 - Replacement and addition updates contain only food identity and Portion Unit data; the server still obtains USDA records and calculates nutrients.
 - Removal is explicit, and an empty update list is valid when the request cannot be applied or the model determines that nothing should change.
 - Notes are required, bounded, and intended for concise rationale, uncertainty, and unchanged or unsupported requests rather than hidden chain-of-thought.
-- The browser receives the structured revision alongside the recalculated estimate and displays the notes before the user decides whether to save.
+- The browser submits a refinement for background processing and receives only an acknowledgement; the recalculated estimate is persisted directly to the focused meal.
 - `parameter_files/meal-revision.toml` is the source of truth for revision instruction, note, and update limits.
 
 ## Relevant Files
@@ -21,8 +21,8 @@ Meal revisions are a server-validated patch protocol. The model returns only the
 - `lib/agent/food-tools-skill.ts` describes the selection and revision output envelopes for the model.
 - `lib/agent/protocol.ts` validates revision envelopes separately from initial meal selections.
 - `lib/agent/runner.ts` carries the current meal context through the revision agent loop.
-- `app/api/estimate/route.ts` validates revision requests, applies patches, and recalculates USDA-backed estimates.
-- `components/meal-interpreter.tsx` submits structured revisions and renders the returned notes and update summary.
+- `app/api/estimate/route.ts` validates refinement requests, applies patches, recalculates USDA-backed estimates, and updates the saved row.
+- `components/meal-interpreter.tsx` submits structured refinements without rendering a returned AI response.
 - `parameter_files/meal-revision.toml` records the tunable revision limits.
 
 ## Dev Mode
@@ -31,5 +31,5 @@ TESTING
 
 ## State Log
 
-- Added the structured revision envelope, server-side patch application, bounded notes, and client-visible revision summaries.
+- Added the structured revision envelope, server-side patch application, bounded notes, and automatic owner-scoped persistence.
 - Added static protocol, patch-application, and revision-agent coverage; runtime tests remain intentionally unexecuted under the task execution boundary.

@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { parseEstimateRequestBody } from "../lib/meal-estimation/autosave-request";
+import { parseMealRequestBody } from "../lib/meal-batch/request";
 
 const estimate = {
   items: [{
@@ -20,55 +20,49 @@ const estimate = {
   totals: { calories: 130, protein: null, fat: 0.3, carbohydrates: 28 },
 };
 
-test("auto-save requires meal date and time", () => {
-  const missingDate = parseEstimateRequestBody({
-    prompt: "oatmeal",
-    saveAfterInterpret: true,
-    mealTime: "08:00",
-  }, 4_000);
-  assert.equal(missingDate.ok, false);
-  if (!missingDate.ok) assert.match(missingDate.message, /meal date/i);
+const baseMeal = { prompt: "oatmeal", mealDate: "2026-08-23", mealTime: "08:00" };
 
-  const missingTime = parseEstimateRequestBody({
-    prompt: "oatmeal",
-    saveAfterInterpret: true,
-    mealDate: "2026-08-23",
-  }, 4_000);
-  assert.equal(missingTime.ok, false);
-  if (!missingTime.ok) assert.match(missingTime.message, /meal time/i);
+test("batch requests require at least one dated meal", () => {
+  const empty = parseMealRequestBody({ meals: [] }, 4_000);
+  assert.equal(empty.ok, false);
+  if (!empty.ok) assert.match(empty.message, /at least one meal/i);
+
+  const missingDate = parseMealRequestBody({ meals: [{ prompt: "oatmeal", mealTime: "08:00" }] }, 4_000);
+  assert.equal(missingDate.ok, false);
+  if (!missingDate.ok) assert.match(missingDate.message, /date/i);
 });
 
-test("auto-save rejects revision combinations", () => {
-  const parsed = parseEstimateRequestBody({
-    prompt: "chicken and rice",
-    saveAfterInterpret: true,
-    mealDate: "2026-08-23",
-    mealTime: "12:00",
-    revision: { instruction: "more rice", previousEstimate: estimate },
+test("batch requests parse multiple descriptions without model output fields", () => {
+  const parsed = parseMealRequestBody({ meals: [baseMeal, { ...baseMeal, prompt: "chicken and rice", mealTime: "12:00" }] }, 4_000);
+  assert.equal(parsed.ok, true);
+  if (parsed.ok && parsed.kind === "batch") {
+    assert.equal(parsed.meals.length, 2);
+    assert.equal(parsed.meals[1]?.prompt, "chicken and rice");
+  }
+});
+
+test("refinement requests validate the saved meal context and date/time", () => {
+  const parsed = parseMealRequestBody({
+    refinement: {
+      mealId: "22222222-2222-4222-8222-222222222222",
+      instruction: "use whole milk",
+      previousEstimate: estimate,
+      mealDate: "2026-08-23",
+      mealTime: "08:15",
+    },
+  }, 4_000);
+  assert.equal(parsed.ok, true);
+  if (parsed.ok && parsed.kind === "refinement") {
+    assert.equal(parsed.refinement.mealId, "22222222-2222-4222-8222-222222222222");
+    assert.equal(parsed.refinement.mealTime, "08:15");
+  }
+});
+
+test("batch and refinement modes cannot be combined", () => {
+  const parsed = parseMealRequestBody({
+    meals: [baseMeal],
+    refinement: { mealId: "22222222-2222-4222-8222-222222222222" },
   }, 4_000);
   assert.equal(parsed.ok, false);
-  if (!parsed.ok) assert.match(parsed.message, /cannot be combined with a revision/i);
-});
-
-test("sync path remains available without saveAfterInterpret", () => {
-  const parsed = parseEstimateRequestBody({ prompt: "eggs and toast" }, 4_000);
-  assert.equal(parsed.ok, true);
-  if (parsed.ok) {
-    assert.equal(parsed.saveAfterInterpret, false);
-    assert.equal(parsed.prompt, "eggs and toast");
-  }
-});
-
-test("auto-save parses a valid queued request", () => {
-  const parsed = parseEstimateRequestBody({
-    prompt: "two eggs",
-    saveAfterInterpret: true,
-    mealDate: "2026-08-23",
-    mealTime: "08:15",
-  }, 4_000);
-  assert.equal(parsed.ok, true);
-  if (parsed.ok && parsed.saveAfterInterpret) {
-    assert.equal(parsed.mealDate, "2026-08-23");
-    assert.equal(parsed.mealTime, "08:15");
-  }
+  if (!parsed.ok) assert.match(parsed.message, /either/i);
 });
