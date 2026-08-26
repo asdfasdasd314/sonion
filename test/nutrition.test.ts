@@ -10,24 +10,24 @@ const sampleMeal: Meal = {
   date: "2026-08-20",
   time: "12:00 PM",
   foods: [
-    { id: "one", name: "One", fdcId: 1, portionUnits: 1, portionKind: "solid", estimatedMilliliters: 150, estimatedGrams: 100, densitySource: { type: "fallback", gramsPerMilliliter: 0.75, portionKind: "solid" }, macros: { calories: 100, protein: 10, fat: 2, carbohydrates: 12 } },
-    { id: "two", name: "Two", fdcId: 2, portionUnits: 1, portionKind: "solid", estimatedMilliliters: 150, estimatedGrams: 100, densitySource: { type: "fallback", gramsPerMilliliter: 0.75, portionKind: "solid" }, macros: { calories: 250, protein: 20, fat: 8, carbohydrates: 30 } },
+    { id: "one", name: "One", fdcId: 1, portionUnits: 1, portionKind: "solid", estimatedMilliliters: 150, estimatedGrams: 100, densitySource: { type: "fallback", gramsPerMilliliter: 0.75, portionKind: "solid" }, macros: { calories: 100, protein: 10, fat: 2, carbohydrates: 12, fiber: 3 } },
+    { id: "two", name: "Two", fdcId: 2, portionUnits: 1, portionKind: "solid", estimatedMilliliters: 150, estimatedGrams: 100, densitySource: { type: "fallback", gramsPerMilliliter: 0.75, portionKind: "solid" }, macros: { calories: 250, protein: 20, fat: 8, carbohydrates: 30, fiber: 5 } },
   ],
 };
 
 test("aggregates food and daily macro totals", () => {
-  assert.deepEqual(aggregateMealMacros(sampleMeal), { calories: 350, protein: 30, fat: 10, carbohydrates: 42 });
-  assert.deepEqual(aggregateDailyMacros([sampleMeal, sampleMeal]), { calories: 700, protein: 60, fat: 20, carbohydrates: 84 });
+  assert.deepEqual(aggregateMealMacros(sampleMeal), { calories: 350, protein: 30, fat: 10, carbohydrates: 42, fiber: 8 });
+  assert.deepEqual(aggregateDailyMacros([sampleMeal, sampleMeal]), { calories: 700, protein: 60, fat: 20, carbohydrates: 84, fiber: 16 });
 });
 
 test("sums known nullable nutrients while keeping a nutrient null when no value exists", () => {
   const mealWithMissingNutrients: Meal = {
     ...sampleMeal,
     id: "nullable",
-    foods: [{ ...sampleMeal.foods[0], macros: { calories: null, protein: 4, fat: null, carbohydrates: null } }],
+    foods: [{ ...sampleMeal.foods[0], macros: { calories: null, protein: 4, fat: null, carbohydrates: null, fiber: null } }],
   };
-  assert.deepEqual(aggregateMealMacros(mealWithMissingNutrients), { calories: null, protein: 4, fat: null, carbohydrates: null });
-  assert.deepEqual(aggregateDailyMacros([mealWithMissingNutrients, sampleMeal]), { calories: 350, protein: 34, fat: 10, carbohydrates: 42 });
+  assert.deepEqual(aggregateMealMacros(mealWithMissingNutrients), { calories: null, protein: 4, fat: null, carbohydrates: null, fiber: null });
+  assert.deepEqual(aggregateDailyMacros([mealWithMissingNutrients, sampleMeal]), { calories: 350, protein: 34, fat: 10, carbohydrates: 42, fiber: 8 });
 });
 
 test("uses activity range midpoints and weekly percentage changes", () => {

@@ -10,6 +10,7 @@ The meal-estimation feature converts the model's food identity and Portion Unit 
 - `parameter_files/meal-estimation.toml` is the source of truth for the solid/liquid PU calibration and fallback densities.
 - USDA portions recognize milliliters, cups, fluid ounces, tablespoons, and teaspoons. Each valid volume portion stores total milliliters and derived grams-per-milliliter density, and the deterministic preferred portion description is exposed when used.
 - Missing nutrients remain `null`. Missing calories are derived from complete protein, carbohydrate, and fat values using the 4/4/9 macro equation, and calorie totals sum every available or derived item value rather than treating missing data as zero.
+- Item and meal totals include nullable dietary fiber (USDA 1079 / `fiberG`) scaled like other nutrients; fiber is amount-tracking only and is never folded into calorie derivation. Legacy snapshots that omit `fiber` parse as `fiber: null`.
 - The automatic API returns `202 { accepted: true, queuedMeals }` after validating a batch or refinement request; it does not return model output.
 - New meal batches continue the shared agent + estimate pipeline in Next.js `after()` and save each normal meal row independently.
 - Refinements reuse the structured revision pipeline and persist the resulting estimate directly to the owner-scoped saved meal.
@@ -42,3 +43,4 @@ TESTING
 - Added macro-derived calories and partial calorie totals so one incomplete USDA record no longer hides the meal's calculable calories.
 - Connected validated estimate results to the owner-scoped meal persistence flow without adding meal-type titles.
 - Replaced the old synchronous and single-meal auto-save contracts with the acknowledgement-only batch/refinement contract; the batch feature owns its request limits.
+- Added nullable dietary fiber to estimate items/totals with missing-key → null compatibility so legacy JSONB snapshots still parse.

@@ -33,7 +33,7 @@ function caloriesFromMacros(
 
 function total(
   items: readonly MealEstimateItem[],
-  key: "calories" | "protein" | "fat" | "carbohydrates",
+  key: "calories" | "protein" | "fat" | "carbohydrates" | "fiber",
   allowMissing = false,
 ): number | null {
   if (!allowMissing && items.some((item) => item[key] === null)) return null;
@@ -88,6 +88,7 @@ export function estimateMeal(
     const protein = scaledNutrient(food.nutrientsPer100g.proteinG, estimatedGrams);
     const fat = scaledNutrient(food.nutrientsPer100g.fatG, estimatedGrams);
     const carbohydrates = scaledNutrient(food.nutrientsPer100g.carbohydratesG, estimatedGrams);
+    const fiber = scaledNutrient(food.nutrientsPer100g.fiberG, estimatedGrams);
     const calories = scaledNutrient(food.nutrientsPer100g.caloriesKcal, estimatedGrams) ??
       caloriesFromMacros(protein, carbohydrates, fat);
 
@@ -103,6 +104,7 @@ export function estimateMeal(
       protein,
       fat,
       carbohydrates,
+      fiber,
     } satisfies MealEstimateItem;
   });
 
@@ -113,6 +115,7 @@ export function estimateMeal(
       protein: total(items, "protein"),
       fat: total(items, "fat"),
       carbohydrates: total(items, "carbohydrates"),
+      fiber: total(items, "fiber"),
     },
   };
 }

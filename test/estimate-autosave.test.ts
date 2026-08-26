@@ -16,8 +16,9 @@ const estimate = {
     protein: null,
     fat: 0.3,
     carbohydrates: 28,
+    fiber: 0.4,
   }],
-  totals: { calories: 130, protein: null, fat: 0.3, carbohydrates: 28 },
+  totals: { calories: 130, protein: null, fat: 0.3, carbohydrates: 28, fiber: 0.4 },
 };
 
 const baseMeal = { prompt: "oatmeal", mealDate: "2026-08-23", mealTime: "08:00" };
@@ -55,6 +56,39 @@ test("refinement requests validate the saved meal context and date/time", () => 
   if (parsed.ok && parsed.kind === "refinement") {
     assert.equal(parsed.refinement.mealId, "22222222-2222-4222-8222-222222222222");
     assert.equal(parsed.refinement.mealTime, "08:15");
+  }
+});
+
+test("refinement previousEstimate accepts legacy snapshots that omit fiber", () => {
+  const legacyEstimate = {
+    items: [{
+      foodName: "Rice",
+      fdcId: 1,
+      portionUnits: 1,
+      portionKind: "solid",
+      estimatedMilliliters: 150,
+      estimatedGrams: 100,
+      densitySource: { type: "fallback", gramsPerMilliliter: 0.75, portionKind: "solid" },
+      calories: 130,
+      protein: null,
+      fat: 0.3,
+      carbohydrates: 28,
+    }],
+    totals: { calories: 130, protein: null, fat: 0.3, carbohydrates: 28 },
+  };
+  const parsed = parseMealRequestBody({
+    refinement: {
+      mealId: "22222222-2222-4222-8222-222222222222",
+      instruction: "use whole milk",
+      previousEstimate: legacyEstimate,
+      mealDate: "2026-08-23",
+      mealTime: "08:15",
+    },
+  }, 4_000);
+  assert.equal(parsed.ok, true);
+  if (parsed.ok && parsed.kind === "refinement") {
+    assert.equal(parsed.refinement.previousEstimate.items[0]?.fiber, null);
+    assert.equal(parsed.refinement.previousEstimate.totals.fiber, null);
   }
 });
 

@@ -1,4 +1,5 @@
 # Server-owned Portion Unit calibration and density fallbacks.
+# Nutrient scaling includes nullable fiber (USDA 1079); no fiber math tunables.
 solid_portion_unit_milliliters = 180
 liquid_portion_unit_milliliters = 240
 solid_fallback_density_grams_per_milliliter = 0.75

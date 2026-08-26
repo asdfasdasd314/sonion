@@ -6,8 +6,8 @@ Sonion's authenticated home page is a two-view personal dashboard: the primary m
 
 ## Key Points
 
-- Meal history loads the authenticated user's records from `/api/meals`, maps JSONB snapshots into local-date groups, and aggregates nullable calories, protein, fat, and carbohydrates for each date header.
-- Date rows are keyboard-operable expand/collapse buttons. Expanded rows show meal-level and food-level macro detail.
+- Meal history loads the authenticated user's records from `/api/meals`, maps JSONB snapshots into local-date groups, and aggregates nullable calories, protein, fat, carbohydrates, and fiber for each date header.
+- Date rows are keyboard-operable expand/collapse buttons. Expanded rows show meal-level and food-level nutrient detail, including fiber (`fi` on compact food lines). Fiber is tracked as an amount only; daily fiber targets and calculator outputs stay unchanged.
 - The interpreter accepts multiple signed-in meal descriptions, each with local date/time, and queues them through `/api/estimate`; the API returns only a 202 acknowledgement and background processing saves complete USDA-backed estimates.
 - Refining a focused meal queues the structured revision and automatically PATCHes the saved record; the browser does not review or save a returned AI response.
 - While the authenticated dashboard is open, light polling checks meals and interpretation errors (paused when the tab is hidden) and refreshes history or the errors panel when list identity changes.
@@ -56,3 +56,4 @@ HACKING
 - Fixed the required-input nutrition validation fixture to omit activity/goal instead of empty strings so TypeScript accepts `Partial<NutritionTargetInput>`.
 - Replaced manual interpretation/save controls with a repeatable batch queue and acknowledgement-only automatic persistence while preserving light polling for background meal/error updates.
 - Split scientific calculations into a secondary dashboard view, widened the tracking columns, and increased meal-history nutrient text for readability.
+- Surfaced dietary fiber amounts alongside protein/fat/carbs in day headers, meal summaries, food lines, and the copy-draft estimate table without adding fiber targets.

@@ -20,6 +20,7 @@ export function mapMealRecordToMeal(record: MealRecord): Meal {
         protein: item.protein,
         fat: item.fat,
         carbohydrates: item.carbohydrates,
+        fiber: item.fiber,
       },
     })),
   };

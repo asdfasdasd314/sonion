@@ -19,7 +19,7 @@ const foods: NormalizedFood[] = [
     fdcId: 1,
     description: "Rice, cooked",
     dataset: "fndds",
-    nutrientsPer100g: { caloriesKcal: 130, proteinG: 2.7, fatG: 0.3, carbohydratesG: 28 },
+    nutrientsPer100g: { caloriesKcal: 130, proteinG: 2.7, fatG: 0.3, carbohydratesG: 28, fiberG: 0.4 },
     portions: [{ description: "1 cup", gramWeight: 195, volumeMl: 240, densityGPerMl: 195 / 240 }],
   },
   {
@@ -64,6 +64,7 @@ test("converts additive solid and liquid Portion Units, scales nutrients, and us
   assert.equal(estimate.items[0]?.estimatedGrams, 182.8125);
   assert.equal(estimate.items[0]?.densitySource.type, "usda");
   assert.equal(estimate.items[0]?.calories, 237.65625);
+  assert.equal(estimate.items[0]?.fiber, 0.73125);
   assert.equal(estimate.items[1]?.estimatedMilliliters, 500);
   assert.equal(estimate.items[1]?.estimatedGrams, 500);
   assert.deepEqual(estimate.items[1]?.densitySource, {
@@ -72,7 +73,9 @@ test("converts additive solid and liquid Portion Units, scales nutrients, and us
     portionKind: "liquid",
   });
   assert.equal(estimate.items[1]?.carbohydrates, null);
+  assert.equal(estimate.items[1]?.fiber, null);
   assert.equal(estimate.totals.carbohydrates, null);
+  assert.equal(estimate.totals.fiber, null);
   assert.equal(estimate.totals.calories, 467.65625);
 });
 
@@ -83,7 +86,9 @@ test("derives missing item calories from protein, fat, and carbohydrates", () =>
 
   assert.equal(estimate.items[0]?.estimatedGrams, 112.5);
   assert.equal(estimate.items[0]?.calories, 185.625);
+  assert.equal(estimate.items[0]?.fiber, null);
   assert.equal(estimate.totals.calories, 185.625);
+  assert.equal(estimate.totals.fiber, null);
 });
 
 test("keeps calculable calorie totals when another item has no calorie data", () => {
@@ -95,7 +100,9 @@ test("keeps calculable calorie totals when another item has no calorie data", ()
   }, foods, parameters);
 
   assert.equal(estimate.items[1]?.calories, null);
+  assert.equal(estimate.items[1]?.fiber, null);
   assert.equal(estimate.totals.calories, 158.4375);
+  assert.equal(estimate.totals.fiber, null);
 });
 
 test("rejects unknown FDC IDs and preserves the stable response schema", () => {
@@ -107,4 +114,28 @@ test("rejects unknown FDC IDs and preserves the stable response schema", () => {
   const estimate = estimateMeal({ items: [{ itemName: "rice", fdcId: 1, portionUnits: 1, portionKind: "solid" }] }, foods, parameters);
   assert.deepEqual(parseMealEstimate(estimate), estimate);
   assert.equal(parseMealEstimate({ items: estimate.items }), undefined);
+});
+
+test("normalizes legacy snapshots that omit fiber to null on parse", () => {
+  const legacy = {
+    items: [{
+      foodName: "Rice, cooked",
+      fdcId: 1,
+      portionUnits: 1,
+      portionKind: "solid",
+      estimatedMilliliters: 150,
+      estimatedGrams: 121.875,
+      densitySource: { type: "fallback", gramsPerMilliliter: 0.75, portionKind: "solid" },
+      calories: 158.4375,
+      protein: 3.290625,
+      fat: 0.365625,
+      carbohydrates: 34.125,
+    }],
+    totals: { calories: 158.4375, protein: 3.290625, fat: 0.365625, carbohydrates: 34.125 },
+  };
+
+  const parsed = parseMealEstimate(legacy);
+  assert.ok(parsed);
+  assert.equal(parsed.items[0]?.fiber, null);
+  assert.equal(parsed.totals.fiber, null);
 });

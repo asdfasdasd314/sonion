@@ -36,6 +36,7 @@ function MacroSummary({ macros, compact = false }: { macros: MacroTotals; compac
       <span><strong>{formatMacroValue(macros.protein, "g")}</strong><small>protein</small></span>
       <span><strong>{formatMacroValue(macros.fat, "g")}</strong><small>fat</small></span>
       <span><strong>{formatMacroValue(macros.carbohydrates, "g")}</strong><small>carbs</small></span>
+      <span><strong>{formatMacroValue(macros.fiber, "g")}</strong><small>fiber</small></span>
     </div>
   );
 }
@@ -116,7 +117,7 @@ function MealDetails({
             </button>
             {isExpanded ? (
               <div className="meal-expanded-content" id={detailsId}>
-                <div className="meal-total-line">Meal total · {formatMacroValue(mealMacros.protein, "g protein")} · {formatMacroValue(mealMacros.fat, "g fat")} · {formatMacroValue(mealMacros.carbohydrates, "g carbs")}</div>
+                <div className="meal-total-line">Meal total · {formatMacroValue(mealMacros.protein, "g protein")} · {formatMacroValue(mealMacros.fat, "g fat")} · {formatMacroValue(mealMacros.carbohydrates, "g carbs")} · {formatMacroValue(mealMacros.fiber, "g fiber")}</div>
                 <ul className="food-list">
                   {meal.foods.map((food) => (
                     <li key={food.id}>
@@ -125,7 +126,7 @@ function MealDetails({
                         <small className="food-portion">{formatMacroValue(food.portionUnits, "", 2)} PU · {food.portionKind} · {formatMacroValue(food.estimatedMilliliters)} ml · {formatMacroValue(food.estimatedGrams)} g</small>
                       </span>
                       <span className="food-macros">
-                        {formatMacroValue(food.macros.calories, " cal")} · {formatMacroValue(food.macros.protein, "p")} · {formatMacroValue(food.macros.fat, "f")} · {formatMacroValue(food.macros.carbohydrates, "c")}
+                        {formatMacroValue(food.macros.calories, " cal")} · {formatMacroValue(food.macros.protein, "p")} · {formatMacroValue(food.macros.fat, "f")} · {formatMacroValue(food.macros.carbohydrates, "c")} · {formatMacroValue(food.macros.fiber, "fi")}
                         <small className="density-note">{food.densitySource.type === "usda" ? `USDA · ${food.densitySource.portionDescription}` : `Fallback density · ${food.densitySource.portionKind}`}</small>
                       </span>
                     </li>

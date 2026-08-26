@@ -6,7 +6,8 @@ Meal history persists each processed estimate as an owner-scoped JSONB snapshot.
 
 ## Key Points
 
-- `meal_snapshot` reuses `MealEstimateSchema`, preserving food identity, FDC IDs, Portion Units, portion kind, volume, grams, density provenance, nullable nutrients, and totals atomically.
+- `meal_snapshot` reuses `MealEstimateSchema`, preserving food identity, FDC IDs, Portion Units, portion kind, volume, grams, density provenance, nullable nutrients (including dietary fiber), and totals atomically.
+- Missing item/totals `fiber` on older JSONB rows normalizes to `null` on parse so history loads and copies without a DB migration or backfill.
 - New meal saves require only the local date/time and `meal_snapshot`; revisions use saved foods as their base context.
 - `meal_date` and `meal_time` are native local `date` and `time without time zone` columns. Audit timestamps are UTC.
 - Supabase RLS and API authorization restrict normal browser requests to the verified owner. Service-role access is a trusted administrative boundary and is not exposed in this slice.
@@ -45,3 +46,4 @@ TESTING
 - Linked the per-meal copy action to the interpreter copy draft so history can seed a new POST save without owning copy-draft rules.
 - Background batch inserts and refinement updates use the same owner-scoped `saveMeal`/`updateMeal` paths; history refreshes via dashboard light polling when the meal list identity changes.
 - Collapsed-by-default meal rows now preserve the compact history view, with accessible per-meal toggle buttons for food details and actions.
+- Extended meal snapshots and history mapping with nullable dietary fiber amounts; pre-fiber JSONB rows normalize missing fiber to null on read without a SQL migration.

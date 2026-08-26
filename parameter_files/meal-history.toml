@@ -1,4 +1,5 @@
 # Supabase meal-history persistence and refinement contract.
+# meal_snapshot tracks nullable calories/protein/fat/carbohydrates/fiber; missing fiber normalizes to null.
 storage = "supabase-postgrest"
 snapshot_format = "meal-estimate-jsonb"
 meal_title = "omitted"

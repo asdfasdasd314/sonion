@@ -9,6 +9,7 @@ The food-data feature turns the local USDA Foundation Foods and FNDDS / Survey F
 - The authoritative local inputs are `food-data/FoodData_Central_foundation_food_json_2026-04-30.json` and `food-data/surveyDownload.json`; both remain gitignored because of their size.
 - `normalizeFoundationFood` and `normalizeFnddsFood` hide USDA-specific nesting and preserve only application nutrition, category, portion, food-code, and simple ingredient fields; recognized volume portions also retain normalized milliliters and derived density.
 - Foundation calories select nutrient 2048 first, then 2047; FNDDS calories use nutrient 1008. Energy entries are never summed.
+- Total dietary fiber (USDA nutrient 1079) is normalized as optional `fiberG` and is already present on many committed index foods; meal estimation consumes it for amount tracking.
 - Missing nutrients remain omitted, invalid portions are omitted, and a food with no usable portions has `portions: []`.
 - `searchFoods` and `getFood` validate inputs with strict Zod schemas. They reject unknown parameters and do not accept paths, SQL, URLs, shell commands, or raw USDA records.
 - `createFoodToolRegistry` exposes the only two agent capabilities and executes against the normalized in-memory index only.
@@ -46,3 +47,4 @@ TESTING
 - Replaced a non-portable absolute `food-data` symlink with a real directory and committed `food-index.json` as the Vercel runtime artifact; prepare/write now replaces dangling `food-data` symlinks before mkdir/stat so builds no longer ENOENT.
 - Real-record food-data tests now accept the committed `food-index.json` when gitignored USDA raw inputs are absent after the symlink→directory packaging change.
 - Re-exported `FoodToolDefinition`, `FoodToolName`, and `FoodToolRegistry` from `tools.ts` through the food-data barrel so Vercel typecheck matches the owning module.
+- Confirmed fiber (1079 → `fiberG`) is already normalized in the committed index and consumed by meal estimation amount tracking.

@@ -23,8 +23,9 @@ const estimate = {
     protein: 8,
     fat: 4,
     carbohydrates: 38,
+    fiber: 4,
   }],
-  totals: { calories: 220, protein: 8, fat: 4, carbohydrates: 38 },
+  totals: { calories: 220, protein: 8, fat: 4, carbohydrates: 38, fiber: 4 },
 };
 
 const source: MealRecord = {

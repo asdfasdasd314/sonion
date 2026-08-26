@@ -7,6 +7,7 @@ export type MacroTotals = {
   protein: NutritionValue;
   fat: NutritionValue;
   carbohydrates: NutritionValue;
+  fiber: NutritionValue;
 };
 
 export type Food = {

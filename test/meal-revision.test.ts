@@ -19,6 +19,7 @@ const estimate: MealEstimate = {
       protein: 4,
       fat: 1,
       carbohydrates: 40,
+      fiber: 1,
     },
     {
       foodName: "chicken",
@@ -32,9 +33,10 @@ const estimate: MealEstimate = {
       protein: 40,
       fat: 8,
       carbohydrates: 0,
+      fiber: 0,
     },
   ],
-  totals: { calories: 450, protein: 44, fat: 9, carbohydrates: 40 },
+  totals: { calories: 450, protein: 44, fat: 9, carbohydrates: 40, fiber: 1 },
 };
 
 test("replaces only the targeted item and preserves untouched items", () => {

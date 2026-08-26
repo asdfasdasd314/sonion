@@ -5,6 +5,7 @@ ai_history_integration = "save-complete-processed-estimate"
 meal_title = "omitted"
 history_order = "local-date-time-descending"
 nullable_nutrient_aggregation = "sum-known-values; null-when-none-known"
+# Tracked nutrients include fiber amounts; fiber is display-only (no daily fiber targets).
 weight_unit = "lb"
 height_unit = "in"
 activity_multiplier_sedentary = 1.20

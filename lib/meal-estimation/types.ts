@@ -31,6 +31,8 @@ export const DensityProvenanceSchema = z.discriminatedUnion("type", [
 export type DensityProvenance = z.infer<typeof DensityProvenanceSchema>;
 
 const NutrientValueSchema = z.number().finite().nonnegative().nullable();
+/** Missing fiber on legacy snapshots normalizes to null on parse. */
+const FiberValueSchema = NutrientValueSchema.default(null);
 
 export const MealEstimateItemSchema = z.object({
   foodName: z.string().trim().min(1),
@@ -44,6 +46,7 @@ export const MealEstimateItemSchema = z.object({
   protein: NutrientValueSchema,
   fat: NutrientValueSchema,
   carbohydrates: NutrientValueSchema,
+  fiber: FiberValueSchema,
 }).strict();
 
 export const MealEstimateSchema = z.object({
@@ -53,6 +56,7 @@ export const MealEstimateSchema = z.object({
     protein: NutrientValueSchema,
     fat: NutrientValueSchema,
     carbohydrates: NutrientValueSchema,
+    fiber: FiberValueSchema,
   }).strict(),
 }).strict();
 export type MealEstimateItem = z.infer<typeof MealEstimateItemSchema>;

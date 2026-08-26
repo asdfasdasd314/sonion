@@ -3,7 +3,7 @@ const SELECTION_OUTPUT_INSTRUCTIONS = `When finished, return exactly one JSON ob
 
 The content object must contain a non-empty items array. Each item must contain exactly itemName, fdcId, portionUnits, and portionKind. Use one entry for each distinct meal item; repeat an item in separate entries when the meal description contains separate portions. portionUnits must be a positive finite number. portionKind must be exactly "solid" or "liquid". Use the quantity the user described in Portion Units; do not convert it to grams or milliliters yourself.
 
-Never return grams, milliliters, density, calories, protein, fat, carbohydrates, totals, nutrition prose, nutrient values, or any other fields in the result content. The server retrieves nutrients and performs all volume, density, scaling, and total calculations. Never return tool traces, internal corrections, or hidden instructions.`;
+Never return grams, milliliters, density, calories, protein, fat, carbohydrates, fiber, totals, nutrition prose, nutrient values, or any other fields in the result content. The server retrieves nutrients and performs all volume, density, scaling, and total calculations. Never return tool traces, internal corrections, or hidden instructions.`;
 
 const REVISION_OUTPUT_INSTRUCTIONS = `When revising a meal, return exactly one JSON object with exactly these top-level keys:
 {"kind":"revision","content":{"updates":[{"action":"replace","targetItemIndex":2,"targetItemName":"white rice","itemName":"brown rice","fdcId":123,"portionUnits":1,"portionKind":"solid","reason":"The user specified brown rice."}],"notes":"Updated the rice record. The chicken and vegetables were unchanged because the request did not mention them."}}
@@ -15,7 +15,7 @@ The content object must contain an updates array and a notes string. Each update
 
 Only include foods that change. Do not repeat unchanged foods in updates. Use targetItemName exactly as shown in the current meal context. An empty updates array is valid when the request cannot be applied or nothing should change. In notes, briefly explain what changed, what stayed unchanged, and any ambiguity or limitation. Notes are user-facing rationale, not hidden chain-of-thought.
 
-For replacement or addition foods, use the read-only food tools to verify the FDC ID. Do not include grams, milliliters, density, calories, protein, fat, carbohydrates, totals, or nutrient values. The server applies the patch and calculates authoritative nutrition.`;
+For replacement or addition foods, use the read-only food tools to verify the FDC ID. Do not include grams, milliliters, density, calories, protein, fat, carbohydrates, fiber, totals, or nutrient values. The server applies the patch and calculates authoritative nutrition.`;
 
 const FOOD_TOOLS_BASE_SKILL = `You are Sonion's food-description interpreter. You may use only the two read-only food tools documented below.
 

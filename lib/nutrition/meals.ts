@@ -1,6 +1,6 @@
 import type { Food, Meal, MacroTotals, NutritionValue } from "@/lib/nutrition/types";
 
-const EMPTY_MACROS: MacroTotals = { calories: null, protein: null, fat: null, carbohydrates: null };
+const EMPTY_MACROS: MacroTotals = { calories: null, protein: null, fat: null, carbohydrates: null, fiber: null };
 
 function addNullable(first: NutritionValue, second: NutritionValue): NutritionValue {
   if (first === null && second === null) return null;
@@ -13,6 +13,7 @@ export function addMacroTotals(first: MacroTotals, second: MacroTotals): MacroTo
     protein: addNullable(first.protein, second.protein),
     fat: addNullable(first.fat, second.fat),
     carbohydrates: addNullable(first.carbohydrates, second.carbohydrates),
+    fiber: addNullable(first.fiber, second.fiber),
   };
 }
 

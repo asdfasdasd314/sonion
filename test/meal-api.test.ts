@@ -23,8 +23,9 @@ const snapshot = {
     protein: null,
     fat: 0.3,
     carbohydrates: 28,
+    fiber: 0.4,
   }],
-  totals: { calories: 130, protein: null, fat: 0.3, carbohydrates: 28 },
+  totals: { calories: 130, protein: null, fat: 0.3, carbohydrates: 28, fiber: 0.4 },
 };
 const savedMeal = {
   id: mealId,

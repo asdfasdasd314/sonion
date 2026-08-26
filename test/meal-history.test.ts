@@ -25,8 +25,9 @@ const estimate = {
     protein: null,
     fat: 0.3,
     carbohydrates: 28,
+    fiber: 0.4,
   }],
-  totals: { calories: 130, protein: null, fat: 0.3, carbohydrates: 28 },
+  totals: { calories: 130, protein: null, fat: 0.3, carbohydrates: 28, fiber: 0.4 },
 };
 
 function record(id: string, date: string, time: string) {
@@ -66,6 +67,7 @@ test("extracts only bearer tokens and maps persisted snapshots without meal titl
   assert.equal(meal.time, "08:05:00");
   assert.equal(meal.foods[0]?.portionUnits, 1);
   assert.equal(meal.foods[0]?.macros.protein, null);
+  assert.equal(meal.foods[0]?.macros.fiber, 0.4);
 });
 
 test("groups records by local date and orders both days and meals descending", () => {
@@ -80,6 +82,39 @@ test("groups records by local date and orders both days and meals descending", (
 
 test("rejects malformed persisted records instead of rendering unvalidated JSON", () => {
   assert.equal(parseMealRecordList({ meals: [record("not-a-uuid", "2026-08-21", "08:05:00")] }), undefined);
+});
+
+test("normalizes legacy meal snapshots that omit fiber to null", () => {
+  const legacyRecord = {
+    id: "22222222-2222-4222-8222-222222222222",
+    user_id: "11111111-1111-4111-8111-111111111111",
+    meal_date: "2026-08-21",
+    meal_time: "08:05:00",
+    meal_snapshot: {
+      items: [{
+        foodName: "Rice",
+        fdcId: 1,
+        portionUnits: 1,
+        portionKind: "solid" as const,
+        estimatedMilliliters: 150,
+        estimatedGrams: 100,
+        densitySource: { type: "fallback" as const, gramsPerMilliliter: 0.75, portionKind: "solid" as const },
+        calories: 130,
+        protein: null,
+        fat: 0.3,
+        carbohydrates: 28,
+      }],
+      totals: { calories: 130, protein: null, fat: 0.3, carbohydrates: 28 },
+    },
+    created_at: "2026-08-21T00:00:00.000Z",
+    updated_at: "2026-08-21T00:00:00.000Z",
+  };
+  const parsed = parseMealRecordList({ meals: [legacyRecord] });
+  assert.ok(parsed);
+  assert.equal(parsed[0]?.meal_snapshot.items[0]?.fiber, null);
+  assert.equal(parsed[0]?.meal_snapshot.totals.fiber, null);
+  const meal = mapMealRecordToMeal(parsed[0]!);
+  assert.equal(meal.foods[0]?.macros.fiber, null);
 });
 
 test("prevents duplicate saves and exposes explicit save-state transitions", () => {

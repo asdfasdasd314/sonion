@@ -353,9 +353,9 @@ function EstimateTable({ response }: { response: MealEstimate }) {
     <div className="estimate-table-wrap">
       <table className="estimate-table">
         <caption className="visually-hidden">Estimated foods and nutrients</caption>
-        <thead><tr><th scope="col">Food</th><th scope="col">PU</th><th scope="col">Calories</th><th scope="col">Protein</th><th scope="col">Fat</th><th scope="col">Carbs</th></tr></thead>
-        <tbody>{response.items.map((item, index) => <tr key={`${item.fdcId}-${index}`}><th data-label="Food" scope="row">{item.foodName}<small>{item.portionKind}</small></th><td data-label="PU">{formatValue(item.portionUnits, 2)}</td><td data-label="Calories">{formatValue(item.calories)}</td><td data-label="Protein">{formatValue(item.protein)} g</td><td data-label="Fat">{formatValue(item.fat)} g</td><td data-label="Carbs">{formatValue(item.carbohydrates)} g</td></tr>)}</tbody>
-        <tfoot><tr><th scope="row">Meal total</th><td /><td>{formatValue(response.totals.calories)}</td><td>{formatValue(response.totals.protein)} g</td><td>{formatValue(response.totals.fat)} g</td><td>{formatValue(response.totals.carbohydrates)} g</td></tr></tfoot>
+        <thead><tr><th scope="col">Food</th><th scope="col">PU</th><th scope="col">Calories</th><th scope="col">Protein</th><th scope="col">Fat</th><th scope="col">Carbs</th><th scope="col">Fiber</th></tr></thead>
+        <tbody>{response.items.map((item, index) => <tr key={`${item.fdcId}-${index}`}><th data-label="Food" scope="row">{item.foodName}<small>{item.portionKind}</small></th><td data-label="PU">{formatValue(item.portionUnits, 2)}</td><td data-label="Calories">{formatValue(item.calories)}</td><td data-label="Protein">{formatValue(item.protein)} g</td><td data-label="Fat">{formatValue(item.fat)} g</td><td data-label="Carbs">{formatValue(item.carbohydrates)} g</td><td data-label="Fiber">{formatValue(item.fiber)} g</td></tr>)}</tbody>
+        <tfoot><tr><th scope="row">Meal total</th><td /><td>{formatValue(response.totals.calories)}</td><td>{formatValue(response.totals.protein)} g</td><td>{formatValue(response.totals.fat)} g</td><td>{formatValue(response.totals.carbohydrates)} g</td><td>{formatValue(response.totals.fiber)} g</td></tr></tfoot>
       </table>
     </div>
   );
