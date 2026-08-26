@@ -21,3 +21,6 @@ carbohydrate_kcal_per_gram = 4
 fat_kcal_per_gram = 9
 background_poll_interval_ms = 20000
 pause_poll_when_tab_hidden = true
+default_dashboard_view = "tracking"
+secondary_dashboard_view = "scientific-calculations"
+tracking_grid_columns = "meal-history-and-interpreter"

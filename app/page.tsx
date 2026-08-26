@@ -23,10 +23,13 @@ import {
   type SupabaseSession,
 } from "@/lib/supabase-auth";
 
+type DashboardView = "tracking" | "calculations";
+
 export default function Home() {
   const [session, setSession] = useState<SupabaseSession | null>(null);
   const [isAuthReady, setIsAuthReady] = useState(false);
   const [isSigningOut, setIsSigningOut] = useState(false);
+  const [dashboardView, setDashboardView] = useState<DashboardView>("tracking");
   const [mealHistoryRefreshKey, setMealHistoryRefreshKey] = useState(0);
   const [errorsRefreshKey, setErrorsRefreshKey] = useState(0);
   const [focusedMeal, setFocusedMeal] = useState<MealRecord | null>(null);
@@ -179,6 +182,7 @@ export default function Home() {
     } finally {
       clearStoredSession();
       setSession(null);
+      setDashboardView("tracking");
       setIsSigningOut(false);
     }
   }
@@ -202,28 +206,58 @@ export default function Home() {
         <div className="auth-loading">Restoring your secure session...</div>
       ) : session ? (
         <div className="dashboard-stack">
-          <div className="dashboard-grid">
-            <MealHistory
+          <nav aria-label="Dashboard views" className="dashboard-nav">
+            <div className="dashboard-nav-copy">
+              <p className="eyebrow">Your workspace</p>
+              <strong>{dashboardView === "tracking" ? "Meal tracking" : "Scientific calculations"}</strong>
+            </div>
+            <div className="dashboard-nav-actions">
+              <button
+                aria-pressed={dashboardView === "tracking"}
+                className={`dashboard-nav-button${dashboardView === "tracking" ? " is-active" : ""}`}
+                onClick={() => setDashboardView("tracking")}
+                type="button"
+              >
+                Meal tracking
+              </button>
+              <button
+                aria-pressed={dashboardView === "calculations"}
+                className={`dashboard-nav-button${dashboardView === "calculations" ? " is-active" : ""}`}
+                onClick={() => setDashboardView("calculations")}
+                type="button"
+              >
+                Scientific calculations
+              </button>
+            </div>
+          </nav>
+
+          <div className="dashboard-view" hidden={dashboardView !== "tracking"}>
+            <div className="dashboard-grid">
+              <MealHistory
+                accessToken={session.access_token}
+                onCopyMeal={handleCopyMeal}
+                onSelectMeal={handleSelectMeal}
+                refreshKey={mealHistoryRefreshKey}
+              />
+              <MealInterpreter
+                accessToken={session.access_token}
+                mealToCopy={copiedMeal}
+                mealToRefine={focusedMeal}
+                onClearCopiedMeal={handleClearCopiedMeal}
+                onClearFocusedMeal={handleClearFocusedMeal}
+                onProcessingQueued={handleProcessingQueued}
+                onMealSaved={bumpHistory}
+              />
+            </div>
+            <InterpretationErrorsPanel
               accessToken={session.access_token}
-              onCopyMeal={handleCopyMeal}
-              onSelectMeal={handleSelectMeal}
-              refreshKey={mealHistoryRefreshKey}
+              refreshKey={errorsRefreshKey}
             />
-            <MealInterpreter
-              accessToken={session.access_token}
-              mealToCopy={copiedMeal}
-              mealToRefine={focusedMeal}
-              onClearCopiedMeal={handleClearCopiedMeal}
-              onClearFocusedMeal={handleClearFocusedMeal}
-              onProcessingQueued={handleProcessingQueued}
-              onMealSaved={bumpHistory}
-            />
+          </div>
+
+          <div className="dashboard-view calculations-layout" hidden={dashboardView !== "calculations"}>
             <NutritionTargets />
           </div>
-          <InterpretationErrorsPanel
-            accessToken={session.access_token}
-            refreshKey={errorsRefreshKey}
-          />
         </div>
       ) : (
         <section className="auth-layout">

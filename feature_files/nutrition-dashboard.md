@@ -2,7 +2,7 @@
 
 ## Summary
 
-Sonion's authenticated home page is a simple three-column personal dashboard: private Supabase meal history on the left, an authenticated AI meal interpreter in the center, and a browser-only nutrition target calculator on the right. A separate expandable interpretation-errors section sits below the grid. Meal history stores processed estimates with user-selected local date/time values; targets remain browser-only.
+Sonion's authenticated home page is a two-view personal dashboard: the primary meal-tracking view gives private Supabase meal history and the authenticated AI meal interpreter most of the available width, while a separate scientific-calculations view contains the browser-only nutrition target calculator. The primary view also keeps the expandable interpretation-errors section below the grid. Meal history stores processed estimates with user-selected local date/time values; targets remain browser-only.
 
 ## Key Points
 
@@ -12,13 +12,14 @@ Sonion's authenticated home page is a simple three-column personal dashboard: pr
 - Refining a focused meal queues the structured revision and automatically PATCHes the saved record; the browser does not review or save a returned AI response.
 - While the authenticated dashboard is open, light polling checks meals and interpretation errors (paused when the tab is hidden) and refreshes history or the errors panel when list identity changes.
 - Interpretation failures appear in a sibling expandable section with dismiss controls; they are not nested inside history or the interpreter card.
+- The authenticated dashboard view switcher keeps meal tracking and scientific calculations visually separate; the calculator remains mounted while hidden so entered values survive a view change.
 - The target calculator accepts weight in pounds and height in inches, converts them to kilograms and centimeters for the supplied Mifflin–St Jeor equation, then applies activity range midpoints and a user-selected weekly cut/bulk change in either percentage of body weight or pounds, using 3,500 kcal per pound, before calculating macros.
 - Internal target calculations keep decimal precision while rendered values are rounded to whole numbers. Negative remaining calories are surfaced as a warning and carbohydrates display as zero.
 - The migration and API enforce owner-only read/write/delete behavior. Nutrition targets remain non-persistent.
 
 ## Relevant Files
 
-- `app/page.tsx` owns session restoration, sign-out, auth gating, dashboard shell, and light polling.
+- `app/page.tsx` owns session restoration, sign-out, auth gating, dashboard view switching, shell, and light polling.
 - `components/meal-history.tsx` loads and renders the authenticated expandable date and meal history.
 - `components/meal-interpreter.tsx` owns the repeatable dated meal list, automatic queue status, and automatic refinement/copy actions.
 - `components/interpretation-errors.tsx` owns the expandable interpretation-errors section.
@@ -50,3 +51,4 @@ HACKING
 - Replaced seeded history with authenticated Supabase loading, added save-state transitions and refresh-after-save, and preserved null nutrient semantics in aggregation.
 - Fixed the required-input nutrition validation fixture to omit activity/goal instead of empty strings so TypeScript accepts `Partial<NutritionTargetInput>`.
 - Replaced manual interpretation/save controls with a repeatable batch queue and acknowledgement-only automatic persistence while preserving light polling for background meal/error updates.
+- Split scientific calculations into a secondary dashboard view, widened the tracking columns, and increased meal-history nutrient text for readability.
