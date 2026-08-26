@@ -14,6 +14,7 @@ Meal history persists each processed estimate as an owner-scoped JSONB snapshot.
 - A history entry can focus the center interpreter panel. A queued revision replaces the saved row automatically after the server applies and recalculates the structured patch.
 - Saved records remain refinable using their foods as context; no prompt column is required.
 - DELETE is exposed in the dashboard through a per-meal confirmation control, while PATCH remains owner-scoped and is used for focused history saves after a submitted revision.
+- Meal rows show their calories and macro totals while collapsed by default; each row independently expands to reveal food contents and meal actions.
 
 ## Relevant Files
 
@@ -43,3 +44,4 @@ TESTING
 - Removed the unavailable persisted meal-prompt dependency; meal history now selects and validates only columns present in the base meals table, while focused revisions derive context from saved foods.
 - Linked the per-meal copy action to the interpreter copy draft so history can seed a new POST save without owning copy-draft rules.
 - Background batch inserts and refinement updates use the same owner-scoped `saveMeal`/`updateMeal` paths; history refreshes via dashboard light polling when the meal list identity changes.
+- Collapsed-by-default meal rows now preserve the compact history view, with accessible per-meal toggle buttons for food details and actions.
