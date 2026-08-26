@@ -41,8 +41,10 @@ function MacroSummary({ macros, compact = false }: { macros: MacroTotals; compac
 
 type MealDetailsProps = {
   day: MealDay;
+  expandedMeals: string[];
   onCopyMeal: (meal: MealRecord) => void;
   onSelectMeal: (meal: MealRecord) => void;
+  onToggleMeal: (mealId: string) => void;
   recordsById: Map<string, MealRecord>;
   deletingMealId: string | null;
   deleteError: string;
@@ -54,8 +56,10 @@ type MealDetailsProps = {
 
 function MealDetails({
   day,
+  expandedMeals,
   onCopyMeal,
   onSelectMeal,
+  onToggleMeal,
   recordsById,
   deletingMealId,
   deleteError,
@@ -69,11 +73,13 @@ function MealDetails({
       {day.meals.map((meal) => {
         const mealMacros = aggregateMealMacros(meal);
         const record = recordsById.get(meal.id);
+        const isExpanded = expandedMeals.includes(meal.id);
         const isDeletePending = pendingDeleteMealId === meal.id;
         const isDeleting = deletingMealId === meal.id;
         const confirmationId = `delete-meal-confirmation-${meal.id}`;
+        const detailsId = `meal-content-${meal.id}`;
         return (
-          <article className="meal-entry" key={meal.id}>
+          <article className={`meal-entry${isExpanded ? " is-expanded" : ""}`} key={meal.id}>
             <button
               aria-controls={isDeletePending ? confirmationId : undefined}
               aria-expanded={isDeletePending}
@@ -97,32 +103,39 @@ function MealDetails({
                 {deleteError ? <p className="meal-delete-error" role="alert">{deleteError}</p> : null}
               </div>
             ) : null}
-            <div className="meal-entry-heading">
-              <div>
-                <h4>{formatTime(meal.time)}</h4>
-                <p>{meal.foods.length} foods</p>
-              </div>
-              <span className="meal-calories">{formatMacroValue(mealMacros.calories, " cal")}</span>
-            </div>
-            <div className="meal-total-line">Meal total · {formatMacroValue(mealMacros.protein, "g protein")} · {formatMacroValue(mealMacros.fat, "g fat")} · {formatMacroValue(mealMacros.carbohydrates, "g carbs")}</div>
-            <ul className="food-list">
-              {meal.foods.map((food) => (
-                <li key={food.id}>
-                  <span>
-                    {food.name}
-                    <small className="food-portion">{formatMacroValue(food.portionUnits, "", 2)} PU · {food.portionKind} · {formatMacroValue(food.estimatedMilliliters)} ml · {formatMacroValue(food.estimatedGrams)} g</small>
-                  </span>
-                  <span className="food-macros">
-                    {formatMacroValue(food.macros.calories, " cal")} · {formatMacroValue(food.macros.protein, "p")} · {formatMacroValue(food.macros.fat, "f")} · {formatMacroValue(food.macros.carbohydrates, "c")}
-                    <small className="density-note">{food.densitySource.type === "usda" ? `USDA · ${food.densitySource.portionDescription}` : `Fallback density · ${food.densitySource.portionKind}`}</small>
-                  </span>
-                </li>
-              ))}
-            </ul>
-            {record ? (
-              <div className="meal-entry-actions">
-                <button className="meal-copy-button" onClick={() => onCopyMeal(record)} type="button">Copy this meal</button>
-                <button className="meal-refine-button" onClick={() => onSelectMeal(record)} type="button">Refine this meal</button>
+            <button aria-controls={detailsId} aria-expanded={isExpanded} className="meal-toggle" onClick={() => onToggleMeal(meal.id)} type="button">
+              <span className="meal-toggle-label">
+                <span aria-hidden="true" className="meal-chevron">{isExpanded ? "−" : "+"}</span>
+                <span>
+                  <strong>{formatTime(meal.time)}</strong>
+                  <small>{meal.foods.length} foods</small>
+                </span>
+              </span>
+              <MacroSummary compact macros={mealMacros} />
+            </button>
+            {isExpanded ? (
+              <div className="meal-expanded-content" id={detailsId}>
+                <div className="meal-total-line">Meal total · {formatMacroValue(mealMacros.protein, "g protein")} · {formatMacroValue(mealMacros.fat, "g fat")} · {formatMacroValue(mealMacros.carbohydrates, "g carbs")}</div>
+                <ul className="food-list">
+                  {meal.foods.map((food) => (
+                    <li key={food.id}>
+                      <span>
+                        {food.name}
+                        <small className="food-portion">{formatMacroValue(food.portionUnits, "", 2)} PU · {food.portionKind} · {formatMacroValue(food.estimatedMilliliters)} ml · {formatMacroValue(food.estimatedGrams)} g</small>
+                      </span>
+                      <span className="food-macros">
+                        {formatMacroValue(food.macros.calories, " cal")} · {formatMacroValue(food.macros.protein, "p")} · {formatMacroValue(food.macros.fat, "f")} · {formatMacroValue(food.macros.carbohydrates, "c")}
+                        <small className="density-note">{food.densitySource.type === "usda" ? `USDA · ${food.densitySource.portionDescription}` : `Fallback density · ${food.densitySource.portionKind}`}</small>
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+                {record ? (
+                  <div className="meal-entry-actions">
+                    <button className="meal-copy-button" onClick={() => onCopyMeal(record)} type="button">Copy this meal</button>
+                    <button className="meal-refine-button" onClick={() => onSelectMeal(record)} type="button">Refine this meal</button>
+                  </div>
+                ) : null}
               </div>
             ) : null}
           </article>
@@ -136,6 +149,7 @@ export default function MealHistory({ accessToken, onCopyMeal, onSelectMeal, ref
   const [days, setDays] = useState<MealDay[]>([]);
   const [records, setRecords] = useState<MealRecord[]>([]);
   const [expandedDays, setExpandedDays] = useState<string[]>([]);
+  const [expandedMeals, setExpandedMeals] = useState<string[]>([]);
   const [state, setState] = useState<HistoryState>("loading");
   const [error, setError] = useState("");
   const [pendingDeleteMealId, setPendingDeleteMealId] = useState<string | null>(null);
@@ -181,6 +195,10 @@ export default function MealHistory({ accessToken, onCopyMeal, onSelectMeal, ref
     setExpandedDays((current) => current.includes(dayId) ? current.filter((id) => id !== dayId) : [...current, dayId]);
   }
 
+  function toggleMeal(mealId: string) {
+    setExpandedMeals((current) => current.includes(mealId) ? current.filter((id) => id !== mealId) : [...current, mealId]);
+  }
+
   const recordsById = new Map(records.map((record) => [record.id, record]));
 
   function requestDelete(mealId: string) {
@@ -215,6 +233,7 @@ export default function MealHistory({ accessToken, onCopyMeal, onSelectMeal, ref
       if (dayContainingMeal?.meals.length === 1) {
         setExpandedDays((current) => current.filter((dayId) => dayId !== dayContainingMeal.id));
       }
+      setExpandedMeals((current) => current.filter((id) => id !== mealId));
       setPendingDeleteMealId(null);
     } catch (deleteRequestError) {
       setDeleteError(deleteRequestError instanceof Error ? deleteRequestError.message : "Could not delete this meal.");
@@ -260,10 +279,12 @@ export default function MealHistory({ accessToken, onCopyMeal, onSelectMeal, ref
                       day={day}
                       deleteError={deleteError}
                       deletingMealId={deletingMealId}
+                      expandedMeals={expandedMeals}
                       onCancelDelete={cancelDelete}
                       onConfirmDelete={(mealId) => void confirmDelete(mealId)}
                       onCopyMeal={onCopyMeal}
                       onRequestDelete={requestDelete}
+                      onToggleMeal={toggleMeal}
                       pendingDeleteMealId={pendingDeleteMealId}
                       onSelectMeal={onSelectMeal}
                       recordsById={recordsById}
