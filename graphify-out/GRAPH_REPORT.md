@@ -1,16 +1,16 @@
 # Graph Report - sonion  (2026-08-25)
 
 ## Corpus Check
-- 97 files · ~204,838 words
+- 97 files · ~205,180 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 692 nodes · 1403 edges · 33 communities (27 shown, 6 thin omitted)
+- 693 nodes · 1411 edges · 32 communities (26 shown, 6 thin omitted)
 - Extraction: 98% EXTRACTED · 2% INFERRED · 0% AMBIGUOUS · INFERRED: 24 edges (avg confidence: 0.81)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `c9471014`
+- Built from commit: `029b9720`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -47,7 +47,6 @@
 - Interpretation errors
 - meal-interpreter.tsx
 - Automatic batch meal interpretation
-- gemma.ts
 
 ## God Nodes (most connected - your core abstractions)
 1. `authenticateMealRequest()` - 16 edges
@@ -81,7 +80,7 @@
 - **Feature and Parameter File Workflow** — _agents_profiles_architecture, _agents_profiles_coding, _agents_profiles_integrating, _agents_profiles_planning, agents, claude [EXTRACTED 1.00]
 - **Next.js Starter Project Assets** — readme, public_next, public_vercel, public_file, public_globe, public_window [INFERRED 0.85]
 
-## Communities (33 total, 6 thin omitted)
+## Communities (32 total, 6 thin omitted)
 
 ### Community 0 - "TypeScript Compiler Options"
 Cohesion: 0.07
@@ -124,16 +123,16 @@ Cohesion: 0.50
 Nodes (4): Bridge Agent Profile, Answer Oriented Programming, Coding Readiness, Centralized Project Document cp_doc
 
 ### Community 10 - "Home Page"
-Cohesion: 0.14
-Nodes (22): DashboardView, Home(), AuthMode, AuthPanel(), AuthPanelProps, mealListFingerprint(), AuthErrorResponse, authRequest() (+14 more)
+Cohesion: 0.13
+Nodes (23): DashboardView, Home(), AuthMode, AuthPanel(), AuthPanelProps, mealListFingerprint(), AuthErrorResponse, authRequest() (+15 more)
 
 ### Community 17 - "route.ts"
 Cohesion: 0.29
 Nodes (6): Dev Mode, Key Points, Relevant Files, State Log, Structured meal revisions, Summary
 
 ### Community 18 - "tools.ts"
-Cohesion: 0.07
-Nodes (50): AgentGenerationAdapter, selectPreferredVolumePortion(), FoodToolRegistry, loadParameters(), MEAL_ESTIMATION_PARAMETERS, MealEstimationParameters, parameterValue(), caloriesFromMacros() (+42 more)
+Cohesion: 0.08
+Nodes (45): selectPreferredVolumePortion(), loadParameters(), MEAL_ESTIMATION_PARAMETERS, MealEstimationParameters, parameterValue(), caloriesFromMacros(), estimateMeal(), portionUnitMilliliters() (+37 more)
 
 ### Community 19 - "Gemini model selection"
 Cohesion: 0.29
@@ -148,8 +147,8 @@ Cohesion: 0.06
 Nodes (50): formatDate(), formatSavedTargetDate(), formatTime(), HistoryState, MacroSummary(), MealDetails(), MealDetailsProps, MealHistory() (+42 more)
 
 ### Community 22 - "normalize.ts"
-Cohesion: 0.12
-Nodes (23): loadParameters(), MEAL_BATCH_PARAMETERS, MealBatchParameters, parameterNumber(), isRecord(), isRequestBody(), parseBatch(), parseDatedMeal() (+15 more)
+Cohesion: 0.07
+Nodes (45): errorResponse(), persistInterpretationFailure(), POST(), processQueuedMeal(), processQueuedRefinement(), getFoodToolsSkill(), AgentGenerationAdapter, FoodToolRegistry (+37 more)
 
 ### Community 23 - "Client-only nutrition dashboard"
 Cohesion: 0.29
@@ -164,16 +163,16 @@ Cohesion: 0.29
 Nodes (6): Dev Mode, Key Points, Relevant Files, State Log, Summary, Supabase meal history
 
 ### Community 26 - "normalize.ts"
-Cohesion: 0.09
-Nodes (31): errorResponse(), mapError(), PATCH(), errorResponse(), GET(), mapError(), errorResponse(), GET() (+23 more)
+Cohesion: 0.14
+Nodes (22): errorResponse(), GET(), mapError(), POST(), authenticateMealRequest(), getBearerToken(), normalizeSavedNutritionTargetResponse(), NutritionTargetSaveBodySchema (+14 more)
 
 ### Community 27 - "Meal copy drafts"
 Cohesion: 0.29
 Nodes (6): Dev Mode, Key Points, Meal copy drafts, Relevant Files, State Log, Summary
 
 ### Community 28 - "index.ts"
-Cohesion: 0.08
-Nodes (38): errorResponse(), persistInterpretationFailure(), POST(), processQueuedMeal(), processQueuedRefinement(), ErrorsState, formatMealWhen(), formatRelativeTime() (+30 more)
+Cohesion: 0.07
+Nodes (38): errorResponse(), mapError(), PATCH(), errorResponse(), GET(), mapError(), ErrorsState, formatMealWhen() (+30 more)
 
 ### Community 29 - "Interpretation errors"
 Cohesion: 0.29
@@ -187,12 +186,8 @@ Nodes (15): createMealDraft(), EstimateTable(), formatValue(), MealDraft, MealIn
 Cohesion: 0.29
 Nodes (6): Automatic batch meal interpretation, Dev Mode, Key Points, Relevant Files, State Log, Summary
 
-### Community 32 - "gemma.ts"
-Cohesion: 0.27
-Nodes (8): getFoodToolsSkill(), AlternatingModelSelector, createGemmaClient(), getGeminiModel(), getGemmaModel(), getGemmaSystemInstruction(), getNextMealModel(), nextModelProvider
-
 ## Knowledge Gaps
-- **216 isolated node(s):** `geistSans`, `geistMono`, `metadata`, `DashboardView`, `AuthMode` (+211 more)
+- **215 isolated node(s):** `geistSans`, `geistMono`, `metadata`, `DashboardView`, `AuthMode` (+210 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **6 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
@@ -201,12 +196,12 @@ _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `MealEstimate` connect `tools.ts` to `Linting and Styling`, `nutrition-targets.tsx`, `meal-interpreter.tsx`, `normalize.ts`?**
   _High betweenness centrality (0.016) - this node is a cross-community bridge._
-- **Why does `SupabaseConfigurationError` connect `index.ts` to `Linting and Styling`, `normalize.ts`, `Home Page`?**
-  _High betweenness centrality (0.014) - this node is a cross-community bridge._
-- **Why does `NormalizedFood` connect `TypeScript References` to `tools.ts`, `Project Agent Rules`?**
+- **Why does `SupabaseConfigurationError` connect `normalize.ts` to `Linting and Styling`, `Home Page`, `index.ts`, `normalize.ts`?**
+  _High betweenness centrality (0.013) - this node is a cross-community bridge._
+- **Why does `NormalizedFood` connect `TypeScript References` to `tools.ts`, `Project Agent Rules`, `normalize.ts`?**
   _High betweenness centrality (0.011) - this node is a cross-community bridge._
 - **What connects `geistSans`, `geistMono`, `metadata` to the rest of the system?**
-  _216 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _215 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `TypeScript Compiler Options` be split into smaller, more focused modules?**
   _Cohesion score 0.06896551724137931 - nodes in this community are weakly interconnected._
 - **Should `Linting and Styling` be split into smaller, more focused modules?**

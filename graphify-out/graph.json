@@ -61,8 +61,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_api_estimate_route",
-      "community": 28,
-      "community_name": "index.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "route.ts"
     },
     {
@@ -72,8 +72,8 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "app_api_estimate_route_errorresponse",
-      "community": 28,
-      "community_name": "index.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "errorresponse()"
     },
     {
@@ -83,8 +83,8 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "app_api_estimate_route_persistinterpretationfailure",
-      "community": 28,
-      "community_name": "index.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "persistinterpretationfailure()"
     },
     {
@@ -94,8 +94,8 @@
       "source_location": "L64",
       "_origin": "ast",
       "id": "app_api_estimate_route_processqueuedmeal",
-      "community": 28,
-      "community_name": "index.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "processqueuedmeal()"
     },
     {
@@ -105,8 +105,8 @@
       "source_location": "L96",
       "_origin": "ast",
       "id": "app_api_estimate_route_processqueuedrefinement",
-      "community": 28,
-      "community_name": "index.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "processqueuedrefinement()"
     },
     {
@@ -116,8 +116,8 @@
       "source_location": "L133",
       "_origin": "ast",
       "id": "app_api_estimate_route_post",
-      "community": 28,
-      "community_name": "index.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "post()"
     },
     {
@@ -127,8 +127,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_api_interpretation_errors_id_route",
-      "community": 26,
-      "community_name": "normalize.ts",
+      "community": 28,
+      "community_name": "index.ts",
       "norm_label": "route.ts"
     },
     {
@@ -138,8 +138,8 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "app_api_interpretation_errors_id_route_errorresponse",
-      "community": 26,
-      "community_name": "normalize.ts",
+      "community": 28,
+      "community_name": "index.ts",
       "norm_label": "errorresponse()"
     },
     {
@@ -149,8 +149,8 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "app_api_interpretation_errors_id_route_maperror",
-      "community": 26,
-      "community_name": "normalize.ts",
+      "community": 28,
+      "community_name": "index.ts",
       "norm_label": "maperror()"
     },
     {
@@ -160,8 +160,8 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "app_api_interpretation_errors_id_route_patch",
-      "community": 26,
-      "community_name": "normalize.ts",
+      "community": 28,
+      "community_name": "index.ts",
       "norm_label": "patch()"
     },
     {
@@ -171,8 +171,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_api_interpretation_errors_route",
-      "community": 26,
-      "community_name": "normalize.ts",
+      "community": 28,
+      "community_name": "index.ts",
       "norm_label": "route.ts"
     },
     {
@@ -182,8 +182,8 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "app_api_interpretation_errors_route_errorresponse",
-      "community": 26,
-      "community_name": "normalize.ts",
+      "community": 28,
+      "community_name": "index.ts",
       "norm_label": "errorresponse()"
     },
     {
@@ -193,8 +193,8 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "app_api_interpretation_errors_route_maperror",
-      "community": 26,
-      "community_name": "normalize.ts",
+      "community": 28,
+      "community_name": "index.ts",
       "norm_label": "maperror()"
     },
     {
@@ -204,8 +204,8 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "app_api_interpretation_errors_route_get",
-      "community": 26,
-      "community_name": "normalize.ts",
+      "community": 28,
+      "community_name": "index.ts",
       "norm_label": "get()"
     },
     {
@@ -696,7 +696,7 @@
       "label": "getErrorMessage()",
       "file_type": "code",
       "source_file": "components/meal-history.tsx",
-      "source_location": "L337",
+      "source_location": "L338",
       "_origin": "ast",
       "id": "components_meal_history_geterrormessage",
       "community": 21,
@@ -707,7 +707,7 @@
       "label": "formatSavedTargetDate()",
       "file_type": "code",
       "source_file": "components/meal-history.tsx",
-      "source_location": "L343",
+      "source_location": "L344",
       "_origin": "ast",
       "id": "components_meal_history_formatsavedtargetdate",
       "community": 21,
@@ -916,7 +916,7 @@
       "label": "getErrorMessage()",
       "file_type": "code",
       "source_file": "components/nutrition-targets.tsx",
-      "source_location": "L218",
+      "source_location": "L219",
       "_origin": "ast",
       "id": "components_nutrition_targets_geterrormessage",
       "community": 21,
@@ -952,8 +952,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_agent_food_tools_skill",
-      "community": 32,
-      "community_name": "gemma.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "food-tools-skill.ts"
     },
     {
@@ -963,8 +963,8 @@
       "source_location": "L63",
       "_origin": "ast",
       "id": "lib_agent_food_tools_skill_getfoodtoolsskill",
-      "community": 32,
-      "community_name": "gemma.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "getfoodtoolsskill()"
     },
     {
@@ -1315,8 +1315,8 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "lib_agent_runner_agentgenerationadapter",
-      "community": 18,
-      "community_name": "tools.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "agentgenerationadapter"
     },
     {
@@ -2140,8 +2140,8 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "lib_food_data_tools_foodtoolregistry",
-      "community": 18,
-      "community_name": "tools.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "foodtoolregistry"
     },
     {
@@ -2426,8 +2426,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_gemma",
-      "community": 32,
-      "community_name": "gemma.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "gemma.ts"
     },
     {
@@ -2437,8 +2437,8 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "lib_gemma_alternatingmodelselector",
-      "community": 32,
-      "community_name": "gemma.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "alternatingmodelselector"
     },
     {
@@ -2448,8 +2448,8 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "lib_gemma_createalternatingmodelselector",
-      "community": 32,
-      "community_name": "gemma.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "createalternatingmodelselector()"
     },
     {
@@ -2459,8 +2459,8 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "lib_gemma_nextmodelprovider",
-      "community": 32,
-      "community_name": "gemma.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "nextmodelprovider"
     },
     {
@@ -2470,8 +2470,8 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "lib_gemma_creategemmaclient",
-      "community": 32,
-      "community_name": "gemma.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "creategemmaclient()"
     },
     {
@@ -2481,8 +2481,8 @@
       "source_location": "L29",
       "_origin": "ast",
       "id": "lib_gemma_getgeminimodel",
-      "community": 32,
-      "community_name": "gemma.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "getgeminimodel()"
     },
     {
@@ -2492,8 +2492,8 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "lib_gemma_getgemmamodel",
-      "community": 32,
-      "community_name": "gemma.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "getgemmamodel()"
     },
     {
@@ -2503,8 +2503,8 @@
       "source_location": "L37",
       "_origin": "ast",
       "id": "lib_gemma_getnextmealmodel",
-      "community": 32,
-      "community_name": "gemma.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "getnextmealmodel()"
     },
     {
@@ -2514,8 +2514,8 @@
       "source_location": "L41",
       "_origin": "ast",
       "id": "lib_gemma_getgemmasysteminstruction",
-      "community": 32,
-      "community_name": "gemma.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "getgemmasysteminstruction()"
     },
     {
@@ -2701,8 +2701,8 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "lib_interpretation_errors_supabase_supabaseinterpretationerror",
-      "community": 26,
-      "community_name": "normalize.ts",
+      "community": 28,
+      "community_name": "index.ts",
       "norm_label": "supabaseinterpretationerror"
     },
     {
@@ -2712,8 +2712,8 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "lib_interpretation_errors_supabase_supabaseinterpretationerror_constructor",
-      "community": 26,
-      "community_name": "normalize.ts",
+      "community": 28,
+      "community_name": "index.ts",
       "norm_label": ".constructor()"
     },
     {
@@ -2756,8 +2756,8 @@
       "source_location": "L60",
       "_origin": "ast",
       "id": "lib_interpretation_errors_supabase_listinterpretationerrors",
-      "community": 26,
-      "community_name": "normalize.ts",
+      "community": 28,
+      "community_name": "index.ts",
       "norm_label": "listinterpretationerrors()"
     },
     {
@@ -2767,8 +2767,8 @@
       "source_location": "L79",
       "_origin": "ast",
       "id": "lib_interpretation_errors_supabase_insertinterpretationerror",
-      "community": 28,
-      "community_name": "index.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "insertinterpretationerror()"
     },
     {
@@ -2778,8 +2778,8 @@
       "source_location": "L105",
       "_origin": "ast",
       "id": "lib_interpretation_errors_supabase_dismissinterpretationerror",
-      "community": 26,
-      "community_name": "normalize.ts",
+      "community": 28,
+      "community_name": "index.ts",
       "norm_label": "dismissinterpretationerror()"
     },
     {
@@ -3284,8 +3284,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_meal_estimation_pipeline",
-      "community": 18,
-      "community_name": "tools.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "pipeline.ts"
     },
     {
@@ -3295,8 +3295,8 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "lib_meal_estimation_pipeline_estimatepipelineresult",
-      "community": 18,
-      "community_name": "tools.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "estimatepipelineresult"
     },
     {
@@ -3306,8 +3306,8 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "lib_meal_estimation_pipeline_estimatepipelineinput",
-      "community": 18,
-      "community_name": "tools.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "estimatepipelineinput"
     },
     {
@@ -3317,8 +3317,8 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "lib_meal_estimation_pipeline_createmealgenerateadapter",
-      "community": 28,
-      "community_name": "index.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "createmealgenerateadapter()"
     },
     {
@@ -3328,8 +3328,8 @@
       "source_location": "L49",
       "_origin": "ast",
       "id": "lib_meal_estimation_pipeline_runmealestimatepipeline",
-      "community": 28,
-      "community_name": "index.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "runmealestimatepipeline()"
     },
     {
@@ -3581,8 +3581,8 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "lib_meal_history_request_mealrequestautherror",
-      "community": 26,
-      "community_name": "normalize.ts",
+      "community": 28,
+      "community_name": "index.ts",
       "norm_label": "mealrequestautherror"
     },
     {
@@ -3592,8 +3592,8 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "lib_meal_history_request_mealrequestautherror_constructor",
-      "community": 26,
-      "community_name": "normalize.ts",
+      "community": 28,
+      "community_name": "index.ts",
       "norm_label": ".constructor()"
     },
     {
@@ -4252,8 +4252,8 @@
       "source_location": "L83",
       "_origin": "ast",
       "id": "lib_meal_revision_types_revisioncontextfromestimate",
-      "community": 18,
-      "community_name": "tools.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "revisioncontextfromestimate()"
     },
     {
@@ -4381,7 +4381,7 @@
       "label": "NutritionTargetsSchema",
       "file_type": "code",
       "source_file": "lib/nutrition/target-history.ts",
-      "source_location": "L5",
+      "source_location": "L7",
       "_origin": "ast",
       "id": "lib_nutrition_target_history_nutritiontargetsschema",
       "community": 26,
@@ -4392,7 +4392,7 @@
       "label": "SavedNutritionTargetSchema",
       "file_type": "code",
       "source_file": "lib/nutrition/target-history.ts",
-      "source_location": "L20",
+      "source_location": "L23",
       "_origin": "ast",
       "id": "lib_nutrition_target_history_savednutritiontargetschema",
       "community": 26,
@@ -4403,7 +4403,7 @@
       "label": "SavedNutritionTarget",
       "file_type": "code",
       "source_file": "lib/nutrition/target-history.ts",
-      "source_location": "L26",
+      "source_location": "L29",
       "_origin": "ast",
       "id": "lib_nutrition_target_history_savednutritiontarget",
       "community": 26,
@@ -4414,7 +4414,7 @@
       "label": "NutritionTargetSaveBodySchema",
       "file_type": "code",
       "source_file": "lib/nutrition/target-history.ts",
-      "source_location": "L28",
+      "source_location": "L31",
       "_origin": "ast",
       "id": "lib_nutrition_target_history_nutritiontargetsavebodyschema",
       "community": 26,
@@ -4425,7 +4425,7 @@
       "label": "SavedNutritionTargetResponseSchema",
       "file_type": "code",
       "source_file": "lib/nutrition/target-history.ts",
-      "source_location": "L32",
+      "source_location": "L35",
       "_origin": "ast",
       "id": "lib_nutrition_target_history_savednutritiontargetresponseschema",
       "community": 26,
@@ -4436,12 +4436,23 @@
       "label": "parseSavedNutritionTargetResponse()",
       "file_type": "code",
       "source_file": "lib/nutrition/target-history.ts",
-      "source_location": "L36",
+      "source_location": "L39",
       "_origin": "ast",
       "id": "lib_nutrition_target_history_parsesavednutritiontargetresponse",
       "community": 26,
       "community_name": "normalize.ts",
       "norm_label": "parsesavednutritiontargetresponse()"
+    },
+    {
+      "label": "normalizeSavedNutritionTargetResponse()",
+      "file_type": "code",
+      "source_file": "lib/nutrition/target-history.ts",
+      "source_location": "L44",
+      "_origin": "ast",
+      "id": "lib_nutrition_target_history_normalizesavednutritiontargetresponse",
+      "community": 26,
+      "community_name": "normalize.ts",
+      "norm_label": "normalizesavednutritiontargetresponse()"
     },
     {
       "label": "target-supabase.ts",
@@ -4568,7 +4579,7 @@
       "label": "NutritionTargetInput",
       "file_type": "code",
       "source_file": "lib/nutrition/targets.ts",
-      "source_location": "L23",
+      "source_location": "L24",
       "_origin": "ast",
       "id": "lib_nutrition_targets_nutritiontargetinput",
       "community": 21,
@@ -4579,7 +4590,7 @@
       "label": "NutritionTargetErrors",
       "file_type": "code",
       "source_file": "lib/nutrition/targets.ts",
-      "source_location": "L33",
+      "source_location": "L34",
       "_origin": "ast",
       "id": "lib_nutrition_targets_nutritiontargeterrors",
       "community": 21,
@@ -4590,7 +4601,7 @@
       "label": "NutritionTargets",
       "file_type": "code",
       "source_file": "lib/nutrition/targets.ts",
-      "source_location": "L35",
+      "source_location": "L36",
       "_origin": "ast",
       "id": "lib_nutrition_targets_nutritiontargets",
       "community": 26,
@@ -4601,7 +4612,7 @@
       "label": "NutritionTargetResult",
       "file_type": "code",
       "source_file": "lib/nutrition/targets.ts",
-      "source_location": "L50",
+      "source_location": "L52",
       "_origin": "ast",
       "id": "lib_nutrition_targets_nutritiontargetresult",
       "community": 21,
@@ -4612,7 +4623,7 @@
       "label": "validateNutritionTargetInput()",
       "file_type": "code",
       "source_file": "lib/nutrition/targets.ts",
-      "source_location": "L54",
+      "source_location": "L56",
       "_origin": "ast",
       "id": "lib_nutrition_targets_validatenutritiontargetinput",
       "community": 21,
@@ -4623,7 +4634,7 @@
       "label": "calculateNutritionTargets()",
       "file_type": "code",
       "source_file": "lib/nutrition/targets.ts",
-      "source_location": "L99",
+      "source_location": "L101",
       "_origin": "ast",
       "id": "lib_nutrition_targets_calculatenutritiontargets",
       "community": 21,
@@ -4634,7 +4645,7 @@
       "label": "roundNutritionValue()",
       "file_type": "code",
       "source_file": "lib/nutrition/targets.ts",
-      "source_location": "L142",
+      "source_location": "L146",
       "_origin": "ast",
       "id": "lib_nutrition_targets_roundnutritionvalue",
       "community": 21,
@@ -4813,8 +4824,8 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "lib_supabase_auth_supabaseconfigurationerror",
-      "community": 28,
-      "community_name": "index.ts",
+      "community": 26,
+      "community_name": "normalize.ts",
       "norm_label": "supabaseconfigurationerror"
     },
     {
@@ -4824,8 +4835,8 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "lib_supabase_auth_supabaseconfigurationerror_constructor",
-      "community": 28,
-      "community_name": "index.ts",
+      "community": 26,
+      "community_name": "normalize.ts",
       "norm_label": ".constructor()"
     },
     {
@@ -4835,8 +4846,8 @@
       "source_location": "L42",
       "_origin": "ast",
       "id": "lib_supabase_auth_supabaseautherror",
-      "community": 28,
-      "community_name": "index.ts",
+      "community": 10,
+      "community_name": "Home Page",
       "norm_label": "supabaseautherror"
     },
     {
@@ -4846,8 +4857,8 @@
       "source_location": "L45",
       "_origin": "ast",
       "id": "lib_supabase_auth_supabaseautherror_constructor",
-      "community": 28,
-      "community_name": "index.ts",
+      "community": 10,
+      "community_name": "Home Page",
       "norm_label": ".constructor()"
     },
     {
@@ -4956,8 +4967,8 @@
       "source_location": "L173",
       "_origin": "ast",
       "id": "lib_supabase_auth_getsupabaseuser",
-      "community": 28,
-      "community_name": "index.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "getsupabaseuser()"
     },
     {
@@ -5759,8 +5770,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "test_interpretation_errors_api_test",
-      "community": 26,
-      "community_name": "normalize.ts",
+      "community": 28,
+      "community_name": "index.ts",
       "norm_label": "interpretation-errors-api.test.ts"
     },
     {
@@ -5770,8 +5781,8 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "test_interpretation_errors_api_test_errorrow",
-      "community": 26,
-      "community_name": "normalize.ts",
+      "community": 28,
+      "community_name": "index.ts",
       "norm_label": "errorrow"
     },
     {
@@ -5781,8 +5792,8 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "test_interpretation_errors_api_test_mockfetch",
-      "community": 26,
-      "community_name": "normalize.ts",
+      "community": 28,
+      "community_name": "index.ts",
       "norm_label": "mockfetch()"
     },
     {
@@ -5792,8 +5803,8 @@
       "source_location": "L46",
       "_origin": "ast",
       "id": "test_interpretation_errors_api_test_authenticatedrequest",
-      "community": 26,
-      "community_name": "normalize.ts",
+      "community": 28,
+      "community_name": "index.ts",
       "norm_label": "authenticatedrequest()"
     },
     {
@@ -5998,7 +6009,7 @@
       "label": "sampleMeal",
       "file_type": "code",
       "source_file": "test/nutrition.test.ts",
-      "source_location": "L8",
+      "source_location": "L20",
       "_origin": "ast",
       "id": "test_nutrition_test_samplemeal",
       "community": 21,
@@ -7142,7 +7153,7 @@
       "label": "Relevant Files",
       "file_type": "document",
       "source_file": "feature_files/nutrition-dashboard.md",
-      "source_location": "L20",
+      "source_location": "L21",
       "_origin": "ast",
       "id": "feature_files_nutrition_dashboard_relevant_files",
       "community": 23,
@@ -7153,7 +7164,7 @@
       "label": "Dev Mode",
       "file_type": "document",
       "source_file": "feature_files/nutrition-dashboard.md",
-      "source_location": "L40",
+      "source_location": "L41",
       "_origin": "ast",
       "id": "feature_files_nutrition_dashboard_dev_mode",
       "community": 23,
@@ -7164,7 +7175,7 @@
       "label": "State Log",
       "file_type": "document",
       "source_file": "feature_files/nutrition-dashboard.md",
-      "source_location": "L44",
+      "source_location": "L45",
       "_origin": "ast",
       "id": "feature_files_nutrition_dashboard_state_log",
       "community": 23,
@@ -10179,7 +10190,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "components/meal-history.tsx",
-      "source_location": "L343",
+      "source_location": "L344",
       "weight": 1.0,
       "_origin": "ast",
       "source": "components_meal_history",
@@ -10201,7 +10212,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "components/meal-history.tsx",
-      "source_location": "L337",
+      "source_location": "L338",
       "weight": 1.0,
       "_origin": "ast",
       "source": "components_meal_history",
@@ -10459,7 +10470,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "components/meal-history.tsx",
-      "source_location": "L306",
+      "source_location": "L307",
       "weight": 1.0,
       "_origin": "ast",
       "source": "components_meal_history_mealhistory",
@@ -10544,7 +10555,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "components/meal-history.tsx",
-      "source_location": "L299",
+      "source_location": "L300",
       "weight": 1.0,
       "_origin": "ast",
       "source": "components_meal_history_mealhistory",
@@ -10867,7 +10878,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "components/nutrition-targets.tsx",
-      "source_location": "L218",
+      "source_location": "L219",
       "weight": 1.0,
       "_origin": "ast",
       "source": "components_nutrition_targets",
@@ -20715,7 +20726,18 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib/nutrition/target-history.ts",
-      "source_location": "L28",
+      "source_location": "L44",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "lib_nutrition_target_history",
+      "target": "lib_nutrition_target_history_normalizesavednutritiontargetresponse",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/nutrition/target-history.ts",
+      "source_location": "L31",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_nutrition_target_history",
@@ -20726,7 +20748,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib/nutrition/target-history.ts",
-      "source_location": "L5",
+      "source_location": "L7",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_nutrition_target_history",
@@ -20737,7 +20759,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib/nutrition/target-history.ts",
-      "source_location": "L36",
+      "source_location": "L39",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_nutrition_target_history",
@@ -20748,7 +20770,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib/nutrition/target-history.ts",
-      "source_location": "L26",
+      "source_location": "L29",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_nutrition_target_history",
@@ -20759,7 +20781,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib/nutrition/target-history.ts",
-      "source_location": "L32",
+      "source_location": "L35",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_nutrition_target_history",
@@ -20770,11 +20792,23 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib/nutrition/target-history.ts",
-      "source_location": "L20",
+      "source_location": "L23",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_nutrition_target_history",
       "target": "lib_nutrition_target_history_savednutritiontargetschema",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/nutrition/target-history.ts",
+      "source_location": "L3",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "lib_nutrition_target_history",
+      "target": "lib_nutrition_targets",
       "confidence_score": 1.0
     },
     {
@@ -20787,6 +20821,30 @@
       "_origin": "ast",
       "source": "lib_nutrition_target_supabase",
       "target": "lib_nutrition_target_history",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "test/nutrition.test.ts",
+      "source_location": "L12",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_nutrition_test",
+      "target": "lib_nutrition_target_history",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "test/nutrition.test.ts",
+      "source_location": "L12",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_nutrition_test",
+      "target": "lib_nutrition_target_history_nutritiontargetsschema",
       "confidence_score": 1.0
     },
     {
@@ -20826,16 +20884,52 @@
       "confidence_score": 1.0
     },
     {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "test/nutrition.test.ts",
+      "source_location": "L12",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_nutrition_test",
+      "target": "lib_nutrition_target_history_nutritiontargetsavebodyschema",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "references",
       "context": "call",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "lib/nutrition/target-history.ts",
-      "source_location": "L37",
+      "source_location": "L40",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_nutrition_target_history_parsesavednutritiontargetresponse",
       "target": "lib_nutrition_target_history_savednutritiontargetresponseschema"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "test/nutrition.test.ts",
+      "source_location": "L12",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_nutrition_test",
+      "target": "lib_nutrition_target_history_savednutritiontargetresponseschema",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/nutrition/target-history.ts",
+      "source_location": "L40",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "lib_nutrition_target_history_parsesavednutritiontargetresponse",
+      "target": "lib_nutrition_target_history_normalizesavednutritiontargetresponse",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports",
@@ -20860,6 +20954,18 @@
       "_origin": "ast",
       "source": "lib_nutrition_target_supabase_getnutritiontarget",
       "target": "lib_nutrition_target_history_parsesavednutritiontargetresponse"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "test/nutrition.test.ts",
+      "source_location": "L12",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_nutrition_test",
+      "target": "lib_nutrition_target_history_parsesavednutritiontargetresponse",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -21025,7 +21131,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib/nutrition/targets.ts",
-      "source_location": "L99",
+      "source_location": "L101",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_nutrition_targets",
@@ -21036,7 +21142,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib/nutrition/targets.ts",
-      "source_location": "L33",
+      "source_location": "L34",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_nutrition_targets",
@@ -21047,7 +21153,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib/nutrition/targets.ts",
-      "source_location": "L23",
+      "source_location": "L24",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_nutrition_targets",
@@ -21058,7 +21164,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib/nutrition/targets.ts",
-      "source_location": "L50",
+      "source_location": "L52",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_nutrition_targets",
@@ -21069,7 +21175,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib/nutrition/targets.ts",
-      "source_location": "L35",
+      "source_location": "L36",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_nutrition_targets",
@@ -21080,7 +21186,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib/nutrition/targets.ts",
-      "source_location": "L142",
+      "source_location": "L146",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_nutrition_targets",
@@ -21091,7 +21197,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib/nutrition/targets.ts",
-      "source_location": "L54",
+      "source_location": "L56",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_nutrition_targets",
@@ -21186,7 +21292,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "lib/nutrition/targets.ts",
-      "source_location": "L100",
+      "source_location": "L102",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_nutrition_targets_calculatenutritiontargets",
@@ -21322,7 +21428,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "test/nutrition.test.ts",
-      "source_location": "L6",
+      "source_location": "L18",
       "weight": 1.0,
       "_origin": "ast",
       "source": "test_nutrition_test",
@@ -21334,7 +21440,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "test/nutrition.test.ts",
-      "source_location": "L6",
+      "source_location": "L18",
       "weight": 1.0,
       "_origin": "ast",
       "source": "test_nutrition_test",
@@ -22511,7 +22617,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "test/nutrition.test.ts",
-      "source_location": "L8",
+      "source_location": "L20",
       "weight": 1.0,
       "_origin": "ast",
       "source": "test_nutrition_test",
@@ -23511,7 +23617,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "feature_files/nutrition-dashboard.md",
-      "source_location": "L40",
+      "source_location": "L41",
       "weight": 1.0,
       "_origin": "ast",
       "source": "feature_files_nutrition_dashboard_supabase_backed_nutrition_dashboard",
@@ -23533,7 +23639,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "feature_files/nutrition-dashboard.md",
-      "source_location": "L20",
+      "source_location": "L21",
       "weight": 1.0,
       "_origin": "ast",
       "source": "feature_files_nutrition_dashboard_supabase_backed_nutrition_dashboard",
@@ -23544,7 +23650,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "feature_files/nutrition-dashboard.md",
-      "source_location": "L44",
+      "source_location": "L45",
       "weight": 1.0,
       "_origin": "ast",
       "source": "feature_files_nutrition_dashboard_supabase_backed_nutrition_dashboard",
@@ -24063,5 +24169,5 @@
       "source_file": "README.md"
     }
   ],
-  "built_at_commit": "c94710149837b674a7fb978eac417bbd23be4ee4"
+  "built_at_commit": "029b972049466bc8d57ac9ad5bbb6d668988fbc3"
 }

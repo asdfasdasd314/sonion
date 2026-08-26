@@ -6999,7 +6999,7 @@
       "label": "Dev Mode",
       "file_type": "document",
       "source_file": "feature_files/meal-history.md",
-      "source_location": "L35",
+      "source_location": "L36",
       "_origin": "ast",
       "id": "feature_files_meal_history_dev_mode",
       "community": 25,
@@ -7010,7 +7010,7 @@
       "label": "State Log",
       "file_type": "document",
       "source_file": "feature_files/meal-history.md",
-      "source_location": "L39",
+      "source_location": "L40",
       "_origin": "ast",
       "id": "feature_files_meal_history_state_log",
       "community": 25,
@@ -23379,7 +23379,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "feature_files/meal-history.md",
-      "source_location": "L35",
+      "source_location": "L36",
       "weight": 1.0,
       "_origin": "ast",
       "source": "feature_files_meal_history_supabase_meal_history",
@@ -23412,7 +23412,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "feature_files/meal-history.md",
-      "source_location": "L39",
+      "source_location": "L40",
       "weight": 1.0,
       "_origin": "ast",
       "source": "feature_files_meal_history_supabase_meal_history",
@@ -24063,5 +24063,5 @@
       "source_file": "README.md"
     }
   ],
-  "built_at_commit": "76496b60912b0fc05942e02778d411e00efb0342"
+  "built_at_commit": "c94710149837b674a7fb978eac417bbd23be4ee4"
 }
