@@ -59,3 +59,4 @@ HACKING
 - Split scientific calculations into a secondary dashboard view, widened the tracking columns, and increased meal-history nutrient text for readability.
 - Surfaced dietary fiber amounts alongside protein/fat/carbs in day headers, meal summaries, food lines, and the copy-draft estimate table without adding fiber targets.
 - Added a precise 14 g per 1,000 calories daily fiber target to calculated and persisted nutrition targets, with legacy saved snapshots normalized when read.
+- Corrected legacy target response normalization to derive fiber inside the persisted target snapshot and retained precision-aware formula coverage.

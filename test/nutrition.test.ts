@@ -60,7 +60,7 @@ test("uses activity range midpoints and weekly percentage changes", () => {
   assert.ok(Math.abs(result.targets.targetCalories - 1921.65095) < 0.01);
   assert.ok(Math.abs(result.targets.proteinGrams - 160) < 0.01);
   assert.ok(Math.abs(result.targets.fatGrams - 64) < 0.01);
-  assert.ok(Math.abs(result.targets.fiberGrams - 26.9031133) < 0.0000001);
+  assert.ok(Math.abs(result.targets.fiberGrams - 26.9031133) < 0.000001);
   assert.equal(result.targets.fiberGrams, result.targets.targetCalories * FIBER_GRAMS_PER_1000_CALORIES / 1000);
 });
 

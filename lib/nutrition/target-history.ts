@@ -46,12 +46,17 @@ function normalizeSavedNutritionTargetResponse(value: unknown) {
   const response = value as { target?: unknown };
   if (typeof response.target !== "object" || response.target === null) return value;
   const target = response.target as Record<string, unknown>;
-  if ("fiberGrams" in target || typeof target.targetCalories !== "number") return value;
+  if (typeof target.target_snapshot !== "object" || target.target_snapshot === null) return value;
+  const snapshot = target.target_snapshot as Record<string, unknown>;
+  if ("fiberGrams" in snapshot || typeof snapshot.targetCalories !== "number") return value;
   return {
     ...response,
     target: {
       ...target,
-      fiberGrams: target.targetCalories * FIBER_GRAMS_PER_1000_CALORIES / 1000,
+      target_snapshot: {
+        ...snapshot,
+        fiberGrams: snapshot.targetCalories * FIBER_GRAMS_PER_1000_CALORIES / 1000,
+      },
     },
   };
 }
