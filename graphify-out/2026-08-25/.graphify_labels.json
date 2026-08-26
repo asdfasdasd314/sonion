@@ -28,5 +28,7 @@
   "26": "normalize.ts",
   "27": "Meal copy drafts",
   "28": "index.ts",
-  "29": "Interpretation errors"
+  "29": "Interpretation errors",
+  "30": "meal-interpreter.tsx",
+  "31": "Automatic batch meal interpretation"
 }
