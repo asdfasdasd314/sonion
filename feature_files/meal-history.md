@@ -31,6 +31,7 @@ Meal history persists each processed estimate as an owner-scoped JSONB snapshot.
 - `test/meal-history.test.ts` covers validation, mapping, ordering, nullable aggregation, and save-state behavior.
 - `parameter_files/meal-history.toml` records the persistence contract.
 - `components/meal-history.tsx` renders the upper-left delete control, confirmation widget, request state, and frontend removal after a successful DELETE.
+- `app/globals.css` gives the five-column day and meal macro summaries enough column gap and width for nutrient values to remain visually distinct; the spacing tunables are recorded in `parameter_files/meal-history.toml`.
 
 ## Dev Mode
 
@@ -47,3 +48,4 @@ TESTING
 - Background batch inserts and refinement updates use the same owner-scoped `saveMeal`/`updateMeal` paths; history refreshes via dashboard light polling when the meal list identity changes.
 - Collapsed-by-default meal rows now preserve the compact history view, with accessible per-meal toggle buttons for food details and actions.
 - Extended meal snapshots and history mapping with nullable dietary fiber amounts; pre-fiber JSONB rows normalize missing fiber to null on read without a SQL migration.
+- Increased the gap and available width in day and meal macro summaries so calories and nutrient values are easier to distinguish at a glance.
