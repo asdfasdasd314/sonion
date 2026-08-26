@@ -7,15 +7,16 @@ Sonion's authenticated home page is a two-view personal dashboard: the primary m
 ## Key Points
 
 - Meal history loads the authenticated user's records from `/api/meals`, maps JSONB snapshots into local-date groups, and aggregates nullable calories, protein, fat, carbohydrates, and fiber for each date header.
-- Date rows are keyboard-operable expand/collapse buttons. Expanded rows show meal-level and food-level nutrient detail, including fiber (`fi` on compact food lines). Fiber is tracked as an amount only; daily fiber targets and calculator outputs stay unchanged.
+- Date rows are keyboard-operable expand/collapse buttons. Expanded rows show meal-level and food-level nutrient detail, including fiber (`fi` on compact food lines). The calculator derives a daily fiber target from the final calorie target, and saved benchmark cards show it alongside the other macro targets.
 - The interpreter accepts multiple signed-in meal descriptions, each with local date/time, and queues them through `/api/estimate`; the API returns only a 202 acknowledgement and background processing saves complete USDA-backed estimates.
 - Refining a focused meal queues the structured revision and automatically PATCHes the saved record; the browser does not review or save a returned AI response.
 - While the authenticated dashboard is open, light polling checks meals and interpretation errors (paused when the tab is hidden) and refreshes history or the errors panel when list identity changes.
 - Interpretation failures appear in a sibling expandable section with dismiss controls; they are not nested inside history or the interpreter card.
 - The authenticated dashboard view switcher keeps meal tracking and scientific calculations visually separate; the calculator remains mounted while hidden so entered values survive a view change.
 - The target calculator accepts weight in pounds and height in inches, converts them to kilograms and centimeters for the supplied Mifflin–St Jeor equation, then applies activity range midpoints and a user-selected weekly cut/bulk change in either percentage of body weight or pounds, using 3,500 kcal per pound, before calculating macros.
-- Internal target calculations keep decimal precision while rendered values are rounded to whole numbers. Negative remaining calories are surfaced as a warning and carbohydrates display as zero.
+- Internal target calculations keep decimal precision while rendered values are rounded to whole numbers. Fiber is calculated as 14 grams per 1,000 final target calories and persisted inside each target snapshot. Negative remaining calories are surfaced as a warning and carbohydrates display as zero.
 - The migrations and APIs enforce owner-only access. Nutrition targets can be saved as one replaceable per-user benchmark and are shown above meal history when present.
+- Fiber remains inside the existing `target_snapshot` JSONB object, so adding this persisted target does not require a Supabase migration.
 
 ## Relevant Files
 
@@ -57,3 +58,4 @@ HACKING
 - Replaced manual interpretation/save controls with a repeatable batch queue and acknowledgement-only automatic persistence while preserving light polling for background meal/error updates.
 - Split scientific calculations into a secondary dashboard view, widened the tracking columns, and increased meal-history nutrient text for readability.
 - Surfaced dietary fiber amounts alongside protein/fat/carbs in day headers, meal summaries, food lines, and the copy-draft estimate table without adding fiber targets.
+- Added a precise 14 g per 1,000 calories daily fiber target to calculated and persisted nutrition targets, with legacy saved snapshots normalized when read.

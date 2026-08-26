@@ -199,6 +199,7 @@ export default function NutritionTargets({ accessToken, onTargetsSaved }: Nutrit
             <div><strong>{roundNutritionValue(targets.proteinGrams)}g</strong><span>protein</span></div>
             <div><strong>{roundNutritionValue(targets.fatGrams)}g</strong><span>fat</span></div>
             <div><strong>{roundNutritionValue(targets.carbohydratesGrams)}g</strong><span>carbs</span></div>
+            <div><strong>{roundNutritionValue(targets.fiberGrams)}g</strong><span>fiber</span></div>
           </div>
           <p className="calculation-note">BMR {roundNutritionValue(targets.bmr).toLocaleString()} · estimated maintenance {roundNutritionValue(targets.tdee).toLocaleString()} cal · {targets.weeklyChangePounds === 0 ? "maintaining" : `${targets.weeklyChangePounds < 0 ? "losing" : "gaining"} ${Math.abs(targets.weeklyChangePounds).toFixed(2)} lb/week`}</p>
           {targets.hasInsufficientCalories ? (

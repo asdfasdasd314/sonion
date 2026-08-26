@@ -206,7 +206,7 @@ textarea::placeholder, input::placeholder { color: #a0aca5; }
 .calorie-result span, .calculation-note { color: var(--ink-muted); font-size: 10px; }
 .calorie-result strong { color: var(--green-dark); font-size: 25px; letter-spacing: -.04em; }
 .calorie-result strong small { font-size: 11px; letter-spacing: 0; }
-.target-macros { display: grid; gap: 7px; grid-template-columns: repeat(3, 1fr); margin-top: 15px; }
+.target-macros { display: grid; gap: 7px; grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: 15px; }
 .target-macros div { background: #f7faf7; border-radius: 10px; padding: 9px 7px; text-align: center; }
 .target-macros strong, .target-macros span { display: block; }
 .target-macros strong { color: var(--green); font-size: 15px; }
@@ -284,6 +284,7 @@ textarea::placeholder, input::placeholder { color: #a0aca5; }
 }
 
 @media (max-width: 430px) {
+  .target-macros { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .day-toggle { align-items: flex-start; flex-direction: column; }
   .macro-summary-compact { max-width: none; padding-left: 27px; width: 100%; }
   .meal-toggle { align-items: flex-start; flex-direction: column; }

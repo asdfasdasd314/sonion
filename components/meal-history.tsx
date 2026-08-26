@@ -282,6 +282,7 @@ export default function MealHistory({ accessToken, onCopyMeal, onSelectMeal, ref
             <div><strong>{formatMacroValue(savedTarget.target_snapshot.proteinGrams, "g")}</strong><span>protein</span></div>
             <div><strong>{formatMacroValue(savedTarget.target_snapshot.fatGrams, "g")}</strong><span>fat</span></div>
             <div><strong>{formatMacroValue(savedTarget.target_snapshot.carbohydratesGrams, "g")}</strong><span>carbs</span></div>
+            <div><strong>{formatMacroValue(savedTarget.target_snapshot.fiberGrams, "g")}</strong><span>fiber</span></div>
           </div>
           <p className="saved-target-help">Compare each day’s logged totals below with this benchmark to see where you’re over or under.</p>
         </section>

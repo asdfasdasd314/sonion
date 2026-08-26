@@ -16,6 +16,7 @@ const POUNDS_TO_KILOGRAMS = 0.45359237;
 const INCHES_TO_CENTIMETERS = 2.54;
 const CALORIES_PER_POUND = 3500;
 const DAYS_PER_WEEK = 7;
+export const FIBER_GRAMS_PER_1000_CALORIES = 14;
 const MAX_WEIGHT_POUNDS = 500 / POUNDS_TO_KILOGRAMS;
 const MIN_HEIGHT_INCHES = 50 / INCHES_TO_CENTIMETERS;
 const MAX_HEIGHT_INCHES = 250 / INCHES_TO_CENTIMETERS;
@@ -41,6 +42,7 @@ export type NutritionTargets = {
   proteinGrams: number;
   fatGrams: number;
   carbohydratesGrams: number;
+  fiberGrams: number;
   proteinCalories: number;
   fatCalories: number;
   remainingCalories: number;
@@ -119,6 +121,7 @@ export function calculateNutritionTargets(input: NutritionTargetInput): Nutritio
   const proteinCalories = proteinGrams * 4;
   const fatCalories = fatGrams * 9;
   const remainingCalories = targetCalories - proteinCalories - fatCalories;
+  const fiberGrams = targetCalories * FIBER_GRAMS_PER_1000_CALORIES / 1000;
 
   return {
     ok: true,
@@ -131,6 +134,7 @@ export function calculateNutritionTargets(input: NutritionTargetInput): Nutritio
       proteinGrams,
       fatGrams,
       carbohydratesGrams: Math.max(0, remainingCalories / 4),
+      fiberGrams,
       proteinCalories,
       fatCalories,
       remainingCalories,

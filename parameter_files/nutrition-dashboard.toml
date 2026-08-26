@@ -5,7 +5,7 @@ ai_history_integration = "save-complete-processed-estimate"
 meal_title = "omitted"
 history_order = "local-date-time-descending"
 nullable_nutrient_aggregation = "sum-known-values; null-when-none-known"
-# Tracked nutrients include fiber amounts; fiber is display-only (no daily fiber targets).
+# Tracked nutrients include fiber amounts and a calculated daily fiber target.
 weight_unit = "lb"
 height_unit = "in"
 activity_multiplier_sedentary = 1.20
@@ -20,6 +20,7 @@ fat_grams_per_kg = 0.8
 protein_kcal_per_gram = 4
 carbohydrate_kcal_per_gram = 4
 fat_kcal_per_gram = 9
+fiber_grams_per_1000_calories = 14
 background_poll_interval_ms = 20000
 pause_poll_when_tab_hidden = true
 default_dashboard_view = "tracking"

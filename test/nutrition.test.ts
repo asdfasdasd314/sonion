@@ -2,7 +2,19 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import { aggregateDailyMacros, aggregateMealMacros } from "../lib/nutrition/meals";
-import { ACTIVITY_MULTIPLIERS, calculateNutritionTargets, roundNutritionValue, validateNutritionTargetInput } from "../lib/nutrition/targets";
+import {
+  ACTIVITY_MULTIPLIERS,
+  calculateNutritionTargets,
+  FIBER_GRAMS_PER_1000_CALORIES,
+  roundNutritionValue,
+  validateNutritionTargetInput,
+} from "../lib/nutrition/targets";
+import {
+  NutritionTargetSaveBodySchema,
+  NutritionTargetsSchema,
+  parseSavedNutritionTargetResponse,
+  SavedNutritionTargetResponseSchema,
+} from "../lib/nutrition/target-history";
 import type { Meal } from "../lib/nutrition/types";
 
 const sampleMeal: Meal = {
@@ -48,6 +60,8 @@ test("uses activity range midpoints and weekly percentage changes", () => {
   assert.ok(Math.abs(result.targets.targetCalories - 1921.65095) < 0.01);
   assert.ok(Math.abs(result.targets.proteinGrams - 160) < 0.01);
   assert.ok(Math.abs(result.targets.fatGrams - 64) < 0.01);
+  assert.ok(Math.abs(result.targets.fiberGrams - 26.9031133) < 0.0000001);
+  assert.equal(result.targets.fiberGrams, result.targets.targetCalories * FIBER_GRAMS_PER_1000_CALORIES / 1000);
 });
 
 test("uses pounds per week for a bulk", () => {
@@ -70,6 +84,43 @@ test("uses maintenance calories directly for maintain", () => {
 test("rounds displayed values without changing calculation precision", () => {
   assert.equal(roundNutritionValue(2416.44375), 2416);
   assert.equal(roundNutritionValue(42.6), 43);
+  assert.equal(roundNutritionValue(26.9031133), 27);
+});
+
+test("requires fiber in new target snapshots and derives it for legacy responses", () => {
+  const targetSnapshot = {
+    bmr: 1800,
+    tdee: 2520,
+    targetCalories: 2416.44375,
+    weeklyChangePounds: 0,
+    dailyCalorieAdjustment: 0,
+    proteinGrams: 160,
+    fatGrams: 64,
+    carbohydratesGrams: 499.1109375,
+    fiberGrams: 33.8302125,
+    proteinCalories: 640,
+    fatCalories: 576,
+    remainingCalories: 1996.44375,
+    hasInsufficientCalories: false,
+  };
+  const savedTarget = {
+    user_id: "11111111-1111-4111-8111-111111111111",
+    target_snapshot: targetSnapshot,
+    created_at: "2026-08-21T00:00:00.000Z",
+    updated_at: "2026-08-21T00:00:00.000Z",
+  };
+  const { fiberGrams: _fiberGrams, ...legacySnapshot } = targetSnapshot;
+  const legacyResponse = { target: { ...savedTarget, target_snapshot: legacySnapshot } };
+
+  assert.equal(NutritionTargetsSchema.safeParse(targetSnapshot).success, true);
+  assert.equal(NutritionTargetSaveBodySchema.safeParse({ targets: targetSnapshot }).success, true);
+  assert.equal(NutritionTargetSaveBodySchema.safeParse({ targets: legacySnapshot }).success, false);
+  assert.equal(SavedNutritionTargetResponseSchema.safeParse(legacyResponse).success, false);
+
+  const parsed = parseSavedNutritionTargetResponse(legacyResponse);
+  assert.ok(parsed);
+  assert.equal(parsed.target_snapshot.fiberGrams, targetSnapshot.targetCalories * FIBER_GRAMS_PER_1000_CALORIES / 1000);
+  assert.deepEqual(parseSavedNutritionTargetResponse({ target: savedTarget }), savedTarget);
 });
 
 test("reports required, non-positive, and impossible inputs", () => {
