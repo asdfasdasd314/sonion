@@ -116,6 +116,17 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
 .density-note { white-space: normal; }
 .history-status { color: var(--ink-muted); font-size: 12px; line-height: 1.6; margin: 28px 4px; }
 .history-error { background: var(--red-pale); border-radius: 11px; color: var(--red-ink); padding: 10px 12px; }
+.saved-target-summary { background: linear-gradient(135deg, #f0f8f1, #f8fbf8); border: 1px solid #cfe3d6; border-radius: 15px; margin: 20px 0 16px; padding: 14px; }
+.saved-target-heading { align-items: flex-start; display: flex; gap: 10px; justify-content: space-between; }
+.saved-target-heading h3 { font-size: 14px; letter-spacing: -.025em; margin: 4px 0 0; }
+.saved-target-date { color: var(--ink-muted); font-size: 9px; padding-top: 3px; text-align: right; }
+.saved-target-calories { align-items: end; display: flex; justify-content: space-between; margin-top: 14px; }
+.saved-target-calories span, .saved-target-help { color: var(--ink-muted); font-size: 10px; }
+.saved-target-calories strong { color: var(--green-dark); font-size: 22px; letter-spacing: -.04em; }
+.saved-target-calories strong small { font-size: 10px; letter-spacing: 0; }
+.saved-target-macros { margin-top: 11px; }
+.saved-target-macros div { background: rgba(255,255,255,.72); }
+.saved-target-help { line-height: 1.45; margin: 11px 0 0; }
 .interpreter-mark { align-items: center; background: var(--green-pale); border-radius: 50%; color: var(--green); display: flex; font-size: 20px; height: 42px; justify-content: center; margin-bottom: 21px; width: 42px; }
 .interpreter-panel h1 { font-size: clamp(31px, 3vw, 48px); letter-spacing: -.055em; line-height: 1.03; margin: 9px 0 16px; max-width: 480px; }
 .interpreter-intro { color: var(--ink-muted); font-size: 14px; line-height: 1.7; margin: 0; max-width: 455px; }
@@ -202,6 +213,8 @@ textarea::placeholder, input::placeholder { color: #a0aca5; }
 .target-macros span { color: var(--ink-muted); font-size: 9px; margin-top: 3px; }
 .calculation-note { line-height: 1.5; margin: 13px 0 0; }
 .warning-message { background: var(--yellow-pale); color: var(--yellow-ink); margin-top: 12px; }
+.save-target-button { margin-top: 13px; }
+.target-results .saved-message, .target-results .error-message { margin-top: 9px; }
 .revision-box { border-top: 1px solid #c9dfd0; margin-top: 16px; padding-top: 15px; }
 .revision-box > label { display: block; font-size: 11px; font-weight: 800; }
 .revision-box textarea { min-height: 94px; margin-top: 8px; }

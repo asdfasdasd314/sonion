@@ -59,6 +59,10 @@ export default function Home() {
     setMealHistoryRefreshKey((key) => key + 1);
   }
 
+  function handleTargetsSaved() {
+    setMealHistoryRefreshKey((key) => key + 1);
+  }
+
   function handleProcessingQueued() {
     setErrorsRefreshKey((key) => key + 1);
   }
@@ -256,7 +260,7 @@ export default function Home() {
           </div>
 
           <div className="dashboard-view calculations-layout" hidden={dashboardView !== "calculations"}>
-            <NutritionTargets />
+            <NutritionTargets accessToken={session.access_token} onTargetsSaved={handleTargetsSaved} />
           </div>
         </div>
       ) : (

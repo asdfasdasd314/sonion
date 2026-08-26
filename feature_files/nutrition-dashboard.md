@@ -2,7 +2,7 @@
 
 ## Summary
 
-Sonion's authenticated home page is a two-view personal dashboard: the primary meal-tracking view gives private Supabase meal history and the authenticated AI meal interpreter most of the available width, while a separate scientific-calculations view contains the browser-only nutrition target calculator. The primary view also keeps the expandable interpretation-errors section below the grid. Meal history stores processed estimates with user-selected local date/time values; targets remain browser-only.
+Sonion's authenticated home page is a two-view personal dashboard: the primary meal-tracking view gives private Supabase meal history and the authenticated AI meal interpreter most of the available width, while a separate scientific-calculations view contains the nutrition target calculator. The primary view also keeps the expandable interpretation-errors section below the grid. Meal history stores processed estimates with user-selected local date/time values, and an optional saved daily target provides a persistent benchmark above the log.
 
 ## Key Points
 
@@ -15,7 +15,7 @@ Sonion's authenticated home page is a two-view personal dashboard: the primary m
 - The authenticated dashboard view switcher keeps meal tracking and scientific calculations visually separate; the calculator remains mounted while hidden so entered values survive a view change.
 - The target calculator accepts weight in pounds and height in inches, converts them to kilograms and centimeters for the supplied Mifflin–St Jeor equation, then applies activity range midpoints and a user-selected weekly cut/bulk change in either percentage of body weight or pounds, using 3,500 kcal per pound, before calculating macros.
 - Internal target calculations keep decimal precision while rendered values are rounded to whole numbers. Negative remaining calories are surfaced as a warning and carbohydrates display as zero.
-- The migration and API enforce owner-only read/write/delete behavior. Nutrition targets remain non-persistent.
+- The migrations and APIs enforce owner-only access. Nutrition targets can be saved as one replaceable per-user benchmark and are shown above meal history when present.
 
 ## Relevant Files
 
@@ -23,7 +23,10 @@ Sonion's authenticated home page is a two-view personal dashboard: the primary m
 - `components/meal-history.tsx` loads and renders the authenticated expandable date and meal history.
 - `components/meal-interpreter.tsx` owns the repeatable dated meal list, automatic queue status, and automatic refinement/copy actions.
 - `components/interpretation-errors.tsx` owns the expandable interpretation-errors section.
-- `components/nutrition-targets.tsx` owns the target form and accessible inline validation.
+- `components/nutrition-targets.tsx` owns the target form, accessible inline validation, and authenticated save action.
+- `lib/nutrition/target-history.ts` validates saved target snapshots and API responses.
+- `lib/nutrition/target-supabase.ts` owns authenticated target persistence.
+- `supabase/migrations/20260825000000_create_nutrition_targets.sql` defines the owner-scoped saved-target table and policies.
 - `lib/meal-history/mapping.ts` maps persisted records into sorted date groups.
 - `lib/meal-history/types.ts` validates local date/time fields and complete snapshots.
 - `lib/meal-history/supabase.ts` owns authenticated Supabase REST persistence.
@@ -47,6 +50,7 @@ HACKING
 - Updated the imperial calculation fixture to retain enough conversion precision for the existing BMR tolerance.
 - Replaced fixed cut/bulk calorie percentages with validated weekly body-weight change inputs and transparent calorie adjustments.
 - Prevented the conditional weekly-change input from receiving an undefined value so it remains controlled when the cut/bulk fields mount.
+- Added owner-scoped saved daily targets, a calculator save action, and a benchmark summary above meal history for comparing logged totals over time.
 - Added responsive accessible meal-estimate rows with explicit fallback-density and missing-nutrient uncertainty messaging.
 - Replaced seeded history with authenticated Supabase loading, added save-state transitions and refresh-after-save, and preserved null nutrient semantics in aggregation.
 - Fixed the required-input nutrition validation fixture to omit activity/goal instead of empty strings so TypeScript accepts `Partial<NutritionTargetInput>`.

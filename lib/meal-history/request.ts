@@ -19,9 +19,9 @@ export function getBearerToken(request: Request): string | undefined {
   return request.headers.get("authorization")?.match(/^Bearer\s+(.+)$/i)?.[1]?.trim();
 }
 
-export async function authenticateMealRequest(request: Request): Promise<{ accessToken: string; user: SupabaseUser }> {
+export async function authenticateMealRequest(request: Request, resource = "meal history"): Promise<{ accessToken: string; user: SupabaseUser }> {
   const accessToken = getBearerToken(request);
-  if (!accessToken) throw new MealRequestAuthError("Sign in before accessing meal history.", 401);
+  if (!accessToken) throw new MealRequestAuthError(`Sign in before accessing ${resource}.`, 401);
 
   try {
     const user = await getSupabaseUser(accessToken);

@@ -11,6 +11,13 @@ import {
 } from "@/lib/nutrition/targets";
 import type { ActivityLevel, Goal, WeightChangeUnit } from "@/lib/nutrition/types";
 
+type NutritionTargetsProps = {
+  accessToken: string;
+  onTargetsSaved: () => void;
+};
+
+type SaveState = "idle" | "saving" | "saved" | "error";
+
 type FormValues = {
   weightLb: string;
   heightIn: string;
@@ -48,15 +55,19 @@ function FieldError({ id, message }: { id: string; message?: string }) {
   return message ? <p className="field-error" id={id} role="alert">{message}</p> : null;
 }
 
-export default function NutritionTargets() {
+export default function NutritionTargets({ accessToken, onTargetsSaved }: NutritionTargetsProps) {
   const [values, setValues] = useState<FormValues>(INITIAL_VALUES);
   const [errors, setErrors] = useState<NutritionTargetErrors>({});
   const [result, setResult] = useState<ReturnType<typeof calculateNutritionTargets> | null>(null);
+  const [saveState, setSaveState] = useState<SaveState>("idle");
+  const [saveError, setSaveError] = useState("");
 
   function updateValue(field: keyof FormValues, value: string) {
     setValues((current) => ({ ...current, [field]: value }));
     setErrors((current) => ({ ...current, [field]: undefined }));
     setResult(null);
+    setSaveState("idle");
+    setSaveError("");
   }
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -80,9 +91,31 @@ export default function NutritionTargets() {
 
     setErrors({});
     setResult(calculation);
+    setSaveState("idle");
+    setSaveError("");
   }
 
   const targets = result?.ok ? result.targets : null;
+
+  async function handleSave() {
+    if (!targets || saveState === "saving") return;
+    setSaveState("saving");
+    setSaveError("");
+    try {
+      const response = await fetch("/api/nutrition-targets", {
+        method: "POST",
+        headers: { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" },
+        body: JSON.stringify({ targets }),
+      });
+      const payload = (await response.json().catch(() => ({}))) as unknown;
+      if (!response.ok) throw new Error(getErrorMessage(payload));
+      setSaveState("saved");
+      onTargetsSaved();
+    } catch (error) {
+      setSaveState("error");
+      setSaveError(error instanceof Error ? error.message : "Could not save your daily targets.");
+    }
+  }
 
   return (
     <section aria-labelledby="targets-title" className="panel targets-panel">
@@ -171,8 +204,19 @@ export default function NutritionTargets() {
           {targets.hasInsufficientCalories ? (
             <p className="warning-message">Protein and fat already exceed this calorie target, so there are no calories left to allocate to carbohydrates.</p>
           ) : null}
+          <button className="save-target-button secondary-button" disabled={saveState === "saving"} onClick={() => void handleSave()} type="button">
+            {saveState === "saving" ? "Saving targets..." : saveState === "saved" ? "Targets saved" : "Save these targets"}
+          </button>
+          {saveState === "saved" ? <p className="saved-message">Your saved target will appear above meal history.</p> : null}
+          {saveState === "error" ? <p className="error-message" role="alert">{saveError || "Could not save your daily targets."}</p> : null}
         </div>
       ) : null}
     </section>
   );
+}
+
+function getErrorMessage(payload: unknown) {
+  return typeof payload === "object" && payload !== null && "error" in payload && typeof payload.error === "string"
+    ? payload.error
+    : "Could not save your daily targets.";
 }

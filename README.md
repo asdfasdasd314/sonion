@@ -445,7 +445,7 @@ Protein
 
 ## Persistence
 
-The browser stores the Supabase authentication session. Saved meals are persisted in the `public.meals` Supabase table as a complete validated JSONB estimate plus local date/time fields. RLS and the meal API restrict normal access to the verified owner; nutrition target calculations remain browser-only.
+The browser stores the Supabase authentication session. Saved meals are persisted in the `public.meals` Supabase table as a complete validated JSONB estimate plus local date/time fields, and the latest saved daily nutrition target is persisted in `public.nutrition_targets`. RLS and the APIs restrict normal access to the verified owner; the target benchmark appears above meal history when saved.
 
 ---
 

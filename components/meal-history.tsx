@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { groupMealsByDate } from "@/lib/meal-history/mapping";
 import { parseMealRecordList, type MealRecord } from "@/lib/meal-history/types";
 import { aggregateDailyMacros, aggregateMealMacros, formatMacroValue } from "@/lib/nutrition/meals";
+import { parseSavedNutritionTargetResponse, type SavedNutritionTarget } from "@/lib/nutrition/target-history";
 import type { MacroTotals, MealDay } from "@/lib/nutrition/types";
 
 type MealHistoryProps = {
@@ -148,6 +149,7 @@ function MealDetails({
 export default function MealHistory({ accessToken, onCopyMeal, onSelectMeal, refreshKey }: MealHistoryProps) {
   const [days, setDays] = useState<MealDay[]>([]);
   const [records, setRecords] = useState<MealRecord[]>([]);
+  const [savedTarget, setSavedTarget] = useState<SavedNutritionTarget | null>(null);
   const [expandedDays, setExpandedDays] = useState<string[]>([]);
   const [expandedMeals, setExpandedMeals] = useState<string[]>([]);
   const [state, setState] = useState<HistoryState>("loading");
@@ -163,7 +165,10 @@ export default function MealHistory({ accessToken, onCopyMeal, onSelectMeal, ref
 
     async function loadMeals() {
       try {
-        const response = await fetch("/api/meals", { cache: "no-store", headers: { Authorization: `Bearer ${accessToken}` } });
+        const [response, targetResponse] = await Promise.all([
+          fetch("/api/meals", { cache: "no-store", headers: { Authorization: `Bearer ${accessToken}` } }),
+          fetch("/api/nutrition-targets", { cache: "no-store", headers: { Authorization: `Bearer ${accessToken}` } }).catch(() => null),
+        ]);
         const payload = (await response.json().catch(() => ({}))) as unknown;
         if (!response.ok) {
           if (isCurrent) setState(response.status === 401 ? "unauthorized" : "error");
@@ -178,6 +183,12 @@ export default function MealHistory({ accessToken, onCopyMeal, onSelectMeal, ref
           setDays(nextDays);
           setExpandedDays((current) => current.length ? current.filter((id) => nextDays.some((day) => day.id === id)) : nextDays[0] ? [nextDays[0].id] : []);
           setState("ready");
+        }
+
+        if (targetResponse?.ok) {
+          const targetPayload = (await targetResponse.json().catch(() => ({}))) as unknown;
+          const target = parseSavedNutritionTargetResponse(targetPayload);
+          if (target !== undefined && isCurrent) setSavedTarget(target);
         }
       } catch (loadError) {
         if (isCurrent) {
@@ -253,6 +264,28 @@ export default function MealHistory({ accessToken, onCopyMeal, onSelectMeal, ref
       </div>
       <p className="panel-intro">Saved meals grouped by the local date and time you recorded them. Nutrition stays tied to the processed estimate.</p>
 
+      {savedTarget ? (
+        <section aria-labelledby="saved-target-title" className="saved-target-summary">
+          <div className="saved-target-heading">
+            <div>
+              <p className="eyebrow">Your benchmark</p>
+              <h3 id="saved-target-title">Saved daily target</h3>
+            </div>
+            <span className="saved-target-date">Updated {formatSavedTargetDate(savedTarget.updated_at)}</span>
+          </div>
+          <div className="saved-target-calories">
+            <span>Daily calories</span>
+            <strong>{formatMacroValue(savedTarget.target_snapshot.targetCalories)} <small>cal</small></strong>
+          </div>
+          <div className="target-macros saved-target-macros">
+            <div><strong>{formatMacroValue(savedTarget.target_snapshot.proteinGrams, "g")}</strong><span>protein</span></div>
+            <div><strong>{formatMacroValue(savedTarget.target_snapshot.fatGrams, "g")}</strong><span>fat</span></div>
+            <div><strong>{formatMacroValue(savedTarget.target_snapshot.carbohydratesGrams, "g")}</strong><span>carbs</span></div>
+          </div>
+          <p className="saved-target-help">Compare each day’s logged totals below with this benchmark to see where you’re over or under.</p>
+        </section>
+      ) : null}
+
       {state === "loading" ? <p className="history-status" role="status">Loading your meals...</p> : null}
       {state === "unauthorized" ? <p className="history-status history-error" role="alert">Your session expired. Sign in again to see your private meal history.</p> : null}
       {state === "error" ? <p className="history-status history-error" role="alert">{error || "Could not load meal history. Try again shortly."}</p> : null}
@@ -304,4 +337,11 @@ function getErrorMessage(payload: unknown) {
   return typeof payload === "object" && payload !== null && "error" in payload && typeof payload.error === "string"
     ? payload.error
     : "Could not load meal history. Try again shortly.";
+}
+
+function formatSavedTargetDate(value: string) {
+  const date = new Date(value);
+  return Number.isNaN(date.getTime())
+    ? "recently"
+    : new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric" }).format(date);
 }

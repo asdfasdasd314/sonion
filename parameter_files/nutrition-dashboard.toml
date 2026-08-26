@@ -1,5 +1,5 @@
-# Client-only nutrition dashboard assumptions.
-data_persistence = "meal-history-in-supabase; targets-remain-client-only"
+# Nutrition dashboard and saved-target assumptions.
+data_persistence = "meal-history-and-latest-target-in-supabase"
 seed_reset_behavior = "disabled"
 ai_history_integration = "save-complete-processed-estimate"
 meal_title = "omitted"
@@ -24,3 +24,5 @@ pause_poll_when_tab_hidden = true
 default_dashboard_view = "tracking"
 secondary_dashboard_view = "scientific-calculations"
 tracking_grid_columns = "meal-history-and-interpreter"
+saved_target_scope = "one-replaceable-benchmark-per-user"
+saved_target_display = "top-of-meal-history-when-present"
