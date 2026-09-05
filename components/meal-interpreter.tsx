@@ -4,15 +4,33 @@ import { useEffect, useState } from "react";
 import type { FormEvent } from "react";
 
 import { createMealCopyDraft, currentLocalMealDateTime } from "@/lib/meal-copy/draft";
+import {
+  buildMealPromptFromAbsoluteItems,
+  composeAbsoluteMealPrompt,
+  composePercentageMealPrompt,
+  DEFAULT_MAX_ITEMS_PER_MEAL,
+  type AbsoluteFoodItem,
+  type MealEntryMode,
+} from "@/lib/meal-batch/proportions";
 import { isValidLocalDate, isValidLocalTime, parseMealRecord, type MealRecord } from "@/lib/meal-history/types";
-import type { MealEstimate } from "@/lib/meal-estimation/types";
+import type { MealEstimate, PortionKind } from "@/lib/meal-estimation/types";
 
-const MAX_PROMPT_LENGTH = 2_000;
 const MAX_REVISION_LENGTH = 1_200;
+const MAX_ITEMS_PER_MEAL = DEFAULT_MAX_ITEMS_PER_MEAL;
+
+type ItemDraft = {
+  id: number;
+  name: string;
+  amount: string;
+  portionKind: PortionKind;
+};
 
 type MealDraft = {
   id: number;
-  prompt: string;
+  entryMode: MealEntryMode;
+  items: ItemDraft[];
+  solidTotalPU: string;
+  liquidTotalPU: string;
   mealDate: string;
   mealTime: string;
 };
@@ -27,11 +45,69 @@ type MealInterpreterProps = {
   onMealSaved: () => void;
 };
 
+type StructuredMealPayload =
+  | {
+      entryMode: "absolute";
+      items: AbsoluteFoodItem[];
+      mealDate: string;
+      mealTime: string;
+    }
+  | {
+      entryMode: "percentage";
+      items: Array<{ name: string; percentage: number; portionKind: PortionKind }>;
+      solidTotalPU: number;
+      liquidTotalPU: number;
+      mealDate: string;
+      mealTime: string;
+    };
+
 let nextDraftId = 1;
+let nextItemId = 1;
+
+function createItemDraft(portionKind: PortionKind = "solid"): ItemDraft {
+  return { id: nextItemId++, name: "", amount: "", portionKind };
+}
 
 function createMealDraft(): MealDraft {
   const { mealDate, mealTime } = currentLocalMealDateTime();
-  return { id: nextDraftId++, prompt: "", mealDate, mealTime };
+  return {
+    id: nextDraftId++,
+    entryMode: "absolute",
+    items: [createItemDraft()],
+    solidTotalPU: "",
+    liquidTotalPU: "",
+    mealDate,
+    mealTime,
+  };
+}
+
+function parseOptionalNumber(raw: string): number | undefined {
+  const trimmed = raw.trim();
+  if (!trimmed) return undefined;
+  const value = Number(trimmed);
+  return Number.isFinite(value) ? value : Number.NaN;
+}
+
+function resolvePreviewItems(meal: MealDraft): AbsoluteFoodItem[] | null {
+  if (meal.entryMode === "absolute") {
+    const items = meal.items.map((item) => ({
+      name: item.name.trim(),
+      portionUnits: Number(item.amount),
+      portionKind: item.portionKind,
+    }));
+    const composed = composeAbsoluteMealPrompt(items, MAX_ITEMS_PER_MEAL);
+    return composed.ok ? composed.items : null;
+  }
+
+  const items = meal.items.map((item) => ({
+    name: item.name.trim(),
+    percentage: Number(item.amount),
+    portionKind: item.portionKind,
+  }));
+  const solidTotalPU = parseOptionalNumber(meal.solidTotalPU) ?? 0;
+  const liquidTotalPU = parseOptionalNumber(meal.liquidTotalPU) ?? 0;
+  const composed = composePercentageMealPrompt(items, solidTotalPU, liquidTotalPU, MAX_ITEMS_PER_MEAL);
+  return composed.ok ? composed.items : null;
 }
 
 export default function MealInterpreter({
@@ -82,8 +158,23 @@ export default function MealInterpreter({
     setQueueNotice("");
   }, [mealToCopy, mealToRefine]);
 
-  function updateBatchMeal(id: number, field: "prompt" | "mealDate" | "mealTime", value: string) {
-    setBatchMeals((meals) => meals.map((meal) => meal.id === id ? { ...meal, [field]: value } : meal));
+  function updateBatchMeal(
+    id: number,
+    patch: Partial<Pick<MealDraft, "entryMode" | "solidTotalPU" | "liquidTotalPU" | "mealDate" | "mealTime">>,
+  ) {
+    setBatchMeals((meals) => meals.map((meal) => meal.id === id ? { ...meal, ...patch } : meal));
+    setError("");
+    setQueueNotice("");
+  }
+
+  function updateBatchItem(mealId: number, itemId: number, patch: Partial<Omit<ItemDraft, "id">>) {
+    setBatchMeals((meals) => meals.map((meal) => {
+      if (meal.id !== mealId) return meal;
+      return {
+        ...meal,
+        items: meal.items.map((item) => item.id === itemId ? { ...item, ...patch } : item),
+      };
+    }));
     setError("");
     setQueueNotice("");
   }
@@ -100,30 +191,89 @@ export default function MealInterpreter({
     setQueueNotice("");
   }
 
+  function addFoodItem(mealId: number) {
+    setBatchMeals((meals) => meals.map((meal) => {
+      if (meal.id !== mealId) return meal;
+      if (meal.items.length >= MAX_ITEMS_PER_MEAL) return meal;
+      return { ...meal, items: [...meal.items, createItemDraft()] };
+    }));
+    setError("");
+    setQueueNotice("");
+  }
+
+  function removeFoodItem(mealId: number, itemId: number) {
+    setBatchMeals((meals) => meals.map((meal) => {
+      if (meal.id !== mealId) return meal;
+      if (meal.items.length <= 1) return meal;
+      return { ...meal, items: meal.items.filter((item) => item.id !== itemId) };
+    }));
+    setError("");
+    setQueueNotice("");
+  }
+
+  function buildStructuredMeal(meal: MealDraft, index: number): StructuredMealPayload | { error: string } {
+    if (!isValidLocalDate(meal.mealDate)) {
+      return { error: `Choose a valid date for meal ${index + 1}.` };
+    }
+    if (!isValidLocalTime(meal.mealTime)) {
+      return { error: `Choose a valid time for meal ${index + 1}.` };
+    }
+    if (meal.items.length === 0) {
+      return { error: `Add at least one food for meal ${index + 1}.` };
+    }
+    if (meal.items.length > MAX_ITEMS_PER_MEAL) {
+      return { error: `Meal ${index + 1} can include at most ${MAX_ITEMS_PER_MEAL} foods.` };
+    }
+
+    if (meal.entryMode === "absolute") {
+      const items = meal.items.map((item) => ({
+        name: item.name.trim(),
+        portionUnits: Number(item.amount),
+        portionKind: item.portionKind,
+      }));
+      const composed = composeAbsoluteMealPrompt(items, MAX_ITEMS_PER_MEAL);
+      if (!composed.ok) return { error: `Meal ${index + 1}: ${composed.message}` };
+      return {
+        entryMode: "absolute",
+        items: composed.items,
+        mealDate: meal.mealDate,
+        mealTime: meal.mealTime,
+      };
+    }
+
+    const solidRaw = meal.solidTotalPU.trim();
+    const liquidRaw = meal.liquidTotalPU.trim();
+    const solidTotalPU = solidRaw === "" ? 0 : Number(solidRaw);
+    const liquidTotalPU = liquidRaw === "" ? 0 : Number(liquidRaw);
+    const items = meal.items.map((item) => ({
+      name: item.name.trim(),
+      percentage: Number(item.amount),
+      portionKind: item.portionKind,
+    }));
+    const composed = composePercentageMealPrompt(items, solidTotalPU, liquidTotalPU, MAX_ITEMS_PER_MEAL);
+    if (!composed.ok) return { error: `Meal ${index + 1}: ${composed.message}` };
+    return {
+      entryMode: "percentage",
+      items,
+      solidTotalPU,
+      liquidTotalPU,
+      mealDate: meal.mealDate,
+      mealTime: meal.mealTime,
+    };
+  }
+
   async function handleBatchSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (isSubmitting || batchMeals.length === 0) return;
 
-    const meals = [] as Array<{ prompt: string; mealDate: string; mealTime: string }>;
+    const meals: StructuredMealPayload[] = [];
     for (const [index, meal] of batchMeals.entries()) {
-      const prompt = meal.prompt.trim();
-      if (!prompt) {
-        setError(`Enter a description for meal ${index + 1}.`);
+      const built = buildStructuredMeal(meal, index);
+      if ("error" in built) {
+        setError(built.error);
         return;
       }
-      if (prompt.length > MAX_PROMPT_LENGTH) {
-        setError(`Keep meal ${index + 1} under ${MAX_PROMPT_LENGTH.toLocaleString()} characters.`);
-        return;
-      }
-      if (!isValidLocalDate(meal.mealDate)) {
-        setError(`Choose a valid date for meal ${index + 1}.`);
-        return;
-      }
-      if (!isValidLocalTime(meal.mealTime)) {
-        setError(`Choose a valid time for meal ${index + 1}.`);
-        return;
-      }
-      meals.push({ prompt, mealDate: meal.mealDate, mealTime: meal.mealTime });
+      meals.push(built);
     }
 
     setError("");
@@ -319,24 +469,152 @@ export default function MealInterpreter({
       <div className="interpreter-mark" aria-hidden="true">✦</div>
       <p className="eyebrow">Meal interpreter</p>
       <h1 id="interpreter-title">Add your meals.</h1>
-      <p className="interpreter-intro">Add one or more descriptions, set each local date and time, then interpret them. Sonion will save every result automatically.</p>
+      <p className="interpreter-intro">
+        Enter each meal with absolute portion units, or with percentage weights plus solid and liquid totals.
+        Percentages are normalized within solid foods and within liquid foods separately, then scaled to those totals.
+      </p>
       <form className="interpreter-form batch-meal-form" onSubmit={(event) => void handleBatchSubmit(event)}>
-        {batchMeals.map((meal, index) => (
-          <fieldset className="batch-meal-entry" key={meal.id}>
-            <div className="batch-meal-heading">
-              <legend>Meal {index + 1}</legend>
-              {batchMeals.length > 1 ? <button className="remove-meal-button" onClick={() => removeBatchMeal(meal.id)} type="button">Remove</button> : null}
-            </div>
-            <label htmlFor={`food-prompt-${meal.id}`}>What did you eat?</label>
-            <p className="field-help" id={`food-prompt-help-${meal.id}`}>Try: “two scoops of rice, grilled chicken, and a little broccoli”</p>
-            <textarea aria-describedby={`food-prompt-help-${meal.id} prompt-count-${meal.id}`} id={`food-prompt-${meal.id}`} maxLength={MAX_PROMPT_LENGTH} onChange={(event) => updateBatchMeal(meal.id, "prompt", event.target.value)} placeholder="Describe your meal in your own words..." required value={meal.prompt} />
-            <div className="save-meal-fields pre-submit-datetime">
-              <label htmlFor={`meal-date-${meal.id}`}>Local date<input id={`meal-date-${meal.id}`} onChange={(event) => updateBatchMeal(meal.id, "mealDate", event.target.value)} type="date" value={meal.mealDate} /></label>
-              <label htmlFor={`meal-time-${meal.id}`}>Local time<input id={`meal-time-${meal.id}`} onChange={(event) => updateBatchMeal(meal.id, "mealTime", event.target.value)} type="time" value={meal.mealTime} /></label>
-            </div>
-            <span className="character-count" id={`prompt-count-${meal.id}`}>{meal.prompt.length.toLocaleString()} / {MAX_PROMPT_LENGTH.toLocaleString()}</span>
-          </fieldset>
-        ))}
+        {batchMeals.map((meal, index) => {
+          const previewItems = resolvePreviewItems(meal);
+          const amountLabel = meal.entryMode === "absolute" ? "Portion units" : "Percentage weight";
+          return (
+            <fieldset className="batch-meal-entry" key={meal.id}>
+              <div className="batch-meal-heading">
+                <legend>Meal {index + 1}</legend>
+                {batchMeals.length > 1 ? <button className="remove-meal-button" onClick={() => removeBatchMeal(meal.id)} type="button">Remove</button> : null}
+              </div>
+
+              <div className="entry-mode-toggle" role="group" aria-label={`Entry mode for meal ${index + 1}`}>
+                <button
+                  aria-pressed={meal.entryMode === "absolute"}
+                  className={meal.entryMode === "absolute" ? "entry-mode-button is-selected" : "entry-mode-button"}
+                  onClick={() => updateBatchMeal(meal.id, { entryMode: "absolute" })}
+                  type="button"
+                >
+                  Absolute PU
+                </button>
+                <button
+                  aria-pressed={meal.entryMode === "percentage"}
+                  className={meal.entryMode === "percentage" ? "entry-mode-button is-selected" : "entry-mode-button"}
+                  onClick={() => updateBatchMeal(meal.id, { entryMode: "percentage" })}
+                  type="button"
+                >
+                  Percentage
+                </button>
+              </div>
+              <p className="field-help">
+                {meal.entryMode === "absolute"
+                  ? "Enter a positive portion-unit amount for each food."
+                  : "Enter relative percentage weights (they need not sum to 100). Solids normalize among solids; liquids among liquids."}
+              </p>
+
+              <div className="food-item-list">
+                {meal.items.map((item, itemIndex) => (
+                  <div className="food-item-row" key={item.id}>
+                    <label className="food-item-name" htmlFor={`food-name-${meal.id}-${item.id}`}>
+                      Food
+                      <input
+                        id={`food-name-${meal.id}-${item.id}`}
+                        onChange={(event) => updateBatchItem(meal.id, item.id, { name: event.target.value })}
+                        placeholder="e.g. eggs"
+                        required
+                        type="text"
+                        value={item.name}
+                      />
+                    </label>
+                    <label className="food-item-amount" htmlFor={`food-amount-${meal.id}-${item.id}`}>
+                      {amountLabel}
+                      <input
+                        id={`food-amount-${meal.id}-${item.id}`}
+                        inputMode="decimal"
+                        min="0"
+                        onChange={(event) => updateBatchItem(meal.id, item.id, { amount: event.target.value })}
+                        placeholder={meal.entryMode === "absolute" ? "1.5" : "30"}
+                        required
+                        step="any"
+                        type="number"
+                        value={item.amount}
+                      />
+                    </label>
+                    <label className="food-item-kind" htmlFor={`food-kind-${meal.id}-${item.id}`}>
+                      Kind
+                      <select
+                        id={`food-kind-${meal.id}-${item.id}`}
+                        onChange={(event) => updateBatchItem(meal.id, item.id, { portionKind: event.target.value as PortionKind })}
+                        value={item.portionKind}
+                      >
+                        <option value="solid">Solid</option>
+                        <option value="liquid">Liquid</option>
+                      </select>
+                    </label>
+                    {meal.items.length > 1 ? (
+                      <button
+                        aria-label={`Remove food ${itemIndex + 1} from meal ${index + 1}`}
+                        className="remove-item-button"
+                        onClick={() => removeFoodItem(meal.id, item.id)}
+                        type="button"
+                      >
+                        Remove
+                      </button>
+                    ) : null}
+                  </div>
+                ))}
+              </div>
+
+              <button
+                className="secondary-button add-item-button"
+                disabled={meal.items.length >= MAX_ITEMS_PER_MEAL}
+                onClick={() => addFoodItem(meal.id)}
+                type="button"
+              >
+                + Add food
+              </button>
+
+              {meal.entryMode === "percentage" ? (
+                <div className="save-meal-fields proportion-totals">
+                  <label htmlFor={`solid-total-${meal.id}`}>
+                    Solid total PU
+                    <input
+                      id={`solid-total-${meal.id}`}
+                      inputMode="decimal"
+                      min="0"
+                      onChange={(event) => updateBatchMeal(meal.id, { solidTotalPU: event.target.value })}
+                      placeholder="0"
+                      step="any"
+                      type="number"
+                      value={meal.solidTotalPU}
+                    />
+                  </label>
+                  <label htmlFor={`liquid-total-${meal.id}`}>
+                    Liquid total PU
+                    <input
+                      id={`liquid-total-${meal.id}`}
+                      inputMode="decimal"
+                      min="0"
+                      onChange={(event) => updateBatchMeal(meal.id, { liquidTotalPU: event.target.value })}
+                      placeholder="0"
+                      step="any"
+                      type="number"
+                      value={meal.liquidTotalPU}
+                    />
+                  </label>
+                </div>
+              ) : null}
+
+              {previewItems ? (
+                <div className="resolved-pu-preview" aria-live="polite">
+                  <p className="response-label">Resolved portion units</p>
+                  <pre className="resolved-pu-text">{buildMealPromptFromAbsoluteItems(previewItems)}</pre>
+                </div>
+              ) : null}
+
+              <div className="save-meal-fields pre-submit-datetime">
+                <label htmlFor={`meal-date-${meal.id}`}>Local date<input id={`meal-date-${meal.id}`} onChange={(event) => updateBatchMeal(meal.id, { mealDate: event.target.value })} type="date" value={meal.mealDate} /></label>
+                <label htmlFor={`meal-time-${meal.id}`}>Local time<input id={`meal-time-${meal.id}`} onChange={(event) => updateBatchMeal(meal.id, { mealTime: event.target.value })} type="time" value={meal.mealTime} /></label>
+              </div>
+            </fieldset>
+          );
+        })}
         <div className="batch-form-actions">
           <button className="secondary-button" onClick={addBatchMeal} type="button">+ Add another meal</button>
           <button aria-busy={isSubmitting} className="primary-button" disabled={isSubmitting || batchMeals.length === 0} type="submit">{isSubmitting ? "Queueing..." : "Interpret meals"}</button>

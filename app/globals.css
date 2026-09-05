@@ -137,6 +137,19 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
 .batch-meal-heading legend { color: var(--green-dark); font-size: 12px; font-weight: 800; padding: 0; }
 .batch-meal-entry textarea { min-height: 112px; }
 .batch-meal-entry .character-count { display: block; margin-top: 8px; text-align: right; }
+.entry-mode-toggle { display: grid; gap: 8px; grid-template-columns: 1fr 1fr; margin-bottom: 8px; }
+.entry-mode-button { background: #f8faf8; border: 1px solid var(--line); border-radius: 99px; color: var(--green-dark); font-size: 11px; font-weight: 800; padding: 9px 12px; width: 100%; }
+.entry-mode-button.is-selected { background: var(--green-pale); border-color: #9ec7ad; color: var(--green-dark); }
+.food-item-list { display: grid; gap: 10px; margin-top: 4px; }
+.food-item-row { align-items: end; display: grid; gap: 8px; grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.9fr) minmax(0, 0.8fr) auto; }
+.food-item-row label { margin: 0; }
+.food-item-row input, .food-item-row select { margin-top: 6px; padding: 9px 10px; font-size: 12px; }
+.add-item-button { margin-top: 10px; }
+.remove-item-button { background: transparent; border: 0; color: var(--red-ink); font-size: 10px; font-weight: 700; margin-bottom: 8px; padding: 0; }
+.remove-item-button:hover { text-decoration: underline; }
+.proportion-totals { margin-top: 12px; }
+.resolved-pu-preview { background: #f7faf7; border: 1px solid #d5e5d9; border-radius: 12px; margin-top: 12px; padding: 10px 12px; }
+.resolved-pu-text { color: var(--green-dark); font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 11px; line-height: 1.55; margin: 0; white-space: pre-wrap; }
 .batch-form-actions { align-items: center; display: flex; flex-wrap: wrap; gap: 9px; justify-content: space-between; }
 .batch-form-actions .secondary-button, .batch-form-actions .primary-button { margin-top: 0; }
 .remove-meal-button { background: transparent; border: 0; color: var(--red-ink); font-size: 10px; font-weight: 700; padding: 3px 0; }
@@ -281,6 +294,8 @@ textarea::placeholder, input::placeholder { color: #a0aca5; }
   .auth-copy h1 { font-size: 48px; }
   .auth-copy p:last-child { font-size: 14px; }
   .app-footer { margin-top: 18px; }
+  .food-item-row { grid-template-columns: 1fr; }
+  .remove-item-button { margin-bottom: 0; justify-self: start; }
 }
 
 @media (max-width: 430px) {

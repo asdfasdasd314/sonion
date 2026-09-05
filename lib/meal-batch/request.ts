@@ -4,6 +4,10 @@ import { MEAL_REVISION_PARAMETERS } from "@/lib/meal-revision/config";
 import { MealRevisionRequestSchema } from "@/lib/meal-revision/types";
 
 import { MEAL_BATCH_PARAMETERS } from "./config";
+import {
+  composeAbsoluteMealPrompt,
+  composePercentageMealPrompt,
+} from "./proportions";
 
 const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
@@ -41,18 +45,35 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 
 function parseDatedMeal(value: unknown, index: number, maxPromptLength: number): QueuedMeal | { error: string } {
   if (!isRecord(value)) return { error: `Meal ${index + 1} must be an object.` };
-  if (typeof value.prompt !== "string") return { error: `Meal ${index + 1} must include a description.` };
 
-  const prompt = value.prompt.trim();
-  if (!prompt) return { error: `Enter a food description for meal ${index + 1}.` };
-  if (prompt.length > maxPromptLength) {
-    return { error: `Keep meal ${index + 1} under ${maxPromptLength.toLocaleString()} characters.` };
+  if ("prompt" in value && value.entryMode === undefined) {
+    return { error: `Meal ${index + 1} must use absolute or percentage entry instead of a free-text prompt.` };
   }
+
+  if (value.entryMode !== "absolute" && value.entryMode !== "percentage") {
+    return { error: `Meal ${index + 1} must use entryMode "absolute" or "percentage".` };
+  }
+
   if (typeof value.mealDate !== "string" || !isValidLocalDate(value.mealDate)) {
     return { error: `Choose a valid date for meal ${index + 1}.` };
   }
   if (typeof value.mealTime !== "string" || !isValidLocalTime(value.mealTime)) {
     return { error: `Choose a valid time for meal ${index + 1}.` };
+  }
+
+  const maxItems = MEAL_BATCH_PARAMETERS.maxItemsPerMeal;
+  const composed = value.entryMode === "absolute"
+    ? composeAbsoluteMealPrompt(value.items, maxItems)
+    : composePercentageMealPrompt(value.items, value.solidTotalPU, value.liquidTotalPU, maxItems);
+
+  if (!composed.ok) {
+    return { error: `Meal ${index + 1}: ${composed.message}` };
+  }
+
+  const prompt = composed.prompt.trim();
+  if (!prompt) return { error: `Enter at least one food for meal ${index + 1}.` };
+  if (prompt.length > maxPromptLength) {
+    return { error: `Keep meal ${index + 1} under ${maxPromptLength.toLocaleString()} characters.` };
   }
 
   return { prompt, mealDate: value.mealDate, mealTime: value.mealTime };

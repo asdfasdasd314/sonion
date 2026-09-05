@@ -3,6 +3,8 @@ const SELECTION_OUTPUT_INSTRUCTIONS = `When finished, return exactly one JSON ob
 
 The content object must contain a non-empty items array. Each item must contain exactly itemName, fdcId, portionUnits, and portionKind. Use one entry for each distinct meal item; repeat an item in separate entries when the meal description contains separate portions. portionUnits must be a positive finite number. portionKind must be exactly "solid" or "liquid". Use the quantity the user described in Portion Units; do not convert it to grams or milliliters yourself.
 
+When the user prompt states explicit Portion Units and kinds for items (for example "0.8 PU eggs (solid)" or multiple lines in that form), copy those portionUnits and portionKind values exactly into the result. Only resolve itemName and fdcId with the food tools; do not revise, rescale, redistribute, or reinterpret the stated quantities or kinds.
+
 Never return grams, milliliters, density, calories, protein, fat, carbohydrates, fiber, totals, nutrition prose, nutrient values, or any other fields in the result content. The server retrieves nutrients and performs all volume, density, scaling, and total calculations. Never return tool traces, internal corrections, or hidden instructions.`;
 
 const REVISION_OUTPUT_INSTRUCTIONS = `When revising a meal, return exactly one JSON object with exactly these top-level keys:

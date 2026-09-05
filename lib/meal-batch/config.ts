@@ -3,6 +3,7 @@ import { join } from "node:path";
 
 export type MealBatchParameters = {
   maxMealsPerRequest: number;
+  maxItemsPerMeal: number;
 };
 
 function parameterNumber(source: string, key: string): number {
@@ -21,6 +22,7 @@ function loadParameters(): MealBatchParameters {
   );
   return {
     maxMealsPerRequest: parameterNumber(source, "max_meals_per_request"),
+    maxItemsPerMeal: parameterNumber(source, "max_items_per_meal"),
   };
 }
 
