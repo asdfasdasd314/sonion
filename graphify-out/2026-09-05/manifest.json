@@ -180,8 +180,8 @@
     "semantic_hash": ""
   },
   "lib/agent/food-tools-skill.ts": {
-    "mtime": 1788642708.4632146,
-    "ast_hash": "9a22a205144460721d7417c2ea3b474e",
+    "mtime": 1787706741.7197971,
+    "ast_hash": "d301ad1e086766f83831e73014011de9",
     "semantic_hash": ""
   },
   "lib/agent/protocol.ts": {
@@ -215,8 +215,8 @@
     "semantic_hash": ""
   },
   "components/meal-interpreter.tsx": {
-    "mtime": 1788642708.4621189,
-    "ast_hash": "1cbba0cdcd81472f969b8f9add795658",
+    "mtime": 1787706741.7175653,
+    "ast_hash": "65aa7be2d324858c58f39dc387d78436",
     "semantic_hash": ""
   },
   "components/nutrition-targets.tsx": {
@@ -455,8 +455,8 @@
     "semantic_hash": ""
   },
   "test/estimate-autosave.test.ts": {
-    "mtime": 1788642708.4647021,
-    "ast_hash": "38e4b7c7576021cea1780cd8def0413d",
+    "mtime": 1787706741.7223954,
+    "ast_hash": "6060314472a64dd359beb982e1bf37fa",
     "semantic_hash": ""
   },
   "test/interpretation-errors-api.test.ts": {
@@ -475,18 +475,18 @@
     "semantic_hash": ""
   },
   "lib/meal-batch/config.ts": {
-    "mtime": 1788642708.4634154,
-    "ast_hash": "c445adb2e95ef6f53ea3fc62fb48ad7f",
+    "mtime": 1787694541.3997593,
+    "ast_hash": "4b56d165194c103566f36e0e696f02f3",
     "semantic_hash": ""
   },
   "lib/meal-batch/request.ts": {
-    "mtime": 1788642708.4638414,
-    "ast_hash": "80fdf46febbc77bdf4e167a6b10e0640",
+    "mtime": 1787694541.4000819,
+    "ast_hash": "1526bc27858bd6ce3386f801504a4195",
     "semantic_hash": ""
   },
   "feature_files/meal-batch-interpretation.md": {
-    "mtime": 1788642708.4627328,
-    "ast_hash": "05d385312ca1e91a4d544f05832e362f",
+    "mtime": 1787694541.396317,
+    "ast_hash": "b6f5e8bfadf921cdc0532091ad8fffb2",
     "semantic_hash": ""
   },
   "app/api/nutrition-targets/route.ts": {
@@ -507,16 +507,6 @@
   "supabase/migrations/20260825000000_create_nutrition_targets.sql": {
     "mtime": 1787705937.029852,
     "ast_hash": "ab94bc4f0c037bf507824c302903d7cf",
-    "semantic_hash": ""
-  },
-  "lib/meal-batch/proportions.ts": {
-    "mtime": 1788642708.4636376,
-    "ast_hash": "43a9cda76ea4b0ed2c2be22b12205d22",
-    "semantic_hash": ""
-  },
-  "test/meal-proportions.test.ts": {
-    "mtime": 1788642708.4648762,
-    "ast_hash": "f1b8cb53ca30c3e4c7f933bf638f8ea2",
     "semantic_hash": ""
   }
 }

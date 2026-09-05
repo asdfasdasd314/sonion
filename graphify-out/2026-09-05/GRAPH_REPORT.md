@@ -1,16 +1,16 @@
-# Graph Report - sonion  (2026-09-05)
+# Graph Report - sonion  (2026-08-25)
 
 ## Corpus Check
-- 99 files · ~207,714 words
+- 97 files · ~205,180 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 718 nodes · 1467 edges · 32 communities (26 shown, 6 thin omitted)
+- 693 nodes · 1411 edges · 32 communities (26 shown, 6 thin omitted)
 - Extraction: 98% EXTRACTED · 2% INFERRED · 0% AMBIGUOUS · INFERRED: 24 edges (avg confidence: 0.81)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `4c9847eb`
+- Built from commit: `029b9720`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -87,8 +87,8 @@ Cohesion: 0.07
 Nodes (28): dom, dom.iterable, esnext, **/*.mts, .next/dev/types/**/*.ts, next-env.d.ts, .next/types/**/*.ts, node_modules (+20 more)
 
 ### Community 1 - "Linting and Styling"
-Cohesion: 0.08
-Nodes (37): DELETE(), errorResponse(), getMealId(), mapError(), PATCH(), errorResponse(), GET(), mapError() (+29 more)
+Cohesion: 0.12
+Nodes (28): DELETE(), errorResponse(), getMealId(), mapError(), PATCH(), errorResponse(), GET(), mapError() (+20 more)
 
 ### Community 2 - "Next.js Dependencies"
 Cohesion: 0.04
@@ -96,11 +96,11 @@ Nodes (44): eslint, eslint-config-next, @google/genai, next, dependencies, @goog
 
 ### Community 3 - "Project Agent Rules"
 Cohesion: 0.08
-Nodes (50): checkEnvelopeKeys(), DEFAULT_PROTOCOL_LIMITS, diagnostic(), duplicateTopLevelKeys(), fieldDiagnostic(), formatProtocolErrors(), formatResult(), formatRevision() (+42 more)
+Nodes (51): checkEnvelopeKeys(), DEFAULT_PROTOCOL_LIMITS, diagnostic(), duplicateTopLevelKeys(), fieldDiagnostic(), formatProtocolErrors(), formatResult(), formatRevision() (+43 more)
 
 ### Community 4 - "TypeScript References"
-Cohesion: 0.06
-Nodes (80): FoodDataSetupError, asRecord(), buildAndWriteFoodIndex(), buildFoodIndex(), compareText(), extractRecords(), FNDDS_DATA_PATH, FOOD_DATA_DIR (+72 more)
+Cohesion: 0.05
+Nodes (81): FoodDataSetupError, asRecord(), buildAndWriteFoodIndex(), buildFoodIndex(), compareText(), extractRecords(), FNDDS_DATA_PATH, FOOD_DATA_DIR (+73 more)
 
 ### Community 5 - "Architecture Profiles"
 Cohesion: 0.06
@@ -123,16 +123,16 @@ Cohesion: 0.50
 Nodes (4): Bridge Agent Profile, Answer Oriented Programming, Coding Readiness, Centralized Project Document cp_doc
 
 ### Community 10 - "Home Page"
-Cohesion: 0.11
-Nodes (26): DashboardView, Home(), AuthMode, AuthPanel(), AuthPanelProps, getBearerToken(), mealListFingerprint(), AuthErrorResponse (+18 more)
+Cohesion: 0.13
+Nodes (23): DashboardView, Home(), AuthMode, AuthPanel(), AuthPanelProps, mealListFingerprint(), AuthErrorResponse, authRequest() (+15 more)
 
 ### Community 17 - "route.ts"
 Cohesion: 0.29
 Nodes (6): Dev Mode, Key Points, Relevant Files, State Log, Structured meal revisions, Summary
 
 ### Community 18 - "tools.ts"
-Cohesion: 0.07
-Nodes (51): AgentGenerationAdapter, FoodToolRegistry, loadParameters(), MEAL_ESTIMATION_PARAMETERS, MealEstimationParameters, parameterValue(), caloriesFromMacros(), estimateMeal() (+43 more)
+Cohesion: 0.08
+Nodes (45): selectPreferredVolumePortion(), loadParameters(), MEAL_ESTIMATION_PARAMETERS, MealEstimationParameters, parameterValue(), caloriesFromMacros(), estimateMeal(), portionUnitMilliliters() (+37 more)
 
 ### Community 19 - "Gemini model selection"
 Cohesion: 0.29
@@ -143,12 +143,12 @@ Cohesion: 0.29
 Nodes (6): Dev Mode, Key Points, Relevant Files, State Log, Summary, USDA food-data tools
 
 ### Community 21 - "nutrition-targets.tsx"
-Cohesion: 0.11
-Nodes (31): formatDate(), formatSavedTargetDate(), formatTime(), HistoryState, MacroSummary(), MealDetails(), MealDetailsProps, MealHistory() (+23 more)
+Cohesion: 0.06
+Nodes (50): formatDate(), formatSavedTargetDate(), formatTime(), HistoryState, MacroSummary(), MealDetails(), MealDetailsProps, MealHistory() (+42 more)
 
 ### Community 22 - "normalize.ts"
-Cohesion: 0.05
-Nodes (60): createItemDraft(), createMealDraft(), EstimateTable(), formatValue(), ItemDraft, MealDraft, MealInterpreter(), MealInterpreterProps (+52 more)
+Cohesion: 0.07
+Nodes (45): errorResponse(), persistInterpretationFailure(), POST(), processQueuedMeal(), processQueuedRefinement(), getFoodToolsSkill(), AgentGenerationAdapter, FoodToolRegistry (+37 more)
 
 ### Community 23 - "Client-only nutrition dashboard"
 Cohesion: 0.29
@@ -163,48 +163,48 @@ Cohesion: 0.29
 Nodes (6): Dev Mode, Key Points, Relevant Files, State Log, Summary, Supabase meal history
 
 ### Community 26 - "normalize.ts"
-Cohesion: 0.08
-Nodes (38): errorResponse(), GET(), mapError(), POST(), ACTIVITY_OPTIONS, FormValues, GOAL_OPTIONS, INITIAL_VALUES (+30 more)
+Cohesion: 0.14
+Nodes (22): errorResponse(), GET(), mapError(), POST(), authenticateMealRequest(), getBearerToken(), normalizeSavedNutritionTargetResponse(), NutritionTargetSaveBodySchema (+14 more)
 
 ### Community 27 - "Meal copy drafts"
 Cohesion: 0.29
 Nodes (6): Dev Mode, Key Points, Meal copy drafts, Relevant Files, State Log, Summary
 
 ### Community 28 - "index.ts"
-Cohesion: 0.08
-Nodes (39): errorResponse(), persistInterpretationFailure(), POST(), processQueuedMeal(), processQueuedRefinement(), errorResponse(), mapError(), PATCH() (+31 more)
+Cohesion: 0.07
+Nodes (38): errorResponse(), mapError(), PATCH(), errorResponse(), GET(), mapError(), ErrorsState, formatMealWhen() (+30 more)
 
 ### Community 29 - "Interpretation errors"
 Cohesion: 0.29
 Nodes (6): Dev Mode, Interpretation errors, Key Points, Relevant Files, State Log, Summary
 
 ### Community 30 - "meal-interpreter.tsx"
-Cohesion: 0.27
-Nodes (8): getFoodToolsSkill(), AlternatingModelSelector, createGemmaClient(), getGeminiModel(), getGemmaModel(), getGemmaSystemInstruction(), getNextMealModel(), nextModelProvider
+Cohesion: 0.17
+Nodes (15): createMealDraft(), EstimateTable(), formatValue(), MealDraft, MealInterpreter(), MealInterpreterProps, cloneMealSnapshot(), createMealCopyDraft() (+7 more)
 
 ### Community 31 - "Automatic batch meal interpretation"
 Cohesion: 0.29
 Nodes (6): Automatic batch meal interpretation, Dev Mode, Key Points, Relevant Files, State Log, Summary
 
 ## Knowledge Gaps
-- **224 isolated node(s):** `geistSans`, `geistMono`, `metadata`, `DashboardView`, `AuthMode` (+219 more)
+- **215 isolated node(s):** `geistSans`, `geistMono`, `metadata`, `DashboardView`, `AuthMode` (+210 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **6 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `MealEstimate` connect `tools.ts` to `Linting and Styling`, `nutrition-targets.tsx`, `normalize.ts`?**
+- **Why does `MealEstimate` connect `tools.ts` to `Linting and Styling`, `nutrition-targets.tsx`, `meal-interpreter.tsx`, `normalize.ts`?**
   _High betweenness centrality (0.016) - this node is a cross-community bridge._
-- **Why does `SupabaseConfigurationError` connect `index.ts` to `Linting and Styling`, `Home Page`, `normalize.ts`?**
+- **Why does `SupabaseConfigurationError` connect `normalize.ts` to `Linting and Styling`, `Home Page`, `index.ts`, `normalize.ts`?**
   _High betweenness centrality (0.013) - this node is a cross-community bridge._
-- **Why does `NormalizedFood` connect `TypeScript References` to `tools.ts`, `Project Agent Rules`?**
+- **Why does `NormalizedFood` connect `TypeScript References` to `tools.ts`, `Project Agent Rules`, `normalize.ts`?**
   _High betweenness centrality (0.011) - this node is a cross-community bridge._
 - **What connects `geistSans`, `geistMono`, `metadata` to the rest of the system?**
-  _224 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _215 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `TypeScript Compiler Options` be split into smaller, more focused modules?**
   _Cohesion score 0.06896551724137931 - nodes in this community are weakly interconnected._
 - **Should `Linting and Styling` be split into smaller, more focused modules?**
-  _Cohesion score 0.08421985815602837 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.12222222222222222 - nodes in this community are weakly interconnected._
 - **Should `Next.js Dependencies` be split into smaller, more focused modules?**
   _Cohesion score 0.044444444444444446 - nodes in this community are weakly interconnected._

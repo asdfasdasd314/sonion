@@ -61,8 +61,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_api_estimate_route",
-      "community": 28,
-      "community_name": "index.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "route.ts"
     },
     {
@@ -72,8 +72,8 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "app_api_estimate_route_errorresponse",
-      "community": 28,
-      "community_name": "index.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "errorresponse()"
     },
     {
@@ -83,8 +83,8 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "app_api_estimate_route_persistinterpretationfailure",
-      "community": 28,
-      "community_name": "index.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "persistinterpretationfailure()"
     },
     {
@@ -94,8 +94,8 @@
       "source_location": "L64",
       "_origin": "ast",
       "id": "app_api_estimate_route_processqueuedmeal",
-      "community": 28,
-      "community_name": "index.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "processqueuedmeal()"
     },
     {
@@ -105,8 +105,8 @@
       "source_location": "L96",
       "_origin": "ast",
       "id": "app_api_estimate_route_processqueuedrefinement",
-      "community": 28,
-      "community_name": "index.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "processqueuedrefinement()"
     },
     {
@@ -116,8 +116,8 @@
       "source_location": "L133",
       "_origin": "ast",
       "id": "app_api_estimate_route_post",
-      "community": 28,
-      "community_name": "index.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "post()"
     },
     {
@@ -523,8 +523,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_interpretation_errors",
-      "community": 1,
-      "community_name": "Linting and Styling",
+      "community": 28,
+      "community_name": "index.ts",
       "norm_label": "interpretation-errors.tsx"
     },
     {
@@ -534,8 +534,8 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "components_interpretation_errors_interpretationerrorsprops",
-      "community": 1,
-      "community_name": "Linting and Styling",
+      "community": 28,
+      "community_name": "index.ts",
       "norm_label": "interpretationerrorsprops"
     },
     {
@@ -545,8 +545,8 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "components_interpretation_errors_errorsstate",
-      "community": 1,
-      "community_name": "Linting and Styling",
+      "community": 28,
+      "community_name": "index.ts",
       "norm_label": "errorsstate"
     },
     {
@@ -556,8 +556,8 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "components_interpretation_errors_formatrelativetime",
-      "community": 1,
-      "community_name": "Linting and Styling",
+      "community": 28,
+      "community_name": "index.ts",
       "norm_label": "formatrelativetime()"
     },
     {
@@ -567,8 +567,8 @@
       "source_location": "L29",
       "_origin": "ast",
       "id": "components_interpretation_errors_formatmealwhen",
-      "community": 1,
-      "community_name": "Linting and Styling",
+      "community": 28,
+      "community_name": "index.ts",
       "norm_label": "formatmealwhen()"
     },
     {
@@ -578,8 +578,8 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "components_interpretation_errors_interpretationerrorspanel",
-      "community": 1,
-      "community_name": "Linting and Styling",
+      "community": 28,
+      "community_name": "index.ts",
       "norm_label": "interpretationerrorspanel()"
     },
     {
@@ -589,8 +589,8 @@
       "source_location": "L191",
       "_origin": "ast",
       "id": "components_interpretation_errors_geterrormessage",
-      "community": 1,
-      "community_name": "Linting and Styling",
+      "community": 28,
+      "community_name": "index.ts",
       "norm_label": "geterrormessage()"
     },
     {
@@ -721,151 +721,96 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_meal_interpreter",
-      "community": 22,
-      "community_name": "normalize.ts",
+      "community": 30,
+      "community_name": "meal-interpreter.tsx",
       "norm_label": "meal-interpreter.tsx"
-    },
-    {
-      "label": "ItemDraft",
-      "file_type": "code",
-      "source_file": "components/meal-interpreter.tsx",
-      "source_location": "L21",
-      "_origin": "ast",
-      "id": "components_meal_interpreter_itemdraft",
-      "community": 22,
-      "community_name": "normalize.ts",
-      "norm_label": "itemdraft"
     },
     {
       "label": "MealDraft",
       "file_type": "code",
       "source_file": "components/meal-interpreter.tsx",
-      "source_location": "L28",
+      "source_location": "L13",
       "_origin": "ast",
       "id": "components_meal_interpreter_mealdraft",
-      "community": 22,
-      "community_name": "normalize.ts",
+      "community": 30,
+      "community_name": "meal-interpreter.tsx",
       "norm_label": "mealdraft"
     },
     {
       "label": "MealInterpreterProps",
       "file_type": "code",
       "source_file": "components/meal-interpreter.tsx",
-      "source_location": "L38",
+      "source_location": "L20",
       "_origin": "ast",
       "id": "components_meal_interpreter_mealinterpreterprops",
-      "community": 22,
-      "community_name": "normalize.ts",
+      "community": 30,
+      "community_name": "meal-interpreter.tsx",
       "norm_label": "mealinterpreterprops"
-    },
-    {
-      "label": "StructuredMealPayload",
-      "file_type": "code",
-      "source_file": "components/meal-interpreter.tsx",
-      "source_location": "L48",
-      "_origin": "ast",
-      "id": "components_meal_interpreter_structuredmealpayload",
-      "community": 22,
-      "community_name": "normalize.ts",
-      "norm_label": "structuredmealpayload"
-    },
-    {
-      "label": "createItemDraft()",
-      "file_type": "code",
-      "source_file": "components/meal-interpreter.tsx",
-      "source_location": "L67",
-      "_origin": "ast",
-      "id": "components_meal_interpreter_createitemdraft",
-      "community": 22,
-      "community_name": "normalize.ts",
-      "norm_label": "createitemdraft()"
     },
     {
       "label": "createMealDraft()",
       "file_type": "code",
       "source_file": "components/meal-interpreter.tsx",
-      "source_location": "L71",
+      "source_location": "L32",
       "_origin": "ast",
       "id": "components_meal_interpreter_createmealdraft",
-      "community": 22,
-      "community_name": "normalize.ts",
+      "community": 30,
+      "community_name": "meal-interpreter.tsx",
       "norm_label": "createmealdraft()"
-    },
-    {
-      "label": "parseOptionalNumber()",
-      "file_type": "code",
-      "source_file": "components/meal-interpreter.tsx",
-      "source_location": "L84",
-      "_origin": "ast",
-      "id": "components_meal_interpreter_parseoptionalnumber",
-      "community": 22,
-      "community_name": "normalize.ts",
-      "norm_label": "parseoptionalnumber()"
-    },
-    {
-      "label": "resolvePreviewItems()",
-      "file_type": "code",
-      "source_file": "components/meal-interpreter.tsx",
-      "source_location": "L91",
-      "_origin": "ast",
-      "id": "components_meal_interpreter_resolvepreviewitems",
-      "community": 22,
-      "community_name": "normalize.ts",
-      "norm_label": "resolvepreviewitems()"
     },
     {
       "label": "MealInterpreter()",
       "file_type": "code",
       "source_file": "components/meal-interpreter.tsx",
-      "source_location": "L113",
+      "source_location": "L37",
       "_origin": "ast",
       "id": "components_meal_interpreter_mealinterpreter",
-      "community": 22,
-      "community_name": "normalize.ts",
+      "community": 30,
+      "community_name": "meal-interpreter.tsx",
       "norm_label": "mealinterpreter()"
     },
     {
       "label": "EstimateTable()",
       "file_type": "code",
       "source_file": "components/meal-interpreter.tsx",
-      "source_location": "L629",
+      "source_location": "L351",
       "_origin": "ast",
       "id": "components_meal_interpreter_estimatetable",
-      "community": 22,
-      "community_name": "normalize.ts",
+      "community": 30,
+      "community_name": "meal-interpreter.tsx",
       "norm_label": "estimatetable()"
     },
     {
       "label": "getErrorMessage()",
       "file_type": "code",
       "source_file": "components/meal-interpreter.tsx",
-      "source_location": "L642",
+      "source_location": "L364",
       "_origin": "ast",
       "id": "components_meal_interpreter_geterrormessage",
-      "community": 22,
-      "community_name": "normalize.ts",
+      "community": 30,
+      "community_name": "meal-interpreter.tsx",
       "norm_label": "geterrormessage()"
     },
     {
       "label": "isAcceptedAck()",
       "file_type": "code",
       "source_file": "components/meal-interpreter.tsx",
-      "source_location": "L648",
+      "source_location": "L370",
       "_origin": "ast",
       "id": "components_meal_interpreter_isacceptedack",
-      "community": 22,
-      "community_name": "normalize.ts",
+      "community": 30,
+      "community_name": "meal-interpreter.tsx",
       "norm_label": "isacceptedack()"
     },
     {
       "label": "formatValue()",
       "file_type": "code",
       "source_file": "components/meal-interpreter.tsx",
-      "source_location": "L655",
+      "source_location": "L377",
       "_origin": "ast",
       "id": "components_meal_interpreter_formatvalue",
-      "community": 22,
-      "community_name": "normalize.ts",
+      "community": 30,
+      "community_name": "meal-interpreter.tsx",
       "norm_label": "formatvalue()"
     },
     {
@@ -875,8 +820,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_nutrition_targets",
-      "community": 26,
-      "community_name": "normalize.ts",
+      "community": 21,
+      "community_name": "nutrition-targets.tsx",
       "norm_label": "nutrition-targets.tsx"
     },
     {
@@ -886,8 +831,8 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "components_nutrition_targets_nutritiontargetsprops",
-      "community": 26,
-      "community_name": "normalize.ts",
+      "community": 21,
+      "community_name": "nutrition-targets.tsx",
       "norm_label": "nutritiontargetsprops"
     },
     {
@@ -897,8 +842,8 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "components_nutrition_targets_savestate",
-      "community": 26,
-      "community_name": "normalize.ts",
+      "community": 21,
+      "community_name": "nutrition-targets.tsx",
       "norm_label": "savestate"
     },
     {
@@ -908,8 +853,8 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "components_nutrition_targets_formvalues",
-      "community": 26,
-      "community_name": "normalize.ts",
+      "community": 21,
+      "community_name": "nutrition-targets.tsx",
       "norm_label": "formvalues"
     },
     {
@@ -919,8 +864,8 @@
       "source_location": "L31",
       "_origin": "ast",
       "id": "components_nutrition_targets_initial_values",
-      "community": 26,
-      "community_name": "normalize.ts",
+      "community": 21,
+      "community_name": "nutrition-targets.tsx",
       "norm_label": "initial_values"
     },
     {
@@ -930,8 +875,8 @@
       "source_location": "L41",
       "_origin": "ast",
       "id": "components_nutrition_targets_activity_options",
-      "community": 26,
-      "community_name": "normalize.ts",
+      "community": 21,
+      "community_name": "nutrition-targets.tsx",
       "norm_label": "activity_options"
     },
     {
@@ -941,8 +886,8 @@
       "source_location": "L48",
       "_origin": "ast",
       "id": "components_nutrition_targets_goal_options",
-      "community": 26,
-      "community_name": "normalize.ts",
+      "community": 21,
+      "community_name": "nutrition-targets.tsx",
       "norm_label": "goal_options"
     },
     {
@@ -952,8 +897,8 @@
       "source_location": "L54",
       "_origin": "ast",
       "id": "components_nutrition_targets_fielderror",
-      "community": 26,
-      "community_name": "normalize.ts",
+      "community": 21,
+      "community_name": "nutrition-targets.tsx",
       "norm_label": "fielderror()"
     },
     {
@@ -963,8 +908,8 @@
       "source_location": "L58",
       "_origin": "ast",
       "id": "components_nutrition_targets_nutritiontargets",
-      "community": 26,
-      "community_name": "normalize.ts",
+      "community": 21,
+      "community_name": "nutrition-targets.tsx",
       "norm_label": "nutritiontargets()"
     },
     {
@@ -974,8 +919,8 @@
       "source_location": "L219",
       "_origin": "ast",
       "id": "components_nutrition_targets_geterrormessage",
-      "community": 26,
-      "community_name": "normalize.ts",
+      "community": 21,
+      "community_name": "nutrition-targets.tsx",
       "norm_label": "geterrormessage()"
     },
     {
@@ -1007,19 +952,19 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_agent_food_tools_skill",
-      "community": 30,
-      "community_name": "meal-interpreter.tsx",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "food-tools-skill.ts"
     },
     {
       "label": "getFoodToolsSkill()",
       "file_type": "code",
       "source_file": "lib/agent/food-tools-skill.ts",
-      "source_location": "L65",
+      "source_location": "L63",
       "_origin": "ast",
       "id": "lib_agent_food_tools_skill_getfoodtoolsskill",
-      "community": 30,
-      "community_name": "meal-interpreter.tsx",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "getfoodtoolsskill()"
     },
     {
@@ -1370,8 +1315,8 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "lib_agent_runner_agentgenerationadapter",
-      "community": 18,
-      "community_name": "tools.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "agentgenerationadapter"
     },
     {
@@ -1986,8 +1931,8 @@
       "source_location": "L192",
       "_origin": "ast",
       "id": "lib_food_data_normalize_selectpreferredvolumeportion",
-      "community": 4,
-      "community_name": "TypeScript References",
+      "community": 18,
+      "community_name": "tools.ts",
       "norm_label": "selectpreferredvolumeportion()"
     },
     {
@@ -2173,8 +2118,8 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "lib_food_data_tools_foodtoolname",
-      "community": 3,
-      "community_name": "Project Agent Rules",
+      "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "foodtoolname"
     },
     {
@@ -2195,8 +2140,8 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "lib_food_data_tools_foodtoolregistry",
-      "community": 18,
-      "community_name": "tools.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "foodtoolregistry"
     },
     {
@@ -2338,8 +2283,8 @@
       "source_location": "L162",
       "_origin": "ast",
       "id": "lib_food_data_tools_getdefaultfoodtoolregistry",
-      "community": 28,
-      "community_name": "index.ts",
+      "community": 4,
+      "community_name": "TypeScript References",
       "norm_label": "getdefaultfoodtoolregistry()"
     },
     {
@@ -2481,8 +2426,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_gemma",
-      "community": 30,
-      "community_name": "meal-interpreter.tsx",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "gemma.ts"
     },
     {
@@ -2492,8 +2437,8 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "lib_gemma_alternatingmodelselector",
-      "community": 30,
-      "community_name": "meal-interpreter.tsx",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "alternatingmodelselector"
     },
     {
@@ -2503,8 +2448,8 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "lib_gemma_createalternatingmodelselector",
-      "community": 30,
-      "community_name": "meal-interpreter.tsx",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "createalternatingmodelselector()"
     },
     {
@@ -2514,8 +2459,8 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "lib_gemma_nextmodelprovider",
-      "community": 30,
-      "community_name": "meal-interpreter.tsx",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "nextmodelprovider"
     },
     {
@@ -2525,8 +2470,8 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "lib_gemma_creategemmaclient",
-      "community": 30,
-      "community_name": "meal-interpreter.tsx",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "creategemmaclient()"
     },
     {
@@ -2536,8 +2481,8 @@
       "source_location": "L29",
       "_origin": "ast",
       "id": "lib_gemma_getgeminimodel",
-      "community": 30,
-      "community_name": "meal-interpreter.tsx",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "getgeminimodel()"
     },
     {
@@ -2547,8 +2492,8 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "lib_gemma_getgemmamodel",
-      "community": 30,
-      "community_name": "meal-interpreter.tsx",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "getgemmamodel()"
     },
     {
@@ -2558,8 +2503,8 @@
       "source_location": "L37",
       "_origin": "ast",
       "id": "lib_gemma_getnextmealmodel",
-      "community": 30,
-      "community_name": "meal-interpreter.tsx",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "getnextmealmodel()"
     },
     {
@@ -2569,8 +2514,8 @@
       "source_location": "L41",
       "_origin": "ast",
       "id": "lib_gemma_getgemmasysteminstruction",
-      "community": 30,
-      "community_name": "meal-interpreter.tsx",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "getgemmasysteminstruction()"
     },
     {
@@ -2822,8 +2767,8 @@
       "source_location": "L79",
       "_origin": "ast",
       "id": "lib_interpretation_errors_supabase_insertinterpretationerror",
-      "community": 28,
-      "community_name": "index.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "insertinterpretationerror()"
     },
     {
@@ -2866,8 +2811,8 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "lib_interpretation_errors_types_interpretationerrorrecord",
-      "community": 1,
-      "community_name": "Linting and Styling",
+      "community": 28,
+      "community_name": "index.ts",
       "norm_label": "interpretationerrorrecord"
     },
     {
@@ -2877,8 +2822,8 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "lib_interpretation_errors_types_interpretationerrorlistschema",
-      "community": 1,
-      "community_name": "Linting and Styling",
+      "community": 28,
+      "community_name": "index.ts",
       "norm_label": "interpretationerrorlistschema"
     },
     {
@@ -2921,8 +2866,8 @@
       "source_location": "L42",
       "_origin": "ast",
       "id": "lib_interpretation_errors_types_parseinterpretationerrorlist",
-      "community": 1,
-      "community_name": "Linting and Styling",
+      "community": 28,
+      "community_name": "index.ts",
       "norm_label": "parseinterpretationerrorlist()"
     },
     {
@@ -2951,7 +2896,7 @@
       "label": "parameterNumber()",
       "file_type": "code",
       "source_file": "lib/meal-batch/config.ts",
-      "source_location": "L9",
+      "source_location": "L8",
       "_origin": "ast",
       "id": "lib_meal_batch_config_parameternumber",
       "community": 22,
@@ -2962,7 +2907,7 @@
       "label": "loadParameters()",
       "file_type": "code",
       "source_file": "lib/meal-batch/config.ts",
-      "source_location": "L18",
+      "source_location": "L17",
       "_origin": "ast",
       "id": "lib_meal_batch_config_loadparameters",
       "community": 22,
@@ -2973,199 +2918,12 @@
       "label": "MEAL_BATCH_PARAMETERS",
       "file_type": "code",
       "source_file": "lib/meal-batch/config.ts",
-      "source_location": "L29",
+      "source_location": "L27",
       "_origin": "ast",
       "id": "lib_meal_batch_config_meal_batch_parameters",
       "community": 22,
       "community_name": "normalize.ts",
       "norm_label": "meal_batch_parameters"
-    },
-    {
-      "label": "proportions.ts",
-      "file_type": "code",
-      "source_file": "lib/meal-batch/proportions.ts",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "lib_meal_batch_proportions",
-      "community": 22,
-      "community_name": "normalize.ts",
-      "norm_label": "proportions.ts"
-    },
-    {
-      "label": "PositiveFiniteNumberSchema",
-      "file_type": "code",
-      "source_file": "lib/meal-batch/proportions.ts",
-      "source_location": "L9",
-      "_origin": "ast",
-      "id": "lib_meal_batch_proportions_positivefinitenumberschema",
-      "community": 22,
-      "community_name": "normalize.ts",
-      "norm_label": "positivefinitenumberschema"
-    },
-    {
-      "label": "NonNegativeFiniteNumberSchema",
-      "file_type": "code",
-      "source_file": "lib/meal-batch/proportions.ts",
-      "source_location": "L10",
-      "_origin": "ast",
-      "id": "lib_meal_batch_proportions_nonnegativefinitenumberschema",
-      "community": 22,
-      "community_name": "normalize.ts",
-      "norm_label": "nonnegativefinitenumberschema"
-    },
-    {
-      "label": "AbsoluteFoodItemSchema",
-      "file_type": "code",
-      "source_file": "lib/meal-batch/proportions.ts",
-      "source_location": "L12",
-      "_origin": "ast",
-      "id": "lib_meal_batch_proportions_absolutefooditemschema",
-      "community": 22,
-      "community_name": "normalize.ts",
-      "norm_label": "absolutefooditemschema"
-    },
-    {
-      "label": "PercentageFoodItemSchema",
-      "file_type": "code",
-      "source_file": "lib/meal-batch/proportions.ts",
-      "source_location": "L18",
-      "_origin": "ast",
-      "id": "lib_meal_batch_proportions_percentagefooditemschema",
-      "community": 22,
-      "community_name": "normalize.ts",
-      "norm_label": "percentagefooditemschema"
-    },
-    {
-      "label": "AbsoluteFoodItem",
-      "file_type": "code",
-      "source_file": "lib/meal-batch/proportions.ts",
-      "source_location": "L24",
-      "_origin": "ast",
-      "id": "lib_meal_batch_proportions_absolutefooditem",
-      "community": 22,
-      "community_name": "normalize.ts",
-      "norm_label": "absolutefooditem"
-    },
-    {
-      "label": "PercentageFoodItem",
-      "file_type": "code",
-      "source_file": "lib/meal-batch/proportions.ts",
-      "source_location": "L25",
-      "_origin": "ast",
-      "id": "lib_meal_batch_proportions_percentagefooditem",
-      "community": 22,
-      "community_name": "normalize.ts",
-      "norm_label": "percentagefooditem"
-    },
-    {
-      "label": "MealEntryMode",
-      "file_type": "code",
-      "source_file": "lib/meal-batch/proportions.ts",
-      "source_location": "L26",
-      "_origin": "ast",
-      "id": "lib_meal_batch_proportions_mealentrymode",
-      "community": 22,
-      "community_name": "normalize.ts",
-      "norm_label": "mealentrymode"
-    },
-    {
-      "label": "ScalePercentagesResult",
-      "file_type": "code",
-      "source_file": "lib/meal-batch/proportions.ts",
-      "source_location": "L28",
-      "_origin": "ast",
-      "id": "lib_meal_batch_proportions_scalepercentagesresult",
-      "community": 22,
-      "community_name": "normalize.ts",
-      "norm_label": "scalepercentagesresult"
-    },
-    {
-      "label": "ComposeMealPromptResult",
-      "file_type": "code",
-      "source_file": "lib/meal-batch/proportions.ts",
-      "source_location": "L32",
-      "_origin": "ast",
-      "id": "lib_meal_batch_proportions_composemealpromptresult",
-      "community": 22,
-      "community_name": "normalize.ts",
-      "norm_label": "composemealpromptresult"
-    },
-    {
-      "label": "formatPortionUnits()",
-      "file_type": "code",
-      "source_file": "lib/meal-batch/proportions.ts",
-      "source_location": "L36",
-      "_origin": "ast",
-      "id": "lib_meal_batch_proportions_formatportionunits",
-      "community": 22,
-      "community_name": "normalize.ts",
-      "norm_label": "formatportionunits()"
-    },
-    {
-      "label": "buildMealPromptFromAbsoluteItems()",
-      "file_type": "code",
-      "source_file": "lib/meal-batch/proportions.ts",
-      "source_location": "L40",
-      "_origin": "ast",
-      "id": "lib_meal_batch_proportions_buildmealpromptfromabsoluteitems",
-      "community": 22,
-      "community_name": "normalize.ts",
-      "norm_label": "buildmealpromptfromabsoluteitems()"
-    },
-    {
-      "label": "kindTotalLabel()",
-      "file_type": "code",
-      "source_file": "lib/meal-batch/proportions.ts",
-      "source_location": "L46",
-      "_origin": "ast",
-      "id": "lib_meal_batch_proportions_kindtotallabel",
-      "community": 22,
-      "community_name": "normalize.ts",
-      "norm_label": "kindtotallabel()"
-    },
-    {
-      "label": "scalePercentagesToPortionUnits()",
-      "file_type": "code",
-      "source_file": "lib/meal-batch/proportions.ts",
-      "source_location": "L55",
-      "_origin": "ast",
-      "id": "lib_meal_batch_proportions_scalepercentagestoportionunits",
-      "community": 22,
-      "community_name": "normalize.ts",
-      "norm_label": "scalepercentagestoportionunits()"
-    },
-    {
-      "label": "validateAbsoluteItems()",
-      "file_type": "code",
-      "source_file": "lib/meal-batch/proportions.ts",
-      "source_location": "L124",
-      "_origin": "ast",
-      "id": "lib_meal_batch_proportions_validateabsoluteitems",
-      "community": 22,
-      "community_name": "normalize.ts",
-      "norm_label": "validateabsoluteitems()"
-    },
-    {
-      "label": "composeAbsoluteMealPrompt()",
-      "file_type": "code",
-      "source_file": "lib/meal-batch/proportions.ts",
-      "source_location": "L136",
-      "_origin": "ast",
-      "id": "lib_meal_batch_proportions_composeabsolutemealprompt",
-      "community": 22,
-      "community_name": "normalize.ts",
-      "norm_label": "composeabsolutemealprompt()"
-    },
-    {
-      "label": "composePercentageMealPrompt()",
-      "file_type": "code",
-      "source_file": "lib/meal-batch/proportions.ts",
-      "source_location": "L149",
-      "_origin": "ast",
-      "id": "lib_meal_batch_proportions_composepercentagemealprompt",
-      "community": 22,
-      "community_name": "normalize.ts",
-      "norm_label": "composepercentagemealprompt()"
     },
     {
       "label": "request.ts",
@@ -3182,7 +2940,7 @@
       "label": "QueuedMeal",
       "file_type": "code",
       "source_file": "lib/meal-batch/request.ts",
-      "source_location": "L14",
+      "source_location": "L10",
       "_origin": "ast",
       "id": "lib_meal_batch_request_queuedmeal",
       "community": 22,
@@ -3193,7 +2951,7 @@
       "label": "QueuedRefinement",
       "file_type": "code",
       "source_file": "lib/meal-batch/request.ts",
-      "source_location": "L20",
+      "source_location": "L16",
       "_origin": "ast",
       "id": "lib_meal_batch_request_queuedrefinement",
       "community": 22,
@@ -3204,7 +2962,7 @@
       "label": "ParsedMealRequest",
       "file_type": "code",
       "source_file": "lib/meal-batch/request.ts",
-      "source_location": "L28",
+      "source_location": "L24",
       "_origin": "ast",
       "id": "lib_meal_batch_request_parsedmealrequest",
       "community": 22,
@@ -3215,7 +2973,7 @@
       "label": "RequestBody",
       "file_type": "code",
       "source_file": "lib/meal-batch/request.ts",
-      "source_location": "L33",
+      "source_location": "L29",
       "_origin": "ast",
       "id": "lib_meal_batch_request_requestbody",
       "community": 22,
@@ -3226,7 +2984,7 @@
       "label": "isRequestBody()",
       "file_type": "code",
       "source_file": "lib/meal-batch/request.ts",
-      "source_location": "L38",
+      "source_location": "L34",
       "_origin": "ast",
       "id": "lib_meal_batch_request_isrequestbody",
       "community": 22,
@@ -3237,7 +2995,7 @@
       "label": "isRecord()",
       "file_type": "code",
       "source_file": "lib/meal-batch/request.ts",
-      "source_location": "L42",
+      "source_location": "L38",
       "_origin": "ast",
       "id": "lib_meal_batch_request_isrecord",
       "community": 22,
@@ -3248,7 +3006,7 @@
       "label": "parseDatedMeal()",
       "file_type": "code",
       "source_file": "lib/meal-batch/request.ts",
-      "source_location": "L46",
+      "source_location": "L42",
       "_origin": "ast",
       "id": "lib_meal_batch_request_parsedatedmeal",
       "community": 22,
@@ -3259,7 +3017,7 @@
       "label": "parseBatch()",
       "file_type": "code",
       "source_file": "lib/meal-batch/request.ts",
-      "source_location": "L82",
+      "source_location": "L61",
       "_origin": "ast",
       "id": "lib_meal_batch_request_parsebatch",
       "community": 22,
@@ -3270,7 +3028,7 @@
       "label": "parseRefinement()",
       "file_type": "code",
       "source_file": "lib/meal-batch/request.ts",
-      "source_location": "L101",
+      "source_location": "L80",
       "_origin": "ast",
       "id": "lib_meal_batch_request_parserefinement",
       "community": 22,
@@ -3281,7 +3039,7 @@
       "label": "parseMealRequestBody()",
       "file_type": "code",
       "source_file": "lib/meal-batch/request.ts",
-      "source_location": "L146",
+      "source_location": "L125",
       "_origin": "ast",
       "id": "lib_meal_batch_request_parsemealrequestbody",
       "community": 22,
@@ -3295,8 +3053,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_meal_copy_draft",
-      "community": 22,
-      "community_name": "normalize.ts",
+      "community": 30,
+      "community_name": "meal-interpreter.tsx",
       "norm_label": "draft.ts"
     },
     {
@@ -3306,8 +3064,8 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "lib_meal_copy_draft_meal_copy_default_datetime",
-      "community": 22,
-      "community_name": "normalize.ts",
+      "community": 30,
+      "community_name": "meal-interpreter.tsx",
       "norm_label": "meal_copy_default_datetime"
     },
     {
@@ -3317,8 +3075,8 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "lib_meal_copy_draft_meal_copy_save_method",
-      "community": 22,
-      "community_name": "normalize.ts",
+      "community": 30,
+      "community_name": "meal-interpreter.tsx",
       "norm_label": "meal_copy_save_method"
     },
     {
@@ -3328,8 +3086,8 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "lib_meal_copy_draft_mealcopydraft",
-      "community": 22,
-      "community_name": "normalize.ts",
+      "community": 30,
+      "community_name": "meal-interpreter.tsx",
       "norm_label": "mealcopydraft"
     },
     {
@@ -3339,8 +3097,8 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "lib_meal_copy_draft_clonemealsnapshot",
-      "community": 22,
-      "community_name": "normalize.ts",
+      "community": 30,
+      "community_name": "meal-interpreter.tsx",
       "norm_label": "clonemealsnapshot()"
     },
     {
@@ -3350,8 +3108,8 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "lib_meal_copy_draft_currentlocalmealdatetime",
-      "community": 22,
-      "community_name": "normalize.ts",
+      "community": 30,
+      "community_name": "meal-interpreter.tsx",
       "norm_label": "currentlocalmealdatetime()"
     },
     {
@@ -3361,8 +3119,8 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "lib_meal_copy_draft_createmealcopydraft",
-      "community": 22,
-      "community_name": "normalize.ts",
+      "community": 30,
+      "community_name": "meal-interpreter.tsx",
       "norm_label": "createmealcopydraft()"
     },
     {
@@ -3526,8 +3284,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_meal_estimation_pipeline",
-      "community": 18,
-      "community_name": "tools.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "pipeline.ts"
     },
     {
@@ -3537,8 +3295,8 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "lib_meal_estimation_pipeline_estimatepipelineresult",
-      "community": 18,
-      "community_name": "tools.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "estimatepipelineresult"
     },
     {
@@ -3548,8 +3306,8 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "lib_meal_estimation_pipeline_estimatepipelineinput",
-      "community": 18,
-      "community_name": "tools.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "estimatepipelineinput"
     },
     {
@@ -3559,8 +3317,8 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "lib_meal_estimation_pipeline_createmealgenerateadapter",
-      "community": 28,
-      "community_name": "index.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "createmealgenerateadapter()"
     },
     {
@@ -3570,8 +3328,8 @@
       "source_location": "L49",
       "_origin": "ast",
       "id": "lib_meal_estimation_pipeline_runmealestimatepipeline",
-      "community": 28,
-      "community_name": "index.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "runmealestimatepipeline()"
     },
     {
@@ -3647,8 +3405,8 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "lib_meal_estimation_types_mealselection",
-      "community": 18,
-      "community_name": "tools.ts",
+      "community": 3,
+      "community_name": "Project Agent Rules",
       "norm_label": "mealselection"
     },
     {
@@ -3812,8 +3570,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_meal_history_request",
-      "community": 10,
-      "community_name": "Home Page",
+      "community": 26,
+      "community_name": "normalize.ts",
       "norm_label": "request.ts"
     },
     {
@@ -3823,8 +3581,8 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "lib_meal_history_request_mealrequestautherror",
-      "community": 1,
-      "community_name": "Linting and Styling",
+      "community": 28,
+      "community_name": "index.ts",
       "norm_label": "mealrequestautherror"
     },
     {
@@ -3834,8 +3592,8 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "lib_meal_history_request_mealrequestautherror_constructor",
-      "community": 1,
-      "community_name": "Linting and Styling",
+      "community": 28,
+      "community_name": "index.ts",
       "norm_label": ".constructor()"
     },
     {
@@ -3845,8 +3603,8 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "lib_meal_history_request_getbearertoken",
-      "community": 10,
-      "community_name": "Home Page",
+      "community": 26,
+      "community_name": "normalize.ts",
       "norm_label": "getbearertoken()"
     },
     {
@@ -4087,8 +3845,8 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "lib_meal_history_types_mealrecord",
-      "community": 22,
-      "community_name": "normalize.ts",
+      "community": 30,
+      "community_name": "meal-interpreter.tsx",
       "norm_label": "mealrecord"
     },
     {
@@ -4395,8 +4153,8 @@
       "source_location": "L47",
       "_origin": "ast",
       "id": "lib_meal_revision_types_mealrevisionschema",
-      "community": 18,
-      "community_name": "tools.ts",
+      "community": 3,
+      "community_name": "Project Agent Rules",
       "norm_label": "mealrevisionschema"
     },
     {
@@ -4406,8 +4164,8 @@
       "source_location": "L51",
       "_origin": "ast",
       "id": "lib_meal_revision_types_mealrevision",
-      "community": 18,
-      "community_name": "tools.ts",
+      "community": 3,
+      "community_name": "Project Agent Rules",
       "norm_label": "mealrevision"
     },
     {
@@ -4472,8 +4230,8 @@
       "source_location": "L73",
       "_origin": "ast",
       "id": "lib_meal_revision_types_mealrevisioncontext",
-      "community": 3,
-      "community_name": "Project Agent Rules",
+      "community": 18,
+      "community_name": "tools.ts",
       "norm_label": "mealrevisioncontext"
     },
     {
@@ -4494,8 +4252,8 @@
       "source_location": "L83",
       "_origin": "ast",
       "id": "lib_meal_revision_types_revisioncontextfromestimate",
-      "community": 18,
-      "community_name": "tools.ts",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "revisioncontextfromestimate()"
     },
     {
@@ -4791,8 +4549,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_nutrition_targets",
-      "community": 26,
-      "community_name": "normalize.ts",
+      "community": 21,
+      "community_name": "nutrition-targets.tsx",
       "norm_label": "targets.ts"
     },
     {
@@ -4802,8 +4560,8 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "lib_nutrition_targets_activity_multipliers",
-      "community": 26,
-      "community_name": "normalize.ts",
+      "community": 21,
+      "community_name": "nutrition-targets.tsx",
       "norm_label": "activity_multipliers"
     },
     {
@@ -4813,8 +4571,8 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "lib_nutrition_targets_weight_change_units",
-      "community": 26,
-      "community_name": "normalize.ts",
+      "community": 21,
+      "community_name": "nutrition-targets.tsx",
       "norm_label": "weight_change_units"
     },
     {
@@ -4824,8 +4582,8 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "lib_nutrition_targets_nutritiontargetinput",
-      "community": 26,
-      "community_name": "normalize.ts",
+      "community": 21,
+      "community_name": "nutrition-targets.tsx",
       "norm_label": "nutritiontargetinput"
     },
     {
@@ -4835,8 +4593,8 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "lib_nutrition_targets_nutritiontargeterrors",
-      "community": 26,
-      "community_name": "normalize.ts",
+      "community": 21,
+      "community_name": "nutrition-targets.tsx",
       "norm_label": "nutritiontargeterrors"
     },
     {
@@ -4857,8 +4615,8 @@
       "source_location": "L52",
       "_origin": "ast",
       "id": "lib_nutrition_targets_nutritiontargetresult",
-      "community": 26,
-      "community_name": "normalize.ts",
+      "community": 21,
+      "community_name": "nutrition-targets.tsx",
       "norm_label": "nutritiontargetresult"
     },
     {
@@ -4868,8 +4626,8 @@
       "source_location": "L56",
       "_origin": "ast",
       "id": "lib_nutrition_targets_validatenutritiontargetinput",
-      "community": 26,
-      "community_name": "normalize.ts",
+      "community": 21,
+      "community_name": "nutrition-targets.tsx",
       "norm_label": "validatenutritiontargetinput()"
     },
     {
@@ -4879,8 +4637,8 @@
       "source_location": "L101",
       "_origin": "ast",
       "id": "lib_nutrition_targets_calculatenutritiontargets",
-      "community": 26,
-      "community_name": "normalize.ts",
+      "community": 21,
+      "community_name": "nutrition-targets.tsx",
       "norm_label": "calculatenutritiontargets()"
     },
     {
@@ -4890,8 +4648,8 @@
       "source_location": "L146",
       "_origin": "ast",
       "id": "lib_nutrition_targets_roundnutritionvalue",
-      "community": 26,
-      "community_name": "normalize.ts",
+      "community": 21,
+      "community_name": "nutrition-targets.tsx",
       "norm_label": "roundnutritionvalue()"
     },
     {
@@ -4967,8 +4725,8 @@
       "source_location": "L38",
       "_origin": "ast",
       "id": "lib_nutrition_types_activitylevel",
-      "community": 26,
-      "community_name": "normalize.ts",
+      "community": 21,
+      "community_name": "nutrition-targets.tsx",
       "norm_label": "activitylevel"
     },
     {
@@ -4978,8 +4736,8 @@
       "source_location": "L44",
       "_origin": "ast",
       "id": "lib_nutrition_types_goal",
-      "community": 26,
-      "community_name": "normalize.ts",
+      "community": 21,
+      "community_name": "nutrition-targets.tsx",
       "norm_label": "goal"
     },
     {
@@ -4989,8 +4747,8 @@
       "source_location": "L46",
       "_origin": "ast",
       "id": "lib_nutrition_types_weightchangeunit",
-      "community": 26,
-      "community_name": "normalize.ts",
+      "community": 21,
+      "community_name": "nutrition-targets.tsx",
       "norm_label": "weightchangeunit"
     },
     {
@@ -5011,8 +4769,8 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "lib_supabase_auth_supabaseuser",
-      "community": 10,
-      "community_name": "Home Page",
+      "community": 26,
+      "community_name": "normalize.ts",
       "norm_label": "supabaseuser"
     },
     {
@@ -5066,8 +4824,8 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "lib_supabase_auth_supabaseconfigurationerror",
-      "community": 28,
-      "community_name": "index.ts",
+      "community": 26,
+      "community_name": "normalize.ts",
       "norm_label": "supabaseconfigurationerror"
     },
     {
@@ -5077,8 +4835,8 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "lib_supabase_auth_supabaseconfigurationerror_constructor",
-      "community": 28,
-      "community_name": "index.ts",
+      "community": 26,
+      "community_name": "normalize.ts",
       "norm_label": ".constructor()"
     },
     {
@@ -5209,8 +4967,8 @@
       "source_location": "L173",
       "_origin": "ast",
       "id": "lib_supabase_auth_getsupabaseuser",
-      "community": 10,
-      "community_name": "Home Page",
+      "community": 22,
+      "community_name": "normalize.ts",
       "norm_label": "getsupabaseuser()"
     },
     {
@@ -5940,26 +5698,15 @@
       "norm_label": "estimate"
     },
     {
-      "label": "absoluteMeal",
+      "label": "baseMeal",
       "file_type": "code",
       "source_file": "test/estimate-autosave.test.ts",
       "source_location": "L24",
       "_origin": "ast",
-      "id": "test_estimate_autosave_test_absolutemeal",
+      "id": "test_estimate_autosave_test_basemeal",
       "community": 22,
       "community_name": "normalize.ts",
-      "norm_label": "absolutemeal"
-    },
-    {
-      "label": "percentageMeal",
-      "file_type": "code",
-      "source_file": "test/estimate-autosave.test.ts",
-      "source_location": "L31",
-      "_origin": "ast",
-      "id": "test_estimate_autosave_test_percentagemeal",
-      "community": 22,
-      "community_name": "normalize.ts",
-      "norm_label": "percentagemeal"
+      "norm_label": "basemeal"
     },
     {
       "label": "food-data.test.ts",
@@ -6133,8 +5880,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "test_meal_copy_test",
-      "community": 22,
-      "community_name": "normalize.ts",
+      "community": 30,
+      "community_name": "meal-interpreter.tsx",
       "norm_label": "meal-copy.test.ts"
     },
     {
@@ -6144,8 +5891,8 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "test_meal_copy_test_estimate",
-      "community": 22,
-      "community_name": "normalize.ts",
+      "community": 30,
+      "community_name": "meal-interpreter.tsx",
       "norm_label": "estimate"
     },
     {
@@ -6155,8 +5902,8 @@
       "source_location": "L31",
       "_origin": "ast",
       "id": "test_meal_copy_test_source",
-      "community": 22,
-      "community_name": "normalize.ts",
+      "community": 30,
+      "community_name": "meal-interpreter.tsx",
       "norm_label": "source"
     },
     {
@@ -6226,28 +5973,6 @@
       "norm_label": "record()"
     },
     {
-      "label": "meal-proportions.test.ts",
-      "file_type": "code",
-      "source_file": "test/meal-proportions.test.ts",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "test_meal_proportions_test",
-      "community": 22,
-      "community_name": "normalize.ts",
-      "norm_label": "meal-proportions.test.ts"
-    },
-    {
-      "label": "almostEqual()",
-      "file_type": "code",
-      "source_file": "test/meal-proportions.test.ts",
-      "source_location": "L142",
-      "_origin": "ast",
-      "id": "test_meal_proportions_test_almostequal",
-      "community": 22,
-      "community_name": "normalize.ts",
-      "norm_label": "almostequal()"
-    },
-    {
       "label": "meal-revision.test.ts",
       "file_type": "code",
       "source_file": "test/meal-revision.test.ts",
@@ -6276,8 +6001,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "test_nutrition_test",
-      "community": 26,
-      "community_name": "normalize.ts",
+      "community": 21,
+      "community_name": "nutrition-targets.tsx",
       "norm_label": "nutrition.test.ts"
     },
     {
@@ -6287,8 +6012,8 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "test_nutrition_test_samplemeal",
-      "community": 26,
-      "community_name": "normalize.ts",
+      "community": 21,
+      "community_name": "nutrition-targets.tsx",
       "norm_label": "samplemeal"
     },
     {
@@ -7043,7 +6768,7 @@
       "label": "Relevant Files",
       "file_type": "document",
       "source_file": "feature_files/meal-batch-interpretation.md",
-      "source_location": "L18",
+      "source_location": "L16",
       "_origin": "ast",
       "id": "feature_files_meal_batch_interpretation_relevant_files",
       "community": 31,
@@ -7054,7 +6779,7 @@
       "label": "Dev Mode",
       "file_type": "document",
       "source_file": "feature_files/meal-batch-interpretation.md",
-      "source_location": "L30",
+      "source_location": "L25",
       "_origin": "ast",
       "id": "feature_files_meal_batch_interpretation_dev_mode",
       "community": 31,
@@ -7065,7 +6790,7 @@
       "label": "State Log",
       "file_type": "document",
       "source_file": "feature_files/meal-batch-interpretation.md",
-      "source_location": "L34",
+      "source_location": "L29",
       "_origin": "ast",
       "id": "feature_files_meal_batch_interpretation_state_log",
       "community": 31,
@@ -10864,18 +10589,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "components/meal-interpreter.tsx",
-      "source_location": "L67",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "components_meal_interpreter",
-      "target": "components_meal_interpreter_createitemdraft",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "components/meal-interpreter.tsx",
-      "source_location": "L71",
+      "source_location": "L32",
       "weight": 1.0,
       "_origin": "ast",
       "source": "components_meal_interpreter",
@@ -10886,7 +10600,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "components/meal-interpreter.tsx",
-      "source_location": "L629",
+      "source_location": "L351",
       "weight": 1.0,
       "_origin": "ast",
       "source": "components_meal_interpreter",
@@ -10897,7 +10611,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "components/meal-interpreter.tsx",
-      "source_location": "L655",
+      "source_location": "L377",
       "weight": 1.0,
       "_origin": "ast",
       "source": "components_meal_interpreter",
@@ -10908,7 +10622,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "components/meal-interpreter.tsx",
-      "source_location": "L642",
+      "source_location": "L364",
       "weight": 1.0,
       "_origin": "ast",
       "source": "components_meal_interpreter",
@@ -10919,7 +10633,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "components/meal-interpreter.tsx",
-      "source_location": "L648",
+      "source_location": "L370",
       "weight": 1.0,
       "_origin": "ast",
       "source": "components_meal_interpreter",
@@ -10930,18 +10644,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "components/meal-interpreter.tsx",
-      "source_location": "L21",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "components_meal_interpreter",
-      "target": "components_meal_interpreter_itemdraft",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "components/meal-interpreter.tsx",
-      "source_location": "L28",
+      "source_location": "L13",
       "weight": 1.0,
       "_origin": "ast",
       "source": "components_meal_interpreter",
@@ -10952,7 +10655,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "components/meal-interpreter.tsx",
-      "source_location": "L113",
+      "source_location": "L37",
       "weight": 1.0,
       "_origin": "ast",
       "source": "components_meal_interpreter",
@@ -10963,116 +10666,11 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "components/meal-interpreter.tsx",
-      "source_location": "L38",
+      "source_location": "L20",
       "weight": 1.0,
       "_origin": "ast",
       "source": "components_meal_interpreter",
       "target": "components_meal_interpreter_mealinterpreterprops",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "components/meal-interpreter.tsx",
-      "source_location": "L84",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "components_meal_interpreter",
-      "target": "components_meal_interpreter_parseoptionalnumber",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "components/meal-interpreter.tsx",
-      "source_location": "L91",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "components_meal_interpreter",
-      "target": "components_meal_interpreter_resolvepreviewitems",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "components/meal-interpreter.tsx",
-      "source_location": "L48",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "components_meal_interpreter",
-      "target": "components_meal_interpreter_structuredmealpayload",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "components/meal-interpreter.tsx",
-      "source_location": "L7",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "components_meal_interpreter",
-      "target": "lib_meal_batch_proportions",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "components/meal-interpreter.tsx",
-      "source_location": "L7",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "components_meal_interpreter",
-      "target": "lib_meal_batch_proportions_absolutefooditem",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "components/meal-interpreter.tsx",
-      "source_location": "L7",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "components_meal_interpreter",
-      "target": "lib_meal_batch_proportions_buildmealpromptfromabsoluteitems",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "components/meal-interpreter.tsx",
-      "source_location": "L7",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "components_meal_interpreter",
-      "target": "lib_meal_batch_proportions_composeabsolutemealprompt",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "components/meal-interpreter.tsx",
-      "source_location": "L7",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "components_meal_interpreter",
-      "target": "lib_meal_batch_proportions_composepercentagemealprompt",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "components/meal-interpreter.tsx",
-      "source_location": "L7",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "components_meal_interpreter",
-      "target": "lib_meal_batch_proportions_mealentrymode",
       "confidence_score": 1.0
     },
     {
@@ -11116,7 +10714,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "components/meal-interpreter.tsx",
-      "source_location": "L16",
+      "source_location": "L8",
       "weight": 1.0,
       "_origin": "ast",
       "source": "components_meal_interpreter",
@@ -11128,7 +10726,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "components/meal-interpreter.tsx",
-      "source_location": "L16",
+      "source_location": "L8",
       "weight": 1.0,
       "_origin": "ast",
       "source": "components_meal_interpreter",
@@ -11136,23 +10734,11 @@
       "confidence_score": 1.0
     },
     {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "components/meal-interpreter.tsx",
-      "source_location": "L16",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "components_meal_interpreter",
-      "target": "lib_meal_estimation_types_portionkind",
-      "confidence_score": 1.0
-    },
-    {
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "components/meal-interpreter.tsx",
-      "source_location": "L15",
+      "source_location": "L7",
       "weight": 1.0,
       "_origin": "ast",
       "source": "components_meal_interpreter",
@@ -11164,7 +10750,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "components/meal-interpreter.tsx",
-      "source_location": "L15",
+      "source_location": "L7",
       "weight": 1.0,
       "_origin": "ast",
       "source": "components_meal_interpreter",
@@ -11176,7 +10762,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "components/meal-interpreter.tsx",
-      "source_location": "L15",
+      "source_location": "L7",
       "weight": 1.0,
       "_origin": "ast",
       "source": "components_meal_interpreter",
@@ -11188,7 +10774,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "components/meal-interpreter.tsx",
-      "source_location": "L15",
+      "source_location": "L7",
       "weight": 1.0,
       "_origin": "ast",
       "source": "components_meal_interpreter",
@@ -11200,7 +10786,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "components/meal-interpreter.tsx",
-      "source_location": "L15",
+      "source_location": "L7",
       "weight": 1.0,
       "_origin": "ast",
       "source": "components_meal_interpreter",
@@ -11212,19 +10798,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "components/meal-interpreter.tsx",
-      "source_location": "L76",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "components_meal_interpreter_createmealdraft",
-      "target": "components_meal_interpreter_createitemdraft",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "components/meal-interpreter.tsx",
-      "source_location": "L72",
+      "source_location": "L33",
       "weight": 1.0,
       "_origin": "ast",
       "source": "components_meal_interpreter_createmealdraft",
@@ -11236,7 +10810,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "components/meal-interpreter.tsx",
-      "source_location": "L156",
+      "source_location": "L80",
       "weight": 1.0,
       "_origin": "ast",
       "source": "components_meal_interpreter_mealinterpreter",
@@ -11247,69 +10821,9 @@
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
-      "source_file": "components/meal-interpreter.tsx",
-      "source_location": "L107",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "components_meal_interpreter_resolvepreviewitems",
-      "target": "components_meal_interpreter_parseoptionalnumber",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "components/meal-interpreter.tsx",
-      "source_location": "L478",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "components_meal_interpreter_mealinterpreter",
-      "target": "components_meal_interpreter_resolvepreviewitems",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "components/meal-interpreter.tsx",
-      "source_location": "L98",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "components_meal_interpreter_resolvepreviewitems",
-      "target": "lib_meal_batch_proportions_composeabsolutemealprompt",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "components/meal-interpreter.tsx",
-      "source_location": "L109",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "components_meal_interpreter_resolvepreviewitems",
-      "target": "lib_meal_batch_proportions_composepercentagemealprompt",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "components/meal-interpreter.tsx",
-      "source_location": "L607",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "components_meal_interpreter_mealinterpreter",
-      "target": "lib_meal_batch_proportions_buildmealpromptfromabsoluteitems"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "components/meal-interpreter.tsx",
-      "source_location": "L137",
+      "source_location": "L61",
       "weight": 1.0,
       "_origin": "ast",
       "source": "components_meal_interpreter_mealinterpreter",
@@ -11320,7 +10834,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "components/meal-interpreter.tsx",
-      "source_location": "L635",
+      "source_location": "L357",
       "weight": 1.0,
       "_origin": "ast",
       "source": "components_meal_interpreter_estimatetable",
@@ -11561,7 +11075,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib/agent/food-tools-skill.ts",
-      "source_location": "L65",
+      "source_location": "L63",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_agent_food_tools_skill",
@@ -17452,7 +16966,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib/meal-batch/config.ts",
-      "source_location": "L18",
+      "source_location": "L17",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_meal_batch_config",
@@ -17463,7 +16977,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib/meal-batch/config.ts",
-      "source_location": "L29",
+      "source_location": "L27",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_meal_batch_config",
@@ -17485,7 +16999,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib/meal-batch/config.ts",
-      "source_location": "L9",
+      "source_location": "L8",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_meal_batch_config",
@@ -17509,7 +17023,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "lib/meal-batch/config.ts",
-      "source_location": "L24",
+      "source_location": "L23",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_meal_batch_config_loadparameters",
@@ -17531,424 +17045,8 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "lib/meal-batch/proportions.ts",
-      "source_location": "L24",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "lib_meal_batch_proportions",
-      "target": "lib_meal_batch_proportions_absolutefooditem",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "lib/meal-batch/proportions.ts",
-      "source_location": "L12",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "lib_meal_batch_proportions",
-      "target": "lib_meal_batch_proportions_absolutefooditemschema",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "lib/meal-batch/proportions.ts",
-      "source_location": "L40",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "lib_meal_batch_proportions",
-      "target": "lib_meal_batch_proportions_buildmealpromptfromabsoluteitems",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "lib/meal-batch/proportions.ts",
-      "source_location": "L136",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "lib_meal_batch_proportions",
-      "target": "lib_meal_batch_proportions_composeabsolutemealprompt",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "lib/meal-batch/proportions.ts",
-      "source_location": "L32",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "lib_meal_batch_proportions",
-      "target": "lib_meal_batch_proportions_composemealpromptresult",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "lib/meal-batch/proportions.ts",
-      "source_location": "L149",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "lib_meal_batch_proportions",
-      "target": "lib_meal_batch_proportions_composepercentagemealprompt",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "lib/meal-batch/proportions.ts",
-      "source_location": "L36",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "lib_meal_batch_proportions",
-      "target": "lib_meal_batch_proportions_formatportionunits",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "lib/meal-batch/proportions.ts",
-      "source_location": "L46",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "lib_meal_batch_proportions",
-      "target": "lib_meal_batch_proportions_kindtotallabel",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "lib/meal-batch/proportions.ts",
-      "source_location": "L26",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "lib_meal_batch_proportions",
-      "target": "lib_meal_batch_proportions_mealentrymode",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "lib/meal-batch/proportions.ts",
-      "source_location": "L10",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "lib_meal_batch_proportions",
-      "target": "lib_meal_batch_proportions_nonnegativefinitenumberschema",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "lib/meal-batch/proportions.ts",
-      "source_location": "L25",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "lib_meal_batch_proportions",
-      "target": "lib_meal_batch_proportions_percentagefooditem",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "lib/meal-batch/proportions.ts",
-      "source_location": "L18",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "lib_meal_batch_proportions",
-      "target": "lib_meal_batch_proportions_percentagefooditemschema",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "lib/meal-batch/proportions.ts",
-      "source_location": "L9",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "lib_meal_batch_proportions",
-      "target": "lib_meal_batch_proportions_positivefinitenumberschema",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "lib/meal-batch/proportions.ts",
-      "source_location": "L28",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "lib_meal_batch_proportions",
-      "target": "lib_meal_batch_proportions_scalepercentagesresult",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "lib/meal-batch/proportions.ts",
-      "source_location": "L55",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "lib_meal_batch_proportions",
-      "target": "lib_meal_batch_proportions_scalepercentagestoportionunits",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "lib/meal-batch/proportions.ts",
-      "source_location": "L124",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "lib_meal_batch_proportions",
-      "target": "lib_meal_batch_proportions_validateabsoluteitems",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "lib/meal-batch/proportions.ts",
-      "source_location": "L3",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "lib_meal_batch_proportions",
-      "target": "lib_meal_estimation_types",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "lib/meal-batch/proportions.ts",
-      "source_location": "L3",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "lib_meal_batch_proportions",
-      "target": "lib_meal_estimation_types_portionkind",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "lib/meal-batch/proportions.ts",
-      "source_location": "L3",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "lib_meal_batch_proportions",
-      "target": "lib_meal_estimation_types_portionkindschema",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
       "source_file": "lib/meal-batch/request.ts",
-      "source_location": "L7",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "lib_meal_batch_request",
-      "target": "lib_meal_batch_proportions",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "test/meal-proportions.test.ts",
-      "source_location": "L4",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "test_meal_proportions_test",
-      "target": "lib_meal_batch_proportions",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "references",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "lib/meal-batch/proportions.ts",
-      "source_location": "L164",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "lib_meal_batch_proportions_composepercentagemealprompt",
-      "target": "lib_meal_batch_proportions_nonnegativefinitenumberschema"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "lib/meal-batch/proportions.ts",
-      "source_location": "L42",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "lib_meal_batch_proportions_buildmealpromptfromabsoluteitems",
-      "target": "lib_meal_batch_proportions_formatportionunits",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "lib/meal-batch/proportions.ts",
-      "source_location": "L145",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "lib_meal_batch_proportions_composeabsolutemealprompt",
-      "target": "lib_meal_batch_proportions_buildmealpromptfromabsoluteitems",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "lib/meal-batch/proportions.ts",
-      "source_location": "L183",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "lib_meal_batch_proportions_composepercentagemealprompt",
-      "target": "lib_meal_batch_proportions_buildmealpromptfromabsoluteitems",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "test/meal-proportions.test.ts",
-      "source_location": "L4",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "test_meal_proportions_test",
-      "target": "lib_meal_batch_proportions_buildmealpromptfromabsoluteitems",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "lib/meal-batch/proportions.ts",
-      "source_location": "L116",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "lib_meal_batch_proportions_scalepercentagestoportionunits",
-      "target": "lib_meal_batch_proportions_kindtotallabel",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "lib/meal-batch/proportions.ts",
-      "source_location": "L173",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "lib_meal_batch_proportions_composepercentagemealprompt",
-      "target": "lib_meal_batch_proportions_scalepercentagestoportionunits",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "test/meal-proportions.test.ts",
-      "source_location": "L4",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "test_meal_proportions_test",
-      "target": "lib_meal_batch_proportions_scalepercentagestoportionunits",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "lib/meal-batch/proportions.ts",
-      "source_location": "L140",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "lib_meal_batch_proportions_composeabsolutemealprompt",
-      "target": "lib_meal_batch_proportions_validateabsoluteitems",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "lib/meal-batch/request.ts",
-      "source_location": "L7",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "lib_meal_batch_request",
-      "target": "lib_meal_batch_proportions_composeabsolutemealprompt",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "lib/meal-batch/request.ts",
-      "source_location": "L66",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "lib_meal_batch_request_parsedatedmeal",
-      "target": "lib_meal_batch_proportions_composeabsolutemealprompt",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "test/meal-proportions.test.ts",
-      "source_location": "L4",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "test_meal_proportions_test",
-      "target": "lib_meal_batch_proportions_composeabsolutemealprompt",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "lib/meal-batch/request.ts",
-      "source_location": "L7",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "lib_meal_batch_request",
-      "target": "lib_meal_batch_proportions_composepercentagemealprompt",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "lib/meal-batch/request.ts",
-      "source_location": "L67",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "lib_meal_batch_request_parsedatedmeal",
-      "target": "lib_meal_batch_proportions_composepercentagemealprompt",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "test/meal-proportions.test.ts",
-      "source_location": "L4",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "test_meal_proportions_test",
-      "target": "lib_meal_batch_proportions_composepercentagemealprompt",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "lib/meal-batch/request.ts",
-      "source_location": "L42",
+      "source_location": "L38",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_meal_batch_request",
@@ -17959,7 +17057,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib/meal-batch/request.ts",
-      "source_location": "L38",
+      "source_location": "L34",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_meal_batch_request",
@@ -17970,7 +17068,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib/meal-batch/request.ts",
-      "source_location": "L82",
+      "source_location": "L61",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_meal_batch_request",
@@ -17981,7 +17079,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib/meal-batch/request.ts",
-      "source_location": "L46",
+      "source_location": "L42",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_meal_batch_request",
@@ -17992,7 +17090,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib/meal-batch/request.ts",
-      "source_location": "L28",
+      "source_location": "L24",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_meal_batch_request",
@@ -18003,7 +17101,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib/meal-batch/request.ts",
-      "source_location": "L146",
+      "source_location": "L125",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_meal_batch_request",
@@ -18014,7 +17112,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib/meal-batch/request.ts",
-      "source_location": "L101",
+      "source_location": "L80",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_meal_batch_request",
@@ -18025,7 +17123,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib/meal-batch/request.ts",
-      "source_location": "L14",
+      "source_location": "L10",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_meal_batch_request",
@@ -18036,7 +17134,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib/meal-batch/request.ts",
-      "source_location": "L20",
+      "source_location": "L16",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_meal_batch_request",
@@ -18047,7 +17145,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib/meal-batch/request.ts",
-      "source_location": "L33",
+      "source_location": "L29",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_meal_batch_request",
@@ -18191,7 +17289,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "lib/meal-batch/request.ts",
-      "source_location": "L147",
+      "source_location": "L126",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_meal_batch_request_parsemealrequestbody",
@@ -18203,7 +17301,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "lib/meal-batch/request.ts",
-      "source_location": "L47",
+      "source_location": "L43",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_meal_batch_request_parsedatedmeal",
@@ -18215,7 +17313,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "lib/meal-batch/request.ts",
-      "source_location": "L102",
+      "source_location": "L81",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_meal_batch_request_parserefinement",
@@ -18227,7 +17325,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "lib/meal-batch/request.ts",
-      "source_location": "L94",
+      "source_location": "L73",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_meal_batch_request_parsebatch",
@@ -18239,7 +17337,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "lib/meal-batch/request.ts",
-      "source_location": "L57",
+      "source_location": "L51",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_meal_batch_request_parsedatedmeal",
@@ -18251,7 +17349,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "lib/meal-batch/request.ts",
-      "source_location": "L60",
+      "source_location": "L54",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_meal_batch_request_parsedatedmeal",
@@ -18263,7 +17361,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "lib/meal-batch/request.ts",
-      "source_location": "L153",
+      "source_location": "L132",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_meal_batch_request_parsemealrequestbody",
@@ -18275,7 +17373,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "lib/meal-batch/request.ts",
-      "source_location": "L154",
+      "source_location": "L133",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_meal_batch_request_parsemealrequestbody",
@@ -18288,7 +17386,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "lib/meal-batch/request.ts",
-      "source_location": "L129",
+      "source_location": "L108",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_meal_batch_request_parserefinement",
@@ -18299,7 +17397,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "lib/meal-batch/request.ts",
-      "source_location": "L118",
+      "source_location": "L97",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_meal_batch_request_parserefinement",
@@ -18311,7 +17409,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "lib/meal-batch/request.ts",
-      "source_location": "L121",
+      "source_location": "L100",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_meal_batch_request_parserefinement",
@@ -18324,7 +17422,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "lib/meal-batch/request.ts",
-      "source_location": "L125",
+      "source_location": "L104",
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_meal_batch_request_parserefinement",
@@ -23303,7 +22401,7 @@
       "weight": 1.0,
       "_origin": "ast",
       "source": "test_estimate_autosave_test",
-      "target": "test_estimate_autosave_test_absolutemeal",
+      "target": "test_estimate_autosave_test_basemeal",
       "confidence_score": 1.0
     },
     {
@@ -23315,17 +22413,6 @@
       "_origin": "ast",
       "source": "test_estimate_autosave_test",
       "target": "test_estimate_autosave_test_estimate",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "test/estimate-autosave.test.ts",
-      "source_location": "L31",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "test_estimate_autosave_test",
-      "target": "test_estimate_autosave_test_percentagemeal",
       "confidence_score": 1.0
     },
     {
@@ -23513,17 +22600,6 @@
       "_origin": "ast",
       "source": "test_meal_history_test",
       "target": "test_meal_history_test_record",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "test/meal-proportions.test.ts",
-      "source_location": "L142",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "test_meal_proportions_test",
-      "target": "test_meal_proportions_test_almostequal",
       "confidence_score": 1.0
     },
     {
@@ -24211,7 +23287,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "feature_files/meal-batch-interpretation.md",
-      "source_location": "L30",
+      "source_location": "L25",
       "weight": 1.0,
       "_origin": "ast",
       "source": "feature_files_meal_batch_interpretation_automatic_batch_meal_interpretation",
@@ -24233,7 +23309,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "feature_files/meal-batch-interpretation.md",
-      "source_location": "L18",
+      "source_location": "L16",
       "weight": 1.0,
       "_origin": "ast",
       "source": "feature_files_meal_batch_interpretation_automatic_batch_meal_interpretation",
@@ -24244,7 +23320,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "feature_files/meal-batch-interpretation.md",
-      "source_location": "L34",
+      "source_location": "L29",
       "weight": 1.0,
       "_origin": "ast",
       "source": "feature_files_meal_batch_interpretation_automatic_batch_meal_interpretation",
@@ -25093,5 +24169,5 @@
       "source_file": "README.md"
     }
   ],
-  "built_at_commit": "4c9847eb1823f876c8c65ed97049a5bcdc5277b0"
+  "built_at_commit": "029b972049466bc8d57ac9ad5bbb6d668988fbc3"
 }
